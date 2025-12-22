@@ -183,7 +183,7 @@ export default function BookDetail() {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Publisher:</span>
-                    <span className="font-semibold">{book.publisher || 'N/A'}</span>
+                    <span className="font-semibold">{book.publisher || book.author?.business_name || 'N/A'}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">ISBN:</span>

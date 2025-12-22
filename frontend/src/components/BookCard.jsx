@@ -96,14 +96,6 @@ export default function BookCard({ book }) {
             >
               <i className="ri-eye-line text-gray-600 text-lg"></i>
             </Link>
-            <button 
-              onClick={handleAddToCart}
-              disabled={addingToCart}
-              className="p-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors disabled:opacity-50"
-              title="Add to Library"
-            >
-              <i className={`${addingToCart ? 'ri-loader-4-line animate-spin' : 'ri-shopping-cart-line'} text-lg`}></i>
-            </button>
           </div>
         </div>
         

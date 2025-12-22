@@ -105,7 +105,7 @@ export default function About() {
       <Header />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-20" style={aboutData.hero?.image_url ? {
+      <section className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-20 mt-20" style={aboutData.hero?.image_url ? {
         backgroundImage: `linear-gradient(rgba(147, 51, 234, 0.8), rgba(79, 70, 229, 0.8)), url(${getFileUrl(aboutData.hero.image_url)})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center'

@@ -9,7 +9,6 @@ const BookEditModal = ({ isOpen, onClose, book, categories, authors, onSuccess }
     title: '',
     author_id: '',
     category_id: '',
-    price: '',
     isbn: '',
     description: '',
     language: 'English',
@@ -36,7 +35,6 @@ const BookEditModal = ({ isOpen, onClose, book, categories, authors, onSuccess }
         title: book.title || '',
         author_id: book.author_id?.toString() || '',
         category_id: book.category_id?.toString() || '',
-        price: book.price?.toString() || '',
         isbn: book.isbn || '',
         description: book.description || '',
         language: book.language || 'English',
@@ -62,7 +60,6 @@ const BookEditModal = ({ isOpen, onClose, book, categories, authors, onSuccess }
       title: '',
       author_id: '',
       category_id: '',
-      price: '',
       isbn: '',
       description: '',
       language: 'English',
@@ -104,7 +101,6 @@ const BookEditModal = ({ isOpen, onClose, book, categories, authors, onSuccess }
       if (!formData.title.trim()) newErrors.title = 'Title is required';
       if (!formData.author_id) newErrors.author_id = 'Author is required';
       if (!formData.category_id) newErrors.category_id = 'Category is required';
-      if (!formData.price || parseFloat(formData.price) <= 0) newErrors.price = 'Valid price is required';
       if (!formData.format) newErrors.format = 'Book type is required';
     }
     
@@ -302,14 +298,10 @@ const BookEditModal = ({ isOpen, onClose, book, categories, authors, onSuccess }
                     type="number"
                     step="0.01"
                     min="0"
-                    value={formData.price}
-                    onChange={(e) => handleInputChange('price', e.target.value)}
                     className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all ${
-                      errors.price ? 'border-red-400 bg-red-50' : 'border-gray-200 hover:border-gray-300'
                     }`}
                     placeholder="0.00"
                   />
-                  {errors.price && <p className="text-red-500 text-sm mt-1"><i className="ri-error-warning-line mr-1"></i>{errors.price}</p>}
                 </div>
 
                 <div>

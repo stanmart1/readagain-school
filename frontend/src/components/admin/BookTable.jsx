@@ -52,8 +52,8 @@ const BookTable = ({ books, selectedBooks, onSelectionChange, onBookAction, edit
                 </div>
               </div>
               <div className="flex flex-col items-end space-y-1 ml-2">
-                <span className="text-sm font-medium text-green-600">
-                  ₦{book.price.toLocaleString()}
+                <span className="text-sm font-medium text-blue-600">
+                  {book.library_count || 0} libraries
                 </span>
                 <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full text-white ${
                   book.status === 'published' ? 'bg-green-500' :
@@ -174,7 +174,7 @@ const BookTable = ({ books, selectedBooks, onSelectionChange, onBookAction, edit
                   Category
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Price
+                  In Libraries
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Status
@@ -234,8 +234,8 @@ const BookTable = ({ books, selectedBooks, onSelectionChange, onBookAction, edit
                     </div>
                   </td>
                   <td className="px-4 py-4">
-                    <div className="text-sm font-medium text-green-600">
-                      ₦{book.price.toLocaleString()}
+                    <div className="text-sm font-medium text-blue-600">
+                      {book.library_count || 0} libraries
                     </div>
                   </td>
                   <td className="px-4 py-4">

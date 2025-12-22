@@ -38,8 +38,6 @@ func (h *BookHandler) ListBooks(c *fiber.Ctx) error {
 	search := c.Query("search", "")
 	categoryID, _ := strconv.ParseUint(c.Query("category_id", "0"), 10, 32)
 	authorID, _ := strconv.ParseUint(c.Query("author_id", "0"), 10, 32)
-	minPrice, _ := strconv.ParseFloat(c.Query("min_price", "0"), 64)
-	maxPrice, _ := strconv.ParseFloat(c.Query("max_price", "0"), 64)
 	status := c.Query("status", "")
 	sortBy := c.Query("sort_by", "created_at")
 	sortOrder := c.Query("sort_order", "desc")
@@ -54,8 +52,6 @@ func (h *BookHandler) ListBooks(c *fiber.Ctx) error {
 		Search:     search,
 		CategoryID: uint(categoryID),
 		AuthorID:   uint(authorID),
-		MinPrice:   minPrice,
-		MaxPrice:   maxPrice,
 		IsFeatured: isFeatured,
 		Status:     status,
 		SortBy:     sortBy,
@@ -91,7 +87,6 @@ func (h *BookHandler) GetBook(c *fiber.Ctx) error {
 func (h *BookHandler) CreateBook(c *fiber.Ctx) error {
 	authorID, _ := strconv.ParseUint(c.FormValue("author_id"), 10, 32)
 	categoryID, _ := strconv.ParseUint(c.FormValue("category_id"), 10, 32)
-	price, _ := strconv.ParseFloat(c.FormValue("price"), 64)
 	pageCount, _ := strconv.Atoi(c.FormValue("page_count"))
 
 	title := c.FormValue("title")
@@ -132,7 +127,6 @@ func (h *BookHandler) CreateBook(c *fiber.Ctx) error {
 		description,
 		isbn,
 		uint(categoryID),
-		price,
 		coverImage,
 		fileURL,
 		fileSize,
@@ -175,10 +169,6 @@ func (h *BookHandler) UpdateBook(c *fiber.Ctx) error {
 	if categoryID := c.FormValue("category_id"); categoryID != "" {
 		id, _ := strconv.ParseUint(categoryID, 10, 32)
 		updates["category_id"] = uint(id)
-	}
-	if price := c.FormValue("price"); price != "" {
-		p, _ := strconv.ParseFloat(price, 64)
-		updates["price"] = p
 	}
 	if pageCount := c.FormValue("page_count"); pageCount != "" {
 		pc, _ := strconv.Atoi(pageCount)

@@ -15,8 +15,7 @@ export const useLibrary = () => {
       setLoading(true);
       setError(null);
       const response = await api.get('/library');
-      // Backend returns: { data: [...books], meta: {...} }
-      setBooks(response.data.data || []);
+      setBooks(response.data.library || []);
     } catch (err) {
       setError(err.message);
       console.error('Error fetching library:', err);

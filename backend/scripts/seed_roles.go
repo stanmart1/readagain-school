@@ -18,10 +18,10 @@ func main() {
 	log.Println("✅ Database connected")
 
 	roles := []models.Role{
-		{Name: "SuperAdmin", Description: "Super administrator with full system access"},
-		{Name: "Admin", Description: "Administrator with full access"},
-		{Name: "Author", Description: "Content creator and book author"},
-		{Name: "User", Description: "Regular user"},
+		{Name: "student", Description: "Student who reads books"},
+		{Name: "teacher", Description: "Teacher who assigns books and tracks student progress"},
+		{Name: "school_admin", Description: "School administrator who manages school users and library"},
+		{Name: "platform_admin", Description: "Platform administrator with full system access"},
 	}
 
 	for _, role := range roles {

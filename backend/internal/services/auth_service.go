@@ -43,7 +43,7 @@ func (s *AuthService) Register(email, username, password, firstName, lastName, s
 		LastName:     lastName,
 		SchoolName:   schoolName,
 		ClassLevel:   classLevel,
-		RoleID:       4,
+		RoleID:       5,
 		IsActive:     false,
 	}
 

@@ -8,8 +8,8 @@ export const usePermissions = () => {
   const hasPermission = (permissionName) => {
     if (!user) return false;
     
-    // Super admin has all permissions
-    if (user.role?.name === 'SuperAdmin' || user.role?.name === 'Admin') {
+    // Platform admin has all permissions
+    if (user.role?.name === 'platform_admin') {
       return true;
     }
 
@@ -48,11 +48,11 @@ export const usePermissions = () => {
   };
 
   const isAdmin = () => {
-    return hasRole(['Admin', 'SuperAdmin']);
+    return hasRole(['platform_admin', 'school_admin']);
   };
 
-  const isSuperAdmin = () => {
-    return hasRole('SuperAdmin');
+  const isPlatformAdmin = () => {
+    return hasRole('platform_admin');
   };
 
   return {
@@ -62,7 +62,7 @@ export const usePermissions = () => {
     hasAllPermissions,
     canAccess,
     isAdmin,
-    isSuperAdmin,
+    isPlatformAdmin,
     user
   };
 };

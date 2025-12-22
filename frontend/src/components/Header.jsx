@@ -79,7 +79,7 @@ export default function Header() {
                         <p className="font-semibold text-gray-900">{user?.first_name} {user?.last_name}</p>
                         <p className="text-sm text-gray-500">{user?.email}</p>
                       </div>
-                      {(user?.role?.name === 'Admin' || user?.role?.name === 'SuperAdmin') && (
+                      {(user?.role?.name === 'platform_admin' || user?.role?.name === 'school_admin') && (
                         <Link to="/admin" onClick={() => setIsProfileOpen(false)} className="block px-4 py-2 text-purple-600 hover:bg-purple-50">
                           <i className="ri-admin-line mr-2"></i>Admin Dashboard
                         </Link>

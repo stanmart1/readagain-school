@@ -192,9 +192,6 @@ const ReportsSection = () => {
                         <i className="ri-star-fill text-yellow-400 text-sm"></i>
                       </div>
                     </td>
-                        </span>
-                      </div>
-                    </td>
                   </tr>
                 ))}
               </tbody>

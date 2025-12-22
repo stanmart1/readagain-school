@@ -31,15 +31,15 @@ export const useBookManagement = () => {
       };
       
       const response = await api.get('/admin/books', { params });
-      // Backend returns: { data: [...books], meta: {...} }
+      // Backend returns: { books: [...], pagination: {...} }
       const result = response.data;
       
-      setBooks(result.data || []);
-      if (result.meta) {
+      setBooks(result.books || []);
+      if (result.pagination) {
         setPagination(prev => ({
           ...prev,
-          total: result.meta.total || 0,
-          pages: result.meta.total_pages || 0
+          total: result.pagination.total || 0,
+          pages: result.pagination.total_pages || 0
         }));
       }
       

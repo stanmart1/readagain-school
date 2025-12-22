@@ -32,8 +32,8 @@ export default function Analytics() {
     const result = await createGoal({
       ...goalForm,
       target_value: parseInt(goalForm.target_value),
-      start_date: new Date(goalForm.start_date).toISOString(),
-      end_date: new Date(goalForm.end_date).toISOString()
+      start_date: goalForm.start_date,
+      end_date: goalForm.end_date
     });
     
     if (result.success) {

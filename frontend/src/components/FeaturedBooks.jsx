@@ -26,8 +26,8 @@ export default function FeaturedBooks() {
 
   const { books, loading } = useBooks(params);
   
-  // Create infinite loop array by tripling the books
-  const infiniteBooks = books.length > 0 ? [...books, ...books, ...books] : [];
+  // Only triple books if there are more than 2 books for infinite scroll
+  const infiniteBooks = books.length > 2 ? [...books, ...books, ...books] : books;
 
   const handleAddToCart = async (book, e) => {
     e.preventDefault();
@@ -312,7 +312,7 @@ export default function FeaturedBooks() {
                     </p>
 
                     {/* Rating */}
-                    <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center mb-3">
                       <div className="flex items-center space-x-1">
                         {[...Array(5)].map((_, i) => (
                           <i
@@ -324,23 +324,6 @@ export default function FeaturedBooks() {
                           ({book.review_count || 0})
                         </span>
                       </div>
-                    </div>
-
-                    {/* Price */}
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <span className="text-blue-600 font-bold text-xl">
-                          ₦{(book.price || 9.99).toLocaleString('en-NG')}
-                        </span>
-                        {book.original_price && book.original_price > book.price && (
-                          <span className="text-gray-400 text-sm line-through ml-2">
-                            ₦{book.original_price.toLocaleString('en-NG')}
-                          </span>
-                        )}
-                      </div>
-                      <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
-                        {book.format || 'eBook'}
-                      </span>
                     </div>
                   </div>
                   </motion.div>
@@ -440,23 +423,6 @@ export default function FeaturedBooks() {
                             ({book.review_count || 0})
                           </span>
                         </div>
-                      </div>
-
-                      {/* Price */}
-                      <div className="flex items-center justify-between mb-3">
-                        <div>
-                          <span className="text-blue-600 font-bold text-xl">
-                            ₦{(book.price || 9.99).toLocaleString('en-NG')}
-                          </span>
-                          {book.original_price && book.original_price > book.price && (
-                            <span className="text-gray-400 text-sm line-through ml-2">
-                              ₦{book.original_price.toLocaleString('en-NG')}
-                            </span>
-                          )}
-                        </div>
-                        <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
-                          {book.format || 'eBook'}
-                        </span>
                       </div>
 
                       {/* Action Buttons */}

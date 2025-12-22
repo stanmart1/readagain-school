@@ -140,11 +140,6 @@ export default function BookDetail() {
                 </div>
               )}
 
-              {/* Price */}
-              <div className="mb-6">
-                <span className="text-4xl font-bold text-blue-600">₦{book.price?.toLocaleString() || '0'}</span>
-              </div>
-
               {/* Buttons */}
               <div className="mb-8">
                 <button 
@@ -218,7 +213,6 @@ export default function BookDetail() {
                     <div className="p-4">
                       <h3 className="font-bold text-lg mb-2 line-clamp-2">{relatedBook.title}</h3>
                       <p className="text-gray-600 text-sm mb-2">{getAuthorName(relatedBook)}</p>
-                      <span className="text-xl font-bold text-blue-600">₦{relatedBook.price?.toLocaleString() || '0'}</span>
                     </div>
                   </Link>
                 ))}

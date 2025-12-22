@@ -26,7 +26,6 @@ export default function BookCard({ book }) {
   const displayAuthor = getAuthorName();
   const displayCategory = getCategoryName();
   const displayCover = getImageUrl(book.cover_image_url || book.cover_image);
-  const displayOriginalPrice = book.original_price || book.originalPrice;
   const displayRating = book.rating || 0;
   const displayReviewCount = book.review_count || 0;
 
@@ -78,13 +77,6 @@ export default function BookCard({ book }) {
               Digital
             </span>
           </div>
-
-          {/* Discount Badge */}
-          {displayOriginalPrice && displayOriginalPrice > book.price && (
-            <div className="absolute top-4 left-4 bg-blue-800 text-white text-xs px-2 py-1 rounded-full font-medium">
-              {Math.round(((displayOriginalPrice - book.price) / displayOriginalPrice) * 100)}% OFF
-            </div>
-          )}
 
           {/* Category Badge */}
           {displayCategory && (
@@ -139,17 +131,8 @@ export default function BookCard({ book }) {
             )}
           </div>
 
-          {/* Price and Actions - Fixed at Bottom */}
+          {/* Actions - Fixed at Bottom */}
           <div className="mt-auto">
-            <div className="flex items-center justify-between mb-4 h-8">
-              <div className="flex items-center space-x-2">
-                <span className="text-2xl font-bold text-blue-600">₦{(book.price || 0).toLocaleString()}</span>
-                {displayOriginalPrice && displayOriginalPrice > book.price && (
-                  <span className="text-sm text-gray-500 line-through">₦{displayOriginalPrice.toLocaleString()}</span>
-                )}
-              </div>
-            </div>
-            
             <button 
               onClick={handleAddToCart}
               disabled={addingToCart}

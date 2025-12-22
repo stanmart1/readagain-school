@@ -7,9 +7,7 @@ import Toast from '../Toast';
 import api from '../../lib/api';
 
 const LibraryManagement = () => {
-  const [view, setView] = useState('assignments'); // 'assignments' or 'books'
   const [libraries, setLibraries] = useState([]);
-  const [booksWithStudents, setBooksWithStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAssignModal, setShowAssignModal] = useState(false);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
@@ -100,12 +98,8 @@ const LibraryManagement = () => {
 
   // Load library data when filters change
   useEffect(() => {
-    if (view === 'assignments') {
-      loadData();
-    } else {
-      loadBooksWithStudents();
-    }
-  }, [pagination.page, debouncedSearch, filters.status, filters.user_id, filters.dateFrom, filters.dateTo, filters.sortBy, filters.sortOrder, view]);
+    loadData();
+  }, [pagination.page, debouncedSearch, filters.status, filters.user_id, filters.dateFrom, filters.dateTo, filters.sortBy, filters.sortOrder]);
 
   // Load stats on mount
   useEffect(() => {
@@ -153,21 +147,6 @@ const LibraryManagement = () => {
       } else {
         showToast(`Failed to load library assignments: ${error.response?.data?.detail || error.message}`, 'error');
       }
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const loadBooksWithStudents = async () => {
-    try {
-      setLoading(true);
-      const response = await api.get('/admin/books-with-students', {
-        params: { search: debouncedSearch }
-      });
-      setBooksWithStudents(response.data.books || []);
-    } catch (error) {
-      console.error('Failed to load books:', error);
-      showToast('Failed to load books', 'error');
     } finally {
       setLoading(false);
     }
@@ -370,34 +349,6 @@ const LibraryManagement = () => {
         <p className="text-gray-600 mt-1">Manage user book assignments and reading progress</p>
       </div>
 
-      {/* View Toggle */}
-      <div className="bg-white rounded-lg shadow-md p-4 mb-6">
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setView('assignments')}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-              view === 'assignments'
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            <i className="ri-list-check mr-2"></i>
-            Assignments View
-          </button>
-          <button
-            onClick={() => setView('books')}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-              view === 'books'
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            <i className="ri-book-2-line mr-2"></i>
-            Books View
-          </button>
-        </div>
-      </div>
-
       {/* Statistics Dashboard */}
       {stats && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
@@ -514,7 +465,7 @@ const LibraryManagement = () => {
           </select>
         </div>
         <div className="flex flex-wrap gap-2 justify-end">
-          {view === 'assignments' && selectedAssignments.length > 0 && (
+          {selectedAssignments.length > 0 && (
             <button
               onClick={handleBulkRemove}
               className="px-3 sm:px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm flex items-center gap-2"
@@ -550,9 +501,6 @@ const LibraryManagement = () => {
         </div>
       </div>
 
-      {/* Content based on view */}
-      {view === 'assignments' ? (
-        <>
       {/* Libraries Table */}
       <div className="bg-white rounded-lg shadow-md overflow-hidden">
         <div className="overflow-x-auto">
@@ -695,99 +643,6 @@ const LibraryManagement = () => {
               Next
             </button>
           </div>
-        </div>
-      )}
-        </>
-      ) : (
-        /* Books View */
-        <div className="space-y-4">
-          {loading ? (
-            <div className="bg-white rounded-lg shadow-md p-12 text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-            </div>
-          ) : booksWithStudents.length === 0 ? (
-            <div className="bg-white rounded-lg shadow-md p-12 text-center">
-              <i className="ri-book-line text-6xl text-gray-300 mb-4"></i>
-              <p className="text-gray-500">No books found</p>
-            </div>
-          ) : (
-            booksWithStudents.map((book) => (
-              <div key={book.id} className="bg-white rounded-lg shadow-md p-6">
-                <div className="flex items-start gap-4 mb-4">
-                  <img
-                    src={book.cover_image || '/placeholder-book.png'}
-                    alt={book.title}
-                    className="w-20 h-28 object-cover rounded"
-                  />
-                  <div className="flex-1">
-                    <h3 className="text-lg font-bold text-gray-900">{book.title}</h3>
-                    <p className="text-sm text-gray-600">{book.author}</p>
-                    <div className="flex items-center gap-4 mt-2">
-                      <span className="text-sm text-gray-600">
-                        <i className="ri-user-line mr-1"></i>
-                        {book.student_count} students
-                      </span>
-                      <span className="text-sm text-gray-600">
-                        <i className="ri-checkbox-circle-line mr-1"></i>
-                        {book.completed_count} completed
-                      </span>
-                      <span className="text-sm text-gray-600">
-                        <i className="ri-bar-chart-line mr-1"></i>
-                        {Number(book.avg_progress).toFixed(0)}% avg progress
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                {book.students && book.students.length > 0 && (
-                  <div>
-                    <h4 className="text-sm font-semibold text-gray-700 mb-2">Students with this book:</h4>
-                    <div className="overflow-x-auto">
-                      <table className="min-w-full">
-                        <thead className="bg-gray-50">
-                          <tr>
-                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Student</th>
-                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Class</th>
-                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">School</th>
-                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Progress</th>
-                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Status</th>
-                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Action</th>
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-200">
-                          {book.students.map((student) => (
-                            <tr key={student.assignment_id} className="hover:bg-gray-50">
-                              <td className="px-4 py-2 text-sm text-gray-900">{student.name}</td>
-                              <td className="px-4 py-2 text-sm text-gray-600">{student.class_level || '-'}</td>
-                              <td className="px-4 py-2 text-sm text-gray-600">{student.school_name || '-'}</td>
-                              <td className="px-4 py-2 text-sm text-gray-600">{Number(student.progress).toFixed(0)}%</td>
-                              <td className="px-4 py-2">
-                                <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
-                                  student.status === 'reading' ? 'bg-green-100 text-green-800' :
-                                  student.status === 'completed' ? 'bg-blue-100 text-blue-800' :
-                                  'bg-gray-100 text-gray-800'
-                                }`}>
-                                  {student.status}
-                                </span>
-                              </td>
-                              <td className="px-4 py-2">
-                                <button
-                                  onClick={() => handleRemoveAssignment(student.assignment_id)}
-                                  className="text-red-600 hover:text-red-800"
-                                  title="Remove"
-                                >
-                                  <i className="ri-delete-bin-line"></i>
-                                </button>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))
-          )}
         </div>
       )}
 

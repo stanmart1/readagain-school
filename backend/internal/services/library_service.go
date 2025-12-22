@@ -160,14 +160,15 @@ func (s *LibraryService) GetAllAssignments(skip, limit int, search, status, user
 	query := s.db.Table("user_libraries ul").
 		Select(`ul.id, ul.user_id, ul.book_id, ul.progress, ul.created_at as assigned_at,
 			u.name as user_name, u.email as user_email,
-			b.title as book_title, b.author as book_author,
+			b.title as book_title, a.name as book_author,
 			CASE 
 				WHEN ul.progress = 0 THEN 'unread'
 				WHEN ul.progress = 100 THEN 'completed'
 				ELSE 'reading'
 			END as status`).
 		Joins("JOIN users u ON ul.user_id = u.id").
-		Joins("JOIN books b ON ul.book_id = b.id")
+		Joins("JOIN books b ON ul.book_id = b.id").
+		Joins("LEFT JOIN authors a ON b.author_id = a.id")
 
 	if search != "" {
 		query = query.Where("u.name ILIKE ? OR u.email ILIKE ? OR b.title ILIKE ?", "%"+search+"%", "%"+search+"%", "%"+search+"%")
@@ -305,7 +306,7 @@ func (s *LibraryService) GetBooksWithStudents(search string) ([]map[string]inter
 func (s *LibraryService) GetAssignmentDetails(id uint) (map[string]interface{}, error) {
 	var assignment map[string]interface{}
 	err := s.db.Table("user_libraries ul").
-		Select(`ul.*, u.name as user_name, u.email as user_email, b.title as book_title, b.author as book_author,
+		Select(`ul.*, u.name as user_name, u.email as user_email, b.title as book_title, a.name as book_author,
 			CASE 
 				WHEN ul.progress = 0 THEN 'unread'
 				WHEN ul.progress = 100 THEN 'completed'
@@ -313,6 +314,7 @@ func (s *LibraryService) GetAssignmentDetails(id uint) (map[string]interface{}, 
 			END as status`).
 		Joins("JOIN users u ON ul.user_id = u.id").
 		Joins("JOIN books b ON ul.book_id = b.id").
+		Joins("LEFT JOIN authors a ON b.author_id = a.id").
 		Where("ul.id = ?", id).
 		Scan(&assignment).Error
 

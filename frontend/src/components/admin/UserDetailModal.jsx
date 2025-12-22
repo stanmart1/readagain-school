@@ -43,7 +43,7 @@ const UserDetailModal = ({ isOpen, onClose, user, onEdit }) => {
             </div>
             <p className="text-gray-600">@{user.username}</p>
             <span className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full text-white mt-2 ${getRoleColor(user.role?.name)}`}>
-              {user.role?.name || 'No Role'}
+              {user.role?.name ? user.role.name.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : 'No Role'}
             </span>
           </div>
         </div>

@@ -58,7 +58,7 @@ const UserFilters = ({ searchTerm, setSearchTerm, filterRole, setFilterRole, fil
             <option value="all">All Roles</option>
             {roles.map((role) => (
               <option key={role.id} value={role.name}>
-                {role.name}
+                {role.name.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
               </option>
             ))}
           </select>

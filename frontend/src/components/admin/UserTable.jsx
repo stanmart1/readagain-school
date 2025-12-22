@@ -91,7 +91,7 @@ const UserTable = ({ users, selectedUsers, onSelectAll, onSelectUser, onView, on
                   {user.role ? (
                     <span className={`inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full text-white whitespace-nowrap ${getRoleColor(user.role?.name)}`}>
                       <i className={`${getRoleIcon(user.role?.name)} mr-0.5`}></i>
-                      {user.role?.name}
+                      {user.role?.name ? user.role.name.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) : ''}
                     </span>
                   ) : (
                     <span className="inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full text-white whitespace-nowrap bg-gradient-to-r from-gray-400 to-gray-500">

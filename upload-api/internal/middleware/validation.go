@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	MaxImageSize = 50 * 1024 * 1024   // 50MB
+	MaxImageSize = 10 * 1024 * 1024   // 10MB
 	MaxBookSize  = 500 * 1024 * 1024  // 500MB
 )
 
@@ -28,7 +28,7 @@ func ValidateImageUpload() fiber.Handler {
 
 		if file.Size > MaxImageSize {
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-				"error": "Image size exceeds 50MB limit",
+				"error": "Image size exceeds 10MB limit",
 			})
 		}
 

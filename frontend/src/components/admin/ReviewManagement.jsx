@@ -48,8 +48,8 @@ const ReviewManagement = () => {
     };
 
     const result = await fetchReviews(params);
-    if (result.success) {
-      setTotalPages(result.pages);
+    if (result.success && result.meta) {
+      setTotalPages(result.meta.total_pages || 1);
     }
   };
 

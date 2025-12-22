@@ -23,7 +23,7 @@ export const useReviews = () => {
       return { 
         success: true, 
         data: response.data,
-        pages: response.data.pages || 1
+        meta: response.data.meta || {}
       };
     } catch (err) {
       console.error('Error fetching reviews:', err);

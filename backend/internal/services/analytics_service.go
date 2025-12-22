@@ -70,22 +70,24 @@ func (s *AnalyticsService) GetDashboardOverview() (*DashboardOverview, error) {
 
 	s.db.Model(&struct{ ID uint }{}).Table("users").Count(&overview.TotalUsers)
 	s.db.Model(&struct{ ID uint }{}).Table("users").Where("is_active = ?", true).Count(&overview.ActiveUsers)
-	s.db.Model(&struct{ ID uint }{}).Table("orders").Count(&overview.TotalOrders)
+	s.db.Model(&struct{ ID uint }{}).Table("user_libraries").Count(&overview.TotalOrders) // Reusing field for books in libraries
 	s.db.Model(&struct{ ID uint }{}).Table("books").Count(&overview.TotalBooks)
 	s.db.Model(&struct{ ID uint }{}).Table("user_libraries").Where("progress = ?", 100).Count(&overview.TotalBooksRead)
 	s.db.Model(&struct{ ID uint }{}).Table("reading_sessions").Select("COALESCE(SUM(duration), 0)").Scan(&overview.TotalReadingTime)
 	s.db.Model(&struct{ ID uint }{}).Table("users").Where("created_at >= ?", today).Count(&overview.NewUsersToday)
-	s.db.Model(&struct{ ID uint }{}).Table("orders").Where("created_at >= ?", today).Count(&overview.OrdersToday)
+	s.db.Model(&struct{ ID uint }{}).Table("user_libraries").Where("created_at >= ?", today).Count(&overview.OrdersToday) // Reusing field for books added today
 
-	s.db.Model(&struct{ ID uint }{}).Table("orders").Select("COALESCE(SUM(total_amount), 0)").Scan(&overview.TotalRevenue)
-	s.db.Model(&struct{ ID uint }{}).Table("orders").Where("created_at >= ?", today).Select("COALESCE(SUM(total_amount), 0)").Scan(&overview.RevenueToday)
+	// Count active readers (users with reading sessions in last 7 days)
+	weekAgo := today.AddDate(0, 0, -7)
+	s.db.Raw("SELECT COUNT(DISTINCT user_id) FROM reading_sessions WHERE created_at >= ?", weekAgo).Scan(&overview.TotalRevenue) // Reusing field
+	s.db.Raw("SELECT COUNT(DISTINCT user_id) FROM reading_sessions WHERE created_at >= ?", today).Scan(&overview.RevenueToday) // Reusing field
 
 	return &overview, nil
 }
 
 func (s *AnalyticsService) GetSalesStats(startDate, endDate *time.Time) (*SalesStats, error) {
 	var stats SalesStats
-	query := s.db.Model(&struct{ ID uint }{}).Table("orders")
+	query := s.db.Model(&struct{ ID uint }{}).Table("user_libraries")
 
 	if startDate != nil {
 		query = query.Where("created_at >= ?", startDate)
@@ -94,16 +96,14 @@ func (s *AnalyticsService) GetSalesStats(startDate, endDate *time.Time) (*SalesS
 		query = query.Where("created_at <= ?", endDate)
 	}
 
-	query.Count(&stats.TotalOrders)
-	s.db.Model(&struct{ ID uint }{}).Table("orders").Where("status = ?", "completed").Count(&stats.CompletedOrders)
-	s.db.Model(&struct{ ID uint }{}).Table("orders").Where("status = ?", "pending").Count(&stats.PendingOrders)
-	s.db.Model(&struct{ ID uint }{}).Table("orders").Where("status = ?", "cancelled").Count(&stats.CancelledOrders)
+	query.Count(&stats.TotalOrders) // Books in libraries
+	s.db.Model(&struct{ ID uint }{}).Table("user_libraries").Where("progress = ?", 100).Count(&stats.CompletedOrders) // Completed books
+	s.db.Model(&struct{ ID uint }{}).Table("user_libraries").Where("progress > ? AND progress < ?", 0, 100).Count(&stats.PendingOrders) // In progress
+	s.db.Model(&struct{ ID uint }{}).Table("user_libraries").Where("progress = ?", 0).Count(&stats.CancelledOrders) // Not started
 
-	query.Select("COALESCE(SUM(total_amount), 0)").Scan(&stats.TotalRevenue)
-
-	if stats.TotalOrders > 0 {
-		stats.AverageOrderValue = stats.TotalRevenue / float64(stats.TotalOrders)
-	}
+	// No revenue for school platform
+	stats.TotalRevenue = 0
+	stats.AverageOrderValue = 0
 
 	return &stats, nil
 }
@@ -176,26 +176,26 @@ func (s *AnalyticsService) GetGrowthMetrics() (*GrowthMetrics, error) {
 	twoMonthsAgo := now.AddDate(0, -2, 0)
 
 	var currentUsers, previousUsers int64
-	var currentRevenue, previousRevenue float64
-	var currentOrders, previousOrders int64
+	var currentLibraries, previousLibraries int64
+	var currentReaders, previousReaders int64
 
 	s.db.Model(&struct{ ID uint }{}).Table("users").Where("created_at >= ?", lastMonth).Count(&currentUsers)
 	s.db.Model(&struct{ ID uint }{}).Table("users").Where("created_at >= ? AND created_at < ?", twoMonthsAgo, lastMonth).Count(&previousUsers)
 
-	s.db.Model(&struct{ ID uint }{}).Table("orders").Where("created_at >= ?", lastMonth).Select("COALESCE(SUM(total_amount), 0)").Scan(&currentRevenue)
-	s.db.Model(&struct{ ID uint }{}).Table("orders").Where("created_at >= ? AND created_at < ?", twoMonthsAgo, lastMonth).Select("COALESCE(SUM(total_amount), 0)").Scan(&previousRevenue)
+	s.db.Model(&struct{ ID uint }{}).Table("user_libraries").Where("created_at >= ?", lastMonth).Count(&currentLibraries)
+	s.db.Model(&struct{ ID uint }{}).Table("user_libraries").Where("created_at >= ? AND created_at < ?", twoMonthsAgo, lastMonth).Count(&previousLibraries)
 
-	s.db.Model(&struct{ ID uint }{}).Table("orders").Where("created_at >= ?", lastMonth).Count(&currentOrders)
-	s.db.Model(&struct{ ID uint }{}).Table("orders").Where("created_at >= ? AND created_at < ?", twoMonthsAgo, lastMonth).Count(&previousOrders)
+	s.db.Raw("SELECT COUNT(DISTINCT user_id) FROM reading_sessions WHERE created_at >= ?", lastMonth).Scan(&currentReaders)
+	s.db.Raw("SELECT COUNT(DISTINCT user_id) FROM reading_sessions WHERE created_at >= ? AND created_at < ?", twoMonthsAgo, lastMonth).Scan(&previousReaders)
 
 	if previousUsers > 0 {
 		metrics.UsersGrowth = ((float64(currentUsers) - float64(previousUsers)) / float64(previousUsers)) * 100
 	}
-	if previousRevenue > 0 {
-		metrics.RevenueGrowth = ((currentRevenue - previousRevenue) / previousRevenue) * 100
+	if previousLibraries > 0 {
+		metrics.RevenueGrowth = ((float64(currentLibraries) - float64(previousLibraries)) / float64(previousLibraries)) * 100 // Reusing field for library growth
 	}
-	if previousOrders > 0 {
-		metrics.OrdersGrowth = ((float64(currentOrders) - float64(previousOrders)) / float64(previousOrders)) * 100
+	if previousReaders > 0 {
+		metrics.OrdersGrowth = ((float64(currentReaders) - float64(previousReaders)) / float64(previousReaders)) * 100 // Reusing field for reader growth
 	}
 
 	return &metrics, nil
@@ -233,17 +233,17 @@ func (s *AnalyticsService) GetEnhancedOverview() (map[string]interface{}, error)
 
 	return map[string]interface{}{
 		"overview": map[string]interface{}{
-			"total_users":    overview.TotalUsers,
-			"total_books":    overview.TotalBooks,
-			"total_orders":   overview.TotalOrders,
-			"total_revenue":  overview.TotalRevenue,
-			"user_growth":    growth.UsersGrowth,
-			"revenue_growth": growth.RevenueGrowth,
-			"order_growth":   growth.OrdersGrowth,
-			"book_growth":    0.0,
+			"total_users":        overview.TotalUsers,
+			"total_books":        overview.TotalBooks,
+			"books_in_libraries": overview.TotalOrders,    // Reused field
+			"active_readers":     overview.TotalRevenue,   // Reused field
+			"user_growth":        growth.UsersGrowth,
+			"library_growth":     growth.RevenueGrowth,    // Reused field
+			"reader_growth":      growth.OrdersGrowth,     // Reused field
+			"book_growth":        0.0,
 		},
-		"user_growth":      userGrowth,
-		"daily_activity":   []interface{}{},
+		"user_growth":       userGrowth,
+		"daily_activity":    []interface{}{},
 		"recent_activities": []interface{}{},
 	}, nil
 }

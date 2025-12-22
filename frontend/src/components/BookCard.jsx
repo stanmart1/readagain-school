@@ -7,7 +7,7 @@ export default function BookCard({ book }) {
   const [isHovered, setIsHovered] = useState(false);
   const [addingToCart, setAddingToCart] = useState(false);
 
-  const displayAuthor = book.author_name || book.author || '';
+  const displayAuthor = book.author_name || book.author?.business_name || 'Unknown Author';
   const displayCover = getImageUrl(book.cover_image_url || book.cover_image);
   const displayOriginalPrice = book.original_price || book.originalPrice;
   const displayRating = book.rating || 0;

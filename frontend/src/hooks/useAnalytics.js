@@ -43,7 +43,7 @@ export const useAnalytics = (period = 'week') => {
 
       // Fetch reading goals
       const goalsResponse = await api.get('/reading-goals/');
-      const goalsData = goalsResponse.data || [];
+      const goalsData = goalsResponse.data?.goals || [];
       
       // Transform goals to match UI expectations
       const transformedGoals = goalsData.map(goal => {

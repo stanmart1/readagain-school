@@ -348,12 +348,17 @@ func (s *AnalyticsService) GetReportsData() (map[string]interface{}, error) {
 		},
 	}
 
+	completionRate := 0.0
+	if totalBooksInLibraries > 0 {
+		completionRate = float64(completedBooks) / float64(totalBooksInLibraries) * 100
+	}
+
 	return map[string]interface{}{
 		"summary": map[string]interface{}{
 			"total_books_in_libraries": totalBooksInLibraries,
 			"completed_books":          completedBooks,
 			"active_readers":           activeReaders,
-			"completion_rate":          float64(completedBooks) / float64(totalBooksInLibraries) * 100,
+			"completion_rate":          completionRate,
 		},
 		"popularBooks": popularBooks,
 		"reports":      reports,

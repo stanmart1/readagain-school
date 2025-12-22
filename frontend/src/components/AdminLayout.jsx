@@ -12,15 +12,18 @@ const AdminLayout = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { logout, getUser, getPermissions } = useAuth();
-  const user = getUser();
   const { hasPermission, isAdmin } = usePermissions();
   const [permissions, setPermissions] = useState(getPermissions());
+  const [hasFetchedPermissions, setHasFetchedPermissions] = useState(false);
 
   // Fetch permissions if not cached
   useEffect(() => {
+    if (hasFetchedPermissions) return;
+
     const fetchPermissions = async () => {
       const cachedPermissions = localStorage.getItem('permissions');
       const alreadyFetched = sessionStorage.getItem('permissions_fetched');
+      const user = getUser();
       
       // Only fetch if no cached permissions AND not already fetched in this session
       if (!cachedPermissions && !alreadyFetched && user) {
@@ -38,10 +41,12 @@ const AdminLayout = ({ children }) => {
       } else if (cachedPermissions) {
         setPermissions(JSON.parse(cachedPermissions));
       }
+      setHasFetchedPermissions(true);
     };
     fetchPermissions();
-  }, [user]);
+  }, [hasFetchedPermissions, getUser]);
 
+  const user = getUser();
   const menuItems = [
     { path: '/admin', icon: 'ri-dashboard-line', label: 'Overview', permission: 'analytics.view' },
     { path: '/admin/users', icon: 'ri-user-line', label: 'Users', permission: 'users.view' },

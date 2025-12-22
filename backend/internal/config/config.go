@@ -13,7 +13,6 @@ type Config struct {
 	Database DatabaseConfig
 	JWT      JWTConfig
 	Redis    RedisConfig
-	Payment  PaymentConfig
 	Email    EmailConfig
 }
 
@@ -34,14 +33,6 @@ type JWTConfig struct {
 
 type RedisConfig struct {
 	URL string
-}
-
-type PaymentConfig struct {
-	PaystackSecretKey       string
-	PaystackPublicKey       string
-	FlutterwaveSecretKey    string
-	FlutterwavePublicKey    string
-	FlutterwaveEncryptionKey string
 }
 
 type EmailConfig struct {
@@ -74,13 +65,6 @@ func Load() *Config {
 		},
 		Redis: RedisConfig{
 			URL: getEnv("REDIS_URL", ""),
-		},
-		Payment: PaymentConfig{
-			PaystackSecretKey:        getEnv("PAYSTACK_SECRET_KEY", ""),
-			PaystackPublicKey:        getEnv("PAYSTACK_PUBLIC_KEY", ""),
-			FlutterwaveSecretKey:     getEnv("FLUTTERWAVE_SECRET_KEY", ""),
-			FlutterwavePublicKey:     getEnv("FLUTTERWAVE_PUBLIC_KEY", ""),
-			FlutterwaveEncryptionKey: getEnv("FLUTTERWAVE_ENCRYPTION_KEY", ""),
 		},
 		Email: EmailConfig{
 			ResendAPIKey: getEnv("RESEND_API_KEY", ""),

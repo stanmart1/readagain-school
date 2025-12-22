@@ -24,9 +24,6 @@ import { AdminRoute } from './components/ProtectedRoute';
 const Home = lazy(() => import('./pages/Home'));
 const Books = lazy(() => import('./pages/Books'));
 const BookDetail = lazy(() => import('./pages/BookDetail'));
-const BankTransferProof = lazy(() => import('./pages/BankTransferProof'));
-const OrderConfirmation = lazy(() => import('./pages/OrderConfirmation'));
-const PaymentFailed = lazy(() => import('./pages/PaymentFailed'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const FAQ = lazy(() => import('./pages/FAQ'));
@@ -84,9 +81,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/books" element={<Books />} />
         <Route path="/books/:id" element={<BookDetail />} />
-        <Route path="/payment-failed" element={<PaymentFailed />} />
-        <Route path="/bank-transfer/:orderId" element={<BankTransferProof />} />
-        <Route path="/order-confirmation/:orderId" element={<OrderConfirmation />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
         <Route path="/faq" element={<FAQ />} />

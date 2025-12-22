@@ -302,7 +302,7 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
                       <option value="">Select an author</option>
                       {authors.map(author => (
                         <option key={author.id} value={author.id}>
-                          {author.name}
+                          {author.business_name}
                         </option>
                       ))}
                       <option value="add_new" className="font-medium text-blue-600">

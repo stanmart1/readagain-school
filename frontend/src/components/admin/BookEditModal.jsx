@@ -269,7 +269,7 @@ const BookEditModal = ({ isOpen, onClose, book, categories, authors, onSuccess }
                   >
                     <option value="">Select an author</option>
                     {authors.map(author => (
-                      <option key={author.id} value={author.id}>{author.name}</option>
+                      <option key={author.id} value={author.id}>{author.business_name}</option>
                     ))}
                   </select>
                   {errors.author_id && <p className="text-red-500 text-sm mt-1"><i className="ri-error-warning-line mr-1"></i>{errors.author_id}</p>}

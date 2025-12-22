@@ -32,7 +32,6 @@ func SetupRoutes(
 	auditService *services.AuditService,
 	reviewService *services.ReviewService,
 	aboutService *services.AboutService,
-	activityService *services.ActivityService,
 	wishlistService *services.WishlistService,
 ) {
 	api := app.Group("/api/v1")

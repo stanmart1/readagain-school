@@ -156,14 +156,6 @@ export default function Overview() {
             <p className="text-sm text-gray-600">View your collection</p>
           </a>
           <a
-            href="/dashboard/orders"
-            className="bg-white rounded-xl p-6 hover:shadow-lg transition-shadow border-2 border-gray-200"
-          >
-            <i className="ri-shopping-bag-line text-3xl text-purple-600 mb-2"></i>
-            <h3 className="font-semibold text-gray-900 mb-1">Order History</h3>
-            <p className="text-sm text-gray-600">Track your purchases</p>
-          </a>
-          <a
             href="/dashboard/settings"
             className="bg-white rounded-xl p-6 hover:shadow-lg transition-shadow border-2 border-gray-200"
           >

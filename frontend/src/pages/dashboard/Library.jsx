@@ -155,7 +155,7 @@ export default function Library() {
                 {/* Cover Image */}
                 <div className="h-56 relative overflow-hidden">
                   <img
-                    src={getImageUrl(book.cover_image_url)}
+                    src={getImageUrl(book.book?.cover_image)}
                     alt={book.title || book.book?.title || 'Book cover'}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />

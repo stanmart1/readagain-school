@@ -592,7 +592,7 @@ const AdminBooks = () => {
                   <div className="space-y-4">
                     <div className="flex items-start gap-4">
                       <img
-                        src={getImageUrl(selection.bookForAction.cover_image_url || selection.bookForAction.cover_image)}
+                        src={getImageUrl(selection.bookForAction.cover_image)}
                         alt={selection.bookForAction.title}
                         className="w-32 h-48 object-cover rounded-lg shadow-md"
                       />

@@ -83,34 +83,40 @@ func (h *BookHandler) GetBook(c *fiber.Ctx) error {
 }
 
 func (h *BookHandler) CreateBook(c *fiber.Ctx) error {
-	authorID, _ := strconv.ParseUint(c.FormValue("author_id"), 10, 32)
-	categoryID, _ := strconv.ParseUint(c.FormValue("category_id"), 10, 32)
-	pageCount, _ := strconv.Atoi(c.FormValue("page_count"))
-
-	title := c.FormValue("title")
-	description := c.FormValue("description")
-	isbn := c.FormValue("isbn")
-	status := c.FormValue("status")
-
-	if title == "" || authorID == 0 {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Title and author_id are required"})
+	var req struct {
+		Title          string `json:"title" validate:"required"`
+		AuthorID       uint   `json:"author_id" validate:"required"`
+		CategoryID     uint   `json:"category_id" validate:"required"`
+		Description    string `json:"description"`
+		ISBN           string `json:"isbn"`
+		Language       string `json:"language"`
+		PageCount      int    `json:"page_count"`
+		Publisher      string `json:"publisher"`
+		Status         string `json:"status"`
+		CoverImage     string `json:"cover_image"`
+		BookFile       string `json:"book_file"`
+		FileSize       int64  `json:"file_size"`
 	}
 
-	coverImage := c.FormValue("cover_image")
-	fileURL := c.FormValue("book_file")
-	fileSize, _ := strconv.ParseInt(c.FormValue("file_size"), 10, 64)
+	if err := c.BodyParser(&req); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request body"})
+	}
+
+	if err := utils.Validate.Struct(&req); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": utils.FormatValidationError(err)})
+	}
 
 	book, err := h.bookService.CreateBook(
-		uint(authorID),
-		title,
-		description,
-		isbn,
-		uint(categoryID),
-		coverImage,
-		fileURL,
-		fileSize,
-		pageCount,
-		status,
+		req.AuthorID,
+		req.Title,
+		req.Description,
+		req.ISBN,
+		req.CategoryID,
+		req.CoverImage,
+		req.BookFile,
+		req.FileSize,
+		req.PageCount,
+		req.Status,
 	)
 
 	if err != nil {
@@ -118,7 +124,7 @@ func (h *BookHandler) CreateBook(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
 	}
 
-	utils.InfoLogger.Printf("Created book: %s", title)
+	utils.InfoLogger.Printf("Created book: %s", req.Title)
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{"book": book})
 }
 

@@ -179,6 +179,7 @@ func SetupRoutes(
 
 	library := api.Group("/library", middleware.AuthRequired())
 	library.Get("/", libraryHandler.GetLibrary)
+	library.Post("/", libraryHandler.AddToLibrary)
 	library.Get("/statistics", libraryHandler.GetStatistics)
 	library.Get("/:id/access", libraryHandler.AccessBook)
 	library.Put("/:id/progress", libraryHandler.UpdateProgress)

@@ -40,6 +40,30 @@ func (h *LibraryHandler) GetLibrary(c *fiber.Ctx) error {
 	})
 }
 
+func (h *LibraryHandler) AddToLibrary(c *fiber.Ctx) error {
+	userID := c.Locals("userID").(uint)
+	
+	var req struct {
+		BookID uint `json:"book_id" validate:"required"`
+	}
+	
+	if err := c.BodyParser(&req); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request"})
+	}
+	
+	if err := utils.Validate.Struct(&req); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": utils.FormatValidationError(err)})
+	}
+	
+	if err := h.libraryService.AssignBook(userID, req.BookID, ""); err != nil {
+		utils.ErrorLogger.Printf("Failed to add book to library: %v", err)
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
+	}
+	
+	utils.InfoLogger.Printf("User %d added book %d to library", userID, req.BookID)
+	return c.Status(fiber.StatusCreated).JSON(fiber.Map{"message": "Book added to library"})
+}
+
 func (h *LibraryHandler) AccessBook(c *fiber.Ctx) error {
 	userID := c.Locals("userID").(uint)
 	bookID, err := strconv.ParseUint(c.Params("id"), 10, 32)

@@ -397,15 +397,24 @@ func (s *AnalyticsService) GetReportsData() (map[string]interface{}, error) {
 
 	// Get popular books
 	type PopularBook struct {
-		BookID      uint   `json:"book_id"`
-		Title       string `json:"title"`
-		LibraryCount int   `json:"library_count"`
+		BookID       uint    `json:"book_id"`
+		Title        string  `json:"title"`
+		LibraryCount int     `json:"library_count"`
+		Views        int     `json:"views"`
+		Rating       float64 `json:"rating"`
 	}
 	var popularBooks []PopularBook
 	s.db.Raw(`
-		SELECT b.id as book_id, b.title, b.library_count
+		SELECT 
+			b.id as book_id, 
+			b.title, 
+			b.library_count,
+			b.view_count as views,
+			COALESCE(AVG(r.rating), 0) as rating
 		FROM books b
-		ORDER BY b.library_count DESC
+		LEFT JOIN reviews r ON b.id = r.book_id AND r.status = 'approved'
+		GROUP BY b.id, b.title, b.library_count, b.view_count
+		ORDER BY b.library_count DESC, b.view_count DESC
 		LIMIT 10
 	`).Scan(&popularBooks)
 

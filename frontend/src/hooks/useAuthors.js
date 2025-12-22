@@ -30,15 +30,15 @@ export const useAuthors = () => {
       };
 
       const response = await api.get('/authors', { params });
-      // Backend returns: { data: [...authors] }
-      const authorsData = response.data.data || [];
+      // Backend returns: { authors: [...], pagination: {...} }
+      const authorsData = response.data.authors || [];
       setAuthors(authorsData);
       
       if (response.data.pagination) {
         setPagination(prev => ({
           ...prev,
           total: response.data.pagination.total || 0,
-          pages: response.data.pagination.pages || 0
+          pages: response.data.pagination.total_pages || 0
         }));
       }
       return { success: true, data: response.data };

@@ -475,7 +475,8 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
                 <button
                   type="button"
                   onClick={handleNext}
-                  className="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-colors font-medium"
+                  disabled={uploadingFile}
+                  className="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Next Step →
                 </button>
@@ -496,16 +497,32 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
                   onDragLeave={(e) => handleDrag(e, 'cover')}
                   onDragOver={(e) => handleDrag(e, 'cover')}
                   onDrop={(e) => handleDrop(e, 'cover')}
-                  className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${dragActive.cover ? 'border-blue-500 bg-blue-50' :
-                    errors.cover_image ? 'border-red-500' : 'border-gray-300 hover:border-blue-400'
-                    }`}
-                  onClick={() => coverInputRef.current?.click()}
+                  className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
+                    uploadingFile === 'cover' ? 'border-blue-500 bg-blue-50 cursor-wait' :
+                    formData.cover_image ? 'border-green-500 bg-green-50' :
+                    dragActive.cover ? 'border-blue-500 bg-blue-50' :
+                    errors.cover_image ? 'border-red-500' : 'border-gray-300 hover:border-blue-400 cursor-pointer'
+                  }`}
+                  onClick={() => !uploadingFile && coverInputRef.current?.click()}
                 >
-                  <i className="ri-image-add-line text-4xl text-gray-400 mb-2"></i>
-                  <p className="text-sm text-gray-600">
-                    {formData.cover_image ? '✓ Cover uploaded' : uploadingFile === 'cover' ? 'Uploading...' : 'Drag & drop cover image or click to browse'}
-                  </p>
-                  <p className="text-xs text-gray-500 mt-1">PNG, JPG, JPEG, WebP up to 10MB</p>
+                  {uploadingFile === 'cover' ? (
+                    <>
+                      <i className="ri-loader-4-line text-4xl text-blue-600 mb-2 animate-spin"></i>
+                      <p className="text-sm text-blue-600 font-medium">Uploading cover...</p>
+                    </>
+                  ) : formData.cover_image ? (
+                    <>
+                      <i className="ri-checkbox-circle-line text-4xl text-green-600 mb-2"></i>
+                      <p className="text-sm text-green-600 font-medium">✓ Cover uploaded successfully</p>
+                      <p className="text-xs text-gray-500 mt-1">Click to replace</p>
+                    </>
+                  ) : (
+                    <>
+                      <i className="ri-image-add-line text-4xl text-gray-400 mb-2"></i>
+                      <p className="text-sm text-gray-600">Drag & drop cover image or click to browse</p>
+                      <p className="text-xs text-gray-500 mt-1">PNG, JPG, JPEG, WebP up to 10MB</p>
+                    </>
+                  )}
                   <input
                     ref={coverInputRef}
                     type="file"
@@ -528,16 +545,33 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
                   onDragLeave={(e) => handleDrag(e, 'ebook')}
                   onDragOver={(e) => handleDrag(e, 'ebook')}
                   onDrop={(e) => handleDrop(e, 'ebook')}
-                  className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${dragActive.ebook ? 'border-blue-500 bg-blue-50' :
-                    errors.book_file ? 'border-red-500' : 'border-gray-300 hover:border-blue-400'
-                    }`}
-                  onClick={() => ebookInputRef.current?.click()}
+                  className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
+                    uploadingFile === 'book' ? 'border-blue-500 bg-blue-50 cursor-wait' :
+                    formData.book_file ? 'border-green-500 bg-green-50' :
+                    dragActive.ebook ? 'border-blue-500 bg-blue-50' :
+                    errors.book_file ? 'border-red-500' : 'border-gray-300 hover:border-blue-400 cursor-pointer'
+                  }`}
+                  onClick={() => !uploadingFile && ebookInputRef.current?.click()}
                 >
-                  <i className="ri-file-pdf-line text-4xl text-gray-400 mb-2"></i>
-                  <p className="text-sm text-gray-600">
-                    {formData.book_file ? '✓ Book file uploaded' : uploadingFile === 'book' ? 'Uploading...' : 'Drag & drop ebook file or click to browse'}
-                  </p>
-                  <p className="text-xs text-gray-500 mt-1">PDF, EPUB, HTML up to 500MB</p>
+                  {uploadingFile === 'book' ? (
+                    <>
+                      <i className="ri-loader-4-line text-4xl text-blue-600 mb-2 animate-spin"></i>
+                      <p className="text-sm text-blue-600 font-medium">Uploading book file...</p>
+                      <p className="text-xs text-gray-500 mt-1">This may take a while for large files</p>
+                    </>
+                  ) : formData.book_file ? (
+                    <>
+                      <i className="ri-checkbox-circle-line text-4xl text-green-600 mb-2"></i>
+                      <p className="text-sm text-green-600 font-medium">✓ Book file uploaded successfully</p>
+                      <p className="text-xs text-gray-500 mt-1">Click to replace</p>
+                    </>
+                  ) : (
+                    <>
+                      <i className="ri-file-pdf-line text-4xl text-gray-400 mb-2"></i>
+                      <p className="text-sm text-gray-600">Drag & drop ebook file or click to browse</p>
+                      <p className="text-xs text-gray-500 mt-1">PDF, EPUB, HTML up to 500MB</p>
+                    </>
+                  )}
                   <input
                     ref={ebookInputRef}
                     type="file"
@@ -578,10 +612,10 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
                 <button
                   type="button"
                   onClick={handleSubmit}
-                  disabled={isSubmitting}
-                  className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-colors disabled:opacity-50"
+                  disabled={isSubmitting || uploadingFile}
+                  className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isSubmitting ? 'Uploading...' : 'Upload Book'}
+                  {isSubmitting ? 'Adding Book...' : 'Add Book'}
                 </button>
               </div>
             </div>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useReviews } from '../../hooks/useReviews';
 import { getImageUrl } from '../../lib/fileService';
+import ReviewDetailModal from './ReviewDetailModal';
 
 const ReviewManagement = () => {
   const {
@@ -124,7 +125,39 @@ const ReviewManagement = () => {
   };
 
   const getBookImage = (review) => {
-    return getImageUrl(review.book_cover);
+    return getImageUrl(review.book?.cover_image);
+  };
+
+  const getBookTitle = (review) => {
+    return review.book?.title || 'Unknown Book';
+  };
+
+  const getBookAuthor = (review) => {
+    if (review.book?.author?.business_name) return review.book.author.business_name;
+    if (review.book?.author?.user) {
+      const { first_name, last_name } = review.book.author.user;
+      return `${first_name || ''} ${last_name || ''}`.trim();
+    }
+    return null;
+  };
+
+  const getUserName = (review) => {
+    if (review.user) {
+      return `${review.user.first_name || ''} ${review.user.last_name || ''}`.trim();
+    }
+    return 'Unknown User';
+  };
+
+  const getUserEmail = (review) => {
+    return review.user?.email || '';
+  };
+
+  const getClassLevel = (review) => {
+    return review.user?.class_level || null;
+  };
+
+  const getSchoolName = (review) => {
+    return review.user?.school_name || null;
   };
 
   const getRatingStars = (rating) => {
@@ -153,15 +186,15 @@ const ReviewManagement = () => {
         <div className="flex items-center space-x-3 flex-1 min-w-0">
           <img
             src={getBookImage(review)}
-            alt={review.book_title}
+            alt={getBookTitle(review)}
             className="w-12 h-16 object-cover rounded flex-shrink-0"
           />
           <div className="flex-1 min-w-0">
             <h3 className="text-sm font-semibold text-gray-900 truncate">
-              {review.book_title}
+              {getBookTitle(review)}
             </h3>
-            {review.book_author && (
-              <p className="text-xs text-gray-600 truncate">by {review.book_author}</p>
+            {getBookAuthor(review) && (
+              <p className="text-xs text-gray-600 truncate">by {getBookAuthor(review)}</p>
             )}
           </div>
         </div>
@@ -175,25 +208,22 @@ const ReviewManagement = () => {
 
       {/* Review Content */}
       <div className="mb-3">
-        {review.title && (
-          <h4 className="text-sm font-medium text-gray-900 mb-1">{review.title}</h4>
-        )}
-        {review.review_text && (
-          <p className="text-sm text-gray-600 line-clamp-3">{review.review_text}</p>
+        {review.comment && (
+          <p className="text-sm text-gray-600 line-clamp-3">{review.comment}</p>
         )}
       </div>
 
       {/* User Info */}
       <div className="flex flex-col gap-1 mb-3 text-xs text-gray-500">
         <div className="flex items-center justify-between">
-          <span className="font-medium text-gray-700">{review.first_name} {review.last_name}</span>
+          <span className="font-medium text-gray-700">{getUserName(review)}</span>
           <span>{new Date(review.created_at).toLocaleDateString()}</span>
         </div>
-        {review.class_level && (
-          <span className="text-blue-600">Class: {review.class_level}</span>
+        {getClassLevel(review) && (
+          <span className="text-blue-600">Class: {getClassLevel(review)}</span>
         )}
-        {review.school_name && (
-          <span className="text-gray-600">{review.school_name}</span>
+        {getSchoolName(review) && (
+          <span className="text-gray-600">{getSchoolName(review)}</span>
         )}
       </div>
 
@@ -448,72 +478,11 @@ const ReviewManagement = () => {
       )}
 
       {/* Review Detail Modal */}
-      {showReviewDetail && selectedReviewDetail && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-bold text-gray-900">Review Details</h3>
-              <button
-                onClick={() => setShowReviewDetail(false)}
-                className="text-gray-400 hover:text-gray-600"
-              >
-                <i className="ri-close-line text-2xl"></i>
-              </button>
-            </div>
-            
-            <div className="space-y-4">
-              <div className="flex items-start gap-4">
-              <img
-                src={getBookImage(selectedReviewDetail)}
-                alt={selectedReviewDetail.book_title}
-                className="w-24 h-32 object-cover rounded"
-              />
-                <div className="flex-1">
-                  <h4 className="text-lg font-semibold text-gray-900">{selectedReviewDetail.book_title}</h4>
-                  {selectedReviewDetail.book_author && (
-                    <p className="text-gray-600">by {selectedReviewDetail.book_author}</p>
-                  )}
-                  <div className="mt-2">
-                    {getRatingStars(selectedReviewDetail.rating)}
-                  </div>
-                  <div className="mt-2">
-                    {getStatusBadge(selectedReviewDetail.status, selectedReviewDetail.is_featured)}
-                  </div>
-                </div>
-              </div>
-
-              {selectedReviewDetail.title && (
-                <div>
-                  <h5 className="font-semibold text-gray-900 mb-1">Review Title</h5>
-                  <p className="text-gray-700">{selectedReviewDetail.title}</p>
-                </div>
-              )}
-
-              {selectedReviewDetail.review_text && (
-                <div>
-                  <h5 className="font-semibold text-gray-900 mb-1">Review</h5>
-                  <p className="text-gray-700 whitespace-pre-wrap">{selectedReviewDetail.review_text}</p>
-                </div>
-              )}
-
-              <div className="border-t pt-4">
-                <h5 className="font-semibold text-gray-900 mb-2">Reviewer Information</h5>
-                <p className="text-gray-700">
-                  {selectedReviewDetail.first_name} {selectedReviewDetail.last_name}
-                </p>
-                <p className="text-gray-600 text-sm">{selectedReviewDetail.user_email}</p>
-                <p className="text-gray-500 text-sm mt-1">
-                  Reviewed on {new Date(selectedReviewDetail.created_at).toLocaleDateString()}
-                </p>
-                {selectedReviewDetail.is_verified_purchase && (
-                  <span className="inline-block mt-2 px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">
-                    Verified Purchase
-                  </span>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
+      {showReviewDetail && (
+        <ReviewDetailModal 
+          review={selectedReviewDetail}
+          onClose={() => setShowReviewDetail(false)}
+        />
       )}
     </div>
   );

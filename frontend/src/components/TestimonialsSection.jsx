@@ -20,16 +20,15 @@ export default function TestimonialsSection() {
       if (response.data.data) {
         const reviews = response.data.data.map(review => ({
           id: review.id,
-          name: `${review.first_name} ${review.last_name}`.trim(),
-          firstName: review.first_name,
-          lastName: review.last_name,
-          bookTitle: review.book_title,
-          bookAuthor: review.book_author,
-          bookCover: getImageUrl(review.book_cover),
-          title: review.title,
-          content: review.review_text,
+          name: `${review.user?.first_name || ''} ${review.user?.last_name || ''}`.trim(),
+          firstName: review.user?.first_name || '',
+          lastName: review.user?.last_name || '',
+          bookTitle: review.book?.title || '',
+          bookAuthor: review.book?.author?.business_name || 
+                     `${review.book?.author?.user?.first_name || ''} ${review.book?.author?.user?.last_name || ''}`.trim(),
+          bookCover: getImageUrl(review.book?.cover_image),
+          content: review.comment || '',
           rating: review.rating,
-          isVerified: review.is_verified_purchase,
           createdAt: review.created_at
         }));
         setTestimonials(reviews);

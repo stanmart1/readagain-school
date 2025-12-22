@@ -12,8 +12,8 @@ export const useCategories = () => {
       setLoading(true);
       setError(null);
       const response = await api.get('/categories');
-      // Backend returns: { data: [...categories] }
-      const categoriesData = response.data.data || [];
+      // Backend returns: { categories: [...] }
+      const categoriesData = response.data.categories || [];
       setCategories(categoriesData);
       return { success: true, data: categoriesData };
     } catch (err) {

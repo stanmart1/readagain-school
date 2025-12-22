@@ -63,7 +63,7 @@ func (h *GroupHandler) Create(c *fiber.Ctx) error {
 		return c.Status(400).JSON(fiber.Map{"error": "Invalid input"})
 	}
 
-	userIDInterface := c.Locals("user_id")
+	userIDInterface := c.Locals("userID")
 	if userIDInterface == nil {
 		return c.Status(401).JSON(fiber.Map{"error": "Unauthorized"})
 	}

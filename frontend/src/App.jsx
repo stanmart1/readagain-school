@@ -60,6 +60,7 @@ const AdminAbout = lazy(() => import('./pages/admin/About'));
 const AdminContact = lazy(() => import('./pages/admin/Contact'));
 const AdminFAQ = lazy(() => import('./pages/admin/FAQ'));
 const AdminSettings = lazy(() => import('./pages/admin/Settings'));
+const AdminGroups = lazy(() => import('./pages/admin/Groups'));
 
 import './styles/index.css';
 
@@ -117,6 +118,7 @@ function App() {
         <Route path="/admin/contact" element={<AdminRoute><AdminContact /></AdminRoute>} />
         <Route path="/admin/faq" element={<AdminRoute><AdminFAQ /></AdminRoute>} />
         <Route path="/admin/settings" element={<AdminRoute><AdminSettings /></AdminRoute>} />
+        <Route path="/admin/groups" element={<AdminRoute><AdminGroups /></AdminRoute>} />
         
         {/* 404 */}
         <Route path="*" element={<NotFound />} />

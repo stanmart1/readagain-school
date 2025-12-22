@@ -51,6 +51,7 @@ const AdminLayout = ({ children }) => {
     { path: '/admin', icon: 'ri-dashboard-line', label: 'Overview', permission: 'analytics.view' },
     { path: '/admin/users', icon: 'ri-user-line', label: 'Users', permission: 'users.view' },
     { path: '/admin/roles', icon: 'ri-shield-user-line', label: 'Roles', permission: 'roles.view' },
+    { path: '/admin/groups', icon: 'ri-group-line', label: 'Groups', permission: 'users.view' },
     { path: '/admin/audit', icon: 'ri-file-list-line', label: 'Audit Log', permission: 'audit_logs.view' },
     { path: '/admin/books', icon: 'ri-book-line', label: 'Books', permission: 'books.view' },
     { path: '/admin/library', icon: 'ri-book-shelf-line', label: 'Library Management', permission: 'books.view' },

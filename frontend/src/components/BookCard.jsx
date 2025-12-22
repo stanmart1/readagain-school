@@ -57,8 +57,9 @@ export default function BookCard({ book }) {
   };
 
   return (
-    <div 
-      className="group cursor-pointer h-full"
+    <Link 
+      to={`/books/${book.id}`}
+      className="group cursor-pointer h-full block"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -86,25 +87,12 @@ export default function BookCard({ book }) {
               </span>
             </div>
           )}
-
-          {/* Hover Actions */}
-          <div className="absolute inset-0 bg-black/50 flex items-center justify-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <Link 
-              to={`/books/${book.id}`}
-              className="p-3 bg-white rounded-full hover:bg-gray-100 transition-colors"
-              title="View Details"
-            >
-              <i className="ri-eye-line text-gray-600 text-lg"></i>
-            </Link>
-          </div>
         </div>
         
         <div className="p-6 flex-1 flex flex-col">
-          <Link to={`/books/${book.id}`}>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2 h-14">
-              {book.title}
-            </h3>
-          </Link>
+          <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2 h-14">
+            {book.title}
+          </h3>
           <p className="text-gray-600 mb-4 h-6">
             by {displayAuthor}
           </p>
@@ -126,7 +114,10 @@ export default function BookCard({ book }) {
           {/* Actions - Fixed at Bottom */}
           <div className="mt-auto">
             <button 
-              onClick={handleAddToCart}
+              onClick={(e) => {
+                e.preventDefault();
+                handleAddToCart(e);
+              }}
               disabled={addingToCart}
               className="w-full bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium"
             >
@@ -135,6 +126,6 @@ export default function BookCard({ book }) {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

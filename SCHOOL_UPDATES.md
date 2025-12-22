@@ -65,8 +65,6 @@
 - **Updates needed**:
   - Show student name and class level
   - Filter by grade/class
-  - Moderate inappropriate content
-  - Feature good reviews for other students
 - **Status**: Probably fine as-is, minor updates
 
 ### 8. Reading Analytics (`/admin/reading`)

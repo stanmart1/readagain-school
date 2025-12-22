@@ -76,8 +76,9 @@ func (h *ReviewHandler) ListAllReviews(c *fiber.Ctx) error {
 	page, _ := strconv.Atoi(c.Query("page", "1"))
 	limit, _ := strconv.Atoi(c.Query("limit", "20"))
 	status := c.Query("status")
+	classLevel := c.Query("class_level")
 
-	reviews, meta, err := h.service.ListAll(page, limit, status)
+	reviews, meta, err := h.service.ListAll(page, limit, status, classLevel)
 	if err != nil {
 		utils.ErrorLogger.Printf("Failed to list reviews: %v", err)
 		return c.Status(500).JSON(fiber.Map{"error": "Failed to fetch reviews"})

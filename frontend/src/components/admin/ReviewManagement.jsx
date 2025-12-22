@@ -19,6 +19,7 @@ const ReviewManagement = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [viewMode, setViewMode] = useState('grid');
   const [filterStatus, setFilterStatus] = useState('all');
+  const [filterClass, setFilterClass] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedReview, setSelectedReview] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -30,7 +31,7 @@ const ReviewManagement = () => {
   useEffect(() => {
     loadReviews();
     fetchStats();
-  }, [currentPage, filterStatus, searchQuery]);
+  }, [currentPage, filterStatus, filterClass, searchQuery]);
 
   useEffect(() => {
     setReviews(hookReviews);
@@ -41,6 +42,7 @@ const ReviewManagement = () => {
       page: currentPage,
       limit: 12,
       ...(filterStatus !== 'all' && { status: filterStatus }),
+      ...(filterClass && { class_level: filterClass }),
       ...(searchQuery && { search: searchQuery })
     };
 
@@ -182,9 +184,17 @@ const ReviewManagement = () => {
       </div>
 
       {/* User Info */}
-      <div className="flex items-center justify-between mb-3 text-xs text-gray-500">
-        <span>{review.first_name} {review.last_name}</span>
-        <span>{new Date(review.created_at).toLocaleDateString()}</span>
+      <div className="flex flex-col gap-1 mb-3 text-xs text-gray-500">
+        <div className="flex items-center justify-between">
+          <span className="font-medium text-gray-700">{review.first_name} {review.last_name}</span>
+          <span>{new Date(review.created_at).toLocaleDateString()}</span>
+        </div>
+        {review.class_level && (
+          <span className="text-blue-600">Class: {review.class_level}</span>
+        )}
+        {review.school_name && (
+          <span className="text-gray-600">{review.school_name}</span>
+        )}
       </div>
 
       {/* Actions */}
@@ -321,6 +331,13 @@ const ReviewManagement = () => {
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
             />
           </div>
+          <input
+            type="text"
+            placeholder="Filter by class..."
+            value={filterClass}
+            onChange={(e) => setFilterClass(e.target.value)}
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 w-full sm:w-48"
+          />
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}

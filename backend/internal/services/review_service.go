@@ -63,7 +63,7 @@ func (s *ReviewService) GetBookReviews(bookID uint, page, limit int, approvedOnl
 	return reviews, meta, nil
 }
 
-func (s *ReviewService) ListAll(page, limit int, status string) ([]models.Review, *utils.PaginationMeta, error) {
+func (s *ReviewService) ListAll(page, limit int, status, classLevel string) ([]models.Review, *utils.PaginationMeta, error) {
 	var reviews []models.Review
 	var total int64
 
@@ -71,6 +71,10 @@ func (s *ReviewService) ListAll(page, limit int, status string) ([]models.Review
 
 	if status != "" {
 		query = query.Where("status = ?", status)
+	}
+
+	if classLevel != "" {
+		query = query.Joins("JOIN users ON users.id = reviews.user_id").Where("users.class_level ILIKE ?", "%"+classLevel+"%")
 	}
 
 	if err := query.Count(&total).Error; err != nil {

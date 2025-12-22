@@ -56,15 +56,18 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
   const handleBookFileChange = async (file) => {
     if (!file) return;
     
+    console.log('Starting book file upload:', file.name, file.size, file.type);
     setUploadingFile('book');
     try {
       const result = await uploadBook(file);
+      console.log('Book file upload result:', result);
       setFormData(prev => ({ 
         ...prev, 
         book_file: result.path,
         file_size: result.size
       }));
     } catch (error) {
+      console.error('Book file upload error:', error);
       alert('Failed to upload book: ' + error.message);
     } finally {
       setUploadingFile(null);

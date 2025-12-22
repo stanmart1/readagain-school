@@ -168,36 +168,30 @@ const ReportsSection = () => {
 
       {/* Popular Books */}
       <div className="bg-white rounded-lg shadow-md p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Popular Books Tracking</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Most Popular Books</h3>
         {safeData.popularBooks.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Book</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">In Libraries</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Views</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Rating</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Reviews</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Trend</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {safeData.popularBooks.map((book, index) => (
                   <tr key={index} className="hover:bg-gray-50">
                     <td className="px-6 py-4 text-sm font-medium text-gray-900">{book.title}</td>
-                    <td className="px-6 py-4 text-sm text-gray-900">{formatNumber(book.views)}</td>
+                    <td className="px-6 py-4 text-sm text-gray-900">{formatNumber(book.library_count || 0)}</td>
+                    <td className="px-6 py-4 text-sm text-gray-900">{formatNumber(book.views || 0)}</td>
                     <td className="px-6 py-4 text-sm text-gray-900">
                       <div className="flex items-center space-x-1">
-                        <span>{book.rating}</span>
+                        <span>{book.rating || 0}</span>
                         <i className="ri-star-fill text-yellow-400 text-sm"></i>
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-900">{book.reviews}</td>
-                    <td className="px-6 py-4 text-sm">
-                      <div className="flex items-center space-x-1">
-                        <i className={`ri-arrow-${book.trend >= 0 ? 'up' : 'down'}-line text-${book.trend >= 0 ? 'green' : 'red'}-600`}></i>
-                        <span className={`text-${book.trend >= 0 ? 'green' : 'red'}-600`}>
-                          {book.trend >= 0 ? '+' : ''}{book.trend}%
                         </span>
                       </div>
                     </td>

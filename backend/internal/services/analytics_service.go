@@ -291,14 +291,72 @@ func (s *AnalyticsService) GetReadingAnalyticsByPeriod(period string) (map[strin
 }
 
 func (s *AnalyticsService) GetReportsData() (map[string]interface{}, error) {
-	sales, _ := s.GetSalesStats(nil, nil)
-	users, _ := s.GetUserStats()
-	reading, _ := s.GetReadingStats()
+	// Get reading statistics
+	var totalBooksInLibraries int64
+	s.db.Model(&struct{ ID uint }{}).Table("user_libraries").Count(&totalBooksInLibraries)
+
+	var completedBooks int64
+	s.db.Model(&struct{ ID uint }{}).Table("user_libraries").Where("progress = ?", 100).Count(&completedBooks)
+
+	var activeReaders int64
+	weekAgo := time.Now().AddDate(0, 0, -7)
+	s.db.Raw("SELECT COUNT(DISTINCT user_id) FROM reading_sessions WHERE created_at >= ?", weekAgo).Scan(&activeReaders)
+
+	// Get popular books
+	type PopularBook struct {
+		BookID      uint   `json:"book_id"`
+		Title       string `json:"title"`
+		LibraryCount int   `json:"library_count"`
+	}
+	var popularBooks []PopularBook
+	s.db.Raw(`
+		SELECT b.id as book_id, b.title, b.library_count
+		FROM books b
+		ORDER BY b.library_count DESC
+		LIMIT 10
+	`).Scan(&popularBooks)
+
+	// Available report types
+	reports := []map[string]interface{}{
+		{
+			"type":          "student_reading",
+			"title":         "Student Reading Report",
+			"description":   "Detailed reading activity by student, class, and grade",
+			"status":        "ready",
+			"lastGenerated": time.Now().Format("2006-01-02"),
+		},
+		{
+			"type":          "book_popularity",
+			"title":         "Book Popularity Report",
+			"description":   "Most popular books by library additions and completion rates",
+			"status":        "ready",
+			"lastGenerated": time.Now().Format("2006-01-02"),
+		},
+		{
+			"type":          "reading_completion",
+			"title":         "Reading Completion Report",
+			"description":   "Book completion rates and reading progress statistics",
+			"status":        "ready",
+			"lastGenerated": time.Now().Format("2006-01-02"),
+		},
+		{
+			"type":          "library_usage",
+			"title":         "Library Usage Report",
+			"description":   "Library access patterns and usage statistics",
+			"status":        "ready",
+			"lastGenerated": time.Now().Format("2006-01-02"),
+		},
+	}
 
 	return map[string]interface{}{
-		"sales":   sales,
-		"users":   users,
-		"reading": reading,
+		"summary": map[string]interface{}{
+			"total_books_in_libraries": totalBooksInLibraries,
+			"completed_books":          completedBooks,
+			"active_readers":           activeReaders,
+			"completion_rate":          float64(completedBooks) / float64(totalBooksInLibraries) * 100,
+		},
+		"popularBooks": popularBooks,
+		"reports":      reports,
 	}, nil
 }
 

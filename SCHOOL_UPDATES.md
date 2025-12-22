@@ -83,7 +83,6 @@
   - Student reading reports (by class, grade, individual)
   - Book popularity reports
   - Reading completion reports
-  - Teacher activity reports
   - Library usage reports
 - **Files**: `frontend/src/pages/admin/Reports.jsx`
 

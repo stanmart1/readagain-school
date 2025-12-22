@@ -23,11 +23,7 @@ const ReadingAnalytics = () => {
     if (!hasFetched.current) {
       fetchReadingAnalytics(selectedPeriod);
       hasFetched.current = true;
-    }
-  }, []);
-
-  useEffect(() => {
-    if (hasFetched.current) {
+    } else {
       fetchReadingAnalytics(selectedPeriod);
     }
   }, [selectedPeriod]);

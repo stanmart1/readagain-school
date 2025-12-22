@@ -29,7 +29,7 @@ export default function FAQ() {
               Frequently Asked Questions
             </h1>
             <p className="text-xl md:text-2xl text-blue-100">
-              Find answers to common questions about ReadAgain
+              Common questions about ReadAgain for schools, teachers, and students
             </p>
           </motion.div>
         </div>

@@ -62,7 +62,7 @@ export default function Contact() {
               Get In Touch
             </h1>
             <p className="text-xl md:text-2xl text-blue-100">
-              We'd love to hear from you. Send us a message!
+              Questions about ReadAgain for your school? We're here to help!
             </p>
           </motion.div>
         </div>

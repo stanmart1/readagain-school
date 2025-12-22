@@ -45,7 +45,7 @@ export default function Blog() {
               ReadAgain Blog
             </h1>
             <p className="text-xl md:text-2xl text-blue-100">
-              Insights, tips, and stories from the world of reading
+              Educational insights, teaching tips, and reading strategies for schools
             </p>
           </motion.div>
         </div>

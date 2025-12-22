@@ -35,10 +35,10 @@ export default function Books() {
             className="text-center"
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              Discover Your Next Great Read
+              Build Your School Library
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-blue-100">
-              Explore thousands of books across all genres
+              Thousands of books for students across all grades and subjects
             </p>
             
             {/* Search Bar */}

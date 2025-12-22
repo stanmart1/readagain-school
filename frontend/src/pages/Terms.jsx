@@ -41,33 +41,27 @@ export default function Terms() {
               </p>
 
               <h2>2. User Accounts</h2>
-              <p>To access certain features, you must create an account. You agree to:</p>
+              <p>To access our platform, you must create an account. You agree to:</p>
               <ul>
                 <li>Provide accurate and complete information</li>
                 <li>Maintain the security of your account</li>
                 <li>Notify us immediately of unauthorized access</li>
                 <li>Be responsible for all activities under your account</li>
+                <li>Students must provide valid school information</li>
               </ul>
 
-              <h2>3. Subscription and Payment</h2>
+              <h2>3. Library Access</h2>
               <p>
-                Subscription fees are billed in advance on a recurring basis. You authorize us to 
-                charge your payment method for all fees incurred.
+                Books added to your library are for personal educational use only. You agree to:
               </p>
               <ul>
-                <li>Subscriptions automatically renew unless cancelled</li>
-                <li>Prices are subject to change with notice</li>
-                <li>No refunds for partial subscription periods</li>
-                <li>Free trial converts to paid subscription unless cancelled</li>
+                <li>Use books for educational purposes</li>
+                <li>Not share your account credentials</li>
+                <li>Respect copyright and intellectual property rights</li>
+                <li>Follow your school's acceptable use policies</li>
               </ul>
 
-              <h2>4. Refund Policy</h2>
-              <p>
-                We offer a 14-day money-back guarantee for new subscriptions. Refund requests must 
-                be submitted within 14 days of purchase.
-              </p>
-
-              <h2>5. Content and Intellectual Property</h2>
+              <h2>4. Content and Intellectual Property</h2>
               <p>
                 All content on ReadAgain, including books, text, graphics, and software, is protected 
                 by copyright and other intellectual property laws.
@@ -79,7 +73,7 @@ export default function Terms() {
                 <li>We retain all rights to our platform and content</li>
               </ul>
 
-              <h2>6. User Conduct</h2>
+              <h2>5. User Conduct</h2>
               <p>You agree not to:</p>
               <ul>
                 <li>Violate any laws or regulations</li>
@@ -90,37 +84,37 @@ export default function Terms() {
                 <li>Harass or abuse other users</li>
               </ul>
 
-              <h2>7. Termination</h2>
+              <h2>6. Termination</h2>
               <p>
                 We reserve the right to suspend or terminate your account for violations of these 
-                terms. You may cancel your subscription at any time.
+                terms. You may deactivate your account at any time.
               </p>
 
-              <h2>8. Disclaimers</h2>
+              <h2>7. Disclaimers</h2>
               <p>
                 Our services are provided "as is" without warranties of any kind. We do not guarantee 
                 uninterrupted or error-free service.
               </p>
 
-              <h2>9. Limitation of Liability</h2>
+              <h2>8. Limitation of Liability</h2>
               <p>
                 ReadAgain shall not be liable for any indirect, incidental, special, or consequential 
                 damages arising from your use of our services.
               </p>
 
-              <h2>10. Changes to Terms</h2>
+              <h2>9. Changes to Terms</h2>
               <p>
                 We may modify these terms at any time. Continued use of our services after changes 
                 constitutes acceptance of the new terms.
               </p>
 
-              <h2>11. Governing Law</h2>
+              <h2>10. Governing Law</h2>
               <p>
                 These terms are governed by the laws of the jurisdiction in which ReadAgain operates, 
                 without regard to conflict of law provisions.
               </p>
 
-              <h2>12. Contact Information</h2>
+              <h2>11. Contact Information</h2>
               <p>
                 For questions about these terms, contact us at:
               </p>

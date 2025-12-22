@@ -37,12 +37,12 @@ export default function Privacy() {
               <h2>1. Information We Collect</h2>
               <p>
                 We collect information you provide directly to us, including when you create an account, 
-                make a purchase, or contact us for support.
+                add books to your library, or contact us for support.
               </p>
               <ul>
                 <li>Name and contact information</li>
                 <li>Email address</li>
-                <li>Payment information</li>
+                <li>School name and class level (for students)</li>
                 <li>Reading preferences and history</li>
                 <li>Device and usage information</li>
               </ul>
@@ -51,7 +51,7 @@ export default function Privacy() {
               <p>We use the information we collect to:</p>
               <ul>
                 <li>Provide, maintain, and improve our services</li>
-                <li>Process transactions and send related information</li>
+                <li>Manage your digital library and reading progress</li>
                 <li>Send you technical notices and support messages</li>
                 <li>Respond to your comments and questions</li>
                 <li>Personalize your reading experience</li>

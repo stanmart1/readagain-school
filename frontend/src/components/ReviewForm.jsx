@@ -26,11 +26,9 @@ export default function ReviewForm({ bookId, bookTitle, onSuccess, onCancel }) {
     setError(null);
 
     try {
-      await api.post('/reviews/', {
-        book_id: bookId,
+      await api.post(`/books/${bookId}/reviews`, {
         rating,
-        title: title.trim() || null,
-        review_text: reviewText.trim()
+        comment: reviewText.trim()
       });
 
       setSuccess(true);

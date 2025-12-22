@@ -4,6 +4,7 @@ import (
 	"readagain/internal/middleware"
 	"readagain/internal/services"
 
+	"github.com/gofiber/contrib/websocket"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -33,6 +34,7 @@ func SetupRoutes(
 	aboutService *services.AboutService,
 	wishlistService *services.WishlistService,
 	groupService *services.GroupService,
+	chatHandler *ChatHandler,
 ) {
 	api := app.Group("/api/v1")
 
@@ -331,6 +333,29 @@ func SetupRoutes(
 	groups.Post("/:id/members/bulk", groupHandler.AddMembers)
 	groups.Delete("/:id/members/:userId", groupHandler.RemoveMember)
 	groups.Post("/:id/assign-books", groupHandler.AssignBooks)
+
+	// Chat routes
+	chat := api.Group("/chat", middleware.AuthRequired())
+	chat.Get("/rooms", chatHandler.GetUserRooms)
+	chat.Post("/rooms", chatHandler.CreateRoom)
+	chat.Get("/rooms/:id", chatHandler.GetRoom)
+	chat.Put("/rooms/:id", chatHandler.UpdateRoom)
+	chat.Delete("/rooms/:id", chatHandler.DeleteRoom)
+	chat.Get("/rooms/:id/members", chatHandler.GetMembers)
+	chat.Post("/rooms/:id/members", chatHandler.AddMembers)
+	chat.Delete("/rooms/:id/members/:memberId", chatHandler.RemoveMember)
+	chat.Get("/rooms/:id/messages", chatHandler.GetMessages)
+	chat.Post("/rooms/:id/messages", chatHandler.SendMessage)
+	chat.Put("/messages/:messageId", chatHandler.UpdateMessage)
+	chat.Delete("/messages/:messageId", chatHandler.DeleteMessage)
+	chat.Post("/messages/:messageId/reactions", chatHandler.AddReaction)
+	chat.Delete("/messages/:messageId/reactions", chatHandler.RemoveReaction)
+	chat.Get("/unread", chatHandler.GetUnreadCount)
+	chat.Get("/online-users", chatHandler.GetOnlineUsers)
+
+	// WebSocket endpoint for real-time chat
+	app.Use("/ws/chat", middleware.WebSocketUpgrade())
+	app.Get("/ws/chat/:roomId", websocket.New(chatHandler.HandleWebSocket))
 
 	api.Get("/admin/system-settings/public", settingsHandler.GetPublic)
 }

@@ -13,6 +13,7 @@ import (
 	"readagain/internal/middleware"
 	"readagain/internal/services"
 	"readagain/internal/utils"
+	"readagain/internal/websocket"
 )
 
 func main() {
@@ -71,10 +72,17 @@ func main() {
 	aboutService := services.NewAboutService(database.DB)
 	wishlistService := services.NewWishlistService(database.DB)
 	groupService := services.NewGroupService(database.DB)
+	chatService := services.NewChatService(database.DB)
+
+	// Initialize WebSocket hub
+	hub := websocket.NewHub()
+	go hub.Run()
+
+	chatHandler := handlers.NewChatHandler(chatService, hub)
 
 	achievementService.SeedAchievements()
 
-	handlers.SetupRoutes(app, authService, userService, roleService, categoryService, authorService, bookService, libraryService, ereaderService, sessionService, goalService, achievementService, blogService, faqService, testimonialService, contactService, settingsService, analyticsService, reportService, notificationService, auditService, reviewService, aboutService, wishlistService, groupService)
+	handlers.SetupRoutes(app, authService, userService, roleService, categoryService, authorService, bookService, libraryService, ereaderService, sessionService, goalService, achievementService, blogService, faqService, testimonialService, contactService, settingsService, analyticsService, reportService, notificationService, auditService, reviewService, aboutService, wishlistService, groupService, chatHandler)
 
 	utils.InfoLogger.Printf("🚀 Server starting on port %s", cfg.Server.Port)
 	if err := app.Listen(":" + cfg.Server.Port); err != nil {

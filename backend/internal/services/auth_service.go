@@ -80,7 +80,7 @@ func (s *AuthService) Login(emailOrUsername, password, ipAddress, userAgent stri
 		return "", "", nil, utils.NewForbiddenError("Account is not active")
 	}
 
-	accessToken, err := utils.GenerateAccessToken(user.ID, user.Email, user.RoleID, s.cfg.JWT.Secret, s.cfg.JWT.ExpireHours)
+	accessToken, err := utils.GenerateAccessToken(user.ID, user.Email, user.Username, user.RoleID, s.cfg.JWT.Secret, s.cfg.JWT.ExpireHours)
 	if err != nil {
 		return "", "", nil, utils.NewInternalServerError("Failed to generate access token", err)
 	}
@@ -114,7 +114,7 @@ func (s *AuthService) RefreshToken(refreshToken string) (string, error) {
 		return "", utils.NewForbiddenError("Account is not active")
 	}
 
-	accessToken, err := utils.GenerateAccessToken(user.ID, user.Email, user.RoleID, s.cfg.JWT.Secret, s.cfg.JWT.ExpireHours)
+	accessToken, err := utils.GenerateAccessToken(user.ID, user.Email, user.Username, user.RoleID, s.cfg.JWT.Secret, s.cfg.JWT.ExpireHours)
 	if err != nil {
 		return "", utils.NewInternalServerError("Failed to generate access token", err)
 	}

@@ -2,15 +2,17 @@ package utils
 
 import (
 	"fmt"
+	"os"
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
 )
 
 type Claims struct {
-	UserID uint   `json:"user_id"`
-	Email  string `json:"email"`
-	RoleID uint   `json:"role_id"`
+	UserID   uint   `json:"user_id"`
+	Email    string `json:"email"`
+	Username string `json:"username"`
+	RoleID   uint   `json:"role_id"`
 	jwt.RegisteredClaims
 }
 
@@ -19,11 +21,12 @@ type RefreshClaims struct {
 	jwt.RegisteredClaims
 }
 
-func GenerateAccessToken(userID uint, email string, roleID uint, secret string, expireHours int) (string, error) {
+func GenerateAccessToken(userID uint, email, username string, roleID uint, secret string, expireHours int) (string, error) {
 	claims := Claims{
-		UserID: userID,
-		Email:  email,
-		RoleID: roleID,
+		UserID:   userID,
+		Email:    email,
+		Username: username,
+		RoleID:   roleID,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Hour * time.Duration(expireHours))),
 			IssuedAt:  jwt.NewNumericDate(time.Now()),
@@ -83,4 +86,13 @@ func ValidateRefreshToken(tokenString string, secret string) (*RefreshClaims, er
 	}
 
 	return nil, fmt.Errorf("invalid refresh token")
+}
+
+// ValidateToken validates a token using the JWT secret from environment
+func ValidateToken(tokenString string) (*Claims, error) {
+	secret := os.Getenv("JWT_SECRET")
+	if secret == "" {
+		return nil, fmt.Errorf("JWT_SECRET not configured")
+	}
+	return ValidateAccessToken(tokenString, secret)
 }

@@ -1,6 +1,5 @@
 export { useAbout } from './useAbout';
 export { useBooks } from './useBooks';
-export { useWorks } from './useWorks';
 export { useBlog } from './useBlog';
 export { useTestimonials } from './useTestimonials';
 export { useFAQ } from './useFAQ';
@@ -26,6 +25,5 @@ export { useReadingAnalytics } from './useReadingAnalytics';
 export { useReports } from './useReports';
 export { useEmailTemplates } from './useEmailTemplates';
 export { useAdminBlog } from './useAdminBlog';
-export { useAdminWorks } from './useAdminWorks';
 export { useSettings } from './useSettings';
 export { useSessionTimeout } from './useSessionTimeout';

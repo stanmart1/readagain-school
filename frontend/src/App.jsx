@@ -63,7 +63,6 @@ const AdminReading = lazy(() => import('./pages/admin/Reading'));
 const AdminReports = lazy(() => import('./pages/admin/Reports'));
 const AdminEmailTemplates = lazy(() => import('./pages/admin/EmailTemplates'));
 const AdminBlog = lazy(() => import('./pages/admin/Blog'));
-const AdminWorks = lazy(() => import('./pages/admin/Works'));
 const AdminAbout = lazy(() => import('./pages/admin/About'));
 const AdminContact = lazy(() => import('./pages/admin/Contact'));
 const AdminFAQ = lazy(() => import('./pages/admin/FAQ'));
@@ -128,7 +127,6 @@ function App() {
         <Route path="/admin/reports" element={<AdminRoute><AdminReports /></AdminRoute>} />
         <Route path="/admin/email-templates" element={<AdminRoute><AdminEmailTemplates /></AdminRoute>} />
         <Route path="/admin/blog" element={<AdminRoute><AdminBlog /></AdminRoute>} />
-        <Route path="/admin/works" element={<AdminRoute><AdminWorks /></AdminRoute>} />
         <Route path="/admin/about" element={<AdminRoute><AdminAbout /></AdminRoute>} />
         <Route path="/admin/contact" element={<AdminRoute><AdminContact /></AdminRoute>} />
         <Route path="/admin/faq" element={<AdminRoute><AdminFAQ /></AdminRoute>} />

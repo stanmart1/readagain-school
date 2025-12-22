@@ -149,7 +149,7 @@ func (s *BookService) CreateBook(authorID uint, title, description, isbn string,
 		book.PublicationDate = &now
 	}
 
-	if err := s.db.Create(&book).Error; err != nil {
+	if err := s.db.Omit("Author", "Category").Create(&book).Error; err != nil {
 		return nil, utils.NewInternalServerError("Failed to create book", err)
 	}
 
@@ -238,7 +238,7 @@ func (s *BookService) ToggleFeatured(bookID uint, isFeatured bool) (*models.Book
 	}
 
 	book.IsFeatured = isFeatured
-	if err := s.db.Save(&book).Error; err != nil {
+	if err := s.db.Omit("Author", "Category").Save(&book).Error; err != nil {
 		return nil, utils.NewInternalServerError("Failed to update book", err)
 	}
 

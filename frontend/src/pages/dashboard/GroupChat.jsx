@@ -30,6 +30,7 @@ const GroupChat = () => {
     // Fetch or create room for this group
     const initRoom = async () => {
       try {
+        // First, try to find existing room
         const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/chat/rooms?group_id=${groupId}`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -39,6 +40,23 @@ const GroupChat = () => {
         
         if (data.rooms && data.rooms.length > 0) {
           setRoomId(data.rooms[0].id);
+        } else {
+          // Create room for this group
+          const createResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/chat/rooms`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem('token')}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              type: 'group',
+              name: `Group Chat`,
+              description: 'Group discussion',
+              group_id: parseInt(groupId)
+            })
+          });
+          const newRoom = await createResponse.json();
+          setRoomId(newRoom.id);
         }
       } catch (error) {
         console.error('Failed to initialize room:', error);

@@ -160,7 +160,7 @@ func (s *LibraryService) GetAllAssignments(skip, limit int, search, status, user
 	query := s.db.Table("user_libraries ul").
 		Select(`ul.id, ul.user_id, ul.book_id, ul.progress, ul.created_at as assigned_at,
 			CONCAT(u.first_name, ' ', u.last_name) as user_name, u.email as user_email,
-			b.title as book_title, a.name as book_author,
+			b.title as book_title, a.business_name as book_author,
 			CASE 
 				WHEN ul.progress = 0 THEN 'unread'
 				WHEN ul.progress = 100 THEN 'completed'
@@ -307,7 +307,7 @@ func (s *LibraryService) GetAssignmentDetails(id uint) (map[string]interface{}, 
 	var assignment map[string]interface{}
 	err := s.db.Table("user_libraries ul").
 		Select(`ul.*, CONCAT(u.first_name, ' ', u.last_name) as user_name, u.email as user_email, 
-			b.title as book_title, a.name as book_author,
+			b.title as book_title, a.business_name as book_author,
 			CASE 
 				WHEN ul.progress = 0 THEN 'unread'
 				WHEN ul.progress = 100 THEN 'completed'

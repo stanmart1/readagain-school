@@ -296,7 +296,7 @@ const ReadingAnalytics = () => {
                 {filteredBooksByGrade.slice(0, 20).map((book, idx) => (
                   <tr key={idx} className="border-b border-gray-100 hover:bg-gray-50">
                     <td className="py-3 px-4 text-sm text-gray-900">{book.book_title}</td>
-                    <td className="py-3 px-4 text-sm text-gray-600">{book.author}</td>
+                    <td className="py-3 px-4 text-sm text-gray-600">{book.author?.business_name || 'Unknown'}</td>
                     <td className="py-3 px-4 text-sm text-gray-600">{book.class_level}</td>
                     <td className="py-3 px-4 text-sm text-gray-600">{book.reader_count}</td>
                     <td className="py-3 px-4 text-sm text-gray-600">{book.avg_completion.toFixed(0)}%</td>

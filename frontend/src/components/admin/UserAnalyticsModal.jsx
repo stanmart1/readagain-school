@@ -114,7 +114,7 @@ const UserAnalyticsModal = ({ isOpen, onClose, userId }) => {
                     <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                       <div>
                         <p className="font-medium text-gray-900">{book.title}</p>
-                        <p className="text-sm text-gray-500">{book.author}</p>
+                        <p className="text-sm text-gray-500">{book.author?.business_name || 'Unknown'}</p>
                       </div>
                       <span className="text-sm text-gray-600">{book.progress}%</span>
                     </div>

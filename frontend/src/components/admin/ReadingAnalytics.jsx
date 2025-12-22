@@ -16,25 +16,24 @@ import {
 const ReadingAnalytics = () => {
   const { analyticsData, loading, error, fetchReadingAnalytics } = useReadingAnalytics();
   const [selectedPeriod, setSelectedPeriod] = useState('month');
-  const [selectedClass, setSelectedClass] = useState('');
   const [selectedGrade, setSelectedGrade] = useState('');
   const hasFetched = useRef(false);
 
   useEffect(() => {
     if (!hasFetched.current) {
-      fetchReadingAnalytics(selectedPeriod, selectedClass);
+      fetchReadingAnalytics(selectedPeriod);
       hasFetched.current = true;
     }
   }, []);
 
   useEffect(() => {
     if (hasFetched.current) {
-      fetchReadingAnalytics(selectedPeriod, selectedClass);
+      fetchReadingAnalytics(selectedPeriod);
     }
-  }, [selectedPeriod, selectedClass]);
+  }, [selectedPeriod]);
 
   const handleRefresh = () => {
-    fetchReadingAnalytics(selectedPeriod, selectedClass);
+    fetchReadingAnalytics(selectedPeriod);
   };
 
   const safeData = useMemo(() => ({
@@ -95,19 +94,6 @@ const ReadingAnalytics = () => {
             <p className="text-xs sm:text-base text-gray-600 mt-1">Student reading patterns and performance insights</p>
           </div>
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-4 w-full sm:w-auto">
-            <select
-              value={selectedClass}
-              onChange={(e) => setSelectedClass(e.target.value)}
-              className="px-3 sm:px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full sm:w-auto"
-            >
-              <option value="">All Classes</option>
-              <option value="Grade 1">Grade 1</option>
-              <option value="Grade 2">Grade 2</option>
-              <option value="Grade 3">Grade 3</option>
-              <option value="Grade 4">Grade 4</option>
-              <option value="Grade 5">Grade 5</option>
-              <option value="Grade 6">Grade 6</option>
-            </select>
             <select
               value={selectedPeriod}
               onChange={(e) => setSelectedPeriod(e.target.value)}

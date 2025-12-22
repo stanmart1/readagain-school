@@ -6,14 +6,11 @@ export const useReadingAnalytics = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchReadingAnalytics = async (period = 'month', classLevel = '') => {
+  const fetchReadingAnalytics = async (period = 'month') => {
     try {
       setLoading(true);
       setError(null);
-      const params = new URLSearchParams({ period });
-      if (classLevel) params.append('class_level', classLevel);
-      
-      const response = await api.get(`/analytics/reading?${params}`);
+      const response = await api.get(`/analytics/reading?period=${period}`);
       setAnalyticsData(response.data);
       return { success: true, data: response.data };
     } catch (err) {

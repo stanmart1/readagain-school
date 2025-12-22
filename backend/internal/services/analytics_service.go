@@ -249,6 +249,22 @@ func (s *AnalyticsService) GetEnhancedOverview() (map[string]interface{}, error)
 }
 
 func (s *AnalyticsService) GetReadingAnalyticsByPeriod(period string) (map[string]interface{}, error) {
+	// Calculate date range based on period
+	now := time.Now()
+	var startDate time.Time
+	switch period {
+	case "week":
+		startDate = now.AddDate(0, 0, -7)
+	case "month":
+		startDate = now.AddDate(0, -1, 0)
+	case "quarter":
+		startDate = now.AddDate(0, -3, 0)
+	case "year":
+		startDate = now.AddDate(-1, 0, 0)
+	default:
+		startDate = now.AddDate(0, -1, 0)
+	}
+
 	// Class/Grade stats
 	type ClassStats struct {
 		ClassLevel      string  `json:"class_level"`
@@ -265,12 +281,12 @@ func (s *AnalyticsService) GetReadingAnalyticsByPeriod(period string) (map[strin
 		       COALESCE(AVG(ul.progress), 0) as avg_completion,
 		       COUNT(CASE WHEN ul.progress = 100 THEN 1 END) as books_completed
 		FROM users u
-		LEFT JOIN reading_sessions rs ON u.id = rs.user_id
-		LEFT JOIN user_libraries ul ON u.id = ul.user_id
+		LEFT JOIN reading_sessions rs ON u.id = rs.user_id AND rs.created_at >= ?
+		LEFT JOIN user_libraries ul ON u.id = ul.user_id AND ul.created_at >= ?
 		WHERE u.role_id = (SELECT id FROM roles WHERE name = 'student')
 		GROUP BY u.class_level
 		ORDER BY u.class_level
-	`).Scan(&classStats)
+	`, startDate, startDate).Scan(&classStats)
 
 	// Struggling readers (< 30% avg completion)
 	type StrugglingReader struct {
@@ -286,13 +302,13 @@ func (s *AnalyticsService) GetReadingAnalyticsByPeriod(period string) (map[strin
 		       COALESCE(AVG(ul.progress), 0) as avg_completion,
 		       COUNT(ul.id) as books_started
 		FROM users u
-		LEFT JOIN user_libraries ul ON u.id = ul.user_id
+		LEFT JOIN user_libraries ul ON u.id = ul.user_id AND ul.created_at >= ?
 		WHERE u.role_id = (SELECT id FROM roles WHERE name = 'student')
 		GROUP BY u.id, u.name, u.email, u.class_level
 		HAVING COALESCE(AVG(ul.progress), 0) < 30 AND COUNT(ul.id) > 0
 		ORDER BY avg_completion ASC
 		LIMIT 20
-	`).Scan(&strugglingReaders)
+	`, startDate).Scan(&strugglingReaders)
 
 	// Most/Least read books by grade
 	type BookByGrade struct {
@@ -308,13 +324,13 @@ func (s *AnalyticsService) GetReadingAnalyticsByPeriod(period string) (map[strin
 		       COUNT(DISTINCT ul.user_id) as reader_count,
 		       COALESCE(AVG(ul.progress), 0) as avg_completion
 		FROM books b
-		JOIN user_libraries ul ON b.id = ul.book_id
+		JOIN user_libraries ul ON b.id = ul.book_id AND ul.created_at >= ?
 		JOIN users u ON ul.user_id = u.id
 		WHERE u.role_id = (SELECT id FROM roles WHERE name = 'student')
 		GROUP BY b.id, b.title, b.author, u.class_level
 		ORDER BY reader_count DESC
 		LIMIT 50
-	`).Scan(&mostReadBooks)
+	`, startDate).Scan(&mostReadBooks)
 
 	// Top readers with streaks
 	type TopReader struct {
@@ -331,31 +347,27 @@ func (s *AnalyticsService) GetReadingAnalyticsByPeriod(period string) (map[strin
 		       COALESCE(SUM(rs.duration), 0) as reading_time,
 		       0 as current_streak
 		FROM users u
-		LEFT JOIN user_libraries ul ON u.id = ul.user_id
-		LEFT JOIN reading_sessions rs ON u.id = rs.user_id
+		LEFT JOIN user_libraries ul ON u.id = ul.user_id AND ul.created_at >= ?
+		LEFT JOIN reading_sessions rs ON u.id = rs.user_id AND rs.created_at >= ?
 		WHERE u.role_id = (SELECT id FROM roles WHERE name = 'student')
 		GROUP BY u.id, u.name, u.class_level
 		ORDER BY books_completed DESC, reading_time DESC
 		LIMIT 20
-	`).Scan(&topReaders)
+	`, startDate, startDate).Scan(&topReaders)
 
 	// Overall stats
 	var totalActiveReaders, totalBooksCompleted int64
 	var avgReadingTime, avgCompletionRate float64
 	s.db.Raw(`
-		SELECT COUNT(DISTINCT u.id) as total_readers,
-		       COUNT(CASE WHEN ul.progress = 100 THEN 1 END) as books_completed,
-		       COALESCE(AVG(rs.duration), 0) as avg_reading_time,
-		       COALESCE(AVG(ul.progress), 0) as avg_completion
+		SELECT COUNT(DISTINCT u.id) as total_readers
 		FROM users u
-		LEFT JOIN user_libraries ul ON u.id = ul.user_id
-		LEFT JOIN reading_sessions rs ON u.id = rs.user_id
-		WHERE u.role_id = (SELECT id FROM roles WHERE name = 'student')
-	`).Scan(&totalActiveReaders)
+		LEFT JOIN reading_sessions rs ON u.id = rs.user_id AND rs.created_at >= ?
+		WHERE u.role_id = (SELECT id FROM roles WHERE name = 'student') AND rs.id IS NOT NULL
+	`, startDate).Scan(&totalActiveReaders)
 	
-	s.db.Raw(`SELECT COUNT(*) FROM user_libraries WHERE progress = 100`).Scan(&totalBooksCompleted)
-	s.db.Raw(`SELECT COALESCE(AVG(duration), 0) FROM reading_sessions`).Scan(&avgReadingTime)
-	s.db.Raw(`SELECT COALESCE(AVG(progress), 0) FROM user_libraries`).Scan(&avgCompletionRate)
+	s.db.Raw(`SELECT COUNT(*) FROM user_libraries WHERE progress = 100 AND created_at >= ?`, startDate).Scan(&totalBooksCompleted)
+	s.db.Raw(`SELECT COALESCE(AVG(duration), 0) FROM reading_sessions WHERE created_at >= ?`, startDate).Scan(&avgReadingTime)
+	s.db.Raw(`SELECT COALESCE(AVG(progress), 0) FROM user_libraries WHERE created_at >= ?`, startDate).Scan(&avgCompletionRate)
 
 	return map[string]interface{}{
 		"overview": map[string]interface{}{

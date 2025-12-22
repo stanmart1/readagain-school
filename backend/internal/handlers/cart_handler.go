@@ -44,14 +44,15 @@ func (h *CartHandler) AddToCart(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": utils.FormatValidationError(err)})
 	}
 
-	cart, err := h.cartService.AddToCart(userID, input.BookID)
+	// Add book directly to library instead of cart
+	err := h.cartService.AddToLibrary(userID, input.BookID)
 	if err != nil {
-		utils.ErrorLogger.Printf("Failed to add to cart: %v", err)
+		utils.ErrorLogger.Printf("Failed to add to library: %v", err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
 	}
 
-	utils.InfoLogger.Printf("User %d added book %d to cart", userID, input.BookID)
-	return c.Status(fiber.StatusCreated).JSON(fiber.Map{"cart": cart})
+	utils.InfoLogger.Printf("User %d added book %d to library", userID, input.BookID)
+	return c.Status(fiber.StatusCreated).JSON(fiber.Map{"message": "Book added to library successfully"})
 }
 
 func (h *CartHandler) RemoveFromCart(c *fiber.Ctx) error {

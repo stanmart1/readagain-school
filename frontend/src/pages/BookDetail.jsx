@@ -48,11 +48,11 @@ export default function BookDetail() {
     try {
       setAddingToCart(true);
       await addToCart(book, 1);
-      alert('Book added to cart!');
+      alert('Book added to your library!');
     } catch (error) {
       console.error('Add to library error:', error);
       if (error.response?.status === 401) {
-        alert('Please login to add items to cart');
+        alert('Please login to add books to your library');
         navigate('/login');
       } else {
         alert('Failed to add to library');

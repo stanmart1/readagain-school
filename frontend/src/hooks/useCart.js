@@ -247,41 +247,23 @@ export const useCart = () => {
       setError(null);
       
       if (isAuthenticated) {
-        // Authenticated user - use API
+        // Authenticated user - add directly to library
         await api.post('/cart', {
           book_id: book.id
         });
-        // Immediately reload cart to update UI
-        await loadAuthenticatedCart();
+        // Show success message
+        alert('Book added to your library!');
       } else {
-        // Guest user - use localStorage
-        setCartItems(prevItems => {
-          const existingIndex = prevItems.findIndex(item => item.book_id === book.id);
-          let newCart;
-          
-          if (existingIndex >= 0) {
-            newCart = [...prevItems];
-            newCart[existingIndex].quantity += quantity;
-          } else {
-            newCart = [...prevItems, {
-              id: Date.now(),
-              book_id: book.id,
-              book: book,
-              quantity,
-              created_at: new Date().toISOString()
-            }];
-          }
-          
-          saveGuestCart(newCart);
-          return newCart;
-        });
+        // Guest user - require login
+        alert('Please login to add books to your library');
+        throw new Error('Authentication required');
       }
     } catch (err) {
-      console.error('Error adding to cart:', err);
+      console.error('Error adding to library:', err);
       setError(err.message);
       throw err;
     }
-  }, [isAuthenticated, loadAuthenticatedCart, saveGuestCart]);
+  }, [isAuthenticated]);
 
   // Update quantity
   const updateQuantity = useCallback(async (bookId, quantity) => {

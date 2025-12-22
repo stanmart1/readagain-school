@@ -15,6 +15,33 @@ func NewCartService(db *gorm.DB) *CartService {
 	return &CartService{db: db}
 }
 
+func (s *CartService) AddToLibrary(userID, bookID uint) error {
+	// Check if book exists
+	var book models.Book
+	if err := s.db.First(&book, bookID).Error; err != nil {
+		return utils.NewNotFoundError("Book not found")
+	}
+
+	// Check if already in library
+	var existing models.Library
+	err := s.db.Where("user_id = ? AND book_id = ?", userID, bookID).First(&existing).Error
+	if err == nil {
+		return utils.NewBadRequestError("Book already in your library")
+	}
+
+	// Add to library
+	library := models.Library{
+		UserID: userID,
+		BookID: bookID,
+	}
+
+	if err := s.db.Create(&library).Error; err != nil {
+		return utils.NewInternalServerError("Failed to add book to library", err)
+	}
+
+	return nil
+}
+
 type CartResponse struct {
 	Items    []models.Cart `json:"items"`
 	Subtotal float64       `json:"subtotal"`

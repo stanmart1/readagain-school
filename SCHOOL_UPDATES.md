@@ -57,7 +57,6 @@
   - View all books in all student libraries
   - See which students have which books
   - Bulk assign/remove books from student libraries
-  - Export library reports by class/grade
 - **Files**: `frontend/src/pages/admin/Library.jsx`
 
 ### 7. Reviews Page (`/admin/reviews`)

@@ -167,6 +167,18 @@ func SetupRoutes(
 	adminBooks.Delete("/:id", bookHandler.DeleteBook)
 	adminBooks.Patch("/:id/featured", bookHandler.ToggleFeatured)
 
+	// Admin library routes
+	adminLibrary := api.Group("/admin", middleware.AdminRequired())
+	adminLibrary.Get("/library-assignments", libraryHandler.GetLibraryAssignments)
+	adminLibrary.Get("/library-stats", libraryHandler.GetLibraryStats)
+	adminLibrary.Post("/user-library", libraryHandler.AssignBookToUser)
+	adminLibrary.Post("/bulk-assign", libraryHandler.BulkAssignBook)
+	adminLibrary.Post("/bulk-remove", libraryHandler.BulkRemoveAssignments)
+	adminLibrary.Delete("/library-assignment/:id", libraryHandler.RemoveAssignment)
+	adminLibrary.Get("/books-with-students", libraryHandler.GetBooksWithStudents)
+	adminLibrary.Get("/library-assignment/:id/details", libraryHandler.GetAssignmentDetails)
+	adminLibrary.Get("/library-assignment/:id/analytics", libraryHandler.GetAssignmentAnalytics)
+
 	library := api.Group("/library", middleware.AuthRequired())
 	library.Get("/", libraryHandler.GetLibrary)
 	library.Get("/statistics", libraryHandler.GetStatistics)

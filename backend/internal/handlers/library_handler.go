@@ -280,3 +280,161 @@ func (h *LibraryHandler) DeleteNote(c *fiber.Ctx) error {
 	utils.InfoLogger.Printf("User %d deleted note %d", userID, noteID)
 	return c.JSON(fiber.Map{"message": "Note deleted successfully"})
 }
+
+// Admin endpoints
+func (h *LibraryHandler) GetLibraryAssignments(c *fiber.Ctx) error {
+	skip, _ := strconv.Atoi(c.Query("skip", "0"))
+	limit, _ := strconv.Atoi(c.Query("limit", "20"))
+	search := c.Query("search", "")
+	status := c.Query("status", "")
+	userID := c.Query("user_id", "")
+	sortBy := c.Query("sort_by", "created_at")
+	sortOrder := c.Query("sort_order", "desc")
+
+	assignments, total, err := h.libraryService.GetAllAssignments(skip, limit, search, status, userID, sortBy, sortOrder)
+	if err != nil {
+		return c.Status(500).JSON(fiber.Map{"error": err.Error()})
+	}
+
+	return c.JSON(fiber.Map{
+		"assignments": assignments,
+		"total":       total,
+		"pagination": fiber.Map{
+			"skip":  skip,
+			"limit": limit,
+			"pages": (total + limit - 1) / limit,
+		},
+	})
+}
+
+func (h *LibraryHandler) GetLibraryStats(c *fiber.Ctx) error {
+	stats, err := h.libraryService.GetLibraryStats()
+	if err != nil {
+		return c.Status(500).JSON(fiber.Map{"error": err.Error()})
+	}
+	return c.JSON(stats)
+}
+
+func (h *LibraryHandler) AssignBookToUser(c *fiber.Ctx) error {
+	var input struct {
+		UserID uint   `json:"user_id" validate:"required"`
+		BookID uint   `json:"book_id" validate:"required"`
+		Format string `json:"format" validate:"required,oneof=ebook physical"`
+	}
+
+	if err := c.BodyParser(&input); err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": "Invalid input"})
+	}
+
+	if err := utils.Validate.Struct(input); err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": utils.FormatValidationError(err)})
+	}
+
+	if err := h.libraryService.AssignBook(input.UserID, input.BookID, input.Format); err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": err.Error()})
+	}
+
+	return c.JSON(fiber.Map{"message": "Book assigned successfully"})
+}
+
+func (h *LibraryHandler) BulkAssignBook(c *fiber.Ctx) error {
+	var input struct {
+		UserIDs []uint `json:"user_ids" validate:"required,min=1"`
+		BookID  uint   `json:"book_id" validate:"required"`
+		Format  string `json:"format" validate:"required,oneof=ebook physical"`
+	}
+
+	if err := c.BodyParser(&input); err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": "Invalid input"})
+	}
+
+	if err := utils.Validate.Struct(input); err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": utils.FormatValidationError(err)})
+	}
+
+	count, err := h.libraryService.BulkAssignBook(input.UserIDs, input.BookID, input.Format)
+	if err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": err.Error()})
+	}
+
+	return c.JSON(fiber.Map{
+		"message":        "Books assigned successfully",
+		"assigned_count": count,
+	})
+}
+
+func (h *LibraryHandler) BulkRemoveAssignments(c *fiber.Ctx) error {
+	var input struct {
+		AssignmentIDs []uint `json:"assignment_ids" validate:"required,min=1"`
+	}
+
+	if err := c.BodyParser(&input); err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": "Invalid input"})
+	}
+
+	if err := utils.Validate.Struct(input); err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": utils.FormatValidationError(err)})
+	}
+
+	count, err := h.libraryService.BulkRemoveAssignments(input.AssignmentIDs)
+	if err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": err.Error()})
+	}
+
+	return c.JSON(fiber.Map{
+		"message":       "Assignments removed successfully",
+		"removed_count": count,
+	})
+}
+
+func (h *LibraryHandler) RemoveAssignment(c *fiber.Ctx) error {
+	id, err := strconv.ParseUint(c.Params("id"), 10, 32)
+	if err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": "Invalid ID"})
+	}
+
+	if err := h.libraryService.RemoveAssignment(uint(id)); err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": err.Error()})
+	}
+
+	return c.JSON(fiber.Map{"message": "Assignment removed successfully"})
+}
+
+func (h *LibraryHandler) GetBooksWithStudents(c *fiber.Ctx) error {
+	search := c.Query("search", "")
+	
+	books, err := h.libraryService.GetBooksWithStudents(search)
+	if err != nil {
+		return c.Status(500).JSON(fiber.Map{"error": err.Error()})
+	}
+
+	return c.JSON(fiber.Map{"books": books})
+}
+
+func (h *LibraryHandler) GetAssignmentDetails(c *fiber.Ctx) error {
+	id, err := strconv.ParseUint(c.Params("id"), 10, 32)
+	if err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": "Invalid ID"})
+	}
+
+	details, err := h.libraryService.GetAssignmentDetails(uint(id))
+	if err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": err.Error()})
+	}
+
+	return c.JSON(details)
+}
+
+func (h *LibraryHandler) GetAssignmentAnalytics(c *fiber.Ctx) error {
+	id, err := strconv.ParseUint(c.Params("id"), 10, 32)
+	if err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": "Invalid ID"})
+	}
+
+	analytics, err := h.libraryService.GetAssignmentAnalytics(uint(id))
+	if err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": err.Error()})
+	}
+
+	return c.JSON(analytics)
+}

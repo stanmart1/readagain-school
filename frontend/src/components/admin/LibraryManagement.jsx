@@ -7,7 +7,9 @@ import Toast from '../Toast';
 import api from '../../lib/api';
 
 const LibraryManagement = () => {
+  const [view, setView] = useState('assignments'); // 'assignments' or 'books'
   const [libraries, setLibraries] = useState([]);
+  const [booksWithStudents, setBooksWithStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAssignModal, setShowAssignModal] = useState(false);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
@@ -23,6 +25,7 @@ const LibraryManagement = () => {
   const [showBookDropdown, setShowBookDropdown] = useState(false);
   const [assignLoading, setAssignLoading] = useState(false);
   const [userLibrary, setUserLibrary] = useState([]);
+  const [selectedAssignments, setSelectedAssignments] = useState([]);
   const userDropdownRef = useRef(null);
   const bookDropdownRef = useRef(null);
   const [pagination, setPagination] = useState({
@@ -97,8 +100,12 @@ const LibraryManagement = () => {
 
   // Load library data when filters change
   useEffect(() => {
-    loadData();
-  }, [pagination.page, debouncedSearch, filters.status, filters.user_id, filters.dateFrom, filters.dateTo, filters.sortBy, filters.sortOrder]);
+    if (view === 'assignments') {
+      loadData();
+    } else {
+      loadBooksWithStudents();
+    }
+  }, [pagination.page, debouncedSearch, filters.status, filters.user_id, filters.dateFrom, filters.dateTo, filters.sortBy, filters.sortOrder, view]);
 
   // Load stats on mount
   useEffect(() => {
@@ -146,6 +153,21 @@ const LibraryManagement = () => {
       } else {
         showToast(`Failed to load library assignments: ${error.response?.data?.detail || error.message}`, 'error');
       }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadBooksWithStudents = async () => {
+    try {
+      setLoading(true);
+      const response = await api.get('/admin/books-with-students', {
+        params: { search: debouncedSearch }
+      });
+      setBooksWithStudents(response.data.books || []);
+    } catch (error) {
+      console.error('Failed to load books:', error);
+      showToast('Failed to load books', 'error');
     } finally {
       setLoading(false);
     }
@@ -298,6 +320,39 @@ const LibraryManagement = () => {
     }
   };
 
+  const handleBulkRemove = async () => {
+    if (selectedAssignments.length === 0) {
+      showToast('Please select assignments to remove', 'warning');
+      return;
+    }
+
+    if (!confirm(`Remove ${selectedAssignments.length} assignment(s)?`)) return;
+
+    try {
+      await api.post('/admin/bulk-remove', { assignment_ids: selectedAssignments });
+      showToast(`${selectedAssignments.length} assignments removed successfully!`);
+      setSelectedAssignments([]);
+      loadData();
+      loadStats();
+    } catch (error) {
+      showToast('Failed to bulk remove assignments', 'error');
+    }
+  };
+
+  const toggleSelectAssignment = (id) => {
+    setSelectedAssignments(prev =>
+      prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+    );
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedAssignments.length === libraries.length) {
+      setSelectedAssignments([]);
+    } else {
+      setSelectedAssignments(libraries.map(l => l.id));
+    }
+  };
+
   return (
     <div className="p-6">
       {/* Toast Notifications */}
@@ -313,6 +368,34 @@ const LibraryManagement = () => {
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-gray-900">Library Management</h2>
         <p className="text-gray-600 mt-1">Manage user book assignments and reading progress</p>
+      </div>
+
+      {/* View Toggle */}
+      <div className="bg-white rounded-lg shadow-md p-4 mb-6">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setView('assignments')}
+            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+              view === 'assignments'
+                ? 'bg-blue-600 text-white'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            <i className="ri-list-check mr-2"></i>
+            Assignments View
+          </button>
+          <button
+            onClick={() => setView('books')}
+            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+              view === 'books'
+                ? 'bg-blue-600 text-white'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            <i className="ri-book-2-line mr-2"></i>
+            Books View
+          </button>
+        </div>
       </div>
 
       {/* Statistics Dashboard */}
@@ -431,6 +514,15 @@ const LibraryManagement = () => {
           </select>
         </div>
         <div className="flex flex-wrap gap-2 justify-end">
+          {view === 'assignments' && selectedAssignments.length > 0 && (
+            <button
+              onClick={handleBulkRemove}
+              className="px-3 sm:px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm flex items-center gap-2"
+            >
+              <i className="ri-delete-bin-line"></i>
+              <span>Remove ({selectedAssignments.length})</span>
+            </button>
+          )}
           <button
             onClick={handleExport}
             className="px-3 sm:px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm flex items-center gap-2"
@@ -458,23 +550,28 @@ const LibraryManagement = () => {
         </div>
       </div>
 
+      {/* Content based on view */}
+      {view === 'assignments' ? (
+        <>
       {/* Libraries Table */}
       <div className="bg-white rounded-lg shadow-md overflow-hidden">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
+                <th className="px-6 py-3 text-left">
+                  <input
+                    type="checkbox"
+                    checked={selectedAssignments.length === libraries.length && libraries.length > 0}
+                    onChange={toggleSelectAll}
+                    className="w-4 h-4 text-blue-600 rounded"
+                  />
+                </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   User
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Book
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Format
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Active Readers
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Progress
@@ -510,23 +607,20 @@ const LibraryManagement = () => {
                 libraries.map((library) => (
                   <tr key={library.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap">
+                      <input
+                        type="checkbox"
+                        checked={selectedAssignments.includes(library.id)}
+                        onChange={() => toggleSelectAssignment(library.id)}
+                        className="w-4 h-4 text-blue-600 rounded"
+                      />
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">{library.user_name}</div>
                       <div className="text-sm text-gray-500">{library.user_email}</div>
                     </td>
                     <td className="px-6 py-4">
                       <div className="text-sm font-medium text-gray-900">{library.book_title}</div>
                       <div className="text-sm text-gray-500">{library.book_author}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
-                        {library.format}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center gap-2">
-                        <i className="ri-user-line text-green-600"></i>
-                        <span className="text-sm font-semibold text-gray-900">{library.active_readers || 0}</span>
-                      </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
@@ -601,6 +695,99 @@ const LibraryManagement = () => {
               Next
             </button>
           </div>
+        </div>
+      )}
+        </>
+      ) : (
+        /* Books View */
+        <div className="space-y-4">
+          {loading ? (
+            <div className="bg-white rounded-lg shadow-md p-12 text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+            </div>
+          ) : booksWithStudents.length === 0 ? (
+            <div className="bg-white rounded-lg shadow-md p-12 text-center">
+              <i className="ri-book-line text-6xl text-gray-300 mb-4"></i>
+              <p className="text-gray-500">No books found</p>
+            </div>
+          ) : (
+            booksWithStudents.map((book) => (
+              <div key={book.id} className="bg-white rounded-lg shadow-md p-6">
+                <div className="flex items-start gap-4 mb-4">
+                  <img
+                    src={book.cover_image || '/placeholder-book.png'}
+                    alt={book.title}
+                    className="w-20 h-28 object-cover rounded"
+                  />
+                  <div className="flex-1">
+                    <h3 className="text-lg font-bold text-gray-900">{book.title}</h3>
+                    <p className="text-sm text-gray-600">{book.author}</p>
+                    <div className="flex items-center gap-4 mt-2">
+                      <span className="text-sm text-gray-600">
+                        <i className="ri-user-line mr-1"></i>
+                        {book.student_count} students
+                      </span>
+                      <span className="text-sm text-gray-600">
+                        <i className="ri-checkbox-circle-line mr-1"></i>
+                        {book.completed_count} completed
+                      </span>
+                      <span className="text-sm text-gray-600">
+                        <i className="ri-bar-chart-line mr-1"></i>
+                        {Number(book.avg_progress).toFixed(0)}% avg progress
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                {book.students && book.students.length > 0 && (
+                  <div>
+                    <h4 className="text-sm font-semibold text-gray-700 mb-2">Students with this book:</h4>
+                    <div className="overflow-x-auto">
+                      <table className="min-w-full">
+                        <thead className="bg-gray-50">
+                          <tr>
+                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Student</th>
+                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Class</th>
+                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">School</th>
+                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Progress</th>
+                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Status</th>
+                            <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-200">
+                          {book.students.map((student) => (
+                            <tr key={student.assignment_id} className="hover:bg-gray-50">
+                              <td className="px-4 py-2 text-sm text-gray-900">{student.name}</td>
+                              <td className="px-4 py-2 text-sm text-gray-600">{student.class_level || '-'}</td>
+                              <td className="px-4 py-2 text-sm text-gray-600">{student.school_name || '-'}</td>
+                              <td className="px-4 py-2 text-sm text-gray-600">{Number(student.progress).toFixed(0)}%</td>
+                              <td className="px-4 py-2">
+                                <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
+                                  student.status === 'reading' ? 'bg-green-100 text-green-800' :
+                                  student.status === 'completed' ? 'bg-blue-100 text-blue-800' :
+                                  'bg-gray-100 text-gray-800'
+                                }`}>
+                                  {student.status}
+                                </span>
+                              </td>
+                              <td className="px-4 py-2">
+                                <button
+                                  onClick={() => handleRemoveAssignment(student.assignment_id)}
+                                  className="text-red-600 hover:text-red-800"
+                                  title="Remove"
+                                >
+                                  <i className="ri-delete-bin-line"></i>
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))
+          )}
         </div>
       )}
 

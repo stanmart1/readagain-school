@@ -11,14 +11,12 @@ import (
 )
 
 type BookHandler struct {
-	bookService    *services.BookService
-	storageService *services.StorageService
+	bookService *services.BookService
 }
 
-func NewBookHandler(bookService *services.BookService, storageService *services.StorageService) *BookHandler {
+func NewBookHandler(bookService *services.BookService) *BookHandler {
 	return &BookHandler{
-		bookService:    bookService,
-		storageService: storageService,
+		bookService: bookService,
 	}
 }
 
@@ -98,28 +96,9 @@ func (h *BookHandler) CreateBook(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Title and author_id are required"})
 	}
 
-	var coverImage, fileURL string
-	var fileSize int64
-
-	coverFile, err := c.FormFile("cover_image")
-	if err == nil {
-		coverImage, err = h.storageService.UploadBookCover(coverFile)
-		if err != nil {
-			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
-		}
-	}
-
-	bookFile, err := c.FormFile("book_file")
-	if err == nil {
-		fileURL, err = h.storageService.UploadBookFile(bookFile)
-		if err != nil {
-			if coverImage != "" {
-				h.storageService.DeleteFile(coverImage)
-			}
-			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
-		}
-		fileSize = bookFile.Size
-	}
+	coverImage := c.FormValue("cover_image")
+	fileURL := c.FormValue("book_file")
+	fileSize, _ := strconv.ParseInt(c.FormValue("file_size"), 10, 64)
 
 	book, err := h.bookService.CreateBook(
 		uint(authorID),
@@ -135,12 +114,6 @@ func (h *BookHandler) CreateBook(c *fiber.Ctx) error {
 	)
 
 	if err != nil {
-		if coverImage != "" {
-			h.storageService.DeleteFile(coverImage)
-		}
-		if fileURL != "" {
-			h.storageService.DeleteFile(fileURL)
-		}
 		utils.ErrorLogger.Printf("Failed to create book: %v", err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
 	}
@@ -178,23 +151,18 @@ func (h *BookHandler) UpdateBook(c *fiber.Ctx) error {
 		updates["status"] = status
 	}
 
-	coverFile, err := c.FormFile("cover_image")
-	if err == nil {
-		coverImage, err := h.storageService.UploadBookCover(coverFile)
-		if err != nil {
-			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
-		}
+	if coverImage := c.FormValue("cover_image"); coverImage != "" {
 		updates["cover_image"] = coverImage
 	}
 
-	bookFile, err := c.FormFile("book_file")
-	if err == nil {
-		fileURL, err := h.storageService.UploadBookFile(bookFile)
-		if err != nil {
-			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
-		}
+	if fileURL := c.FormValue("book_file"); fileURL != "" {
 		updates["file_url"] = fileURL
-		updates["file_size"] = bookFile.Size
+	}
+
+	if fileSize := c.FormValue("file_size"); fileSize != "" {
+		if size, err := strconv.ParseInt(fileSize, 10, 64); err == nil {
+			updates["file_size"] = size
+		}
 	}
 
 	book, err := h.bookService.UpdateBook(uint(bookID), updates)

@@ -15,7 +15,6 @@ func SetupRoutes(
 	categoryService *services.CategoryService,
 	authorService *services.AuthorService,
 	bookService *services.BookService,
-	storageService *services.StorageService,
 	libraryService *services.LibraryService,
 	ereaderService *services.EReaderService,
 	sessionService *services.ReadingSessionService,
@@ -41,7 +40,7 @@ func SetupRoutes(
 	roleHandler := NewRoleHandler(roleService)
 	categoryHandler := NewCategoryHandler(categoryService)
 	authorHandler := NewAuthorHandler(authorService)
-	bookHandler := NewBookHandler(bookService, storageService)
+	bookHandler := NewBookHandler(bookService)
 	libraryHandler := NewLibraryHandler(libraryService, ereaderService)
 	readingHandler := NewReadingHandler(sessionService, goalService)
 	achievementHandler := NewAchievementHandler(achievementService)

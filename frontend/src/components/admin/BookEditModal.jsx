@@ -7,6 +7,7 @@ const BookEditModal = ({ isOpen, onClose, book, categories, authors, onSuccess }
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploadingFile, setUploadingFile] = useState(null);
+  const [newFiles, setNewFiles] = useState({ cover: false, book: false });
   const [formData, setFormData] = useState({
     title: '',
     author_id: '',
@@ -59,6 +60,7 @@ const BookEditModal = ({ isOpen, onClose, book, categories, authors, onSuccess }
     try {
       const result = await uploadCover(file);
       setFormData(prev => ({ ...prev, cover_image: result.path }));
+      setNewFiles(prev => ({ ...prev, cover: true }));
       alert('Cover uploaded successfully!');
     } catch (error) {
       alert('Failed to upload cover: ' + error.message);
@@ -78,6 +80,7 @@ const BookEditModal = ({ isOpen, onClose, book, categories, authors, onSuccess }
         book_file: result.path,
         file_size: result.size
       }));
+      setNewFiles(prev => ({ ...prev, book: true }));
       alert('Book file uploaded successfully!');
     } catch (error) {
       alert('Failed to upload book: ' + error.message);
@@ -195,11 +198,11 @@ const BookEditModal = ({ isOpen, onClose, book, categories, authors, onSuccess }
         status: formData.status || 'published'
       };
 
-      // Only include file paths if they were updated
-      if (formData.cover_image) {
+      // Only include file paths if new files were uploaded
+      if (newFiles.cover) {
         submitData.cover_image = formData.cover_image;
       }
-      if (formData.book_file) {
+      if (newFiles.book) {
         submitData.book_file = formData.book_file;
         submitData.file_size = formData.file_size;
       }

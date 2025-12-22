@@ -68,7 +68,7 @@ const AssignRoleModal = ({ user, onClose, onSuccess }) => {
                 })
                 .map((role) => (
                   <option key={role.id} value={role.id}>
-                    {role.display_name}
+                    {role.name}
                   </option>
                 ))}
             </select>

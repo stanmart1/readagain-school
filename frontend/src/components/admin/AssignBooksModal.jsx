@@ -5,7 +5,6 @@ import api from '../../lib/api';
 const AssignBooksModal = ({ isOpen, onClose, user, onSubmit }) => {
   const [books, setBooks] = useState([]);
   const [selectedBook, setSelectedBook] = useState(null);
-  const [selectedFormat, setSelectedFormat] = useState('ebook');
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(false);
   const [userLibrary, setUserLibrary] = useState([]);
@@ -44,12 +43,10 @@ const AssignBooksModal = ({ isOpen, onClose, user, onSubmit }) => {
     try {
       await api.post('/admin/user-library', {
         user_id: user.id,
-        book_id: selectedBook,
-        format: selectedFormat
+        book_id: selectedBook
       });
       alert('Book assigned successfully!');
       setSelectedBook(null);
-      setSelectedFormat('ebook');
       await fetchUserLibrary();
     } catch (error) {
       alert('Failed to assign book: ' + (error.response?.data?.detail || error.message));
@@ -104,39 +101,6 @@ const AssignBooksModal = ({ isOpen, onClose, user, onSubmit }) => {
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
-          </div>
-        </div>
-
-        {/* Format Selection */}
-        <div className="mb-4">
-          <label className="block text-sm font-semibold text-gray-800 mb-2">
-            Book Format
-          </label>
-          <div className="grid grid-cols-2 gap-3">
-            <button
-              type="button"
-              onClick={() => setSelectedFormat('ebook')}
-              className={`p-3 rounded-lg border-2 transition-all ${
-                selectedFormat === 'ebook'
-                  ? 'border-blue-500 bg-blue-50 text-blue-700'
-                  : 'border-gray-200 hover:border-gray-300'
-              }`}
-            >
-              <i className="ri-smartphone-line text-xl mb-1 block"></i>
-              <span className="text-sm font-medium">Ebook</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => setSelectedFormat('physical')}
-              className={`p-3 rounded-lg border-2 transition-all ${
-                selectedFormat === 'physical'
-                  ? 'border-blue-500 bg-blue-50 text-blue-700'
-                  : 'border-gray-200 hover:border-gray-300'
-              }`}
-            >
-              <i className="ri-book-line text-xl mb-1 block"></i>
-              <span className="text-sm font-medium">Physical</span>
-            </button>
           </div>
         </div>
 

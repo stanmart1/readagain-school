@@ -23,8 +23,8 @@ export default function HeroSection() {
             transition={{ duration: 0.8 }}
             className="text-5xl lg:text-7xl font-bold mb-6 leading-tight text-white"
           >
-            <span className="block">Your favorite book could</span>
-            <span className="block">win you amazing PRIZES!</span>
+            <span className="block">Build Your School's</span>
+            <span className="block">Digital Library Today!</span>
           </motion.h1>
           
           <motion.p 
@@ -33,7 +33,7 @@ export default function HeroSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-xl lg:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto leading-relaxed"
           >
-            Join our community of students and book lovers around the world. We thrive to promote the reading culture via incentive programs in African schools.
+            Empower students with access to thousands of books. Track reading progress, assign books to classes, and foster a love for reading in your school.
           </motion.p>
           
           <motion.div 
@@ -46,11 +46,11 @@ export default function HeroSection() {
               to="/signup" 
               className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-blue-900 px-8 py-4 rounded-lg font-bold hover:from-yellow-500 hover:to-yellow-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center"
             >
-              Get Started
+              Start Reading
             </Link>
             <Link to="/books" className="btn-secondary flex items-center justify-center space-x-2">
               <i className="ri-book-line text-lg"></i>
-              <span>Browse Collection</span>
+              <span>Browse Books</span>
             </Link>
           </motion.div>
         </div>

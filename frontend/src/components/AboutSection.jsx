@@ -15,7 +15,7 @@ export default function AboutSection() {
       subtitle: 'Empowering The Mind Through Reading'
     },
     mission: {
-      description: "Our mission is to make quality literature accessible to everyone, everywhere. We're building the world's most comprehensive digital reading platform, combining cutting-edge technology with timeless storytelling to create an experience that inspires, educates, and entertains."
+      description: "Our mission is to empower schools and students with access to quality digital books. We're building a comprehensive reading platform that helps teachers track progress, students discover new books, and schools foster a culture of reading."
     },
     values: [
       {

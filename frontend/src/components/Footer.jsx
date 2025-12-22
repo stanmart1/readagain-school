@@ -20,7 +20,7 @@ export default function Footer() {
               <span className="text-xl font-bold font-pacifico">ReadAgain</span>
             </div>
             <p className="text-gray-400 mb-6 leading-relaxed">
-              The ultimate digital and social reading platform that promotes the reading culture amongst young African youths through incentive programs.
+              Empowering schools and students with digital reading resources. Build your school library, track reading progress, and foster a love for learning.
             </p>
             <div className="flex space-x-4">
               {['facebook', 'twitter', 'instagram', 'linkedin'].map((social) => (

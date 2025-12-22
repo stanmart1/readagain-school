@@ -43,6 +43,7 @@ const DashboardLibrary = lazy(() => import('./pages/dashboard/Library'));
 const DashboardAnalytics = lazy(() => import('./pages/dashboard/Analytics'));
 const DashboardSettings = lazy(() => import('./pages/dashboard/Settings'));
 const DashboardGroups = lazy(() => import('./pages/dashboard/Groups'));
+const GroupChat = lazy(() => import('./pages/dashboard/GroupChat'));
 const Reading = lazy(() => import('./pages/Reading'));
 
 // Admin Pages
@@ -102,6 +103,7 @@ function App() {
         <Route path="/dashboard/analytics" element={<DashboardAnalytics />} />
         <Route path="/dashboard/settings" element={<DashboardSettings />} />
         <Route path="/dashboard/groups" element={<DashboardGroups />} />
+        <Route path="/dashboard/groups/:groupId/chat" element={<GroupChat />} />
         <Route path="/reading/:bookId" element={<Reading />} />
         
         {/* Admin Routes - Protected */}

@@ -1,6 +1,13 @@
+import { useNavigate } from 'react-router-dom';
+
 export default function GroupCard({ group, onViewMembers, onDelete, onAssignBooks }) {
+  const navigate = useNavigate();
+
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
+    <div 
+      onClick={() => navigate(`/dashboard/groups/${group.id}/chat`)}
+      className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow cursor-pointer"
+    >
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-3">
           <div className="h-12 w-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
@@ -23,21 +30,30 @@ export default function GroupCard({ group, onViewMembers, onDelete, onAssignBook
 
       <div className="flex items-center justify-between pt-4 border-t border-gray-100 gap-2">
         <button
-          onClick={() => onAssignBooks(group)}
+          onClick={(e) => {
+            e.stopPropagation();
+            onAssignBooks(group);
+          }}
           className="text-green-600 hover:text-green-700 text-sm font-medium flex items-center gap-1"
         >
           <i className="ri-book-line"></i>
           Assign Books
         </button>
         <button
-          onClick={() => onViewMembers(group)}
+          onClick={(e) => {
+            e.stopPropagation();
+            onViewMembers(group);
+          }}
           className="text-blue-600 hover:text-blue-700 text-sm font-medium flex items-center gap-1"
         >
           <i className="ri-team-line"></i>
           Members
         </button>
         <button
-          onClick={() => onDelete(group.id)}
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete(group.id);
+          }}
           className="text-red-600 hover:text-red-700 text-sm font-medium flex items-center gap-1"
         >
           <i className="ri-delete-bin-line"></i>

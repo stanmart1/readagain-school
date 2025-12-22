@@ -591,7 +591,6 @@ const AdminBooks = () => {
                             </span>
                           )}
                         </div>
-                        <p className="text-2xl font-bold text-green-600">₦{selection.bookForAction.price.toLocaleString()}</p>
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-4 pt-4 border-t">

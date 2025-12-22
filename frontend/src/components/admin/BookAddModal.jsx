@@ -46,7 +46,6 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
     try {
       const result = await uploadCover(file);
       setFormData(prev => ({ ...prev, cover_image: result.path }));
-      alert('Cover uploaded successfully!');
     } catch (error) {
       alert('Failed to upload cover: ' + error.message);
     } finally {
@@ -65,7 +64,6 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
         book_file: result.path,
         file_size: result.size
       }));
-      alert('Book file uploaded successfully!');
     } catch (error) {
       alert('Failed to upload book: ' + error.message);
     } finally {

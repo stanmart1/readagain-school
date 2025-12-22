@@ -21,13 +21,13 @@ export default function BookDetail() {
   const fetchBook = async () => {
     try {
       setLoading(true);
-      const response = await api.get(`/api/books/${id}`);
+      const response = await api.get(`/books/${id}`);
       const bookData = response.data.book || response.data;
       setBook(bookData);
       
       // Fetch related books
       if (bookData.category_id) {
-        const related = await api.get(`/api/books/?category_id=${bookData.category_id}&limit=4`);
+        const related = await api.get(`/books?category_id=${bookData.category_id}&limit=4`);
         setRelatedBooks(related.data.books?.filter(b => b.id !== parseInt(id)) || []);
       }
     } catch (error) {

@@ -249,44 +249,125 @@ func (s *AnalyticsService) GetEnhancedOverview() (map[string]interface{}, error)
 }
 
 func (s *AnalyticsService) GetReadingAnalyticsByPeriod(period string) (map[string]interface{}, error) {
-	var totalSessions, booksStarted int64
-	var totalPages int
-	var avgSessionTime float64
-
-	s.db.Model(&struct{ ID uint }{}).Table("reading_sessions").Count(&totalSessions)
-	s.db.Model(&struct{ ID uint }{}).Table("user_libraries").Where("progress > ?", 0).Count(&booksStarted)
-	s.db.Model(&struct{ ID uint }{}).Table("reading_sessions").Select("COALESCE(AVG(duration), 0)").Scan(&avgSessionTime)
-	s.db.Model(&struct{ ID uint }{}).Table("reading_sessions").Select("COALESCE(SUM(pages_read), 0)").Scan(&totalPages)
-
-	var currentlyReading []map[string]interface{}
-	rows, _ := s.db.Raw(`
-		SELECT b.title, ul.progress
-		FROM user_libraries ul
-		JOIN books b ON b.id = ul.book_id
-		WHERE ul.progress > 0 AND ul.progress < 100
-		LIMIT 10
-	`).Rows()
-	defer rows.Close()
-
-	for rows.Next() {
-		var title string
-		var progress float64
-		rows.Scan(&title, &progress)
-		currentlyReading = append(currentlyReading, map[string]interface{}{
-			"title":    title,
-			"progress": progress,
-		})
+	// Class/Grade stats
+	type ClassStats struct {
+		ClassLevel      string  `json:"class_level"`
+		StudentCount    int64   `json:"student_count"`
+		AvgReadingTime  float64 `json:"avg_reading_time"`
+		AvgCompletion   float64 `json:"avg_completion"`
+		BooksCompleted  int64   `json:"books_completed"`
 	}
+	var classStats []ClassStats
+	s.db.Raw(`
+		SELECT u.class_level,
+		       COUNT(DISTINCT u.id) as student_count,
+		       COALESCE(AVG(rs.duration), 0) as avg_reading_time,
+		       COALESCE(AVG(ul.progress), 0) as avg_completion,
+		       COUNT(CASE WHEN ul.progress = 100 THEN 1 END) as books_completed
+		FROM users u
+		LEFT JOIN reading_sessions rs ON u.id = rs.user_id
+		LEFT JOIN user_libraries ul ON u.id = ul.user_id
+		WHERE u.role_id = (SELECT id FROM roles WHERE name = 'student')
+		GROUP BY u.class_level
+		ORDER BY u.class_level
+	`).Scan(&classStats)
+
+	// Struggling readers (< 30% avg completion)
+	type StrugglingReader struct {
+		Name           string  `json:"name"`
+		Email          string  `json:"email"`
+		ClassLevel     string  `json:"class_level"`
+		AvgCompletion  float64 `json:"avg_completion"`
+		BooksStarted   int64   `json:"books_started"`
+	}
+	var strugglingReaders []StrugglingReader
+	s.db.Raw(`
+		SELECT u.name, u.email, u.class_level,
+		       COALESCE(AVG(ul.progress), 0) as avg_completion,
+		       COUNT(ul.id) as books_started
+		FROM users u
+		LEFT JOIN user_libraries ul ON u.id = ul.user_id
+		WHERE u.role_id = (SELECT id FROM roles WHERE name = 'student')
+		GROUP BY u.id, u.name, u.email, u.class_level
+		HAVING COALESCE(AVG(ul.progress), 0) < 30 AND COUNT(ul.id) > 0
+		ORDER BY avg_completion ASC
+		LIMIT 20
+	`).Scan(&strugglingReaders)
+
+	// Most/Least read books by grade
+	type BookByGrade struct {
+		BookTitle      string `json:"book_title"`
+		Author         string `json:"author"`
+		ClassLevel     string `json:"class_level"`
+		ReaderCount    int64  `json:"reader_count"`
+		AvgCompletion  float64 `json:"avg_completion"`
+	}
+	var mostReadBooks []BookByGrade
+	s.db.Raw(`
+		SELECT b.title as book_title, b.author, u.class_level,
+		       COUNT(DISTINCT ul.user_id) as reader_count,
+		       COALESCE(AVG(ul.progress), 0) as avg_completion
+		FROM books b
+		JOIN user_libraries ul ON b.id = ul.book_id
+		JOIN users u ON ul.user_id = u.id
+		WHERE u.role_id = (SELECT id FROM roles WHERE name = 'student')
+		GROUP BY b.id, b.title, b.author, u.class_level
+		ORDER BY reader_count DESC
+		LIMIT 50
+	`).Scan(&mostReadBooks)
+
+	// Top readers with streaks
+	type TopReader struct {
+		Name           string `json:"name"`
+		ClassLevel     string `json:"class_level"`
+		BooksCompleted int64  `json:"books_completed"`
+		ReadingTime    int64  `json:"reading_time"`
+		CurrentStreak  int    `json:"current_streak"`
+	}
+	var topReaders []TopReader
+	s.db.Raw(`
+		SELECT u.name, u.class_level,
+		       COUNT(CASE WHEN ul.progress = 100 THEN 1 END) as books_completed,
+		       COALESCE(SUM(rs.duration), 0) as reading_time,
+		       0 as current_streak
+		FROM users u
+		LEFT JOIN user_libraries ul ON u.id = ul.user_id
+		LEFT JOIN reading_sessions rs ON u.id = rs.user_id
+		WHERE u.role_id = (SELECT id FROM roles WHERE name = 'student')
+		GROUP BY u.id, u.name, u.class_level
+		ORDER BY books_completed DESC, reading_time DESC
+		LIMIT 20
+	`).Scan(&topReaders)
+
+	// Overall stats
+	var totalActiveReaders, totalBooksCompleted int64
+	var avgReadingTime, avgCompletionRate float64
+	s.db.Raw(`
+		SELECT COUNT(DISTINCT u.id) as total_readers,
+		       COUNT(CASE WHEN ul.progress = 100 THEN 1 END) as books_completed,
+		       COALESCE(AVG(rs.duration), 0) as avg_reading_time,
+		       COALESCE(AVG(ul.progress), 0) as avg_completion
+		FROM users u
+		LEFT JOIN user_libraries ul ON u.id = ul.user_id
+		LEFT JOIN reading_sessions rs ON u.id = rs.user_id
+		WHERE u.role_id = (SELECT id FROM roles WHERE name = 'student')
+	`).Scan(&totalActiveReaders)
+	
+	s.db.Raw(`SELECT COUNT(*) FROM user_libraries WHERE progress = 100`).Scan(&totalBooksCompleted)
+	s.db.Raw(`SELECT COALESCE(AVG(duration), 0) FROM reading_sessions`).Scan(&avgReadingTime)
+	s.db.Raw(`SELECT COALESCE(AVG(progress), 0) FROM user_libraries`).Scan(&avgCompletionRate)
 
 	return map[string]interface{}{
-		"stats": map[string]interface{}{
-			"totalSessions":      totalSessions,
-			"booksStarted":       booksStarted,
-			"averageSessionTime": avgSessionTime,
-			"totalPages":         totalPages,
+		"overview": map[string]interface{}{
+			"total_active_readers": totalActiveReaders,
+			"total_books_completed": totalBooksCompleted,
+			"avg_reading_time": avgReadingTime / 60, // Convert to hours
+			"avg_completion_rate": avgCompletionRate,
 		},
-		"weeklyData":       []interface{}{},
-		"currentlyReading": currentlyReading,
+		"class_stats": classStats,
+		"struggling_readers": strugglingReaders,
+		"most_read_books": mostReadBooks,
+		"top_readers": topReaders,
 	}, nil
 }
 

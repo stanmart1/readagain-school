@@ -33,17 +33,17 @@ export const useAdminAnalytics = () => {
           color: 'bg-green-500'
         },
         {
-          label: 'Total Orders',
-          value: data.overview.total_orders || 0,
-          change: `${data.overview.order_growth >= 0 ? '+' : ''}${data.overview.order_growth}%`,
-          icon: 'ri-shopping-cart-line',
+          label: 'Books in Libraries',
+          value: data.overview.books_in_libraries || 0,
+          change: `${data.overview.library_growth >= 0 ? '+' : ''}${data.overview.library_growth}%`,
+          icon: 'ri-book-shelf-line',
           color: 'bg-purple-500'
         },
         {
-          label: 'Revenue',
-          value: `₦${(data.overview.total_revenue || 0).toLocaleString()}`,
-          change: `${data.overview.revenue_growth >= 0 ? '+' : ''}${data.overview.revenue_growth}%`,
-          icon: 'ri-money-dollar-circle-line',
+          label: 'Active Readers',
+          value: data.overview.active_readers || 0,
+          change: `${data.overview.reader_growth >= 0 ? '+' : ''}${data.overview.reader_growth}%`,
+          icon: 'ri-user-star-line',
           color: 'bg-yellow-500'
         }
       ]);

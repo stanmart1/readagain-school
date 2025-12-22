@@ -130,43 +130,6 @@ func (h *SettingsHandler) UpdateEmailSettings(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{"message": "Email settings updated successfully"})
 }
 
-func (h *SettingsHandler) GetPaymentSettings(c *fiber.Ctx) error {
-	settings, err := h.service.GetPaymentSettings()
-	if err != nil {
-		utils.ErrorLogger.Printf("Failed to get payment settings: %v", err)
-		return c.Status(500).JSON(fiber.Map{"error": "Failed to fetch payment settings"})
-	}
-
-	return c.JSON(fiber.Map{"data": settings})
-}
-
-func (h *SettingsHandler) UpdatePaymentSettings(c *fiber.Ctx) error {
-	var req struct {
-		PaystackSecretKey     string `json:"paystack_secret_key"`
-		FlutterwaveSecretKey  string `json:"flutterwave_secret_key"`
-		BankName              string `json:"bank_name"`
-		AccountNumber         string `json:"account_number"`
-		AccountName           string `json:"account_name"`
-	}
-
-	if err := c.BodyParser(&req); err != nil {
-		return c.Status(400).JSON(fiber.Map{"error": "Invalid request body"})
-	}
-
-	if err := h.service.UpdatePaymentSettings(
-		req.PaystackSecretKey,
-		req.FlutterwaveSecretKey,
-		req.BankName,
-		req.AccountNumber,
-		req.AccountName,
-	); err != nil {
-		utils.ErrorLogger.Printf("Failed to update payment settings: %v", err)
-		return c.Status(500).JSON(fiber.Map{"error": "Failed to update payment settings"})
-	}
-
-	utils.InfoLogger.Println("Payment settings updated")
-	return c.JSON(fiber.Map{"message": "Payment settings updated successfully"})
-}
 
 func (h *SettingsHandler) GetPublic(c *fiber.Ctx) error {
 	settings, err := h.service.GetByCategory("general")

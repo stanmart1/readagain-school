@@ -80,20 +80,6 @@ func (s *SettingsService) GetEmailSettings() (map[string]string, error) {
 	return result, nil
 }
 
-func (s *SettingsService) GetPaymentSettings() (map[string]string, error) {
-	settings, err := s.GetByCategory("payment")
-	if err != nil {
-		return nil, err
-	}
-
-	result := make(map[string]string)
-	for _, setting := range settings {
-		result[setting.Key] = setting.Value
-	}
-
-	return result, nil
-}
-
 func (s *SettingsService) UpdateEmailSettings(resendAPIKey, fromEmail, fromName string) error {
 	if err := s.Set("email.resend_api_key", resendAPIKey, "email", "Resend API Key"); err != nil {
 		return err
@@ -102,25 +88,6 @@ func (s *SettingsService) UpdateEmailSettings(resendAPIKey, fromEmail, fromName 
 		return err
 	}
 	if err := s.Set("email.from_name", fromName, "email", "From Name"); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *SettingsService) UpdatePaymentSettings(paystackKey, flutterwaveKey, bankName, accountNumber, accountName string) error {
-	if err := s.Set("payment.paystack_secret_key", paystackKey, "payment", "Paystack Secret Key"); err != nil {
-		return err
-	}
-	if err := s.Set("payment.flutterwave_secret_key", flutterwaveKey, "payment", "Flutterwave Secret Key"); err != nil {
-		return err
-	}
-	if err := s.Set("payment.bank_name", bankName, "payment", "Bank Name for Transfers"); err != nil {
-		return err
-	}
-	if err := s.Set("payment.account_number", accountNumber, "payment", "Bank Account Number"); err != nil {
-		return err
-	}
-	if err := s.Set("payment.account_name", accountName, "payment", "Bank Account Name"); err != nil {
 		return err
 	}
 	return nil

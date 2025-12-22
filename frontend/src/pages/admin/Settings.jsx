@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import AdminLayout from '../../components/AdminLayout';
 import { useSettingsManagement } from '../../hooks/useSettingsManagement';
 import EmailGatewayManagement from './settings-components/EmailGatewayManagement';
-import PaymentGatewayManagement from './settings-components/PaymentGatewayManagement';
 import ImageCacheManager from './settings-components/ImageCacheManager';
 import RedisManagement from './settings-components/RedisManagement';
 import ImageOptimization from '../../components/admin/ImageOptimization';
@@ -267,16 +266,11 @@ export default function SystemSettings() {
     </div>
   );
 
-  const renderPaymentSettings = () => (
-    <PaymentGatewayManagement />
-  );
-
   const tabs = [
     { id: 'general', label: 'General', icon: 'ri-settings-line' },
     { id: 'security', label: 'Security', icon: 'ri-shield-check-line' },
     { id: 'redis', label: 'Redis', icon: 'ri-database-line' },
     { id: 'images', label: 'Images', icon: 'ri-image-line' },
-    { id: 'payment', label: 'Payment', icon: 'ri-money-dollar-circle-line' },
     { id: 'email', label: 'Email Gateway', icon: 'ri-mail-line' }
   ];
 
@@ -316,7 +310,6 @@ export default function SystemSettings() {
             {activeTab === 'security' && renderSecuritySettings()}
             {activeTab === 'redis' && <RedisManagement />}
             {activeTab === 'images' && <ImageOptimization />}
-            {activeTab === 'payment' && renderPaymentSettings()}
             {activeTab === 'email' && <EmailGatewayManagement />}
           </div>
           

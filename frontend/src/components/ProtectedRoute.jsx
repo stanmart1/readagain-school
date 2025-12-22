@@ -18,7 +18,7 @@ export const ProtectedRoute = ({ children, requiredRole = null, requiredPermissi
   const { hasPermission, isAdmin } = usePermissions();
   const [isValidating, setIsValidating] = useState(true);
   const [isValid, setIsValid] = useState(false);
-  const user = getUser();
+  const [user, setUser] = useState(getUser());
 
   // Check authentication
   if (!isAuthenticated()) {
@@ -35,6 +35,7 @@ export const ProtectedRoute = ({ children, requiredRole = null, requiredPermissi
           const currentUser = getUser();
           const updatedUser = { ...currentUser, ...response.data };
           localStorage.setItem('user', JSON.stringify(updatedUser));
+          setUser(updatedUser); // Update state with fresh user data
         }
         setIsValid(true);
       } catch (error) {
@@ -65,6 +66,12 @@ export const ProtectedRoute = ({ children, requiredRole = null, requiredPermissi
   // Check role-based access
   if (requiredRole) {
     const allowedRoles = Array.isArray(requiredRole) ? requiredRole : [requiredRole];
+    
+    console.log('Role check:', {
+      userRole: user?.role?.name,
+      allowedRoles,
+      hasRole: allowedRoles.includes(user?.role?.name)
+    });
     
     if (!allowedRoles.includes(user?.role?.name)) {
       return <Navigate to="/dashboard" replace />;

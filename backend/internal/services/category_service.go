@@ -15,12 +15,30 @@ func NewCategoryService(db *gorm.DB) *CategoryService {
 	return &CategoryService{db: db}
 }
 
-func (s *CategoryService) ListCategories() ([]models.Category, error) {
+func (s *CategoryService) ListCategories() ([]map[string]interface{}, error) {
 	var categories []models.Category
 	if err := s.db.Order("name ASC").Find(&categories).Error; err != nil {
 		return nil, utils.NewInternalServerError("Failed to fetch categories", err)
 	}
-	return categories, nil
+
+	// Add book count for each category
+	result := make([]map[string]interface{}, len(categories))
+	for i, cat := range categories {
+		var bookCount int64
+		s.db.Model(&models.Book{}).Where("category_id = ?", cat.ID).Count(&bookCount)
+		
+		result[i] = map[string]interface{}{
+			"id":          cat.ID,
+			"created_at":  cat.CreatedAt,
+			"updated_at":  cat.UpdatedAt,
+			"name":        cat.Name,
+			"description": cat.Description,
+			"status":      cat.Status,
+			"books_count": bookCount,
+		}
+	}
+	
+	return result, nil
 }
 
 func (s *CategoryService) GetCategoryByID(categoryID uint) (*models.Category, error) {

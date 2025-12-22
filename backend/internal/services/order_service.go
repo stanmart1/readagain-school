@@ -103,37 +103,6 @@ func (s *OrderService) CompleteOrder(orderID uint, transactionID string) error {
 		}
 	}
 
-	var user models.User
-	if err := s.db.First(&user, order.UserID).Error; err == nil {
-		var books []OrderBook
-		for _, item := range order.Items {
-			if item.Book != nil {
-				authorName := "Unknown Author"
-				if item.Book.Author != nil && item.Book.Author.User != nil {
-					authorName = fmt.Sprintf("%s %s", item.Book.Author.User.FirstName, item.Book.Author.User.LastName)
-				}
-				books = append(books, OrderBook{
-					Title:  item.Book.Title,
-					Author: authorName,
-					Price:  fmt.Sprintf("%.2f", item.Price),
-				})
-			}
-		}
-
-		name := user.FirstName
-		if name == "" {
-			name = user.Username
-		}
-
-		go s.emailService.SendOrderConfirmation(
-			user.Email,
-			name,
-			order.OrderNumber,
-			books,
-			fmt.Sprintf("%.2f", order.TotalAmount),
-		)
-	}
-
 	go s.achievementService.CheckAndUnlockAchievements(order.UserID)
 
 	return nil

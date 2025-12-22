@@ -35,20 +35,6 @@ type WelcomeEmailData struct {
 	AppURL string
 }
 
-type OrderConfirmationData struct {
-	Name        string
-	OrderNumber string
-	Books       []OrderBook
-	Total       string
-	AppURL      string
-}
-
-type OrderBook struct {
-	Title  string
-	Author string
-	Price  string
-}
-
 type PasswordResetData struct {
 	Name     string
 	ResetURL string
@@ -79,37 +65,6 @@ func (s *EmailService) SendWelcomeEmail(toEmail, name string) error {
 	}
 
 	utils.InfoLogger.Printf("Welcome email sent to %s", toEmail)
-	return nil
-}
-
-func (s *EmailService) SendOrderConfirmation(toEmail, name, orderNumber string, books []OrderBook, total string) error {
-	data := OrderConfirmationData{
-		Name:        name,
-		OrderNumber: orderNumber,
-		Books:       books,
-		Total:       total,
-		AppURL:      s.appURL,
-	}
-
-	html, err := s.renderTemplate("order_confirmation.html", data)
-	if err != nil {
-		return err
-	}
-
-	params := &resend.SendEmailRequest{
-		From:    fmt.Sprintf("%s <%s>", s.fromName, s.fromEmail),
-		To:      []string{toEmail},
-		Subject: fmt.Sprintf("Order Confirmed - %s", orderNumber),
-		Html:    html,
-	}
-
-	_, err = s.client.Emails.Send(params)
-	if err != nil {
-		utils.ErrorLogger.Printf("Failed to send order confirmation email: %v", err)
-		return utils.NewInternalServerError("Failed to send email", err)
-	}
-
-	utils.InfoLogger.Printf("Order confirmation email sent to %s", toEmail)
 	return nil
 }
 

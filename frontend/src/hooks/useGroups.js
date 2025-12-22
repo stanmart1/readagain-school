@@ -5,13 +5,27 @@ export const useGroups = () => {
   const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [pagination, setPagination] = useState({
+    total: 0,
+    page: 1,
+    limit: 10,
+    totalPages: 0,
+  });
 
-  const fetchGroups = useCallback(async () => {
+  const fetchGroups = useCallback(async (page = 1, limit = 10, search = '') => {
     setLoading(true);
     setError(null);
     try {
-      const { data } = await api.get('/groups');
-      setGroups(data);
+      const { data } = await api.get('/groups', {
+        params: { page, limit, search }
+      });
+      setGroups(data.groups || []);
+      setPagination({
+        total: data.total || 0,
+        page: data.page || 1,
+        limit: data.limit || 10,
+        totalPages: data.total_pages || 0,
+      });
       return data;
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to fetch groups');
@@ -137,6 +151,7 @@ export const useGroups = () => {
     groups,
     loading,
     error,
+    pagination,
     fetchGroups,
     getGroup,
     createGroup,

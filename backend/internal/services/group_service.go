@@ -15,10 +15,23 @@ func NewGroupService(db *gorm.DB) *GroupService {
 	return &GroupService{db: db}
 }
 
-func (s *GroupService) GetAll() ([]models.Group, error) {
+func (s *GroupService) GetAll(page, limit int, search string) ([]models.Group, int64, error) {
 	var groups []models.Group
-	err := s.db.Preload("Creator").Order("created_at DESC").Find(&groups).Error
-	return groups, err
+	var total int64
+
+	query := s.db.Model(&models.Group{})
+
+	if search != "" {
+		query = query.Where("name ILIKE ? OR description ILIKE ?", "%"+search+"%", "%"+search+"%")
+	}
+
+	if err := query.Count(&total).Error; err != nil {
+		return nil, 0, err
+	}
+
+	offset := (page - 1) * limit
+	err := query.Preload("Creator").Order("created_at DESC").Limit(limit).Offset(offset).Find(&groups).Error
+	return groups, total, err
 }
 
 func (s *GroupService) GetByID(id uint) (*models.Group, error) {

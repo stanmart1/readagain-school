@@ -3,17 +3,27 @@ import AdminLayout from '../../components/AdminLayout';
 import GroupsList from '../../components/admin/groups/GroupsList';
 import GroupForm from '../../components/admin/groups/GroupForm';
 import GroupMembers from '../../components/admin/groups/GroupMembers';
+import Pagination from '../../components/admin/Pagination';
 import { useGroups } from '../../hooks/useGroups';
 
 export default function Groups() {
-  const { groups, loading, fetchGroups, deleteGroup } = useGroups();
+  const { groups, loading, pagination, fetchGroups, deleteGroup } = useGroups();
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [showMembers, setShowMembers] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    fetchGroups();
-  }, [fetchGroups]);
+    fetchGroups(1, 10, searchTerm);
+  }, [fetchGroups, searchTerm]);
+
+  const handlePageChange = (page) => {
+    fetchGroups(page, pagination.limit, searchTerm);
+  };
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
 
   const handleCreate = () => {
     setSelectedGroup(null);
@@ -43,13 +53,13 @@ export default function Groups() {
   const handleFormClose = () => {
     setShowForm(false);
     setSelectedGroup(null);
-    fetchGroups();
+    fetchGroups(pagination.page, pagination.limit, searchTerm);
   };
 
   const handleMembersClose = () => {
     setShowMembers(false);
     setSelectedGroup(null);
-    fetchGroups();
+    fetchGroups(pagination.page, pagination.limit, searchTerm);
   };
 
   return (
@@ -71,17 +81,39 @@ export default function Groups() {
           </button>
         </div>
 
+        <div className="mb-4">
+          <input
+            type="text"
+            placeholder="Search groups..."
+            value={searchTerm}
+            onChange={handleSearch}
+            className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
+        </div>
+
         {loading ? (
           <div className="flex justify-center items-center py-20">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
           </div>
         ) : (
-          <GroupsList
-            groups={groups}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-            onViewMembers={handleViewMembers}
-          />
+          <>
+            <GroupsList
+              groups={groups}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+              onViewMembers={handleViewMembers}
+            />
+            
+            {pagination.totalPages > 1 && (
+              <div className="mt-6">
+                <Pagination
+                  currentPage={pagination.page}
+                  totalPages={pagination.totalPages}
+                  onPageChange={handlePageChange}
+                />
+              </div>
+            )}
+          </>
         )}
 
         {showForm && (

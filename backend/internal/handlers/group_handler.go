@@ -17,11 +17,31 @@ func NewGroupHandler(service *services.GroupService) *GroupHandler {
 }
 
 func (h *GroupHandler) GetAll(c *fiber.Ctx) error {
-	groups, err := h.service.GetAll()
+	page, _ := strconv.Atoi(c.Query("page", "1"))
+	limit, _ := strconv.Atoi(c.Query("limit", "10"))
+	search := c.Query("search", "")
+
+	if page < 1 {
+		page = 1
+	}
+	if limit < 1 || limit > 100 {
+		limit = 10
+	}
+
+	groups, total, err := h.service.GetAll(page, limit, search)
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{"error": "Failed to fetch groups"})
 	}
-	return c.JSON(groups)
+
+	totalPages := (int(total) + limit - 1) / limit
+
+	return c.JSON(fiber.Map{
+		"groups":       groups,
+		"total":        total,
+		"page":         page,
+		"limit":        limit,
+		"total_pages":  totalPages,
+	})
 }
 
 func (h *GroupHandler) GetByID(c *fiber.Ctx) error {

@@ -69,7 +69,7 @@ export default function Wishlist() {
                       }`}
                     >
                       <i className="ri-shopping-cart-line mr-2"></i>
-                      Add to Cart
+                      Add to Library
                     </button>
                     <Link
                       to={`/books/${item.id}`}

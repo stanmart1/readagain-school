@@ -50,12 +50,12 @@ export default function BookDetail() {
       await addToCart(book, 1);
       alert('Book added to cart!');
     } catch (error) {
-      console.error('Add to cart error:', error);
+      console.error('Add to library error:', error);
       if (error.response?.status === 401) {
         alert('Please login to add items to cart');
         navigate('/login');
       } else {
-        alert('Failed to add to cart');
+        alert('Failed to add to library');
       }
     } finally {
       setAddingToCart(false);
@@ -151,7 +151,7 @@ export default function BookDetail() {
                   ) : (
                     <>
                       <i className="ri-shopping-cart-line mr-2"></i>
-                      Add to Cart
+                      Add to Library
                     </>
                   )}
                 </button>

@@ -22,7 +22,7 @@ export default function BookCard({ book }) {
       alert('Book added to cart!');
     } catch (error) {
       console.error('Error adding to cart:', error);
-      alert('Failed to add to cart');
+      alert('Failed to add to library');
     } finally {
       setAddingToCart(false);
     }
@@ -91,7 +91,7 @@ export default function BookCard({ book }) {
               onClick={handleAddToCart}
               disabled={addingToCart}
               className="p-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors disabled:opacity-50"
-              title="Add to Cart"
+              title="Add to Library"
             >
               <i className={`${addingToCart ? 'ri-loader-4-line animate-spin' : 'ri-shopping-cart-line'} text-lg`}></i>
             </button>
@@ -138,7 +138,7 @@ export default function BookCard({ book }) {
               disabled={addingToCart}
               className="w-full bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium"
             >
-              {addingToCart ? 'Adding...' : 'Add to Cart'}
+              {addingToCart ? 'Adding...' : 'Add to Library'}
             </button>
           </div>
         </div>

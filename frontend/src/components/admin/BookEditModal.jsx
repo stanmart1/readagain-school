@@ -293,18 +293,6 @@ const BookEditModal = ({ isOpen, onClose, book, categories, authors, onSuccess }
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-800 mb-2">Price (₦) *</label>
-                  <input
-                    type="number"
-                    step="0.01"
-                    min="0"
-                    className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all ${
-                    }`}
-                    placeholder="0.00"
-                  />
-                </div>
-
-                <div>
                   <label className="block text-sm font-semibold text-gray-800 mb-2">Book Type *</label>
                   <div className="grid grid-cols-2 gap-3">
                     <button

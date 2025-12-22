@@ -63,7 +63,16 @@ func (h *GroupHandler) Create(c *fiber.Ctx) error {
 		return c.Status(400).JSON(fiber.Map{"error": "Invalid input"})
 	}
 
-	userID := c.Locals("user_id").(uint)
+	userIDInterface := c.Locals("user_id")
+	if userIDInterface == nil {
+		return c.Status(401).JSON(fiber.Map{"error": "Unauthorized"})
+	}
+	
+	userID, ok := userIDInterface.(uint)
+	if !ok {
+		return c.Status(401).JSON(fiber.Map{"error": "Invalid user ID"})
+	}
+
 	group := &models.Group{
 		Name:        input.Name,
 		Description: input.Description,

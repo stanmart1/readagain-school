@@ -3,6 +3,7 @@ import AdminLayout from '../../components/AdminLayout';
 import GroupsList from '../../components/admin/groups/GroupsList';
 import GroupForm from '../../components/admin/groups/GroupForm';
 import GroupMembers from '../../components/admin/groups/GroupMembers';
+import AssignBooksModal from '../../components/admin/groups/AssignBooksModal';
 import Pagination from '../../components/admin/Pagination';
 import { useGroups } from '../../hooks/useGroups';
 
@@ -11,6 +12,7 @@ export default function Groups() {
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [showMembers, setShowMembers] = useState(false);
+  const [showAssignBooks, setShowAssignBooks] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
@@ -48,6 +50,11 @@ export default function Groups() {
   const handleViewMembers = (group) => {
     setSelectedGroup(group);
     setShowMembers(true);
+  };
+
+  const handleAssignBooks = (group) => {
+    setSelectedGroup(group);
+    setShowAssignBooks(true);
   };
 
   const handleFormClose = () => {
@@ -102,6 +109,7 @@ export default function Groups() {
               onEdit={handleEdit}
               onDelete={handleDelete}
               onViewMembers={handleViewMembers}
+              onAssignBooks={handleAssignBooks}
             />
             
             {pagination.totalPages > 1 && (
@@ -127,6 +135,16 @@ export default function Groups() {
           <GroupMembers
             group={selectedGroup}
             onClose={handleMembersClose}
+          />
+        )}
+
+        {showAssignBooks && selectedGroup && (
+          <AssignBooksModal
+            group={selectedGroup}
+            onClose={() => {
+              setShowAssignBooks(false);
+              setSelectedGroup(null);
+            }}
           />
         )}
       </div>

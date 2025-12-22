@@ -1,4 +1,4 @@
-export default function GroupsList({ groups, onEdit, onDelete, onViewMembers }) {
+export default function GroupsList({ groups, onEdit, onDelete, onViewMembers, onAssignBooks }) {
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
       <div className="overflow-x-auto">
@@ -61,6 +61,13 @@ export default function GroupsList({ groups, onEdit, onDelete, onViewMembers }) 
                     {group.creator?.first_name} {group.creator?.last_name}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
+                    <button
+                      onClick={() => onAssignBooks(group)}
+                      className="text-green-600 hover:text-green-900 transition-colors"
+                    >
+                      <i className="ri-book-line mr-1"></i>
+                      Assign Books
+                    </button>
                     <button
                       onClick={() => onViewMembers(group)}
                       className="text-blue-600 hover:text-blue-900 transition-colors"

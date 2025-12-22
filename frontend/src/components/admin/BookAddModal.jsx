@@ -1,10 +1,12 @@
 import { useState, useRef } from 'react';
 import api from '../../lib/api';
+import { uploadCover, uploadBook } from '../../lib/fileService';
 
 const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [uploadingFile, setUploadingFile] = useState(null);
   const [formData, setFormData] = useState({
     title: '',
     author_id: '',
@@ -17,8 +19,9 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
     publisher: '',
     is_featured: false,
     status: 'published',
-    cover_image: null,
-    ebook_file: null
+    cover_image: '',
+    book_file: '',
+    file_size: 0
   });
   const [errors, setErrors] = useState({});
   const [dragActive, setDragActive] = useState({ cover: false, ebook: false });
@@ -36,10 +39,37 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
     }
   };
 
-  const handleFileChange = (field, file) => {
-    setFormData(prev => ({ ...prev, [field]: file }));
-    if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: '' }));
+  const handleCoverChange = async (file) => {
+    if (!file) return;
+    
+    setUploadingFile('cover');
+    try {
+      const result = await uploadCover(file);
+      setFormData(prev => ({ ...prev, cover_image: result.path }));
+      alert('Cover uploaded successfully!');
+    } catch (error) {
+      alert('Failed to upload cover: ' + error.message);
+    } finally {
+      setUploadingFile(null);
+    }
+  };
+
+  const handleBookFileChange = async (file) => {
+    if (!file) return;
+    
+    setUploadingFile('book');
+    try {
+      const result = await uploadBook(file);
+      setFormData(prev => ({ 
+        ...prev, 
+        book_file: result.path,
+        file_size: result.size
+      }));
+      alert('Book file uploaded successfully!');
+    } catch (error) {
+      alert('Failed to upload book: ' + error.message);
+    } finally {
+      setUploadingFile(null);
     }
   };
 
@@ -60,8 +90,11 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
 
     const files = e.dataTransfer.files;
     if (files && files[0]) {
-      const field = type === 'cover' ? 'cover_image' : 'ebook_file';
-      handleFileChange(field, files[0]);
+      if (type === 'cover') {
+        handleCoverChange(files[0]);
+      } else {
+        handleBookFileChange(files[0]);
+      }
     }
   };
 
@@ -76,7 +109,7 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
 
     if (step === 2) {
       if (!formData.cover_image) newErrors.cover_image = 'Cover image is required';
-      if (!formData.ebook_file) newErrors.ebook_file = 'Ebook file is required';
+      if (!formData.book_file) newErrors.book_file = 'Book file is required';
     }
 
     setErrors(newErrors);
@@ -97,51 +130,34 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
     if (!validateStep(2)) return;
 
     setIsSubmitting(true);
-    setUploadProgress(0);
 
     try {
-      const submitData = new FormData();
+      const submitData = {
+        title: formData.title,
+        author_id: parseInt(formData.author_id),
+        category_id: parseInt(formData.category_id),
+        description: formData.description || '',
+        isbn: formData.isbn || '',
+        language: formData.language || 'English',
+        page_count: parseInt(formData.pages) || 0,
+        publisher: formData.publisher || '',
+        status: formData.status || 'published',
+        cover_image: formData.cover_image,
+        book_file: formData.book_file,
+        file_size: formData.file_size
+      };
 
-      submitData.append('title', formData.title);
-      submitData.append('author_id', formData.author_id);
-      submitData.append('category_id', formData.category_id);
-      submitData.append('description', formData.description || '');
-      submitData.append('isbn', formData.isbn || '');
-      submitData.append('language', formData.language || 'English');
-      submitData.append('pages', formData.pages || '0');
-      submitData.append('publisher', formData.publisher || '');
-      submitData.append('status', formData.status || 'published');
+      const response = await api.post('/books', submitData);
 
-      if (formData.cover_image) {
-        submitData.append('cover_image', formData.cover_image);
-      }
-      if (formData.ebook_file) {
-        submitData.append('book_file', formData.ebook_file);
-      }
-
-      setUploadProgress(25);
-
-      const response = await api.post('/books', submitData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-        onUploadProgress: (progressEvent) => {
-          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-          setUploadProgress(Math.min(progress, 95));
-        }
-      });
-
-      setUploadProgress(100);
       const bookTitle = response.data.book?.title || formData.title;
-      alert(`Book "${bookTitle}" uploaded successfully!`);
+      alert(`Book "${bookTitle}" added successfully!`);
 
-      setTimeout(() => {
-        onSuccess();
-        resetForm();
-      }, 500);
+      onSuccess();
+      resetForm();
     } catch (error) {
-      console.error('Upload error:', error);
-      const errorMessage = error.response?.data?.error || error.message || 'Upload failed';
-      alert(`Upload failed: ${errorMessage}`);
-      setUploadProgress(0);
+      console.error('Submit error:', error);
+      const errorMessage = error.response?.data?.error || error.message || 'Failed to add book';
+      alert(`Failed: ${errorMessage}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -183,12 +199,14 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
       publisher: '',
       is_featured: false,
       status: 'published',
-      cover_image: null,
-      ebook_file: null
+      cover_image: '',
+      book_file: '',
+      file_size: 0
     });
     setErrors({});
     setCurrentStep(1);
     setUploadProgress(0);
+    setUploadingFile(null);
     setShowAddAuthor(false);
     setNewAuthorName('');
   };
@@ -485,15 +503,16 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
                 >
                   <i className="ri-image-add-line text-4xl text-gray-400 mb-2"></i>
                   <p className="text-sm text-gray-600">
-                    {formData.cover_image ? formData.cover_image.name : 'Drag & drop cover image or click to browse'}
+                    {formData.cover_image ? '✓ Cover uploaded' : uploadingFile === 'cover' ? 'Uploading...' : 'Drag & drop cover image or click to browse'}
                   </p>
-                  <p className="text-xs text-gray-500 mt-1">PNG, JPG, JPEG, WebP, GIF up to 10MB</p>
+                  <p className="text-xs text-gray-500 mt-1">PNG, JPG, JPEG, WebP up to 10MB</p>
                   <input
                     ref={coverInputRef}
                     type="file"
-                    accept=".jpg,.jpeg,.png,.webp,.gif"
-                    onChange={(e) => e.target.files[0] && handleFileChange('cover_image', e.target.files[0])}
+                    accept=".jpg,.jpeg,.png,.webp"
+                    onChange={(e) => e.target.files[0] && handleCoverChange(e.target.files[0])}
                     className="hidden"
+                    disabled={uploadingFile === 'cover'}
                   />
                 </div>
                 {errors.cover_image && <p className="text-red-500 text-sm mt-1">{errors.cover_image}</p>}
@@ -510,21 +529,22 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
                   onDragOver={(e) => handleDrag(e, 'ebook')}
                   onDrop={(e) => handleDrop(e, 'ebook')}
                   className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${dragActive.ebook ? 'border-blue-500 bg-blue-50' :
-                    errors.ebook_file ? 'border-red-500' : 'border-gray-300 hover:border-blue-400'
+                    errors.book_file ? 'border-red-500' : 'border-gray-300 hover:border-blue-400'
                     }`}
                   onClick={() => ebookInputRef.current?.click()}
                 >
                   <i className="ri-file-pdf-line text-4xl text-gray-400 mb-2"></i>
                   <p className="text-sm text-gray-600">
-                    {formData.ebook_file ? formData.ebook_file.name : 'Drag & drop ebook file or click to browse'}
+                    {formData.book_file ? '✓ Book file uploaded' : uploadingFile === 'book' ? 'Uploading...' : 'Drag & drop ebook file or click to browse'}
                   </p>
-                  <p className="text-xs text-gray-500 mt-1">PDF, EPUB, MOBI, HTML up to 500MB</p>
+                  <p className="text-xs text-gray-500 mt-1">PDF, EPUB, HTML up to 500MB</p>
                   <input
                     ref={ebookInputRef}
                     type="file"
-                    accept=".pdf,.epub,.mobi,.html,.htm"
-                    onChange={(e) => e.target.files[0] && handleFileChange('ebook_file', e.target.files[0])}
+                    accept=".pdf,.epub,.html,.htm"
+                    onChange={(e) => e.target.files[0] && handleBookFileChange(e.target.files[0])}
                     className="hidden"
+                    disabled={uploadingFile === 'book'}
                   />
                 </div>
                 {errors.ebook_file && <p className="text-red-500 text-sm mt-1">{errors.ebook_file}</p>}

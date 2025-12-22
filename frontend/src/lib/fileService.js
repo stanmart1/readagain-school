@@ -1,6 +1,5 @@
-import { API_BASE_URL } from './api';
-
-const UPLOAD_API_URL = import.meta.env.VITE_UPLOAD_API_URL || 'http://localhost:8001';
+const UPLOAD_API_URL =
+  import.meta.env.VITE_UPLOAD_API_URL || "http://localhost:8001";
 
 /**
  * Upload book cover image
@@ -9,16 +8,16 @@ const UPLOAD_API_URL = import.meta.env.VITE_UPLOAD_API_URL || 'http://localhost:
  */
 export const uploadCover = async (file) => {
   const formData = new FormData();
-  formData.append('file', file);
+  formData.append("file", file);
 
   const response = await fetch(`${UPLOAD_API_URL}/api/upload/cover`, {
-    method: 'POST',
+    method: "POST",
     body: formData,
   });
 
   if (!response.ok) {
     const error = await response.json();
-    throw new Error(error.error || 'Failed to upload cover');
+    throw new Error(error.error || "Failed to upload cover");
   }
 
   return response.json();
@@ -31,16 +30,16 @@ export const uploadCover = async (file) => {
  */
 export const uploadBook = async (file) => {
   const formData = new FormData();
-  formData.append('file', file);
+  formData.append("file", file);
 
   const response = await fetch(`${UPLOAD_API_URL}/api/upload/book`, {
-    method: 'POST',
+    method: "POST",
     body: formData,
   });
 
   if (!response.ok) {
     const error = await response.json();
-    throw new Error(error.error || 'Failed to upload book');
+    throw new Error(error.error || "Failed to upload book");
   }
 
   return response.json();
@@ -53,16 +52,16 @@ export const uploadBook = async (file) => {
  */
 export const uploadProfile = async (file) => {
   const formData = new FormData();
-  formData.append('file', file);
+  formData.append("file", file);
 
   const response = await fetch(`${UPLOAD_API_URL}/api/upload/profile`, {
-    method: 'POST',
+    method: "POST",
     body: formData,
   });
 
   if (!response.ok) {
     const error = await response.json();
-    throw new Error(error.error || 'Failed to upload profile picture');
+    throw new Error(error.error || "Failed to upload profile picture");
   }
 
   return response.json();
@@ -75,12 +74,12 @@ export const uploadProfile = async (file) => {
  */
 export const deleteFile = async (filename) => {
   const response = await fetch(`${UPLOAD_API_URL}/api/files/${filename}`, {
-    method: 'DELETE',
+    method: "DELETE",
   });
 
   if (!response.ok) {
     const error = await response.json();
-    throw new Error(error.error || 'Failed to delete file');
+    throw new Error(error.error || "Failed to delete file");
   }
 
   return response.json();
@@ -93,15 +92,17 @@ export const deleteFile = async (filename) => {
  */
 export const getFileUrl = (filename) => {
   if (!filename) return null;
-  
+
   // If already a full URL, return as is
-  if (filename.startsWith('http://') || filename.startsWith('https://')) {
+  if (filename.startsWith("http://") || filename.startsWith("https://")) {
     return filename;
   }
-  
+
   // Extract just the filename if path is provided
-  const cleanFilename = filename.includes('/') ? filename.split('/').pop() : filename;
-  
+  const cleanFilename = filename.includes("/")
+    ? filename.split("/").pop()
+    : filename;
+
   // Return full URL to upload API
   return `${UPLOAD_API_URL}/api/files/${cleanFilename}`;
 };
@@ -112,7 +113,6 @@ export const getFileUrl = (filename) => {
  * @param {string} fallback - Fallback image path (default: '/placeholder-book.png')
  * @returns {string} Image URL or fallback
  */
-export const getImageUrl = (filename, fallback = '/placeholder-book.png') => {
+export const getImageUrl = (filename, fallback = "/placeholder-book.png") => {
   return getFileUrl(filename) || fallback;
 };
-

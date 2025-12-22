@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import api from '../../lib/api';
+import { uploadCover, uploadBook } from '../../lib/fileService';
 
 const BookEditModal = ({ isOpen, onClose, book, categories, authors, onSuccess }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState(0);
+  const [uploadingFile, setUploadingFile] = useState(null);
   const [formData, setFormData] = useState({
     title: '',
     author_id: '',
@@ -17,8 +18,9 @@ const BookEditModal = ({ isOpen, onClose, book, categories, authors, onSuccess }
     publisher: '',
     is_featured: false,
     status: 'published',
-    cover_image: null,
-    ebook_file: null
+    cover_image: '',
+    book_file: '',
+    file_size: 0
   });
   const [errors, setErrors] = useState({});
   const [dragActive, setDragActive] = useState({ cover: false, ebook: false });
@@ -40,13 +42,48 @@ const BookEditModal = ({ isOpen, onClose, book, categories, authors, onSuccess }
         publisher: book.publisher || '',
         is_featured: book.is_featured || false,
         status: book.status || 'published',
-        cover_image: null,
-        ebook_file: null
+        cover_image: book.cover_image || '',
+        book_file: book.file_path || '',
+        file_size: book.file_size || 0
       });
       setCurrentStep(1);
       setErrors({});
     }
   }, [book, isOpen]);
+
+  const handleCoverChange = async (file) => {
+    if (!file) return;
+    
+    setUploadingFile('cover');
+    try {
+      const result = await uploadCover(file);
+      setFormData(prev => ({ ...prev, cover_image: result.path }));
+      alert('Cover uploaded successfully!');
+    } catch (error) {
+      alert('Failed to upload cover: ' + error.message);
+    } finally {
+      setUploadingFile(null);
+    }
+  };
+
+  const handleBookFileChange = async (file) => {
+    if (!file) return;
+    
+    setUploadingFile('book');
+    try {
+      const result = await uploadBook(file);
+      setFormData(prev => ({ 
+        ...prev, 
+        book_file: result.path,
+        file_size: result.size
+      }));
+      alert('Book file uploaded successfully!');
+    } catch (error) {
+      alert('Failed to upload book: ' + error.message);
+    } finally {
+      setUploadingFile(null);
+    }
+  };
   
   const resetForm = () => {
     setCurrentStep(1);

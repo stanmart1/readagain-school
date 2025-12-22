@@ -5,38 +5,50 @@ export default function EReaderShowcase() {
   const [fontSize, setFontSize] = useState(16);
   const [theme, setTheme] = useState('light');
 
-  const benefits = [
+  const features = [
     {
-      icon: 'ri-eye-line',
-      title: 'Eye-Friendly Reading',
-      description: 'Advanced e-ink technology with adjustable brightness and blue light filters for comfortable reading in any lighting condition.',
+      icon: 'ri-book-open-line',
+      title: 'Advanced E-Reader',
+      description: 'Customizable reading experience with adjustable fonts, themes, and bookmarks. Read comfortably on any device.',
       color: 'from-blue-500 to-cyan-500'
     },
     {
-      icon: 'ri-settings-3-line',
-      title: 'Customizable Experience',
-      description: 'Personalize font size, spacing, themes, and reading modes to match your preferences and reading environment.',
+      icon: 'ri-team-line',
+      title: 'Book Assignments',
+      description: 'Teachers can assign books to classes and track which students have completed their reading assignments.',
       color: 'from-purple-500 to-pink-500'
-    },
-    {
-      icon: 'ri-bookmark-line',
-      title: 'Smart Annotations',
-      description: 'Highlight, annotate, and bookmark important passages with automatic sync across all your devices.',
-      color: 'from-green-500 to-emerald-500'
     },
     {
       icon: 'ri-bar-chart-line',
       title: 'Reading Analytics',
-      description: 'Track your reading speed, progress, and habits with detailed insights and goal setting features.',
+      description: 'Track reading progress, time spent, and completion rates. Get insights into student reading habits.',
+      color: 'from-green-500 to-emerald-500'
+    },
+    {
+      icon: 'ri-library-line',
+      title: 'Digital Library',
+      description: 'Access thousands of books instantly. Build your school library with books available to all students.',
       color: 'from-orange-500 to-red-500'
+    },
+    {
+      icon: 'ri-download-cloud-line',
+      title: 'Offline Reading',
+      description: 'Download books for offline access. Students can read anytime, anywhere without internet connection.',
+      color: 'from-indigo-500 to-blue-500'
+    },
+    {
+      icon: 'ri-device-line',
+      title: 'Multi-Device Sync',
+      description: 'Start reading on one device and continue on another. Progress syncs automatically across all devices.',
+      color: 'from-pink-500 to-rose-500'
     }
   ];
 
-  const sampleText = `In the quiet moments of early morning, when the world is still wrapped in the gentle embrace of dawn, there exists a sacred space where words come alive. This is the realm of the reader, where imagination takes flight and knowledge finds its home.
+  const sampleText = `Welcome to your school's digital library! Access thousands of books, track your reading progress, and discover new stories every day.
 
-The digital age has transformed how we consume literature, but the essence of reading remains unchanged. It is still a journey of discovery, a conversation across time and space with authors who share their wisdom, stories, and dreams.
+Teachers can assign books to classes, monitor student progress, and get detailed analytics on reading habits. Students can read on any device, download books for offline access, and customize their reading experience.
 
-Our advanced e-reader technology bridges the gap between traditional book reading and modern convenience. With features designed to enhance your reading experience, every page becomes an opportunity to learn, grow, and be inspired.`;
+Our platform makes it easy to build a culture of reading in your school. With features designed for both educators and learners, every student can find books they love and track their reading journey.`;
 
   const themes = {
     light: { bg: 'bg-white', text: 'text-gray-900', border: 'border-gray-200' },
@@ -61,22 +73,22 @@ Our advanced e-reader technology bridges the gap between traditional book readin
           className="text-center mb-16"
         >
           <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-purple-100 text-purple-800 mb-4">
-            <i className="ri-tablet-line mr-2"></i>
-            E-Reader Technology
+            <i className="ri-star-line mr-2"></i>
+            Platform Features
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Advanced E-Reader Experience
+            Everything Your School Needs
           </h2>
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-            Experience the future of reading with our cutting-edge e-reader technology. 
-            Designed for comfort, productivity, and pure reading joy.
+            Powerful features designed for schools, teachers, and students. 
+            From digital library management to reading analytics and more.
           </p>
         </motion.div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
-          {/* Left Column - Benefits */}
+          {/* Left Column - Features */}
           <div className="space-y-4 md:space-y-6 order-2 lg:order-1">
-            {benefits.map((benefit, index) => (
+            {features.map((benefit, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, x: -50 }}

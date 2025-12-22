@@ -46,8 +46,6 @@ export default function FeaturedBooks() {
       alert('Failed to add to library');
     }
   };
-    }, 2000);
-  };
 
   const categories = [
     { id: 'featured', name: 'Featured Books', icon: 'ri-star-line' },

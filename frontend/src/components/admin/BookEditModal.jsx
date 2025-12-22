@@ -38,9 +38,6 @@ const BookEditModal = ({ isOpen, onClose, book, categories, authors, onSuccess }
         pages: book.pages?.toString() || '',
         publication_date: book.publication_date || '',
         publisher: book.publisher || '',
-        format: book.format || 'ebook',
-        stock_quantity: book.stock_quantity?.toString() || '0',
-        track_inventory: book.inventory_enabled || false,
         is_featured: book.is_featured || false,
         status: book.status || 'published',
         cover_image: null,
@@ -63,9 +60,6 @@ const BookEditModal = ({ isOpen, onClose, book, categories, authors, onSuccess }
       pages: '',
       publication_date: '',
       publisher: '',
-      format: 'ebook',
-      stock_quantity: '0',
-      track_inventory: true,
       is_featured: false,
       status: 'published',
       cover_image: null,
@@ -98,14 +92,11 @@ const BookEditModal = ({ isOpen, onClose, book, categories, authors, onSuccess }
       if (!formData.title.trim()) newErrors.title = 'Title is required';
       if (!formData.author_id) newErrors.author_id = 'Author is required';
       if (!formData.category_id) newErrors.category_id = 'Category is required';
-      if (!formData.format) newErrors.format = 'Book type is required';
     }
     
     if (step === 2) {
-      if (!formData.cover_image && !book?.cover_image_url) newErrors.cover_image = 'Cover image is required';
-      if (formData.format === 'ebook' && !formData.ebook_file && !book?.file_path) {
-        newErrors.ebook_file = 'Book file is required for ebooks';
-      }
+      if (!formData.cover_image && !book?.cover_image) newErrors.cover_image = 'Cover image is required';
+      if (!formData.ebook_file && !book?.file_path) newErrors.ebook_file = 'Book file is required';
     }
     
     setErrors(newErrors);
@@ -294,36 +285,6 @@ const BookEditModal = ({ isOpen, onClose, book, categories, authors, onSuccess }
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-800 mb-2">Book Type *</label>
-                  <div className="grid grid-cols-2 gap-3">
-                    <button
-                      type="button"
-                      onClick={() => handleInputChange('format', 'ebook')}
-                      className={`p-3 rounded-xl border-2 transition-all text-center ${
-                        formData.format === 'ebook'
-                          ? 'border-orange-500 bg-orange-50 text-orange-700'
-                          : 'border-gray-200 hover:border-gray-300 text-gray-600'
-                      }`}
-                    >
-                      <i className="ri-smartphone-line text-xl mb-1 block"></i>
-                      <span className="text-sm font-medium">Digital Ebook</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleInputChange('format', 'physical')}
-                      className={`p-3 rounded-xl border-2 transition-all text-center ${
-                        formData.format === 'physical'
-                          ? 'border-orange-500 bg-orange-50 text-orange-700'
-                          : 'border-gray-200 hover:border-gray-300 text-gray-600'
-                      }`}
-                    >
-                      <i className="ri-book-line text-xl mb-1 block"></i>
-                      <span className="text-sm font-medium">Physical Book</span>
-                    </button>
-                  </div>
-                </div>
-
-                <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">ISBN</label>
                   <input
                     type="text"
@@ -399,36 +360,34 @@ const BookEditModal = ({ isOpen, onClose, book, categories, authors, onSuccess }
                 {errors.cover_image && <p className="text-red-500 text-sm mt-1">{errors.cover_image}</p>}
               </div>
 
-              {formData.format === 'ebook' && (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Book File {formData.ebook_file && <span className="text-green-600">✓ New</span>} {book?.file_path && !formData.ebook_file && <span className="text-blue-600">(keeping current)</span>}
-                  </label>
-                  <div
-                    onDragEnter={(e) => handleDrag(e, 'ebook')}
-                    onDragLeave={(e) => handleDrag(e, 'ebook')}
-                    onDragOver={(e) => handleDrag(e, 'ebook')}
-                    onDrop={(e) => handleDrop(e, 'ebook')}
-                    className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
-                      dragActive.ebook ? 'border-orange-500 bg-orange-50' : 
-                      errors.ebook_file ? 'border-red-500' : 'border-gray-300 hover:border-orange-400'
-                    }`}
-                    onClick={() => ebookInputRef.current?.click()}
-                  >
-                    <i className="ri-file-pdf-line text-4xl text-gray-400 mb-2"></i>
-                    <p className="text-sm text-gray-600">{formData.ebook_file ? formData.ebook_file.name : 'Drag & drop book file or click'}</p>
-                    <p className="text-xs text-gray-500 mt-1">PDF, EPUB, MOBI, HTML up to 500MB</p>
-                    <input
-                      ref={ebookInputRef}
-                      type="file"
-                      accept=".pdf,.epub,.mobi,.html,.htm"
-                      onChange={(e) => e.target.files[0] && handleFileChange('ebook_file', e.target.files[0])}
-                      className="hidden"
-                    />
-                  </div>
-                  {errors.ebook_file && <p className="text-red-500 text-sm mt-1">{errors.ebook_file}</p>}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Book File {formData.ebook_file && <span className="text-green-600">✓ New</span>} {book?.file_path && !formData.ebook_file && <span className="text-blue-600">(keeping current)</span>}
+                </label>
+                <div
+                  onDragEnter={(e) => handleDrag(e, 'ebook')}
+                  onDragLeave={(e) => handleDrag(e, 'ebook')}
+                  onDragOver={(e) => handleDrag(e, 'ebook')}
+                  onDrop={(e) => handleDrop(e, 'ebook')}
+                  className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
+                    dragActive.ebook ? 'border-orange-500 bg-orange-50' : 
+                    errors.ebook_file ? 'border-red-500' : 'border-gray-300 hover:border-orange-400'
+                  }`}
+                  onClick={() => ebookInputRef.current?.click()}
+                >
+                  <i className="ri-file-pdf-line text-4xl text-gray-400 mb-2"></i>
+                  <p className="text-sm text-gray-600">{formData.ebook_file ? formData.ebook_file.name : 'Drag & drop book file or click'}</p>
+                  <p className="text-xs text-gray-500 mt-1">PDF, EPUB, MOBI, HTML up to 500MB</p>
+                  <input
+                    ref={ebookInputRef}
+                    type="file"
+                    accept=".pdf,.epub,.mobi,.html,.htm"
+                    onChange={(e) => e.target.files[0] && handleFileChange('ebook_file', e.target.files[0])}
+                    className="hidden"
+                  />
                 </div>
-              )}
+                {errors.ebook_file && <p className="text-red-500 text-sm mt-1">{errors.ebook_file}</p>}
+              </div>
 
               {isSubmitting && (
                 <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">

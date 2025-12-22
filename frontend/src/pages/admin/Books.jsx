@@ -622,12 +622,12 @@ const AdminBooks = () => {
                         <p className="font-medium text-gray-900">{getCategoryName(selection.bookForAction)}</p>
                       </div>
                       <div>
-                        <span className="text-sm text-gray-500">Format</span>
-                        <p className="font-medium text-gray-900">{selection.bookForAction.format || 'N/A'}</p>
+                        <span className="text-sm text-gray-500">Pages</span>
+                        <p className="font-medium text-gray-900">{selection.bookForAction.pages || 'N/A'}</p>
                       </div>
                       <div>
-                        <span className="text-sm text-gray-500">Stock</span>
-                        <p className="font-medium text-gray-900">{selection.bookForAction.stock_quantity || 0}</p>
+                        <span className="text-sm text-gray-500">Language</span>
+                        <p className="font-medium text-gray-900">{selection.bookForAction.language || 'English'}</p>
                       </div>
                       <div>
                         <span className="text-sm text-gray-500">Created</span>

@@ -85,18 +85,9 @@ const BookTable = ({ books, selectedBooks, onSelectionChange, onBookAction, edit
                 </span>
               </div>
               <div>
-                <span className="text-gray-500">Format:</span>
-                <span className="ml-1 font-medium text-gray-900 break-words">
-                  {book.format === 'ebook' ? 'Ebook' : 
-                   book.format === 'physical' ? 'Physical' :
-                   book.format === 'hybrid' ? 'Hybrid' :
-                   book.format || 'N/A'}
-                </span>
-              </div>
-              <div>
-                <span className="text-gray-500">Stock:</span>
+                <span className="text-gray-500">Pages:</span>
                 <span className="ml-1 font-medium text-gray-900">
-                  {book.stock_quantity || 0}
+                  {book.pages || 'N/A'}
                 </span>
               </div>
               <div>
@@ -226,10 +217,7 @@ const BookTable = ({ books, selectedBooks, onSelectionChange, onBookAction, edit
                           {book.title}
                         </div>
                         <div className="text-sm text-gray-500 break-words">
-                          {book.format === 'ebook' ? 'Ebook' : 
-                           book.format === 'physical' ? 'Physical' :
-                           book.format === 'hybrid' ? 'Hybrid' :
-                           book.format} • Stock: {book.stock_quantity}
+                          {book.pages ? `${book.pages} pages` : 'Digital Ebook'}
                         </div>
                       </div>
                     </div>

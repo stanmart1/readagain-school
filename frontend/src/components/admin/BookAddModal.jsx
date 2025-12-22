@@ -518,11 +518,11 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
                   <p className="text-sm text-gray-600">
                     {formData.ebook_file ? formData.ebook_file.name : 'Drag & drop ebook file or click to browse'}
                   </p>
-                  <p className="text-xs text-gray-500 mt-1">PDF, EPUB, MOBI up to 500MB</p>
+                  <p className="text-xs text-gray-500 mt-1">PDF, EPUB, MOBI, HTML up to 500MB</p>
                   <input
                     ref={ebookInputRef}
                     type="file"
-                    accept=".pdf,.epub,.mobi"
+                    accept=".pdf,.epub,.mobi,.html,.htm"
                     onChange={(e) => e.target.files[0] && handleFileChange('ebook_file', e.target.files[0])}
                     className="hidden"
                   />

@@ -29,7 +29,13 @@ export const ProtectedRoute = ({ children, requiredRole = null, requiredPermissi
   useEffect(() => {
     const validateToken = async () => {
       try {
-        await api.get('/auth/me');
+        const response = await api.get('/auth/me');
+        // Update user in localStorage with fresh data including role
+        if (response.data) {
+          const currentUser = getUser();
+          const updatedUser = { ...currentUser, ...response.data };
+          localStorage.setItem('user', JSON.stringify(updatedUser));
+        }
         setIsValid(true);
       } catch (error) {
         if (error.response?.status === 401) {

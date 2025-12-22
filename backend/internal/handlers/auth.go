@@ -20,8 +20,8 @@ type RegisterRequest struct {
 	Password   string `json:"password" validate:"required,min=8"`
 	FirstName  string `json:"first_name" validate:"required"`
 	LastName   string `json:"last_name" validate:"required"`
-	SchoolName string `json:"school_name" validate:"required"`
-	ClassLevel string `json:"class_level" validate:"required"`
+	SchoolName string `json:"school_name"`
+	ClassLevel string `json:"class_level"`
 }
 
 type LoginRequest struct {

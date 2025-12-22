@@ -11,7 +11,6 @@ export default function Signup() {
     first_name: '',
     last_name: '',
     phone_number: '',
-    is_student: '',
     school_name: '',
     school_category: '',
     class_level: '',
@@ -61,8 +60,10 @@ export default function Signup() {
 
   const validateStep2 = () => {
     const errors = {};
-    if (!formData.school_name.trim()) errors.school_name = 'School name is required';
-    if (!formData.class_level.trim()) errors.class_level = 'Class level is required';
+    if (formData.is_student === 'yes') {
+      if (!formData.school_name.trim()) errors.school_name = 'School name is required';
+      if (!formData.class_level.trim()) errors.class_level = 'Class level is required';
+    }
     if (!formData.username.trim()) {
       errors.username = 'Username is required';
     } else if (formData.username.trim().length < 3) {

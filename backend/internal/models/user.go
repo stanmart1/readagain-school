@@ -10,9 +10,9 @@ type User struct {
 	FirstName                string     `gorm:"not null" json:"first_name" validate:"required"`
 	LastName                 string     `gorm:"not null" json:"last_name" validate:"required"`
 	PhoneNumber              string     `json:"phone_number"`
-	SchoolName               string     `gorm:"not null" json:"school_name" validate:"required"`
+	SchoolName               string     `json:"school_name"`
 	SchoolCategory           string     `json:"school_category"`
-	ClassLevel               string     `gorm:"not null" json:"class_level" validate:"required"`
+	ClassLevel               string     `json:"class_level"`
 	Department               string     `json:"department"`
 	RoleID                   uint       `gorm:"index" json:"role_id"`
 	Role                     *Role      `gorm:"foreignKey:RoleID" json:"role,omitempty"`

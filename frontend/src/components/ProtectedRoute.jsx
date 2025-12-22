@@ -67,12 +67,6 @@ export const ProtectedRoute = ({ children, requiredRole = null, requiredPermissi
   if (requiredRole) {
     const allowedRoles = Array.isArray(requiredRole) ? requiredRole : [requiredRole];
     
-    console.log('Role check:', {
-      userRole: user?.role?.name,
-      allowedRoles,
-      hasRole: allowedRoles.includes(user?.role?.name)
-    });
-    
     if (!allowedRoles.includes(user?.role?.name)) {
       return <Navigate to="/dashboard" replace />;
     }

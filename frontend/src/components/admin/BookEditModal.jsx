@@ -5,6 +5,7 @@ import { uploadCover, uploadBook } from '../../lib/fileService';
 const BookEditModal = ({ isOpen, onClose, book, categories, authors, onSuccess }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const [uploadingFile, setUploadingFile] = useState(null);
   const [formData, setFormData] = useState({
     title: '',

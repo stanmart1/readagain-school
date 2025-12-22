@@ -87,6 +87,17 @@ export default function BookDetail() {
     );
   }
 
+  const getAuthorName = (book) => {
+    if (!book) return 'Unknown Author';
+    if (book.author_name) return book.author_name;
+    if (book.author?.business_name) return book.author.business_name;
+    if (book.author?.user) {
+      const { first_name, last_name } = book.author.user;
+      return `${first_name || ''} ${last_name || ''}`.trim() || 'Unknown Author';
+    }
+    return 'Unknown Author';
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -115,7 +126,7 @@ export default function BookDetail() {
               transition={{ duration: 0.3 }}
             >
               <h1 className="text-4xl font-bold text-gray-900 mb-4">{book.title}</h1>
-              <p className="text-xl text-gray-600 mb-6">by {book.author_name || book.author || 'Unknown Author'}</p>
+              <p className="text-xl text-gray-600 mb-6">by {getAuthorName(book)}</p>
 
               {/* Rating */}
               {book.rating && (
@@ -206,7 +217,7 @@ export default function BookDetail() {
                     />
                     <div className="p-4">
                       <h3 className="font-bold text-lg mb-2 line-clamp-2">{relatedBook.title}</h3>
-                      <p className="text-gray-600 text-sm mb-2">{relatedBook.author}</p>
+                      <p className="text-gray-600 text-sm mb-2">{getAuthorName(relatedBook)}</p>
                       <span className="text-xl font-bold text-blue-600">₦{relatedBook.price?.toLocaleString() || '0'}</span>
                     </div>
                   </Link>

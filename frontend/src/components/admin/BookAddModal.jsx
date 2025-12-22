@@ -108,41 +108,32 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
     try {
       const submitData = new FormData();
 
-      // Map frontend fields to backend expected fields
-      const fieldMapping = {
-        'track_inventory': 'inventory_enabled',
-        'format': 'book_type'
-      };
-      
-      // Add form fields
-      Object.entries(formData).forEach(([key, value]) => {
-        if (key !== 'cover_image' && key !== 'ebook_file' && value !== null && value !== '') {
-          const backendKey = fieldMapping[key] || key;
-          submitData.append(backendKey, String(value));
-        }
-      });
+      submitData.append('title', formData.title);
+      submitData.append('author_id', formData.author_id);
+      submitData.append('category_id', formData.category_id);
+      submitData.append('description', formData.description || '');
+      submitData.append('isbn', formData.isbn || '');
+      submitData.append('language', formData.language || 'English');
+      submitData.append('pages', formData.pages || '0');
+      submitData.append('publisher', formData.publisher || '');
+      submitData.append('status', formData.status || 'published');
 
-      // Add files
       if (formData.cover_image) {
         submitData.append('cover_image', formData.cover_image);
       }
       if (formData.ebook_file) {
-        submitData.append('ebook_file', formData.ebook_file);
+        submitData.append('book_file', formData.ebook_file);
       }
 
       setUploadProgress(25);
 
-      const response = await api.post('/admin/books', submitData, {
+      const response = await api.post('/books', submitData, {
         headers: { 'Content-Type': 'multipart/form-data' },
         onUploadProgress: (progressEvent) => {
           const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-          setUploadProgress(Math.min(progress, 95)); // Cap at 95% until response
+          setUploadProgress(Math.min(progress, 95));
         }
       });
-      
-      if (!response.data.book_id) {
-        throw new Error('Book creation failed - no book ID returned');
-      }
 
       setUploadProgress(100);
       const bookTitle = response.data.book?.title || formData.title;
@@ -154,7 +145,7 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
       }, 500);
     } catch (error) {
       console.error('Upload error:', error);
-      const errorMessage = error.response?.data?.detail || error.response?.data?.error || error.message || 'Upload failed';
+      const errorMessage = error.response?.data?.error || error.message || 'Upload failed';
       alert(`Upload failed: ${errorMessage}`);
       setUploadProgress(0);
     } finally {

@@ -25,10 +25,25 @@ const AdminBooks = () => {
   const { authors, fetchAuthors } = useAuthors();
   const { users, fetchUsers, assignBookToUser } = useUsers();
   
+  const getAuthorName = (book) => {
+    if (!book) return 'Unknown Author';
+    if (book.author_name) return book.author_name;
+    if (book.author?.business_name) return book.author.business_name;
+    if (book.author?.user) {
+      const { first_name, last_name } = book.author.user;
+      return `${first_name || ''} ${last_name || ''}`.trim() || 'Unknown Author';
+    }
+    return 'Unknown Author';
+  };
+
+  const getCategoryName = (book) => {
+    return book.category_name || book.category?.name || 'N/A';
+  };
+
   const fetchBookDetails = async (bookId) => {
     try {
-      const response = await api.get(`/admin/books/${bookId}`);
-      return response.data;
+      const result = await getBookDetails(bookId);
+      return result.success ? result.data : null;
     } catch (error) {
       console.error('Failed to fetch book details:', error);
       return null;
@@ -44,6 +59,10 @@ const AdminBooks = () => {
     setFilters,
     setPagination,
     updateBook,
+    toggleFeatured,
+    toggleStatus,
+    createBook,
+    getBookDetails,
     deleteBooks,
     batchUpdateBooks,
     setError,
@@ -194,16 +213,20 @@ const AdminBooks = () => {
   const handleBookAction = async (action, book) => {
     switch (action) {
       case 'toggleFeature':
-        const result1 = await updateBook(book.id, { is_featured: !book.is_featured });
+        const result1 = await toggleFeatured(book.id, !book.is_featured);
         if (result1.success) {
           alert(book.is_featured ? 'Book removed from featured' : 'Book added to featured');
+        } else {
+          alert('Failed to update featured status: ' + result1.error);
         }
         break;
       case 'toggleStatus':
         const newStatus = book.status === 'published' ? 'draft' : 'published';
-        const result2 = await updateBook(book.id, { status: newStatus });
+        const result2 = await toggleStatus(book.id, newStatus);
         if (result2.success) {
           alert(`Book ${newStatus === 'published' ? 'activated' : 'deactivated'} successfully`);
+        } else {
+          alert('Failed to update status: ' + result2.error);
         }
         break;
       case 'edit':
@@ -576,7 +599,7 @@ const AdminBooks = () => {
                       />
                       <div className="flex-1">
                         <h4 className="text-2xl font-bold text-gray-900 mb-2">{selection.bookForAction.title}</h4>
-                        <p className="text-gray-600 mb-2">by {selection.bookForAction.author_name}</p>
+                        <p className="text-gray-600 mb-2">by {getAuthorName(selection.bookForAction)}</p>
                         <div className="flex items-center gap-2 mb-2">
                           <span className={`px-3 py-1 text-xs font-semibold rounded-full text-white ${
                             selection.bookForAction.status === 'published' ? 'bg-green-500' :
@@ -596,15 +619,15 @@ const AdminBooks = () => {
                     <div className="grid grid-cols-2 gap-4 pt-4 border-t">
                       <div>
                         <span className="text-sm text-gray-500">Category</span>
-                        <p className="font-medium text-gray-900">{selection.bookForAction.category_name}</p>
+                        <p className="font-medium text-gray-900">{getCategoryName(selection.bookForAction)}</p>
                       </div>
                       <div>
                         <span className="text-sm text-gray-500">Format</span>
-                        <p className="font-medium text-gray-900">{selection.bookForAction.format}</p>
+                        <p className="font-medium text-gray-900">{selection.bookForAction.format || 'N/A'}</p>
                       </div>
                       <div>
                         <span className="text-sm text-gray-500">Stock</span>
-                        <p className="font-medium text-gray-900">{selection.bookForAction.stock_quantity}</p>
+                        <p className="font-medium text-gray-900">{selection.bookForAction.stock_quantity || 0}</p>
                       </div>
                       <div>
                         <span className="text-sm text-gray-500">Created</span>

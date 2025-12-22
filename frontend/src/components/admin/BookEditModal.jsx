@@ -160,20 +160,24 @@ const BookEditModal = ({ isOpen, onClose, book, categories, authors, onSuccess }
     try {
       const submitData = new FormData();
       
-      Object.entries(formData).forEach(([key, value]) => {
-        if (key !== 'cover_image' && key !== 'ebook_file' && value !== null && value !== '') {
-          submitData.append(key, String(value));
-        }
-      });
+      if (formData.title) submitData.append('title', formData.title);
+      if (formData.author_id) submitData.append('author_id', formData.author_id);
+      if (formData.category_id) submitData.append('category_id', formData.category_id);
+      if (formData.description) submitData.append('description', formData.description);
+      if (formData.isbn) submitData.append('isbn', formData.isbn);
+      if (formData.language) submitData.append('language', formData.language);
+      if (formData.pages) submitData.append('page_count', formData.pages);
+      if (formData.publisher) submitData.append('publisher', formData.publisher);
+      if (formData.status) submitData.append('status', formData.status);
       
       if (formData.cover_image) {
         submitData.append('cover_image', formData.cover_image);
       }
       if (formData.ebook_file) {
-        submitData.append('ebook_file', formData.ebook_file);
+        submitData.append('book_file', formData.ebook_file);
       }
       
-      const response = await api.put(`/admin/books/${book.id}`, submitData, {
+      const response = await api.put(`/books/${book.id}`, submitData, {
         headers: { 'Content-Type': 'multipart/form-data' },
         onUploadProgress: (progressEvent) => {
           const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
@@ -191,7 +195,7 @@ const BookEditModal = ({ isOpen, onClose, book, categories, authors, onSuccess }
       }, 500);
     } catch (error) {
       console.error('Update error:', error);
-      const errorMessage = error.response?.data?.detail || error.response?.data?.error || error.message || 'Update failed';
+      const errorMessage = error.response?.data?.error || error.message || 'Update failed';
       alert(`Update failed: ${errorMessage}`);
       setUploadProgress(0);
     } finally {

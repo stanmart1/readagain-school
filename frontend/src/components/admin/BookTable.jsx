@@ -1,5 +1,16 @@
 import { getImageUrl } from '../../lib/fileService';
 
+const getAuthorName = (book) => {
+  if (!book) return 'Unknown Author';
+  if (book.author_name) return book.author_name;
+  if (book.author?.business_name) return book.author.business_name;
+  if (book.author?.user) {
+    const { first_name, last_name } = book.author.user;
+    return `${first_name || ''} ${last_name || ''}`.trim() || 'Unknown Author';
+  }
+  return 'Unknown Author';
+};
+
 const BookTable = ({ books, selectedBooks, onSelectionChange, onBookAction, editLoading }) => {
   const handleSelectAll = (checked) => {
     if (checked) {
@@ -48,7 +59,7 @@ const BookTable = ({ books, selectedBooks, onSelectionChange, onBookAction, edit
                   <div className="text-sm font-semibold text-gray-900 break-words">
                     {book.title}
                   </div>
-                  <div className="text-sm text-gray-500 break-words">by {book.author_name}</div>
+                  <div className="text-sm text-gray-500 break-words">by {getAuthorName(book)}</div>
                 </div>
               </div>
               <div className="flex flex-col items-end space-y-1 ml-2">
@@ -70,7 +81,7 @@ const BookTable = ({ books, selectedBooks, onSelectionChange, onBookAction, edit
               <div>
                 <span className="text-gray-500">Category:</span>
                 <span className="ml-1 font-medium text-gray-900 break-words">
-                  {book.category_name}
+                  {book.category?.name || 'N/A'}
                 </span>
               </div>
               <div>
@@ -79,13 +90,13 @@ const BookTable = ({ books, selectedBooks, onSelectionChange, onBookAction, edit
                   {book.format === 'ebook' ? 'Ebook' : 
                    book.format === 'physical' ? 'Physical' :
                    book.format === 'hybrid' ? 'Hybrid' :
-                   book.format}
+                   book.format || 'N/A'}
                 </span>
               </div>
               <div>
                 <span className="text-gray-500">Stock:</span>
                 <span className="ml-1 font-medium text-gray-900">
-                  {book.stock_quantity}
+                  {book.stock_quantity || 0}
                 </span>
               </div>
               <div>
@@ -225,12 +236,12 @@ const BookTable = ({ books, selectedBooks, onSelectionChange, onBookAction, edit
                   </td>
                   <td className="px-4 py-4">
                     <div className="text-sm text-gray-900 break-words">
-                      {book.author_name}
+                      {getAuthorName(book)}
                     </div>
                   </td>
                   <td className="px-4 py-4">
                     <div className="text-sm text-gray-500 break-words">
-                      {book.category_name}
+                      {book.category?.name || 'N/A'}
                     </div>
                   </td>
                   <td className="px-4 py-4">

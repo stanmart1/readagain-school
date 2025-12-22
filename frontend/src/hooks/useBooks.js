@@ -16,6 +16,8 @@ export const useBooks = (params = {}) => {
       setError(null);
       const response = await api.get('/books', { params });
       // Backend returns: { books: [...], pagination: {...} }
+      console.log('useBooks response:', response.data);
+      console.log('Books array:', response.data.books);
       setBooks(response.data.books || []);
     } catch (err) {
       setError(err.message);

@@ -35,14 +35,14 @@ func (s *AuthorService) GetStats() (map[string]interface{}, error) {
 	return stats, nil
 }
 
-func (s *AuthorService) ListAuthors(page, limit int, search string) ([]models.Author, *utils.PaginationMeta, error) {
+func (s *AuthorService) ListAuthors(page, limit int, search string) ([]map[string]interface{}, *utils.PaginationMeta, error) {
 	params := utils.GetPaginationParams(page, limit)
 
 	query := s.db.Model(&models.Author{}).Preload("User")
 
 	if search != "" {
 		query = query.Joins("JOIN users ON users.id = authors.user_id").
-			Where("users.first_name ILIKE ? OR users.last_name ILIKE ? OR authors.pen_name ILIKE ?",
+			Where("users.first_name ILIKE ? OR users.last_name ILIKE ? OR authors.business_name ILIKE ?",
 				"%"+search+"%", "%"+search+"%", "%"+search+"%")
 	}
 
@@ -56,8 +56,30 @@ func (s *AuthorService) ListAuthors(page, limit int, search string) ([]models.Au
 		return nil, nil, utils.NewInternalServerError("Failed to fetch authors", err)
 	}
 
+	// Add books_count to each author
+	result := make([]map[string]interface{}, len(authors))
+	for i, author := range authors {
+		var booksCount int64
+		s.db.Model(&models.Book{}).Where("author_id = ?", author.ID).Count(&booksCount)
+		
+		result[i] = map[string]interface{}{
+			"id":            author.ID,
+			"created_at":    author.CreatedAt,
+			"updated_at":    author.UpdatedAt,
+			"user_id":       author.UserID,
+			"user":          author.User,
+			"business_name": author.BusinessName,
+			"bio":           author.Bio,
+			"photo":         author.Photo,
+			"website":       author.Website,
+			"email":         author.Email,
+			"status":        author.Status,
+			"books_count":   booksCount,
+		}
+	}
+
 	meta := utils.GetPaginationMeta(params.Page, params.Limit, total)
-	return authors, &meta, nil
+	return result, &meta, nil
 }
 
 func (s *AuthorService) GetAuthorByID(authorID uint) (*models.Author, error) {

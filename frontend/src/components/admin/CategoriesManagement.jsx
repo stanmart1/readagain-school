@@ -242,7 +242,7 @@ const CategoriesManagement = () => {
                 <div className="flex items-center gap-4">
                   <span className="text-gray-600">
                     <i className="ri-book-line mr-1"></i>
-                    {category.book_count || 0} books
+                    {category.books_count || 0} books
                   </span>
                   <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                     category.status === 'active' 

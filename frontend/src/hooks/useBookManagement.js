@@ -30,8 +30,7 @@ export const useBookManagement = () => {
         ...(filters.category_id && { category_id: filters.category_id })
       };
       
-      const response = await api.get('/admin/books', { params });
-      // Backend returns: { books: [...], pagination: {...} }
+      const response = await api.get('/books', { params });
       const result = response.data;
       
       setBooks(result.books || []);
@@ -47,7 +46,7 @@ export const useBookManagement = () => {
     } catch (err) {
       console.error('Load books error:', err);
       setError(err);
-      return { success: false, error: err.message };
+      return { success: false, error: err.response?.data?.error || err.message };
     } finally {
       setLoading(false);
     }
@@ -55,34 +54,80 @@ export const useBookManagement = () => {
 
   const updateBook = async (bookId, updates) => {
     try {
-      await api.put(`/admin/books/${bookId}`, updates);
+      const response = await api.put(`/books/${bookId}`, updates);
+      await loadBooks();
+      return { success: true, data: response.data };
+    } catch (err) {
+      console.error('Update error:', err);
+      return { success: false, error: err.response?.data?.error || err.message };
+    }
+  };
+
+  const toggleFeatured = async (bookId, isFeatured) => {
+    try {
+      await api.patch(`/books/${bookId}/featured`, { is_featured: isFeatured });
       await loadBooks();
       return { success: true };
     } catch (err) {
-      console.error('Update error:', err);
-      return { success: false, error: err.message };
+      console.error('Toggle featured error:', err);
+      return { success: false, error: err.response?.data?.error || err.message };
+    }
+  };
+
+  const toggleStatus = async (bookId, status) => {
+    try {
+      const formData = new FormData();
+      formData.append('status', status);
+      await api.put(`/books/${bookId}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      await loadBooks();
+      return { success: true };
+    } catch (err) {
+      console.error('Toggle status error:', err);
+      return { success: false, error: err.response?.data?.error || err.message };
+    }
+  };
+
+  const createBook = async (bookData) => {
+    try {
+      const response = await api.post('/books', bookData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      await loadBooks();
+      return { success: true, data: response.data };
+    } catch (err) {
+      console.error('Create error:', err);
+      return { success: false, error: err.response?.data?.error || err.message };
+    }
+  };
+
+  const getBookDetails = async (bookId) => {
+    try {
+      const response = await api.get(`/books/${bookId}`);
+      return { success: true, data: response.data.book };
+    } catch (err) {
+      console.error('Get book error:', err);
+      return { success: false, error: err.response?.data?.error || err.message };
     }
   };
 
   const deleteBooks = async (bookIds) => {
     try {
-      // Optimistically remove books from UI
       setBooks(prevBooks => prevBooks.filter(book => !bookIds.includes(book.id)));
       
       if (bookIds.length === 1) {
-        await api.delete(`/admin/books/${bookIds[0]}`);
+        await api.delete(`/books/${bookIds[0]}`);
       } else {
-        await api.post('/admin/books/bulk-delete', { book_ids: bookIds });
+        await api.post('/books/bulk-delete', { book_ids: bookIds });
       }
       
-      // Refresh the list
       await loadBooks();
       return { success: true };
     } catch (err) {
       console.error('Delete error:', err);
-      // Revert optimistic update on error
       await loadBooks();
-      return { success: false, error: err.message };
+      return { success: false, error: err.response?.data?.error || err.message };
     }
   };
 
@@ -111,6 +156,10 @@ export const useBookManagement = () => {
     setFilters,
     setPagination,
     updateBook,
+    toggleFeatured,
+    toggleStatus,
+    createBook,
+    getBookDetails,
     deleteBooks,
     batchUpdateBooks,
     setError,

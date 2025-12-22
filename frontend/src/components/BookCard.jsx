@@ -7,9 +7,24 @@ export default function BookCard({ book }) {
   const [isHovered, setIsHovered] = useState(false);
   const [addingToCart, setAddingToCart] = useState(false);
 
-  console.log('BookCard book data:', book);
-  const displayAuthor = book.author_name || book.author?.business_name || 'Unknown Author';
-  console.log('displayAuthor:', displayAuthor);
+  const getAuthorName = () => {
+    if (book.author_name) return book.author_name;
+    if (book.author?.business_name) return book.author.business_name;
+    if (book.author?.user) {
+      const { first_name, last_name } = book.author.user;
+      return `${first_name || ''} ${last_name || ''}`.trim() || 'Unknown Author';
+    }
+    return 'Unknown Author';
+  };
+
+  const getCategoryName = () => {
+    if (book.category_name) return book.category_name;
+    if (book.category?.name) return book.category.name;
+    return null;
+  };
+  
+  const displayAuthor = getAuthorName();
+  const displayCategory = getCategoryName();
   const displayCover = getImageUrl(book.cover_image_url || book.cover_image);
   const displayOriginalPrice = book.original_price || book.originalPrice;
   const displayRating = book.rating || 0;
@@ -71,10 +86,10 @@ export default function BookCard({ book }) {
           )}
 
           {/* Category Badge */}
-          {book.category_name && (
+          {displayCategory && (
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
               <span className="bg-blue-600 text-white px-2 py-1 rounded-full text-xs font-medium">
-                {book.category_name}
+                {displayCategory}
               </span>
             </div>
           )}
@@ -106,7 +121,7 @@ export default function BookCard({ book }) {
             </h3>
           </Link>
           <p className="text-gray-600 mb-4 h-6">
-            by {displayAuthor || 'Unknown Author'}
+            by {displayAuthor}
           </p>
           
           {/* Rating - Fixed Height */}

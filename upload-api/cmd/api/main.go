@@ -4,8 +4,7 @@ import (
 	"log"
 	"os"
 
-	"readagain/upload-api/internal/handlers"
-	"readagain/upload-api/internal/middleware"
+	"readagain/upload-api/internal/routes"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -31,6 +30,9 @@ func main() {
 	if err := os.MkdirAll(storagePath+"/books", 0755); err != nil {
 		log.Fatal("Failed to create books directory:", err)
 	}
+	if err := os.MkdirAll(storagePath+"/profiles", 0755); err != nil {
+		log.Fatal("Failed to create profiles directory:", err)
+	}
 	if err := os.MkdirAll(storagePath+"/thumbnails", 0755); err != nil {
 		log.Fatal("Failed to create thumbnails directory:", err)
 	}
@@ -48,24 +50,8 @@ func main() {
 		AllowHeaders: "Origin, Content-Type, Accept",
 	}))
 
-	// Initialize handler
-	uploadHandler := handlers.NewUploadHandler(storagePath)
-
-	// Routes
-	api := app.Group("/api")
-	
-	// Upload routes
-	api.Post("/upload/cover", middleware.ValidateImageUpload(), uploadHandler.UploadCover)
-	api.Post("/upload/book", middleware.ValidateBookUpload(), uploadHandler.UploadBook)
-	
-	// File serving and deletion
-	api.Get("/files/:filename", uploadHandler.ServeFile)
-	api.Delete("/files/:filename", uploadHandler.DeleteFile)
-
-	// Health check
-	app.Get("/health", func(c *fiber.Ctx) error {
-		return c.JSON(fiber.Map{"status": "ok"})
-	})
+	// Setup routes
+	routes.SetupRoutes(app, storagePath)
 
 	// Start server
 	log.Printf("🚀 Upload API starting on port %s", port)

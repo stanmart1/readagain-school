@@ -24,6 +24,48 @@ func NewUploadHandler(storagePath string) *UploadHandler {
 	}
 }
 
+func (h *UploadHandler) UploadProfile(c *fiber.Ctx) error {
+	file, err := c.FormFile("file")
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Failed to read file",
+		})
+	}
+
+	// Generate unique filename
+	ext := filepath.Ext(file.Filename)
+	filename := fmt.Sprintf("%s%s", uuid.New().String(), ext)
+	filePath := filepath.Join(h.storagePath, "profiles", filename)
+
+	// Save file
+	if err := c.SaveFile(file, filePath); err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": "Failed to save file",
+		})
+	}
+
+	// Optimize image (smaller size for profiles)
+	profileOptimizer := utils.NewImageOptimizer(500, 500, 85)
+	if err := profileOptimizer.OptimizeImage(filePath); err != nil {
+		os.Remove(filePath)
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": "Failed to optimize image",
+		})
+	}
+
+	// Update filename if converted to jpg
+	if ext == ".png" || ext == ".webp" {
+		filename = strings.TrimSuffix(filename, ext) + ".jpg"
+	}
+
+	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
+		"filename": filename,
+		"path":     fmt.Sprintf("profiles/%s", filename),
+		"url":      fmt.Sprintf("/api/files/%s", filename),
+		"size":     file.Size,
+	})
+}
+
 func (h *UploadHandler) UploadCover(c *fiber.Ctx) error {
 	file, err := c.FormFile("file")
 	if err != nil {
@@ -95,6 +137,12 @@ func (h *UploadHandler) UploadBook(c *fiber.Ctx) error {
 func (h *UploadHandler) ServeFile(c *fiber.Ctx) error {
 	filename := c.Params("filename")
 	
+	// Check in profiles directory
+	profilePath := filepath.Join(h.storagePath, "profiles", filename)
+	if _, err := os.Stat(profilePath); err == nil {
+		return c.SendFile(profilePath)
+	}
+
 	// Check in covers directory
 	coverPath := filepath.Join(h.storagePath, "covers", filename)
 	if _, err := os.Stat(coverPath); err == nil {
@@ -115,6 +163,14 @@ func (h *UploadHandler) ServeFile(c *fiber.Ctx) error {
 func (h *UploadHandler) DeleteFile(c *fiber.Ctx) error {
 	filename := c.Params("filename")
 	
+	// Try to delete from profiles
+	profilePath := filepath.Join(h.storagePath, "profiles", filename)
+	if err := os.Remove(profilePath); err == nil {
+		return c.JSON(fiber.Map{
+			"message": "File deleted successfully",
+		})
+	}
+
 	// Try to delete from covers
 	coverPath := filepath.Join(h.storagePath, "covers", filename)
 	if err := os.Remove(coverPath); err == nil {

@@ -11,11 +11,15 @@ import (
 )
 
 type AnalyticsHandler struct {
-	service *services.AnalyticsService
+	service       *services.AnalyticsService
+	reportService *services.ReportService
 }
 
-func NewAnalyticsHandler(service *services.AnalyticsService) *AnalyticsHandler {
-	return &AnalyticsHandler{service: service}
+func NewAnalyticsHandler(service *services.AnalyticsService, reportService *services.ReportService) *AnalyticsHandler {
+	return &AnalyticsHandler{
+		service:       service,
+		reportService: reportService,
+	}
 }
 
 func (h *AnalyticsHandler) GetSalesStats(c *fiber.Ctx) error {
@@ -134,9 +138,13 @@ func (h *AnalyticsHandler) GenerateReport(c *fiber.Ctx) error {
 func (h *AnalyticsHandler) DownloadReport(c *fiber.Ctx) error {
 	reportType := c.Params("type")
 
-	return c.JSON(fiber.Map{
-		"message": "Report download",
-		"type":    reportType,
-	})
+	pdf, err := h.reportService.GeneratePDF(reportType)
+	if err != nil {
+		return c.Status(500).JSON(fiber.Map{"error": err.Error()})
+	}
+
+	c.Set("Content-Type", "application/pdf")
+	c.Set("Content-Disposition", "attachment; filename="+reportType+"-report.pdf")
+	return c.Send(pdf)
 }
 

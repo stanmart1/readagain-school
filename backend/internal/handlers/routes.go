@@ -27,6 +27,7 @@ func SetupRoutes(
 	contactService *services.ContactService,
 	settingsService *services.SettingsService,
 	analyticsService *services.AnalyticsService,
+	reportService *services.ReportService,
 	notificationService *services.NotificationService,
 	auditService *services.AuditService,
 	reviewService *services.ReviewService,
@@ -50,7 +51,7 @@ func SetupRoutes(
 	testimonialHandler := NewTestimonialHandler(testimonialService)
 	contactHandler := NewContactHandler(contactService)
 	settingsHandler := NewSettingsHandler(settingsService)
-	analyticsHandler := NewAnalyticsHandler(analyticsService)
+	analyticsHandler := NewAnalyticsHandler(analyticsService, reportService)
 	notificationHandler := NewNotificationHandler(notificationService)
 	auditHandler := NewAuditHandler(auditService)
 	reviewHandler := NewReviewHandler(reviewService)

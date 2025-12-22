@@ -65,6 +65,7 @@ func main() {
 	contactService := services.NewContactService(database.DB)
 	settingsService := services.NewSettingsService(database.DB)
 	analyticsService := services.NewAnalyticsService(database.DB)
+	reportService := services.NewReportService(database.DB)
 	notificationService := services.NewNotificationService(database.DB)
 	auditService := services.NewAuditService(database.DB)
 	reviewService := services.NewReviewService(database.DB)
@@ -74,7 +75,7 @@ func main() {
 
 	achievementService.SeedAchievements()
 
-	handlers.SetupRoutes(app, authService, userService, roleService, categoryService, authorService, bookService, storageService, libraryService, ereaderService, sessionService, goalService, achievementService, blogService, faqService, testimonialService, contactService, settingsService, analyticsService, notificationService, auditService, reviewService, aboutService, activityService, wishlistService)
+	handlers.SetupRoutes(app, authService, userService, roleService, categoryService, authorService, bookService, storageService, libraryService, ereaderService, sessionService, goalService, achievementService, blogService, faqService, testimonialService, contactService, settingsService, analyticsService, reportService, notificationService, auditService, reviewService, aboutService, activityService, wishlistService)
 
 	utils.InfoLogger.Printf("🚀 Server starting on port %s", cfg.Server.Port)
 	if err := app.Listen(":" + cfg.Server.Port); err != nil {

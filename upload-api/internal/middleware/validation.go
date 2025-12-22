@@ -53,7 +53,7 @@ func ValidateBookUpload() fiber.Handler {
 
 		if file.Size > MaxBookSize {
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-				"error": "Book file size exceeds 100MB limit",
+				"error": "Book file size exceeds 500MB limit",
 			})
 		}
 

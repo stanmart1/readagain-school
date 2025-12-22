@@ -39,7 +39,9 @@ func main() {
 
 	// Initialize Fiber app
 	app := fiber.New(fiber.Config{
-		BodyLimit: 500 * 1024 * 1024, // 500MB
+		BodyLimit:             500 * 1024 * 1024, // 500MB
+		StreamRequestBody:     true,               // Enable streaming for large files
+		DisableStartupMessage: false,
 	})
 
 	// Middleware

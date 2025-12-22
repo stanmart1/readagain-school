@@ -15,27 +15,32 @@ const AdminLayout = ({ children }) => {
   const user = getUser();
   const { hasPermission, isAdmin } = usePermissions();
   const [permissions, setPermissions] = useState(getPermissions());
-  const [permissionsFetched, setPermissionsFetched] = useState(false);
 
   // Fetch permissions if not cached
   useEffect(() => {
     const fetchPermissions = async () => {
-      if (!permissionsFetched && user) {
+      const cachedPermissions = localStorage.getItem('permissions');
+      const alreadyFetched = sessionStorage.getItem('permissions_fetched');
+      
+      // Only fetch if no cached permissions AND not already fetched in this session
+      if (!cachedPermissions && !alreadyFetched && user) {
         try {
+          sessionStorage.setItem('permissions_fetched', 'true');
           const response = await api.get('/auth/permissions');
           if (response.data.permissions) {
             localStorage.setItem('permissions', JSON.stringify(response.data.permissions));
             setPermissions(response.data.permissions);
           }
-          setPermissionsFetched(true);
         } catch (error) {
           console.error('Failed to fetch permissions:', error);
-          setPermissionsFetched(true);
+          sessionStorage.removeItem('permissions_fetched');
         }
+      } else if (cachedPermissions) {
+        setPermissions(JSON.parse(cachedPermissions));
       }
     };
     fetchPermissions();
-  }, [user, permissionsFetched]);
+  }, [user]);
 
   const menuItems = [
     { path: '/admin', icon: 'ri-dashboard-line', label: 'Overview', permission: 'analytics.view' },

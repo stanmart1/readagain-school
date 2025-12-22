@@ -58,7 +58,7 @@ const UserFilters = ({ searchTerm, setSearchTerm, filterRole, setFilterRole, fil
             <option value="all">All Roles</option>
             {roles.map((role) => (
               <option key={role.id} value={role.name}>
-                {role.display_name || role.name}
+                {role.name}
               </option>
             ))}
           </select>

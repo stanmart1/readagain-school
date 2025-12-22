@@ -64,7 +64,7 @@ const UserMobileCard = ({ user, onView, onEdit, onAnalytics, onAssignBooks, onAs
           <span className="font-medium text-gray-700">Role:</span>
           <div className="mt-1 flex flex-wrap gap-1">
             <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full text-white ${getRoleColor(user.role?.name)}`}>
-              {user.role?.display_name || 'No Role'}
+              {user.role?.name || 'No Role'}
             </span>
           </div>
         </div>

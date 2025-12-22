@@ -10,7 +10,8 @@ upload-api/
 ├── cmd/api/          # Application entry point
 └── internal/
     ├── handlers/     # HTTP handlers
-    └── utils/        # Utilities (validation, file handling)
+    ├── middleware/   # File validation middleware
+    └── utils/        # Utilities (file handling)
 ```
 
 ## Setup
@@ -30,5 +31,5 @@ go run cmd/api/main.go
 
 ## Deployment
 
-Files are stored in Coolify persistent storage at `/data/storage`.
-No authentication required - public upload endpoint.
+Files are stored in Coolify persistent storage at `/app/storage`.
+No authentication required - public upload endpoint with file validation middleware.

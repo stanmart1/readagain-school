@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 
 export default function FeaturesSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [cardsPerView, setCardsPerView] = useState(3);
   const carouselRef = useRef(null);
 
   const features = [
@@ -44,18 +45,36 @@ export default function FeaturesSection() {
     }
   ];
 
+  const maxIndex = Math.ceil(features.length / cardsPerView) - 1;
+
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % features.length);
+    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + features.length) % features.length);
+    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setCardsPerView(3);
+      } else if (window.innerWidth >= 768) {
+        setCardsPerView(2);
+      } else {
+        setCardsPerView(1);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(nextSlide, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [maxIndex]);
 
   return (
     <section className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
@@ -85,23 +104,27 @@ export default function FeaturesSection() {
           <div className="overflow-hidden" ref={carouselRef}>
             <motion.div
               className="flex transition-transform duration-500 ease-out"
-              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+              style={{ transform: `translateX(-${currentIndex * (100 / cardsPerView)}%)` }}
             >
               {features.map((feature, index) => (
-                <div key={index} className="w-full flex-shrink-0 px-4">
+                <div 
+                  key={index} 
+                  className="px-4"
+                  style={{ minWidth: `${100 / cardsPerView}%` }}
+                >
                   <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="bg-white rounded-2xl p-8 shadow-lg max-w-md mx-auto"
+                    className="bg-white rounded-2xl p-8 shadow-lg h-80 flex flex-col"
                   >
-                    <div className={`w-16 h-16 rounded-xl flex items-center justify-center bg-gradient-to-r ${feature.color} shadow-lg mb-6`}>
+                    <div className={`w-16 h-16 rounded-xl flex items-center justify-center bg-gradient-to-r ${feature.color} shadow-lg mb-6 flex-shrink-0`}>
                       <i className={`${feature.icon} text-white text-3xl`}></i>
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-3">
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 flex-shrink-0">
                       {feature.title}
                     </h3>
-                    <p className="text-gray-600 leading-relaxed">
+                    <p className="text-gray-600 leading-relaxed flex-grow">
                       {feature.description}
                     </p>
                   </motion.div>
@@ -126,7 +149,7 @@ export default function FeaturesSection() {
 
           {/* Dots Indicator */}
           <div className="flex justify-center gap-2 mt-8">
-            {features.map((_, index) => (
+            {Array.from({ length: maxIndex + 1 }).map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}

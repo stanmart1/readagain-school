@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useCartContext } from '../context/CartContext';
 import { getImageUrl } from '../lib/fileService';
+import api from '../lib/api';
 
 export default function BookCard({ book }) {
   const [isHovered, setIsHovered] = useState(false);
   const [addingToCart, setAddingToCart] = useState(false);
-  const { addToCart } = useCartContext();
 
   const displayAuthor = book.author_name || book.author || '';
   const displayCover = getImageUrl(book.cover_image_url || book.cover_image);
@@ -18,10 +17,10 @@ export default function BookCard({ book }) {
     e.preventDefault();
     try {
       setAddingToCart(true);
-      await addToCart(book, 1);
-      alert('Book added to cart!');
+      await api.post('/library', { book_id: book.id });
+      alert('Book added to your library!');
     } catch (error) {
-      console.error('Error adding to cart:', error);
+      console.error('Error adding to library:', error);
       alert('Failed to add to library');
     } finally {
       setAddingToCart(false);

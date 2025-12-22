@@ -55,7 +55,6 @@ func main() {
 	authorService := services.NewAuthorService(database.DB)
 	bookService := services.NewBookService(database.DB)
 	storageService := services.NewStorageService("./uploads")
-	cartService := services.NewCartService(database.DB)
 	orderService := services.NewOrderService(database.DB, emailService, achievementService)
 	bankTransferService := services.NewBankTransferService(database.DB)
 	paymentService := services.NewPaymentService(cfg.Payment.PaystackSecretKey, cfg.Payment.FlutterwaveSecretKey, bankTransferService)
@@ -79,7 +78,7 @@ func main() {
 
 	achievementService.SeedAchievements()
 
-	handlers.SetupRoutes(app, authService, userService, roleService, categoryService, authorService, bookService, storageService, cartService, orderService, paymentService, libraryService, ereaderService, sessionService, goalService, achievementService, blogService, faqService, testimonialService, contactService, settingsService, analyticsService, notificationService, auditService, reviewService, aboutService, activityService, wishlistService, workService)
+	handlers.SetupRoutes(app, authService, userService, roleService, categoryService, authorService, bookService, storageService, orderService, paymentService, libraryService, ereaderService, sessionService, goalService, achievementService, blogService, faqService, testimonialService, contactService, settingsService, analyticsService, notificationService, auditService, reviewService, aboutService, activityService, wishlistService, workService)
 
 	utils.InfoLogger.Printf("🚀 Server starting on port %s", cfg.Server.Port)
 	if err := app.Listen(":" + cfg.Server.Port); err != nil {

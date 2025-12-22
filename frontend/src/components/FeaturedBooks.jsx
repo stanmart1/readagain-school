@@ -3,13 +3,12 @@ import { motion } from 'framer-motion';
 import { getImageUrl } from '../lib/fileService';
 import { Link } from 'react-router-dom';
 import { useBooks } from '../hooks';
-import { useCartContext } from '../context/CartContext';
 import ProgressiveImage from './ProgressiveImage';
+import api from '../lib/api';
 
 export default function FeaturedBooks() {
   const [selectedCategory, setSelectedCategory] = useState('featured');
   const [addedToCart, setAddedToCart] = useState(new Set());
-  const { addToCart } = useCartContext();
   const desktopCarouselRef = useRef(null);
   const mobileCarouselRef = useRef(null);
   const [isAutoScrolling, setIsAutoScrolling] = useState(true);
@@ -30,24 +29,23 @@ export default function FeaturedBooks() {
   // Create infinite loop array by tripling the books
   const infiniteBooks = books.length > 0 ? [...books, ...books, ...books] : [];
 
-  const handleAddToCart = (book, e) => {
+  const handleAddToCart = async (book, e) => {
     e.preventDefault();
-    addToCart({
-      id: book.id,
-      title: book.title,
-      author: book.author_name,
-      price: book.price,
-      cover_image: book.cover_image_url || book.cover_image,
-      quantity: 1
-    });
-
-    setAddedToCart(prev => new Set(prev).add(book.id));
-    setTimeout(() => {
-      setAddedToCart(prev => {
-        const newSet = new Set(prev);
-        newSet.delete(book.id);
-        return newSet;
-      });
+    try {
+      await api.post('/library', { book_id: book.id });
+      setAddedToCart(prev => new Set(prev).add(book.id));
+      setTimeout(() => {
+        setAddedToCart(prev => {
+          const newSet = new Set(prev);
+          newSet.delete(book.id);
+          return newSet;
+        });
+      }, 2000);
+    } catch (error) {
+      console.error('Error adding to library:', error);
+      alert('Failed to add to library');
+    }
+  };
     }, 2000);
   };
 

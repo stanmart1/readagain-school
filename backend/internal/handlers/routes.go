@@ -16,7 +16,6 @@ func SetupRoutes(
 	authorService *services.AuthorService,
 	bookService *services.BookService,
 	storageService *services.StorageService,
-	cartService *services.CartService,
 	orderService *services.OrderService,
 	paymentService *services.PaymentService,
 	libraryService *services.LibraryService,
@@ -46,7 +45,6 @@ func SetupRoutes(
 	categoryHandler := NewCategoryHandler(categoryService)
 	authorHandler := NewAuthorHandler(authorService)
 	bookHandler := NewBookHandler(bookService, storageService)
-	cartHandler := NewCartHandler(cartService)
 	checkoutHandler := NewCheckoutHandler(orderService, paymentService)
 	orderHandler := NewOrderHandler(orderService)
 	libraryHandler := NewLibraryHandler(libraryService, ereaderService)
@@ -173,14 +171,6 @@ func SetupRoutes(
 	adminBooks.Put("/:id", bookHandler.UpdateBook)
 	adminBooks.Delete("/:id", bookHandler.DeleteBook)
 	adminBooks.Patch("/:id/featured", bookHandler.ToggleFeatured)
-
-	cart := api.Group("/cart", middleware.AuthRequired())
-	cart.Get("/", cartHandler.GetCart)
-	cart.Get("/count", cartHandler.GetCartCount)
-	cart.Post("/", cartHandler.AddToCart)
-	cart.Delete("/:id", cartHandler.RemoveFromCart)
-	cart.Delete("/", cartHandler.ClearCart)
-	cart.Post("/merge", cartHandler.MergeGuestCart)
 
 	checkout := api.Group("/checkout", middleware.AuthRequired())
 	checkout.Post("/initialize", checkoutHandler.InitializeCheckout)

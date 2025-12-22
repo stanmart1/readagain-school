@@ -5,12 +5,10 @@ import { getImageUrl } from '../lib/fileService';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import api from '../lib/api';
-import { useCartContext } from '../context/CartContext';
 
 export default function BookDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { addToCart } = useCartContext();
   const [book, setBook] = useState(null);
   const [relatedBooks, setRelatedBooks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -47,7 +45,7 @@ export default function BookDetail() {
     
     try {
       setAddingToCart(true);
-      await addToCart(book, 1);
+      await api.post('/library', { book_id: book.id });
       alert('Book added to your library!');
     } catch (error) {
       console.error('Add to library error:', error);

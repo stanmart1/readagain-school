@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect, lazy, Suspense } from 'react';
-import { CartProvider } from './context/CartContext';
 import SessionTimeoutWarning from './components/SessionTimeoutWarning';
 import { useSessionTimeout } from './hooks/useSessionTimeout';
 
@@ -25,8 +24,6 @@ import { AdminRoute } from './components/ProtectedRoute';
 const Home = lazy(() => import('./pages/Home'));
 const Books = lazy(() => import('./pages/Books'));
 const BookDetail = lazy(() => import('./pages/BookDetail'));
-const Cart = lazy(() => import('./pages/Cart'));
-const Checkout = lazy(() => import('./pages/Checkout'));
 const BankTransferProof = lazy(() => import('./pages/BankTransferProof'));
 const OrderConfirmation = lazy(() => import('./pages/OrderConfirmation'));
 const PaymentFailed = lazy(() => import('./pages/PaymentFailed'));
@@ -78,7 +75,6 @@ function App() {
   const { showWarning, timeRemaining, extendSession, handleLogout } = useSessionTimeout();
 
   return (
-    <CartProvider>
       <Router>
         <ScrollToTop />
         <SessionTimeoutWarning
@@ -93,8 +89,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/books" element={<Books />} />
         <Route path="/books/:id" element={<BookDetail />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
         <Route path="/payment-failed" element={<PaymentFailed />} />
         <Route path="/bank-transfer/:orderId" element={<BankTransferProof />} />
         <Route path="/order-confirmation/:orderId" element={<OrderConfirmation />} />
@@ -145,7 +139,6 @@ function App() {
       </Routes>
       </Suspense>
     </Router>
-    </CartProvider>
   );
 }
 

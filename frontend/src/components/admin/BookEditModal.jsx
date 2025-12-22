@@ -181,49 +181,41 @@ const BookEditModal = ({ isOpen, onClose, book, categories, authors, onSuccess }
     if (!validateStep(2) || !book) return;
     
     setIsSubmitting(true);
-    setUploadProgress(0);
     
     try {
-      const submitData = new FormData();
-      
-      if (formData.title) submitData.append('title', formData.title);
-      if (formData.author_id) submitData.append('author_id', formData.author_id);
-      if (formData.category_id) submitData.append('category_id', formData.category_id);
-      if (formData.description) submitData.append('description', formData.description);
-      if (formData.isbn) submitData.append('isbn', formData.isbn);
-      if (formData.language) submitData.append('language', formData.language);
-      if (formData.pages) submitData.append('page_count', formData.pages);
-      if (formData.publisher) submitData.append('publisher', formData.publisher);
-      if (formData.status) submitData.append('status', formData.status);
-      
+      const submitData = {
+        title: formData.title,
+        author_id: parseInt(formData.author_id),
+        category_id: parseInt(formData.category_id),
+        description: formData.description || '',
+        isbn: formData.isbn || '',
+        language: formData.language || 'English',
+        page_count: parseInt(formData.pages) || 0,
+        publisher: formData.publisher || '',
+        status: formData.status || 'published'
+      };
+
+      // Only include file paths if they were updated
       if (formData.cover_image) {
-        submitData.append('cover_image', formData.cover_image);
+        submitData.cover_image = formData.cover_image;
       }
-      if (formData.ebook_file) {
-        submitData.append('book_file', formData.ebook_file);
+      if (formData.book_file) {
+        submitData.book_file = formData.book_file;
+        submitData.file_size = formData.file_size;
       }
       
-      const response = await api.put(`/books/${book.id}`, submitData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-        onUploadProgress: (progressEvent) => {
-          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-          setUploadProgress(progress);
-        }
-      });
+      const response = await api.put(`/books/${book.id}`, submitData);
       
       const bookTitle = response.data.book?.title || formData.title;
       alert(`Book "${bookTitle}" updated successfully!`);
       
-      setTimeout(() => {
-        onSuccess();
-        resetForm();
-        onClose();
-      }, 500);
+      onSuccess();
+      resetForm();
+      onClose();
     } catch (error) {
       console.error('Update error:', error);
       const errorMessage = error.response?.data?.error || error.message || 'Update failed';
       alert(`Update failed: ${errorMessage}`);
-      setUploadProgress(0);
     } finally {
       setIsSubmitting(false);
     }

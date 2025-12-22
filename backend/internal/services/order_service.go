@@ -24,59 +24,6 @@ func NewOrderService(db *gorm.DB, emailService *EmailService, achievementService
 	}
 }
 
-func (s *OrderService) CreateOrderFromCart(userID uint, paymentMethod string) (*models.Order, error) {
-	var cartItems []models.Cart
-	if err := s.db.Where("user_id = ?", userID).Preload("Book").Find(&cartItems).Error; err != nil {
-		return nil, utils.NewInternalServerError("Failed to fetch cart", err)
-	}
-
-	if len(cartItems) == 0 {
-		return nil, utils.NewBadRequestError("Cart is empty")
-	}
-
-	var subtotal float64
-	for _, item := range cartItems {
-		if item.Book != nil {
-			subtotal += item.Book.Price
-		}
-	}
-
-	orderNumber := s.generateOrderNumber()
-
-	order := models.Order{
-		UserID:        userID,
-		AuthorID:      1,
-		OrderNumber:   orderNumber,
-		Subtotal:      subtotal,
-		TotalAmount:   subtotal,
-		Status:        "pending",
-		PaymentMethod: paymentMethod,
-		Notes:         orderNumber,
-	}
-
-	if err := s.db.Create(&order).Error; err != nil {
-		return nil, utils.NewInternalServerError("Failed to create order", err)
-	}
-
-	for _, cartItem := range cartItems {
-		orderItem := models.OrderItem{
-			OrderID: order.ID,
-			BookID:  cartItem.BookID,
-			Price:   cartItem.Book.Price,
-		}
-		if err := s.db.Create(&orderItem).Error; err != nil {
-			s.db.Delete(&order)
-			return nil, utils.NewInternalServerError("Failed to create order items", err)
-		}
-	}
-
-	if err := s.db.Preload("Items.Book").Preload("User").First(&order, order.ID).Error; err != nil {
-		return nil, utils.NewNotFoundError("Order not found")
-	}
-
-	return &order, nil
-}
-
 func (s *OrderService) GetUserOrders(userID uint, page, limit int, status string) ([]models.Order, *utils.PaginationMeta, error) {
 	params := utils.GetPaginationParams(page, limit)
 
@@ -155,8 +102,6 @@ func (s *OrderService) CompleteOrder(orderID uint, transactionID string) error {
 			s.db.Model(&models.Book{}).Where("id = ?", item.BookID).UpdateColumn("download_count", gorm.Expr("download_count + ?", 1))
 		}
 	}
-
-	s.db.Where("user_id = ?", order.UserID).Delete(&models.Cart{})
 
 	var user models.User
 	if err := s.db.First(&user, order.UserID).Error; err == nil {

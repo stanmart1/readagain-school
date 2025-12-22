@@ -45,7 +45,6 @@ func SetupRoutes(
 	categoryHandler := NewCategoryHandler(categoryService)
 	authorHandler := NewAuthorHandler(authorService)
 	bookHandler := NewBookHandler(bookService, storageService)
-	checkoutHandler := NewCheckoutHandler(orderService, paymentService)
 	orderHandler := NewOrderHandler(orderService)
 	libraryHandler := NewLibraryHandler(libraryService, ereaderService)
 	readingHandler := NewReadingHandler(sessionService, goalService)
@@ -171,15 +170,6 @@ func SetupRoutes(
 	adminBooks.Put("/:id", bookHandler.UpdateBook)
 	adminBooks.Delete("/:id", bookHandler.DeleteBook)
 	adminBooks.Patch("/:id/featured", bookHandler.ToggleFeatured)
-
-	checkout := api.Group("/checkout", middleware.AuthRequired())
-	checkout.Post("/initialize", checkoutHandler.InitializeCheckout)
-	checkout.Post("/payment", checkoutHandler.InitializePayment)
-	checkout.Get("/verify/:reference", checkoutHandler.VerifyPayment)
-
-	webhooks := api.Group("/webhooks")
-	webhooks.Post("/paystack", checkoutHandler.PaystackWebhook)
-	webhooks.Post("/flutterwave", checkoutHandler.FlutterwaveWebhook)
 
 	orders := api.Group("/orders", middleware.AuthRequired())
 	orders.Get("/", orderHandler.GetUserOrders)

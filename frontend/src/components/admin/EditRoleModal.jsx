@@ -6,9 +6,7 @@ const EditRoleModal = ({ isOpen, onClose, role, onSuccess }) => {
   const { updateRole } = useRoles();
   const [formData, setFormData] = useState({
     name: '',
-    display_name: '',
-    description: '',
-    priority: 0
+    description: ''
   });
   const [loading, setLoading] = useState(false);
 
@@ -16,9 +14,7 @@ const EditRoleModal = ({ isOpen, onClose, role, onSuccess }) => {
     if (role) {
       setFormData({
         name: role.name || '',
-        display_name: role.display_name || '',
-        description: role.description || '',
-        priority: role.priority || 0
+        description: role.description || ''
       });
     }
   }, [role]);
@@ -58,34 +54,12 @@ const EditRoleModal = ({ isOpen, onClose, role, onSuccess }) => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Display Name</label>
-            <input
-              type="text"
-              value={formData.display_name}
-              onChange={(e) => setFormData({ ...formData, display_name: e.target.value })}
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
-          </div>
-
-          <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
             <textarea
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
               rows="3"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Priority</label>
-            <input
-              type="number"
-              value={formData.priority}
-              onChange={(e) => setFormData({ ...formData, priority: parseInt(e.target.value) })}
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-              min="0"
             />
           </div>
 

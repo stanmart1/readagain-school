@@ -77,7 +77,7 @@ const RolePermissionsModal = ({ isOpen, onClose, role }) => {
               <div className="flex items-center justify-between">
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900">
-                    Permissions for {role.display_name}
+                    Permissions for {role.name.charAt(0).toUpperCase() + role.name.slice(1).replace(/_/g, ' ')}
                   </h2>
                   <p className="text-sm text-gray-600 mt-1">
                     {isEditingPermissions
@@ -155,21 +155,15 @@ const RolePermissionsModal = ({ isOpen, onClose, role }) => {
                         <div className="flex-1">
                           <div className="flex items-center justify-between mb-2">
                             <h4 className="font-medium text-gray-900">
-                              {permission.display_name}
+                              {permission.name}
                             </h4>
                             <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">
-                              {permission.resource}
+                              {permission.category}
                             </span>
                           </div>
                           <p className="text-sm text-gray-600 mb-2">
                             {permission.description}
                           </p>
-                          <div className="flex items-center text-xs text-gray-500">
-                            <span className="mr-2">
-                              Action: {permission.action}
-                            </span>
-                            <span>Scope: {permission.scope}</span>
-                          </div>
                         </div>
                       </div>
                     </div>
@@ -184,21 +178,15 @@ const RolePermissionsModal = ({ isOpen, onClose, role }) => {
                     >
                       <div className="flex items-center justify-between mb-2">
                         <h4 className="font-medium text-gray-900">
-                          {permission.display_name}
+                          {permission.name}
                         </h4>
                         <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">
-                          {permission.resource}
+                          {permission.category}
                         </span>
                       </div>
                       <p className="text-sm text-gray-600 mb-2">
                         {permission.description}
                       </p>
-                      <div className="flex items-center text-xs text-gray-500">
-                        <span className="mr-2">
-                          Action: {permission.action}
-                        </span>
-                        <span>Scope: {permission.scope}</span>
-                      </div>
                     </div>
                   ))}
                 </div>

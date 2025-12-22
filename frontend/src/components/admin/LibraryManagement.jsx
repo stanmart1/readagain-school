@@ -1295,9 +1295,9 @@ const LibraryManagement = () => {
                   <div>
                     <h4 className="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
                       <i className="ri-sticky-note-line text-blue-600"></i>
-                      Notes ({assignmentDetails.notes.length})
+                      Notes ({assignmentDetails.notes?.length || 0})
                     </h4>
-                    {assignmentDetails.notes.length === 0 ? (
+                    {!assignmentDetails.notes || assignmentDetails.notes.length === 0 ? (
                       <div className="text-center py-8 bg-gray-50 rounded-xl">
                         <i className="ri-sticky-note-line text-4xl text-gray-300 mb-2"></i>
                         <p className="text-gray-500">No notes yet</p>

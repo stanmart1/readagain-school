@@ -153,7 +153,7 @@ export default function Library() {
                 className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-blue-200 transform hover:-translate-y-2 w-full sm:w-72 md:w-80 flex-shrink-0"
               >
                 {/* Cover Image */}
-                <div className="aspect-[3/5] relative overflow-hidden">
+                <div className="aspect-[2/3] relative overflow-hidden">
                   <img
                     src={getImageUrl(book.cover_image_url)}
                     alt={book.title || book.book?.title || 'Book cover'}
@@ -163,17 +163,13 @@ export default function Library() {
                   
                   {/* Format Badge */}
                   <div className="absolute top-3 right-3">
-                    <span className={`px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-sm shadow-lg ${
-                      book.format === 'ebook' 
-                        ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white' 
-                        : 'bg-gradient-to-r from-amber-600 to-orange-600 text-white'
-                    }`}>
-                      {book.format === 'ebook' ? 'Digital' : 'Physical'}
+                    <span className="px-3 py-1.5 rounded-full text-xs font-semibold backdrop-blur-sm shadow-lg bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+                      Digital
                     </span>
                   </div>
 
                   {/* Progress Bar */}
-                  {book.progress > 0 && book.format === 'ebook' && (
+                  {book.progress > 0 && (
                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
                       <div className="flex items-center space-x-2">
                         <div className="flex-1 bg-white/20 rounded-full h-1.5">
@@ -205,27 +201,18 @@ export default function Library() {
                   
                   {/* Reading Stats */}
                   <div className="flex items-center justify-between text-xs text-gray-500 mb-2">
-                    {(book.format || book.book?.format) === 'ebook' && (
-                      <span>{Math.round(book.progress || 0)}%</span>
-                    )}
+                    <span>{Math.round(book.progress || 0)}%</span>
                   </div>
 
                   {/* Action Buttons */}
                   <div className="space-y-2">
-                    {(book.format || book.book?.format) === 'ebook' ? (
-                      <Link
-                        to={`/reading/${book.book_id}`}
-                        className="w-full inline-flex items-center justify-center px-4 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
-                      >
-                        <i className={`${book.progress > 0 ? 'ri-play-line' : 'ri-book-open-line'} mr-2 text-base`}></i>
-                        {book.progress > 0 ? 'Continue Reading' : 'Start Reading'}
-                      </Link>
-                    ) : (
-                      <div className="w-full inline-flex items-center justify-center px-4 py-3 bg-gradient-to-r from-gray-400 to-gray-500 text-white text-sm font-semibold rounded-xl shadow-lg">
-                        <i className="ri-book-line mr-2 text-base"></i>
-                        Physical Book
-                      </div>
-                    )}
+                    <Link
+                      to={`/reading/${book.book_id}`}
+                      className="w-full inline-flex items-center justify-center px-4 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+                    >
+                      <i className={`${book.progress > 0 ? 'ri-play-line' : 'ri-book-open-line'} mr-2 text-base`}></i>
+                      {book.progress > 0 ? 'Continue Reading' : 'Start Reading'}
+                    </Link>
                     
                     <div className="flex gap-2">
                       <button

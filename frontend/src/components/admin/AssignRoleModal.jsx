@@ -68,7 +68,7 @@ const AssignRoleModal = ({ user, onClose, onSuccess }) => {
                 })
                 .map((role) => (
                   <option key={role.id} value={role.id}>
-                    {role.name}
+                    {role.name.charAt(0).toUpperCase() + role.name.slice(1).replace(/_/g, ' ')}
                   </option>
                 ))}
             </select>

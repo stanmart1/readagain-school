@@ -135,7 +135,7 @@ const Roles = () => {
               </div>
 
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                {role.name}
+                {role.name.charAt(0).toUpperCase() + role.name.slice(1).replace(/_/g, ' ')}
               </h3>
               <p className="text-sm text-gray-600 mb-3">
                 {role.description || 'No description provided'}

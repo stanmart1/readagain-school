@@ -37,7 +37,7 @@ func main() {
 
 	// Initialize Fiber app
 	app := fiber.New(fiber.Config{
-		BodyLimit: 100 * 1024 * 1024, // 100MB
+		BodyLimit: 500 * 1024 * 1024, // 500MB
 	})
 
 	// Middleware

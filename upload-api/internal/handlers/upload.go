@@ -59,6 +59,7 @@ func (h *UploadHandler) UploadCover(c *fiber.Ctx) error {
 
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
 		"filename": filename,
+		"path":     fmt.Sprintf("covers/%s", filename),
 		"url":      fmt.Sprintf("/api/files/%s", filename),
 		"size":     file.Size,
 	})

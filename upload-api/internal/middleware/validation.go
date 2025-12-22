@@ -8,13 +8,13 @@ import (
 )
 
 const (
-	MaxImageSize = 10 * 1024 * 1024  // 10MB
-	MaxBookSize  = 100 * 1024 * 1024 // 100MB
+	MaxImageSize = 10 * 1024 * 1024   // 10MB
+	MaxBookSize  = 500 * 1024 * 1024  // 500MB
 )
 
 var (
 	AllowedImageTypes = []string{"image/jpeg", "image/jpg", "image/png", "image/webp"}
-	AllowedBookTypes  = []string{"application/pdf", "application/epub+zip"}
+	AllowedBookTypes  = []string{"application/pdf", "application/epub+zip", "text/html"}
 )
 
 func ValidateImageUpload() fiber.Handler {
@@ -59,7 +59,7 @@ func ValidateBookUpload() fiber.Handler {
 
 		if !isAllowedType(file, AllowedBookTypes) {
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-				"error": "Invalid book type. Allowed: PDF, EPUB",
+				"error": "Invalid book type. Allowed: PDF, EPUB, HTML",
 			})
 		}
 

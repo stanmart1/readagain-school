@@ -9,6 +9,7 @@ export default function GroupMembers({ group, onClose }) {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [loadingMembers, setLoadingMembers] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     fetchMembers();
@@ -61,6 +62,12 @@ export default function GroupMembers({ group, onClose }) {
 
   const availableUsers = users.filter(
     (user) => !members.some((member) => member.id === user.id)
+  );
+
+  const filteredUsers = availableUsers.filter((user) =>
+    `${user.first_name} ${user.last_name} ${user.email}`
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -168,12 +175,24 @@ export default function GroupMembers({ group, onClose }) {
                 </h3>
               </div>
 
+              <div className="p-4 border-b border-gray-200">
+                <input
+                  type="text"
+                  placeholder="Search users..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+              </div>
+
               <div className="flex-1 overflow-y-auto p-6">
-                {availableUsers.length === 0 ? (
-                  <p className="text-gray-500 text-center py-8">All users are already members</p>
+                {filteredUsers.length === 0 ? (
+                  <p className="text-gray-500 text-center py-8">
+                    {searchTerm ? 'No users found matching your search' : 'All users are already members'}
+                  </p>
                 ) : (
                   <div className="space-y-2">
-                    {availableUsers.map((user) => (
+                    {filteredUsers.map((user) => (
                       <label
                         key={user.id}
                         className="flex items-center space-x-3 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors border border-transparent hover:border-gray-200"

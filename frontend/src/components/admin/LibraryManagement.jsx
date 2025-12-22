@@ -133,7 +133,6 @@ const LibraryManagement = () => {
       const response = await api.get('/admin/library-assignments', { params });
       const result = response.data;
 
-      console.log('Library assignments response:', result);
       setLibraries(result.assignments || []);
       setPagination(prev => ({
         ...prev,

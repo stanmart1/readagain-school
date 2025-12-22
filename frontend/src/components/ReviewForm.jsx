@@ -3,7 +3,6 @@ import api from '../lib/api';
 
 export default function ReviewForm({ bookId, bookTitle, onSuccess, onCancel }) {
   const [rating, setRating] = useState(0);
-  const [title, setTitle] = useState('');
   const [reviewText, setReviewText] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
@@ -86,23 +85,6 @@ export default function ReviewForm({ bookId, bookTitle, onSuccess, onCancel }) {
               </span>
             )}
           </div>
-        </div>
-
-        {/* Review Title */}
-        <div>
-          <label htmlFor="title" className="block text-sm font-semibold text-gray-800 mb-2">
-            <i className="ri-text mr-2 text-blue-600"></i>
-            Review Title (Optional)
-          </label>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="Give your review a catchy title..."
-            className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-gray-50 focus:bg-white"
-            maxLength={100}
-          />
         </div>
 
         {/* Review Text */}

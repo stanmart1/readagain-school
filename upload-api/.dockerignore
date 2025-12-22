@@ -1,0 +1,7 @@
+.env
+.git
+.gitignore
+*.log
+*.md
+upload-api
+go.sum

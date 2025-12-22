@@ -147,6 +147,19 @@ export const useGroups = () => {
     }
   }, []);
 
+  const assignBooks = useCallback(async (groupId, bookIds) => {
+    setLoading(true);
+    setError(null);
+    try {
+      await api.post(`/groups/${groupId}/assign-books`, { book_ids: bookIds });
+    } catch (err) {
+      setError(err.response?.data?.error || 'Failed to assign books');
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   return {
     groups,
     loading,
@@ -161,5 +174,6 @@ export const useGroups = () => {
     addMember,
     addMembers,
     removeMember,
+    assignBooks,
   };
 };

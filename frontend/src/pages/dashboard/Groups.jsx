@@ -5,6 +5,7 @@ import Pagination from '../../components/admin/Pagination';
 import GroupCard from '../../components/dashboard/groups/GroupCard';
 import CreateGroupModal from '../../components/dashboard/groups/CreateGroupModal';
 import ManageMembersModal from '../../components/dashboard/groups/ManageMembersModal';
+import AssignBooksModal from '../../components/dashboard/groups/AssignBooksModal';
 
 export default function MyGroups() {
   const { groups, loading, pagination, fetchGroups, deleteGroup } = useGroups();
@@ -12,6 +13,7 @@ export default function MyGroups() {
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [showMembers, setShowMembers] = useState(false);
   const [showCreateForm, setShowCreateForm] = useState(false);
+  const [showAssignBooks, setShowAssignBooks] = useState(false);
 
   useEffect(() => {
     fetchGroups(1, 10, searchTerm);
@@ -28,6 +30,11 @@ export default function MyGroups() {
   const handleViewMembers = (group) => {
     setSelectedGroup(group);
     setShowMembers(true);
+  };
+
+  const handleAssignBooks = (group) => {
+    setSelectedGroup(group);
+    setShowAssignBooks(true);
   };
 
   const handleCreateGroup = () => {
@@ -90,6 +97,7 @@ export default function MyGroups() {
                   key={group.id}
                   group={group}
                   onViewMembers={handleViewMembers}
+                  onAssignBooks={handleAssignBooks}
                   onDelete={handleDelete}
                 />
               ))}
@@ -123,6 +131,16 @@ export default function MyGroups() {
               setShowMembers(false);
               setSelectedGroup(null);
               fetchGroups(pagination.page, pagination.limit, searchTerm);
+            }}
+          />
+        )}
+
+        {showAssignBooks && selectedGroup && (
+          <AssignBooksModal
+            group={selectedGroup}
+            onClose={() => {
+              setShowAssignBooks(false);
+              setSelectedGroup(null);
             }}
           />
         )}

@@ -178,3 +178,21 @@ func (h *GroupHandler) AddMembers(c *fiber.Ctx) error {
 
 	return c.JSON(fiber.Map{"message": "Members added successfully"})
 }
+
+func (h *GroupHandler) AssignBooks(c *fiber.Ctx) error {
+	id, _ := strconv.Atoi(c.Params("id"))
+
+	var input struct {
+		BookIDs []uint `json:"book_ids" validate:"required"`
+	}
+
+	if err := c.BodyParser(&input); err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": "Invalid input"})
+	}
+
+	if err := h.service.AssignBooks(uint(id), input.BookIDs); err != nil {
+		return c.Status(500).JSON(fiber.Map{"error": "Failed to assign books"})
+	}
+
+	return c.JSON(fiber.Map{"message": "Books assigned successfully"})
+}

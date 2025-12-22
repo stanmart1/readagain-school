@@ -108,3 +108,29 @@ func (s *GroupService) AddMembers(groupID uint, userIDs []uint) error {
 		return tx.Model(&models.Group{}).Where("id = ?", groupID).Update("member_count", count).Error
 	})
 }
+
+func (s *GroupService) AssignBooks(groupID uint, bookIDs []uint) error {
+	var members []models.GroupMember
+	if err := s.db.Where("group_id = ?", groupID).Find(&members).Error; err != nil {
+		return err
+	}
+
+	return s.db.Transaction(func(tx *gorm.DB) error {
+		for _, member := range members {
+			for _, bookID := range bookIDs {
+				var exists int64
+				tx.Model(&models.UserLibrary{}).Where("user_id = ? AND book_id = ?", member.UserID, bookID).Count(&exists)
+				if exists == 0 {
+					library := &models.UserLibrary{
+						UserID: member.UserID,
+						BookID: bookID,
+					}
+					if err := tx.Create(library).Error; err != nil {
+						return err
+					}
+				}
+			}
+		}
+		return nil
+	})
+}

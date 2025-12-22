@@ -330,6 +330,7 @@ func SetupRoutes(
 	groups.Post("/:id/members", groupHandler.AddMember)
 	groups.Post("/:id/members/bulk", groupHandler.AddMembers)
 	groups.Delete("/:id/members/:userId", groupHandler.RemoveMember)
+	groups.Post("/:id/assign-books", groupHandler.AssignBooks)
 
 	api.Get("/admin/system-settings/public", settingsHandler.GetPublic)
 }

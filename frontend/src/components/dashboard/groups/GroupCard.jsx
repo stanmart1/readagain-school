@@ -1,4 +1,4 @@
-export default function GroupCard({ group, onViewMembers, onDelete }) {
+export default function GroupCard({ group, onViewMembers, onDelete, onAssignBooks }) {
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
       <div className="flex items-start justify-between mb-4">
@@ -21,13 +21,20 @@ export default function GroupCard({ group, onViewMembers, onDelete }) {
         </p>
       )}
 
-      <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+      <div className="flex items-center justify-between pt-4 border-t border-gray-100 gap-2">
+        <button
+          onClick={() => onAssignBooks(group)}
+          className="text-green-600 hover:text-green-700 text-sm font-medium flex items-center gap-1"
+        >
+          <i className="ri-book-line"></i>
+          Assign Books
+        </button>
         <button
           onClick={() => onViewMembers(group)}
           className="text-blue-600 hover:text-blue-700 text-sm font-medium flex items-center gap-1"
         >
           <i className="ri-team-line"></i>
-          Manage Members
+          Members
         </button>
         <button
           onClick={() => onDelete(group.id)}

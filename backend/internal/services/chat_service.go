@@ -245,6 +245,37 @@ func (s *ChatService) GetMessageReactions(messageID uint) ([]models.ChatReaction
 	return reactions, err
 }
 
+// Permission Helpers
+func (s *ChatService) IsRoomAdmin(roomID, userID uint) (bool, error) {
+	var member models.ChatMember
+	err := s.db.Where("room_id = ? AND user_id = ? AND role IN (?)", roomID, userID, []string{"admin", "moderator"}).First(&member).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return false, nil
+		}
+		return false, err
+	}
+	return true, nil
+}
+
+func (s *ChatService) IsRoomCreator(roomID, userID uint) (bool, error) {
+	var room models.ChatRoom
+	err := s.db.Select("created_by").First(&room, roomID).Error
+	if err != nil {
+		return false, err
+	}
+	return room.CreatedBy == userID, nil
+}
+
+func (s *ChatService) IsMessageOwner(messageID, userID uint) (bool, error) {
+	var message models.ChatMessage
+	err := s.db.Select("user_id").First(&message, messageID).Error
+	if err != nil {
+		return false, err
+	}
+	return message.UserID == userID, nil
+}
+
 // Statistics
 func (s *ChatService) GetRoomStats(roomID uint) (map[string]interface{}, error) {
 	var messageCount int64

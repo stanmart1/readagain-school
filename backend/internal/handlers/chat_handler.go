@@ -29,7 +29,6 @@ func (h *ChatHandler) HandleWebSocket(c *websocket.Conn) {
 	userID := c.Locals("userID").(uint)
 	username := c.Locals("username").(string)
 
-	// Verify user is member of room
 	isMember, err := h.chatService.IsMember(uint(roomID), userID)
 	if err != nil || !isMember {
 		log.Printf("User %d is not a member of room %d", userID, roomID)
@@ -47,12 +46,9 @@ func (h *ChatHandler) HandleWebSocket(c *websocket.Conn) {
 	}
 
 	h.hub.Register <- client
-
 	go client.WritePump()
 	client.ReadPump()
 }
-
-// REST API Handlers
 
 // CreateRoom creates a new chat room
 func (h *ChatHandler) CreateRoom(c *fiber.Ctx) error {
@@ -84,7 +80,6 @@ func (h *ChatHandler) CreateRoom(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to create room"})
 	}
 
-	// Add creator as admin member
 	member := &models.ChatMember{
 		RoomID: room.ID,
 		UserID: userID,
@@ -99,14 +94,9 @@ func (h *ChatHandler) CreateRoom(c *fiber.Ctx) error {
 
 // GetRoom retrieves a specific room
 func (h *ChatHandler) GetRoom(c *fiber.Ctx) error {
-	roomID, err := strconv.ParseUint(c.Params("id"), 10, 32)
-	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid room ID"})
-	}
-
+	roomID, _ := strconv.ParseUint(c.Params("id"), 10, 32)
 	userID := c.Locals("userID").(uint)
 
-	// Verify user is member
 	isMember, err := h.chatService.IsMember(uint(roomID), userID)
 	if err != nil || !isMember {
 		return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"error": "Access denied"})
@@ -141,28 +131,11 @@ func (h *ChatHandler) GetUserRooms(c *fiber.Ctx) error {
 
 // UpdateRoom updates room details
 func (h *ChatHandler) UpdateRoom(c *fiber.Ctx) error {
-	roomID, err := strconv.ParseUint(c.Params("id"), 10, 32)
-	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid room ID"})
-	}
-
+	roomID, _ := strconv.ParseUint(c.Params("id"), 10, 32)
 	userID := c.Locals("userID").(uint)
 
-	// Check if user is admin of the room
-	members, err := h.chatService.GetRoomMembers(uint(roomID))
-	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to verify permissions"})
-	}
-
-	isAdmin := false
-	for _, member := range members {
-		if member.UserID == userID && member.Role == "admin" {
-			isAdmin = true
-			break
-		}
-	}
-
-	if !isAdmin {
+	isAdmin, err := h.chatService.IsRoomAdmin(uint(roomID), userID)
+	if err != nil || !isAdmin {
 		return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"error": "Only admins can update room"})
 	}
 
@@ -180,19 +153,11 @@ func (h *ChatHandler) UpdateRoom(c *fiber.Ctx) error {
 
 // DeleteRoom deletes a room
 func (h *ChatHandler) DeleteRoom(c *fiber.Ctx) error {
-	roomID, err := strconv.ParseUint(c.Params("id"), 10, 32)
-	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid room ID"})
-	}
-
+	roomID, _ := strconv.ParseUint(c.Params("id"), 10, 32)
 	userID := c.Locals("userID").(uint)
 
-	room, err := h.chatService.GetRoomByID(uint(roomID))
-	if err != nil {
-		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Room not found"})
-	}
-
-	if room.CreatedBy != userID {
+	isCreator, err := h.chatService.IsRoomCreator(uint(roomID), userID)
+	if err != nil || !isCreator {
 		return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"error": "Only creator can delete room"})
 	}
 
@@ -205,28 +170,11 @@ func (h *ChatHandler) DeleteRoom(c *fiber.Ctx) error {
 
 // AddMembers adds members to a room
 func (h *ChatHandler) AddMembers(c *fiber.Ctx) error {
-	roomID, err := strconv.ParseUint(c.Params("id"), 10, 32)
-	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid room ID"})
-	}
-
+	roomID, _ := strconv.ParseUint(c.Params("id"), 10, 32)
 	userID := c.Locals("userID").(uint)
 
-	// Check if user is admin
-	members, err := h.chatService.GetRoomMembers(uint(roomID))
-	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to verify permissions"})
-	}
-
-	isAdmin := false
-	for _, member := range members {
-		if member.UserID == userID && (member.Role == "admin" || member.Role == "moderator") {
-			isAdmin = true
-			break
-		}
-	}
-
-	if !isAdmin {
+	isAdmin, err := h.chatService.IsRoomAdmin(uint(roomID), userID)
+	if err != nil || !isAdmin {
 		return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"error": "Only admins/moderators can add members"})
 	}
 
@@ -256,34 +204,13 @@ func (h *ChatHandler) AddMembers(c *fiber.Ctx) error {
 
 // RemoveMember removes a member from a room
 func (h *ChatHandler) RemoveMember(c *fiber.Ctx) error {
-	roomID, err := strconv.ParseUint(c.Params("id"), 10, 32)
-	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid room ID"})
-	}
-
-	memberID, err := strconv.ParseUint(c.Params("memberId"), 10, 32)
-	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid member ID"})
-	}
-
+	roomID, _ := strconv.ParseUint(c.Params("id"), 10, 32)
+	memberID, _ := strconv.ParseUint(c.Params("memberId"), 10, 32)
 	userID := c.Locals("userID").(uint)
 
-	// Check if user is admin or removing themselves
 	if userID != uint(memberID) {
-		members, err := h.chatService.GetRoomMembers(uint(roomID))
-		if err != nil {
-			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to verify permissions"})
-		}
-
-		isAdmin := false
-		for _, member := range members {
-			if member.UserID == userID && (member.Role == "admin" || member.Role == "moderator") {
-				isAdmin = true
-				break
-			}
-		}
-
-		if !isAdmin {
+		isAdmin, err := h.chatService.IsRoomAdmin(uint(roomID), userID)
+		if err != nil || !isAdmin {
 			return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"error": "Permission denied"})
 		}
 	}
@@ -297,14 +224,9 @@ func (h *ChatHandler) RemoveMember(c *fiber.Ctx) error {
 
 // GetMembers retrieves all members of a room
 func (h *ChatHandler) GetMembers(c *fiber.Ctx) error {
-	roomID, err := strconv.ParseUint(c.Params("id"), 10, 32)
-	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid room ID"})
-	}
-
+	roomID, _ := strconv.ParseUint(c.Params("id"), 10, 32)
 	userID := c.Locals("userID").(uint)
 
-	// Verify user is member
 	isMember, err := h.chatService.IsMember(uint(roomID), userID)
 	if err != nil || !isMember {
 		return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"error": "Access denied"})
@@ -320,14 +242,9 @@ func (h *ChatHandler) GetMembers(c *fiber.Ctx) error {
 
 // GetMessages retrieves messages from a room
 func (h *ChatHandler) GetMessages(c *fiber.Ctx) error {
-	roomID, err := strconv.ParseUint(c.Params("id"), 10, 32)
-	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid room ID"})
-	}
-
+	roomID, _ := strconv.ParseUint(c.Params("id"), 10, 32)
 	userID := c.Locals("userID").(uint)
 
-	// Verify user is member
 	isMember, err := h.chatService.IsMember(uint(roomID), userID)
 	if err != nil || !isMember {
 		return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"error": "Access denied"})
@@ -341,7 +258,6 @@ func (h *ChatHandler) GetMessages(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to fetch messages"})
 	}
 
-	// Update last read
 	h.chatService.UpdateLastRead(uint(roomID), userID)
 
 	return c.JSON(fiber.Map{
@@ -354,14 +270,9 @@ func (h *ChatHandler) GetMessages(c *fiber.Ctx) error {
 
 // SendMessage sends a message to a room
 func (h *ChatHandler) SendMessage(c *fiber.Ctx) error {
-	roomID, err := strconv.ParseUint(c.Params("id"), 10, 32)
-	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid room ID"})
-	}
-
+	roomID, _ := strconv.ParseUint(c.Params("id"), 10, 32)
 	userID := c.Locals("userID").(uint)
 
-	// Verify user is member
 	isMember, err := h.chatService.IsMember(uint(roomID), userID)
 	if err != nil || !isMember {
 		return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"error": "Access denied"})
@@ -397,7 +308,6 @@ func (h *ChatHandler) SendMessage(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to send message"})
 	}
 
-	// Broadcast via WebSocket
 	msg, _ := h.chatService.GetMessageByID(message.ID)
 	wsMessage := &ws.Message{
 		Type:      "message",
@@ -414,19 +324,11 @@ func (h *ChatHandler) SendMessage(c *fiber.Ctx) error {
 
 // UpdateMessage updates a message
 func (h *ChatHandler) UpdateMessage(c *fiber.Ctx) error {
-	messageID, err := strconv.ParseUint(c.Params("messageId"), 10, 32)
-	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid message ID"})
-	}
-
+	messageID, _ := strconv.ParseUint(c.Params("messageId"), 10, 32)
 	userID := c.Locals("userID").(uint)
 
-	message, err := h.chatService.GetMessageByID(uint(messageID))
-	if err != nil {
-		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Message not found"})
-	}
-
-	if message.UserID != userID {
+	isOwner, err := h.chatService.IsMessageOwner(uint(messageID), userID)
+	if err != nil || !isOwner {
 		return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"error": "Can only edit your own messages"})
 	}
 
@@ -447,19 +349,11 @@ func (h *ChatHandler) UpdateMessage(c *fiber.Ctx) error {
 
 // DeleteMessage deletes a message
 func (h *ChatHandler) DeleteMessage(c *fiber.Ctx) error {
-	messageID, err := strconv.ParseUint(c.Params("messageId"), 10, 32)
-	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid message ID"})
-	}
-
+	messageID, _ := strconv.ParseUint(c.Params("messageId"), 10, 32)
 	userID := c.Locals("userID").(uint)
 
-	message, err := h.chatService.GetMessageByID(uint(messageID))
-	if err != nil {
-		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Message not found"})
-	}
-
-	if message.UserID != userID {
+	isOwner, err := h.chatService.IsMessageOwner(uint(messageID), userID)
+	if err != nil || !isOwner {
 		return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"error": "Can only delete your own messages"})
 	}
 
@@ -472,11 +366,7 @@ func (h *ChatHandler) DeleteMessage(c *fiber.Ctx) error {
 
 // AddReaction adds a reaction to a message
 func (h *ChatHandler) AddReaction(c *fiber.Ctx) error {
-	messageID, err := strconv.ParseUint(c.Params("messageId"), 10, 32)
-	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid message ID"})
-	}
-
+	messageID, _ := strconv.ParseUint(c.Params("messageId"), 10, 32)
 	userID := c.Locals("userID").(uint)
 
 	var req struct {
@@ -502,11 +392,7 @@ func (h *ChatHandler) AddReaction(c *fiber.Ctx) error {
 
 // RemoveReaction removes a reaction from a message
 func (h *ChatHandler) RemoveReaction(c *fiber.Ctx) error {
-	messageID, err := strconv.ParseUint(c.Params("messageId"), 10, 32)
-	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid message ID"})
-	}
-
+	messageID, _ := strconv.ParseUint(c.Params("messageId"), 10, 32)
 	userID := c.Locals("userID").(uint)
 	emoji := c.Query("emoji")
 

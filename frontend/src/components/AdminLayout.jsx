@@ -50,8 +50,6 @@ const AdminLayout = ({ children }) => {
     { path: '/admin/books', icon: 'ri-book-line', label: 'Books', permission: 'books.view' },
     { path: '/admin/library', icon: 'ri-book-shelf-line', label: 'Library Management', permission: 'books.view' },
     { path: '/admin/reviews', icon: 'ri-star-line', label: 'Reviews', permission: 'reviews.view' },
-    { path: '/admin/orders', icon: 'ri-shopping-cart-line', label: 'Orders', permission: 'orders.view' },
-    { path: '/admin/shipping', icon: 'ri-truck-line', label: 'Shipping', permission: 'shipping.view' },
     { path: '/admin/reading', icon: 'ri-line-chart-line', label: 'Reading Analytics', permission: 'reading.view_analytics' },
     { path: '/admin/reports', icon: 'ri-file-text-line', label: 'Reports', permission: 'reports.view' },
     { path: '/admin/email-templates', icon: 'ri-mail-line', label: 'Email Templates', permission: 'email_templates.view' },

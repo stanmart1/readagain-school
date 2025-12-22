@@ -57,8 +57,6 @@ const AdminAudit = lazy(() => import('./pages/admin/Audit'));
 const AdminBooks = lazy(() => import('./pages/admin/Books'));
 const AdminLibrary = lazy(() => import('./pages/admin/Library'));
 const AdminReviews = lazy(() => import('./pages/admin/Reviews'));
-const AdminOrders = lazy(() => import('./pages/admin/Orders'));
-const AdminShipping = lazy(() => import('./pages/admin/Shipping'));
 const AdminReading = lazy(() => import('./pages/admin/Reading'));
 const AdminReports = lazy(() => import('./pages/admin/Reports'));
 const AdminEmailTemplates = lazy(() => import('./pages/admin/EmailTemplates'));
@@ -121,8 +119,6 @@ function App() {
         <Route path="/admin/books" element={<AdminRoute><AdminBooks /></AdminRoute>} />
         <Route path="/admin/library" element={<AdminRoute><AdminLibrary /></AdminRoute>} />
         <Route path="/admin/reviews" element={<AdminRoute><AdminReviews /></AdminRoute>} />
-        <Route path="/admin/orders" element={<AdminRoute><AdminOrders /></AdminRoute>} />
-        <Route path="/admin/shipping" element={<AdminRoute><AdminShipping /></AdminRoute>} />
         <Route path="/admin/reading" element={<AdminRoute><AdminReading /></AdminRoute>} />
         <Route path="/admin/reports" element={<AdminRoute><AdminReports /></AdminRoute>} />
         <Route path="/admin/email-templates" element={<AdminRoute><AdminEmailTemplates /></AdminRoute>} />

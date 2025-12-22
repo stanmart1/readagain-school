@@ -19,8 +19,6 @@ export { useCategories } from './useCategories';
 export { useAuthors } from './useAuthors';
 export { useUsers } from './useUsers';
 export { useReviews } from './useReviews';
-export { useAdminOrders } from './useAdminOrders';
-export { useShipping } from './useShipping';
 export { useReadingAnalytics } from './useReadingAnalytics';
 export { useReports } from './useReports';
 export { useEmailTemplates } from './useEmailTemplates';

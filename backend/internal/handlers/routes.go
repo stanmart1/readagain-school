@@ -16,8 +16,6 @@ func SetupRoutes(
 	authorService *services.AuthorService,
 	bookService *services.BookService,
 	storageService *services.StorageService,
-	orderService *services.OrderService,
-	paymentService *services.PaymentService,
 	libraryService *services.LibraryService,
 	ereaderService *services.EReaderService,
 	sessionService *services.ReadingSessionService,
@@ -44,7 +42,6 @@ func SetupRoutes(
 	categoryHandler := NewCategoryHandler(categoryService)
 	authorHandler := NewAuthorHandler(authorService)
 	bookHandler := NewBookHandler(bookService, storageService)
-	orderHandler := NewOrderHandler(orderService)
 	libraryHandler := NewLibraryHandler(libraryService, ereaderService)
 	readingHandler := NewReadingHandler(sessionService, goalService)
 	achievementHandler := NewAchievementHandler(achievementService)
@@ -168,17 +165,6 @@ func SetupRoutes(
 	adminBooks.Put("/:id", bookHandler.UpdateBook)
 	adminBooks.Delete("/:id", bookHandler.DeleteBook)
 	adminBooks.Patch("/:id/featured", bookHandler.ToggleFeatured)
-
-	orders := api.Group("/orders", middleware.AuthRequired())
-	orders.Get("/", orderHandler.GetUserOrders)
-	orders.Get("/:id", orderHandler.GetOrder)
-	orders.Post("/:id/cancel", orderHandler.CancelOrder)
-
-	adminOrders := api.Group("/admin/orders", middleware.AdminRequired())
-	adminOrders.Get("/", orderHandler.GetAllOrders)
-	adminOrders.Get("/stats", orderHandler.GetOrderStatistics)
-	adminOrders.Get("/:id", orderHandler.GetOrderAdmin)
-	adminOrders.Patch("/:id/status", orderHandler.UpdateOrderStatus)
 
 	library := api.Group("/library", middleware.AuthRequired())
 	library.Get("/", libraryHandler.GetLibrary)

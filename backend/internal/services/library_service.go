@@ -118,16 +118,16 @@ func (s *LibraryService) GetDashboardStats(userID uint) (map[string]interface{},
 	var booksRead int64
 	s.db.Model(&models.UserLibrary{}).Where("user_id = ? AND completed_at IS NOT NULL", userID).Count(&booksRead)
 
-	var totalOrders int64
-	s.db.Model(&models.Order{}).Where("user_id = ?", userID).Count(&totalOrders)
+	var booksInLibrary int64
+	s.db.Model(&models.UserLibrary{}).Where("user_id = ?", userID).Count(&booksInLibrary)
 
 	var reviewsCount int64
 	s.db.Model(&models.Review{}).Where("user_id = ?", userID).Count(&reviewsCount)
 
 	return map[string]interface{}{
-		"books_read":     booksRead,
-		"total_orders":   totalOrders,
-		"reviews_count":  reviewsCount,
+		"books_read":       booksRead,
+		"books_in_library": booksInLibrary,
+		"reviews_count":    reviewsCount,
 	}, nil
 }
 

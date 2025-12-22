@@ -84,8 +84,7 @@ const AdminBooks = () => {
   });
   const [loadingStates, setLoadingStates] = useState({ delete: false, assign: false, editLoading: false });
   const [forms, setForms] = useState({ 
-    userSearch: '', 
-    selectedFormat: 'ebook',
+    userSearch: '',
     bookToDelete: null,
     batchUpdate: { 
       status: '', 
@@ -254,7 +253,7 @@ const AdminBooks = () => {
         setErrors({});
         setAssignmentResult(null);
         setUserAssignments({});
-        setForms(prev => ({ ...prev, selectedFormat: 'ebook', userSearch: '' }));
+        setForms(prev => ({ ...prev, userSearch: '' }));
         break;
     }
   };
@@ -696,7 +695,7 @@ const AdminBooks = () => {
                         setSelection(prev => ({ ...prev, users: [], bookForAction: null }));
                         setErrors({});
                         setUserAssignments({});
-                        setForms(prev => ({ ...prev, selectedFormat: 'ebook', userSearch: '' }));
+                        setForms(prev => ({ ...prev, userSearch: '' }));
                       }}
                       className="text-gray-400 hover:text-gray-600 transition-colors p-1 rounded-full hover:bg-white/50"
                     >
@@ -803,45 +802,6 @@ const AdminBooks = () => {
                       )}
                     </div>
 
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-800 mb-3">
-                      <i className="ri-file-list-line mr-1"></i>
-                      Book Format *
-                    </label>
-                    <div className="grid grid-cols-2 gap-3">
-                      <button
-                        type="button"
-                        onClick={() => setForms(prev => ({ ...prev, selectedFormat: 'ebook' }))}
-                        className={`p-4 rounded-xl border-2 transition-all text-center group ${
-                          forms.selectedFormat === 'ebook'
-                            ? 'border-blue-500 bg-blue-50 text-blue-700'
-                            : 'border-gray-200 hover:border-gray-300 text-gray-600 hover:bg-gray-50'
-                        }`}
-                      >
-                        <i className={`ri-smartphone-line text-2xl mb-2 block ${
-                          forms.selectedFormat === 'ebook' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600'
-                        }`}></i>
-                        <span className="text-sm font-medium">Digital Ebook</span>
-                        <p className="text-xs text-gray-500 mt-1">Instant access</p>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setForms(prev => ({ ...prev, selectedFormat: 'physical' }))}
-                        className={`p-4 rounded-xl border-2 transition-all text-center group ${
-                          forms.selectedFormat === 'physical'
-                            ? 'border-blue-500 bg-blue-50 text-blue-700'
-                            : 'border-gray-200 hover:border-gray-300 text-gray-600 hover:bg-gray-50'
-                        }`}
-                      >
-                        <i className={`ri-book-line text-2xl mb-2 block ${
-                          forms.selectedFormat === 'physical' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600'
-                        }`}></i>
-                        <span className="text-sm font-medium">Physical Book</span>
-                        <p className="text-xs text-gray-500 mt-1">Hardcopy access</p>
-                      </button>
-                    </div>
-                  </div>
-
                     {/* Assignment Summary */}
                     {selection.users.length > 0 && (
                       <div className="bg-gray-50 p-4 rounded-lg">
@@ -883,7 +843,7 @@ const AdminBooks = () => {
                         setErrors({});
                         setAssignmentResult(null);
                         setUserAssignments({});
-                        setForms(prev => ({ ...prev, selectedFormat: 'ebook', userSearch: '' }));
+                        setForms(prev => ({ ...prev, userSearch: '' }));
                       }}
                       disabled={loadingStates.assign}
                       className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-xl hover:bg-gray-100 transition-colors font-medium text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -896,9 +856,6 @@ const AdminBooks = () => {
                         const newErrors = {};
                         if (selection.users.length === 0) {
                           newErrors.users = 'Please select at least one user';
-                        }
-                        if (!forms.selectedFormat) {
-                          newErrors.format = 'Please select a format';
                         }
                         
                         if (Object.keys(newErrors).length > 0) {
@@ -930,7 +887,7 @@ const AdminBooks = () => {
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 text-center mb-2">Confirm Assignment</h3>
                   <p className="text-gray-600 text-center mb-6">
-                    Are you sure you want to assign "{selection.bookForAction?.title}" ({forms.selectedFormat}) to {selection.users.length} user{selection.users.length !== 1 ? 's' : ''}?
+                    Are you sure you want to assign "{selection.bookForAction?.title}" to {selection.users.length} user{selection.users.length !== 1 ? 's' : ''}?
                   </p>
                   <div className="flex gap-3">
                     <button
@@ -949,13 +906,12 @@ const AdminBooks = () => {
                         try {
                           const response = await api.post('/admin/bulk-assign', {
                             user_ids: selection.users.map(u => u.id),
-                            book_id: selection.bookForAction.id,
-                            format: forms.selectedFormat
+                            book_id: selection.bookForAction.id
                           });
                           
                           setModals(prev => ({ ...prev, assignConfirm: false, bookAssign: false }));
                           setSelection(prev => ({ ...prev, users: [], bookForAction: null }));
-                          setForms(prev => ({ ...prev, selectedFormat: 'ebook', userSearch: '' }));
+                          setForms(prev => ({ ...prev, userSearch: '' }));
                           setUserAssignments({});
                           
                           alert(`Successfully assigned book to ${response.data.assigned_count} users!`);

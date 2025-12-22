@@ -72,9 +72,13 @@ func AdminRequired() fiber.Handler {
 		c.Locals("roleID", claims.RoleID)
 		c.Locals("token", tokenString)
 
-		// Check admin role (platform_admin=8, school_admin=7)
-		roleID := claims.RoleID
-		if roleID != 7 && roleID != 8 {
+		// Check admin role by name
+		var role models.Role
+		if err := database.DB.First(&role, claims.RoleID).Error; err != nil {
+			return utils.NewForbiddenError("Invalid role")
+		}
+
+		if role.Name != "platform_admin" && role.Name != "school_admin" {
 			return utils.NewForbiddenError("Admin access required")
 		}
 

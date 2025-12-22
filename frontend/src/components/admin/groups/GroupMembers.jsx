@@ -18,7 +18,7 @@ export default function GroupMembers({ group, onClose }) {
   const fetchMembers = async () => {
     try {
       const token = localStorage.getItem('token');
-      const { data } = await axios.get(`${API_URL}/admin/groups/${group.id}/members`, {
+      const { data } = await axios.get(`${API_URL}/groups/${group.id}/members`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMembers(data);
@@ -47,7 +47,7 @@ export default function GroupMembers({ group, onClose }) {
     try {
       const token = localStorage.getItem('token');
       await axios.post(
-        `${API_URL}/admin/groups/${group.id}/members/bulk`,
+        `${API_URL}/groups/${group.id}/members/bulk`,
         { user_ids: selectedUsers },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -64,7 +64,7 @@ export default function GroupMembers({ group, onClose }) {
 
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`${API_URL}/admin/groups/${group.id}/members/${userId}`, {
+      await axios.delete(`${API_URL}/groups/${group.id}/members/${userId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchMembers();

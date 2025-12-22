@@ -26,11 +26,11 @@ export default function GroupForm({ group, onClose }) {
     try {
       const token = localStorage.getItem('token');
       if (group) {
-        await axios.put(`${API_URL}/admin/groups/${group.id}`, formData, {
+        await axios.put(`${API_URL}/groups/${group.id}`, formData, {
           headers: { Authorization: `Bearer ${token}` }
         });
       } else {
-        await axios.post(`${API_URL}/admin/groups`, formData, {
+        await axios.post(`${API_URL}/groups`, formData, {
           headers: { Authorization: `Bearer ${token}` }
         });
       }

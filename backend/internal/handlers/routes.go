@@ -320,7 +320,7 @@ func SetupRoutes(
 	wishlist.Post("/", wishlistHandler.AddToWishlist)
 	wishlist.Delete("/:id", wishlistHandler.RemoveFromWishlist)
 
-	groups := api.Group("/admin/groups", middleware.AdminRequired())
+	groups := api.Group("/groups", middleware.AuthRequired())
 	groups.Get("/", groupHandler.GetAll)
 	groups.Get("/:id", groupHandler.GetByID)
 	groups.Post("/", groupHandler.Create)

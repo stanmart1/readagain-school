@@ -21,7 +21,7 @@ export default function Groups() {
   const fetchGroups = async () => {
     try {
       const token = localStorage.getItem('token');
-      const { data } = await axios.get(`${API_URL}/admin/groups`, {
+      const { data } = await axios.get(`${API_URL}/groups`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setGroups(data);
@@ -47,7 +47,7 @@ export default function Groups() {
     
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`${API_URL}/admin/groups/${id}`, {
+      await axios.delete(`${API_URL}/groups/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchGroups();

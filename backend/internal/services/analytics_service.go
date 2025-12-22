@@ -410,9 +410,9 @@ func (s *AnalyticsService) GetReportsData() (map[string]interface{}, error) {
 			b.title, 
 			b.library_count,
 			b.view_count as views,
-			COALESCE(AVG(r.rating), 0) as rating
+			COALESCE(ROUND(AVG(r.rating)::numeric, 1), 0) as rating
 		FROM books b
-		LEFT JOIN reviews r ON b.id = r.book_id AND r.status = 'approved'
+		LEFT JOIN reviews r ON b.id = r.book_id
 		GROUP BY b.id, b.title, b.library_count, b.view_count
 		ORDER BY b.library_count DESC, b.view_count DESC
 		LIMIT 10

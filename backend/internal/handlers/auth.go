@@ -3,6 +3,7 @@ package handlers
 import (
 	"github.com/gofiber/fiber/v2"
 
+	"readagain/internal/models"
 	"readagain/internal/services"
 )
 
@@ -102,13 +103,17 @@ func (h *AuthHandler) Logout(c *fiber.Ctx) error {
 
 func (h *AuthHandler) GetMe(c *fiber.Ctx) error {
 	userID := c.Locals("userID").(uint)
-	email := c.Locals("email").(string)
-	roleID := c.Locals("roleID").(uint)
+
+	var user models.User
+	if err := h.authService.GetDB().Preload("Role").First(&user, userID).Error; err != nil {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "User not found"})
+	}
 
 	return c.JSON(fiber.Map{
-		"user_id": userID,
-		"email":   email,
-		"role_id": roleID,
+		"user_id": user.ID,
+		"email":   user.Email,
+		"role_id": user.RoleID,
+		"role":    user.Role,
 	})
 }
 

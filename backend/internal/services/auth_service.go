@@ -24,6 +24,10 @@ func NewAuthService(db *gorm.DB, cfg *config.Config, emailService *EmailService)
 	}
 }
 
+func (s *AuthService) GetDB() *gorm.DB {
+	return s.db
+}
+
 func (s *AuthService) Register(email, username, password, firstName, lastName, schoolName, classLevel string) (*models.User, error) {
 	var existingUser models.User
 	if err := s.db.Where("email = ? OR username = ?", email, username).First(&existingUser).Error; err == nil {

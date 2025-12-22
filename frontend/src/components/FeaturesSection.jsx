@@ -45,15 +45,28 @@ export default function FeaturesSection() {
     }
   ];
 
+  const infiniteFeatures = [...features, ...features, ...features];
   const maxIndex = Math.ceil(features.length / cardsPerView) - 1;
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+    setCurrentIndex((prev) => prev + 1);
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
+    setCurrentIndex((prev) => prev - 1);
   };
+
+  useEffect(() => {
+    if (currentIndex >= features.length) {
+      setTimeout(() => {
+        setCurrentIndex(features.length);
+      }, 500);
+    } else if (currentIndex < features.length) {
+      setTimeout(() => {
+        setCurrentIndex(features.length);
+      }, 500);
+    }
+  }, [currentIndex, features.length]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -72,9 +85,13 @@ export default function FeaturesSection() {
   }, []);
 
   useEffect(() => {
+    setCurrentIndex(features.length);
+  }, [features.length]);
+
+  useEffect(() => {
     const interval = setInterval(nextSlide, 5000);
     return () => clearInterval(interval);
-  }, [maxIndex]);
+  }, []);
 
   return (
     <section className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
@@ -105,8 +122,23 @@ export default function FeaturesSection() {
             <motion.div
               className="flex transition-transform duration-500 ease-out"
               style={{ transform: `translateX(-${currentIndex * (100 / cardsPerView)}%)` }}
+              onTransitionEnd={() => {
+                if (currentIndex >= features.length * 2) {
+                  carouselRef.current.style.transition = 'none';
+                  setCurrentIndex(features.length);
+                  setTimeout(() => {
+                    carouselRef.current.style.transition = '';
+                  }, 50);
+                } else if (currentIndex <= 0) {
+                  carouselRef.current.style.transition = 'none';
+                  setCurrentIndex(features.length);
+                  setTimeout(() => {
+                    carouselRef.current.style.transition = '';
+                  }, 50);
+                }
+              }}
             >
-              {features.map((feature, index) => (
+              {infiniteFeatures.map((feature, index) => (
                 <div 
                   key={index} 
                   className="px-4"
@@ -149,12 +181,12 @@ export default function FeaturesSection() {
 
           {/* Dots Indicator */}
           <div className="flex justify-center gap-2 mt-8">
-            {Array.from({ length: maxIndex + 1 }).map((_, index) => (
+            {features.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentIndex(index)}
+                onClick={() => setCurrentIndex(features.length + index)}
                 className={`w-2 h-2 rounded-full transition-all ${
-                  index === currentIndex ? 'bg-purple-600 w-8' : 'bg-gray-300'
+                  (currentIndex % features.length) === index ? 'bg-purple-600 w-8' : 'bg-gray-300'
                 }`}
               />
             ))}

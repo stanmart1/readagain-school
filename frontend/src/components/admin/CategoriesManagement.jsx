@@ -31,10 +31,10 @@ const CategoriesManagement = () => {
     setIsSaving(true);
     try {
       if (editingCategory) {
-        await api.put(`/admin/categories/${editingCategory.id}`, formData);
+        await api.put(`/categories/${editingCategory.id}`, formData);
         alert('Category updated successfully!');
       } else {
-        await api.post('/admin/categories', formData);
+        await api.post('/categories', formData);
         alert('Category created successfully!');
       }
       
@@ -66,7 +66,7 @@ const CategoriesManagement = () => {
 
     setIsDeleting(true);
     try {
-      await api.delete(`/admin/categories/${categoryId}`);
+      await api.delete(`/categories/${categoryId}`);
       alert('Category deleted successfully!');
       fetchCategories();
     } catch (error) {
@@ -81,7 +81,7 @@ const CategoriesManagement = () => {
     setIsTogglingStatus(true);
     try {
       const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
-      await api.put(`/admin/categories/${categoryId}`, { 
+      await api.put(`/categories/${categoryId}`, { 
         status: newStatus
       });
       alert(`Category ${newStatus === 'active' ? 'activated' : 'deactivated'} successfully!`);

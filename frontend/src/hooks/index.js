@@ -9,7 +9,6 @@ export { useAuth } from './useAuth';
 export { useLibrary } from './useLibrary';
 export { useOrders } from './useOrders';
 export { useWishlist } from './useWishlist';
-export { useAuth } from './useAuth';
 export { useAnalytics } from './useAnalytics';
 export { useActivity } from './useActivity';
 export { useDashboard } from './useDashboard';

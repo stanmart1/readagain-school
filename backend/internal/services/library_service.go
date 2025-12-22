@@ -241,7 +241,7 @@ func (s *LibraryService) AssignBook(userID, bookID uint, format string) error {
 	return s.db.Create(library).Error
 }
 
-func (s *LibraryService) BulkAssignBook(userIDs []uint, bookID uint, format string) (int, error) {
+func (s *LibraryService) BulkAssignBook(userIDs []uint, bookID uint) (int, error) {
 	count := 0
 	for _, userID := range userIDs {
 		var exists int64

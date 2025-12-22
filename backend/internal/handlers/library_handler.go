@@ -365,7 +365,6 @@ func (h *LibraryHandler) BulkAssignBook(c *fiber.Ctx) error {
 	var input struct {
 		UserIDs []uint `json:"user_ids" validate:"required,min=1"`
 		BookID  uint   `json:"book_id" validate:"required"`
-		Format  string `json:"format" validate:"required,oneof=ebook physical"`
 	}
 
 	if err := c.BodyParser(&input); err != nil {
@@ -376,7 +375,7 @@ func (h *LibraryHandler) BulkAssignBook(c *fiber.Ctx) error {
 		return c.Status(400).JSON(fiber.Map{"error": utils.FormatValidationError(err)})
 	}
 
-	count, err := h.libraryService.BulkAssignBook(input.UserIDs, input.BookID, input.Format)
+	count, err := h.libraryService.BulkAssignBook(input.UserIDs, input.BookID)
 	if err != nil {
 		return c.Status(400).JSON(fiber.Map{"error": err.Error()})
 	}

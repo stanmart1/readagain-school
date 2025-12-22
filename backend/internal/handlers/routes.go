@@ -56,7 +56,6 @@ func SetupRoutes(
 	auditHandler := NewAuditHandler(auditService)
 	reviewHandler := NewReviewHandler(reviewService)
 	aboutHandler := NewAboutHandler(aboutService)
-	activityHandler := NewActivityHandler(activityService)
 	wishlistHandler := NewWishlistHandler(wishlistService)
 
 	app.Use(middleware.AuditMiddleware(auditService))
@@ -311,7 +310,6 @@ func SetupRoutes(
 	api.Get("/about", aboutHandler.Get)
 	api.Put("/admin/about", middleware.AdminRequired(), aboutHandler.Update)
 
-	api.Get("/dashboard/activity", middleware.AuthRequired(), activityHandler.GetActivities)
 	api.Get("/dashboard/stats", middleware.AuthRequired(), libraryHandler.GetDashboardStats)
 	api.Get("/dashboard/reading-progress", middleware.AuthRequired(), readingHandler.GetReadingProgress)
 	api.Get("/dashboard/analytics", middleware.AuthRequired(), libraryHandler.GetUserAnalytics)

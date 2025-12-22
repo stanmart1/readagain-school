@@ -44,8 +44,6 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 const DashboardOverview = lazy(() => import('./pages/dashboard/Overview'));
 const DashboardLibrary = lazy(() => import('./pages/dashboard/Library'));
 const DashboardAnalytics = lazy(() => import('./pages/dashboard/Analytics'));
-const DashboardActivity = lazy(() => import('./pages/dashboard/Activity'));
-const DashboardOrders = lazy(() => import('./pages/dashboard/Orders'));
 const DashboardSettings = lazy(() => import('./pages/dashboard/Settings'));
 const Reading = lazy(() => import('./pages/Reading'));
 
@@ -106,8 +104,6 @@ function App() {
         <Route path="/dashboard" element={<DashboardOverview />} />
         <Route path="/dashboard/library" element={<DashboardLibrary />} />
         <Route path="/dashboard/analytics" element={<DashboardAnalytics />} />
-        <Route path="/dashboard/activity" element={<DashboardActivity />} />
-        <Route path="/dashboard/orders" element={<DashboardOrders />} />
         <Route path="/dashboard/settings" element={<DashboardSettings />} />
         <Route path="/reading/:bookId" element={<Reading />} />
         

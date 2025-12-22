@@ -7,9 +7,7 @@ export default function DashboardLayout({ children }) {
   const menuItems = [
     { name: 'Overview', path: '/dashboard', icon: 'ri-dashboard-line' },
     { name: 'Library', path: '/dashboard/library', icon: 'ri-book-line' },
-    { name: 'Analytics', path: '/dashboard/analytics', icon: 'ri-bar-chart-line' },
-    { name: 'Activity', path: '/dashboard/activity', icon: 'ri-time-line' },
-    { name: 'Orders', path: '/dashboard/orders', icon: 'ri-shopping-bag-line' }
+    { name: 'Analytics', path: '/dashboard/analytics', icon: 'ri-bar-chart-line' }
   ];
 
   return (

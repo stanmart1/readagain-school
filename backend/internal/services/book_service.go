@@ -53,8 +53,6 @@ type BookFilters struct {
 	Search     string
 	CategoryID uint
 	AuthorID   uint
-	MinPrice   float64
-	MaxPrice   float64
 	IsFeatured *bool
 	Status     string
 	SortBy     string
@@ -79,14 +77,6 @@ func (s *BookService) ListBooks(page, limit int, filters BookFilters) ([]models.
 
 	if filters.AuthorID > 0 {
 		query = query.Where("author_id = ?", filters.AuthorID)
-	}
-
-	if filters.MinPrice > 0 {
-		query = query.Where("price >= ?", filters.MinPrice)
-	}
-
-	if filters.MaxPrice > 0 {
-		query = query.Where("price <= ?", filters.MaxPrice)
 	}
 
 	if filters.IsFeatured != nil {
@@ -135,7 +125,7 @@ func (s *BookService) GetBookByID(bookID uint) (*models.Book, error) {
 	return &book, nil
 }
 
-func (s *BookService) CreateBook(authorID uint, title, description, isbn string, categoryID uint, price float64, coverImage, fileURL string, fileSize int64, pageCount int, status string) (*models.Book, error) {
+func (s *BookService) CreateBook(authorID uint, title, description, isbn string, categoryID uint, coverImage, fileURL string, fileSize int64, pageCount int, status string) (*models.Book, error) {
 	var catID *uint
 	if categoryID > 0 {
 		catID = &categoryID
@@ -147,7 +137,6 @@ func (s *BookService) CreateBook(authorID uint, title, description, isbn string,
 		Description: description,
 		ISBN:        isbn,
 		CategoryID:  catID,
-		Price:       price,
 		CoverImage:  coverImage,
 		FilePath:    fileURL,
 		FileSize:    fileSize,
@@ -234,7 +223,7 @@ func (s *BookService) GetBestsellers(limit int) ([]models.Book, error) {
 		Preload("Category").
 		Preload("Author").
 		Preload("Author.User").
-		Order("download_count DESC").
+		Order("library_count DESC").
 		Limit(limit).
 		Find(&books).Error; err != nil {
 		return nil, utils.NewInternalServerError("Failed to fetch bestsellers", err)

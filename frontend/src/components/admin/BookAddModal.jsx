@@ -9,7 +9,6 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
     title: '',
     author_id: '',
     category_id: '',
-    price: '',
     isbn: '',
     description: '',
     language: 'English',
@@ -76,7 +75,6 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
       if (!formData.title.trim()) newErrors.title = 'Title is required';
       if (!formData.author_id) newErrors.author_id = 'Author is required';
       if (!formData.category_id) newErrors.category_id = 'Category is required';
-      if (!formData.price || parseFloat(formData.price) <= 0) newErrors.price = 'Valid price is required';
       if (!formData.format) newErrors.format = 'Book type is required';
     }
 
@@ -192,7 +190,6 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
       title: '',
       author_id: '',
       category_id: '',
-      price: '',
       isbn: '',
       description: '',
       language: 'English',
@@ -371,24 +368,6 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
                     ))}
                   </select>
                   {errors.category_id && <p className="text-red-500 text-sm mt-1 flex items-center"><i className="ri-error-warning-line mr-1"></i>{errors.category_id}</p>}
-                </div>
-
-                {/* Price */}
-                <div>
-                  <label className="block text-sm font-semibold text-gray-800 mb-2">
-                    Price (₦) *
-                  </label>
-                  <input
-                    type="number"
-                    step="0.01"
-                    min="0"
-                    value={formData.price}
-                    onChange={(e) => handleInputChange('price', e.target.value)}
-                    className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${errors.price ? 'border-red-400 bg-red-50' : 'border-gray-200 hover:border-gray-300'
-                      }`}
-                    placeholder="0.00"
-                  />
-                  {errors.price && <p className="text-red-500 text-sm mt-1 flex items-center"><i className="ri-error-warning-line mr-1"></i>{errors.price}</p>}
                 </div>
 
                 {/* Format */}

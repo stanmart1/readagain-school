@@ -22,7 +22,6 @@ type Book struct {
 	Subtitle         string     `json:"subtitle"`
 	Description      string     `gorm:"type:text" json:"description"`
 	ShortDescription string     `gorm:"type:text" json:"short_description"`
-	Price            float64    `gorm:"not null" json:"price" validate:"required,gte=0"`
 	CoverImage       string     `json:"cover_image"`
 	FilePath         string     `json:"file_path"`
 	FileSize         int64      `json:"file_size"`
@@ -38,7 +37,7 @@ type Book struct {
 	Language         string     `gorm:"default:English" json:"language"`
 	Publisher        string     `json:"publisher"`
 	PublicationDate  *time.Time `json:"publication_date"`
-	DownloadCount    int        `gorm:"default:0" json:"download_count"`
+	LibraryCount     int        `gorm:"default:0" json:"library_count"`
 	ViewCount        int        `gorm:"default:0" json:"view_count"`
 	SEOTitle         string     `json:"seo_title"`
 	SEODescription   string     `gorm:"type:text" json:"seo_description"`

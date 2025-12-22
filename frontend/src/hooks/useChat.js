@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import api from '../services/api';
+import api from '../lib/api';
 import websocketService from '../services/websocketService';
 
 export const useChat = (roomId) => {

@@ -47,24 +47,25 @@ export const useAnalytics = (period = 'week') => {
       
       // Transform goals to match UI expectations
       const transformedGoals = goalsData.map(goal => {
+        const goalType = goal.goal_type || goal.type || 'books';
         let unit = 'items';
-        if (goal.goal_type === 'books') unit = 'books';
-        else if (goal.goal_type === 'pages') unit = 'pages';
-        else if (goal.goal_type === 'minutes') unit = 'minutes';
-        else if (goal.goal_type === 'streak') unit = 'days';
+        if (goalType === 'books') unit = 'books';
+        else if (goalType === 'pages') unit = 'pages';
+        else if (goalType === 'minutes') unit = 'minutes';
+        else if (goalType === 'streak') unit = 'days';
         
         return {
           id: goal.id,
-          goal: goal.goal_type,
-          title: `${goal.goal_type.charAt(0).toUpperCase() + goal.goal_type.slice(1)} Goal`,
-          current: goal.current_value,
-          target: goal.target_value,
-          target_value: goal.target_value,
+          goal: goalType,
+          title: `${goalType.charAt(0).toUpperCase() + goalType.slice(1)} Goal`,
+          current: goal.current_value || goal.current || 0,
+          target: goal.target_value || goal.target || 0,
+          target_value: goal.target_value || goal.target || 0,
           unit: unit,
           start_date: goal.start_date,
           end_date: goal.end_date,
           status: goal.status,
-          completed: goal.completed
+          completed: goal.completed || goal.is_completed
         };
       });
       

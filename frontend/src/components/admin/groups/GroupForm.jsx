@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
+import { useGroups } from '../../../hooks/useGroups';
 
 export default function GroupForm({ group, onClose }) {
+  const { createGroup, updateGroup, loading } = useGroups();
   const [formData, setFormData] = useState({
     name: '',
     description: ''
   });
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (group) {
@@ -21,70 +19,81 @@ export default function GroupForm({ group, onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
 
     try {
-      const token = localStorage.getItem('token');
       if (group) {
-        await axios.put(`${API_URL}/groups/${group.id}`, formData, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        await updateGroup(group.id, formData);
       } else {
-        await axios.post(`${API_URL}/groups`, formData, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        await createGroup(formData);
       }
       onClose();
     } catch (error) {
       alert('Failed to save group');
-    } finally {
-      setLoading(false);
     }
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-md">
-        <h2 className="text-xl font-bold mb-4">
-          {group ? 'Edit Group' : 'Create Group'}
-        </h2>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md transform transition-all">
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-4 rounded-t-2xl">
+          <h2 className="text-xl font-bold text-white flex items-center gap-2">
+            <i className={`ri-${group ? 'edit' : 'add'}-line`}></i>
+            {group ? 'Edit Group' : 'Create New Group'}
+          </h2>
+        </div>
 
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-2">Name *</label>
+        <form onSubmit={handleSubmit} className="p-6">
+          <div className="mb-5">
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Group Name <span className="text-red-500">*</span>
+            </label>
             <input
               type="text"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full border rounded px-3 py-2"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+              placeholder="e.g., Grade 5A, Science Club"
               required
             />
           </div>
 
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-2">Description</label>
+          <div className="mb-6">
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Description
+            </label>
             <textarea
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              className="w-full border rounded px-3 py-2"
-              rows="3"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
+              rows="4"
+              placeholder="Brief description of the group..."
             />
           </div>
 
-          <div className="flex justify-end space-x-2">
+          <div className="flex justify-end gap-3">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border rounded hover:bg-gray-50"
+              className="px-5 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors font-medium"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+              className="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed font-medium"
             >
-              {loading ? 'Saving...' : 'Save'}
+              {loading ? (
+                <span className="flex items-center gap-2">
+                  <i className="ri-loader-4-line animate-spin"></i>
+                  Saving...
+                </span>
+              ) : (
+                <span className="flex items-center gap-2">
+                  <i className="ri-save-line"></i>
+                  {group ? 'Update' : 'Create'} Group
+                </span>
+              )}
             </button>
           </div>
         </form>

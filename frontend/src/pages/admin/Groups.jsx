@@ -1,36 +1,19 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import AdminLayout from '../../components/AdminLayout';
 import GroupsList from '../../components/admin/groups/GroupsList';
 import GroupForm from '../../components/admin/groups/GroupForm';
 import GroupMembers from '../../components/admin/groups/GroupMembers';
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
+import { useGroups } from '../../hooks/useGroups';
 
 export default function Groups() {
-  const [groups, setGroups] = useState([]);
+  const { groups, loading, fetchGroups, deleteGroup } = useGroups();
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [showMembers, setShowMembers] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchGroups();
-  }, []);
-
-  const fetchGroups = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const { data } = await axios.get(`${API_URL}/groups`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setGroups(data);
-    } catch (error) {
-      console.error('Failed to fetch groups:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [fetchGroups]);
 
   const handleCreate = () => {
     setSelectedGroup(null);
@@ -46,11 +29,7 @@ export default function Groups() {
     if (!confirm('Delete this group? Members will not be deleted.')) return;
     
     try {
-      const token = localStorage.getItem('token');
-      await axios.delete(`${API_URL}/groups/${id}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      fetchGroups();
+      await deleteGroup(id);
     } catch (error) {
       alert('Failed to delete group');
     }
@@ -77,17 +56,25 @@ export default function Groups() {
     <AdminLayout>
       <div className="p-6">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold">Groups Management</h1>
+          <div>
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Groups Management
+            </h1>
+            <p className="text-gray-600 mt-1">Create and manage student groups</p>
+          </div>
           <button
             onClick={handleCreate}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2.5 rounded-lg hover:shadow-lg transition-all duration-200 flex items-center gap-2"
           >
+            <i className="ri-add-line"></i>
             Create Group
           </button>
         </div>
 
         {loading ? (
-          <div className="text-center py-12">Loading...</div>
+          <div className="flex justify-center items-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          </div>
         ) : (
           <GroupsList
             groups={groups}

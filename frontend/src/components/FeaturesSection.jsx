@@ -46,7 +46,6 @@ export default function FeaturesSection() {
   ];
 
   const infiniteFeatures = [...features, ...features, ...features];
-  const maxIndex = Math.ceil(features.length / cardsPerView) - 1;
 
   const nextSlide = () => {
     setCurrentIndex((prev) => prev + 1);
@@ -55,18 +54,6 @@ export default function FeaturesSection() {
   const prevSlide = () => {
     setCurrentIndex((prev) => prev - 1);
   };
-
-  useEffect(() => {
-    if (currentIndex >= features.length) {
-      setTimeout(() => {
-        setCurrentIndex(features.length);
-      }, 500);
-    } else if (currentIndex < features.length) {
-      setTimeout(() => {
-        setCurrentIndex(features.length);
-      }, 500);
-    }
-  }, [currentIndex, features.length]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -89,9 +76,22 @@ export default function FeaturesSection() {
   }, [features.length]);
 
   useEffect(() => {
-    const interval = setInterval(nextSlide, 5000);
+    const interval = setInterval(nextSlide, 3000);
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (currentIndex < features.length) {
+      const carousel = carouselRef.current?.querySelector('div');
+      if (carousel) {
+        carousel.style.transition = 'none';
+        setCurrentIndex(features.length * 2 - 1);
+        setTimeout(() => {
+          carousel.style.transition = '';
+        }, 50);
+      }
+    }
+  }, [currentIndex, features.length]);
 
   return (
     <section className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
@@ -118,23 +118,34 @@ export default function FeaturesSection() {
         
         {/* Carousel Container */}
         <div className="relative">
+          {/* Navigation Arrows */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all"
+          >
+            <i className="ri-arrow-left-s-line text-2xl text-gray-800"></i>
+          </button>
+          <button
+            onClick={nextSlide}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all"
+          >
+            <i className="ri-arrow-right-s-line text-2xl text-gray-800"></i>
+          </button>
+
           <div className="overflow-hidden" ref={carouselRef}>
-            <motion.div
+            <div
               className="flex transition-transform duration-500 ease-out"
               style={{ transform: `translateX(-${currentIndex * (100 / cardsPerView)}%)` }}
               onTransitionEnd={() => {
                 if (currentIndex >= features.length * 2) {
-                  carouselRef.current.style.transition = 'none';
-                  setCurrentIndex(features.length);
-                  setTimeout(() => {
-                    carouselRef.current.style.transition = '';
-                  }, 50);
-                } else if (currentIndex <= 0) {
-                  carouselRef.current.style.transition = 'none';
-                  setCurrentIndex(features.length);
-                  setTimeout(() => {
-                    carouselRef.current.style.transition = '';
-                  }, 50);
+                  const carousel = carouselRef.current?.querySelector('div');
+                  if (carousel) {
+                    carousel.style.transition = 'none';
+                    setCurrentIndex(features.length);
+                    setTimeout(() => {
+                      carousel.style.transition = '';
+                    }, 50);
+                  }
                 }
               }}
             >
@@ -162,22 +173,8 @@ export default function FeaturesSection() {
                   </motion.div>
                 </div>
               ))}
-            </motion.div>
+            </div>
           </div>
-
-          {/* Navigation Arrows */}
-          <button
-            onClick={prevSlide}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white rounded-full p-3 shadow-lg hover:bg-gray-50 transition-colors z-10"
-          >
-            <i className="ri-arrow-left-s-line text-2xl text-gray-800"></i>
-          </button>
-          <button
-            onClick={nextSlide}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white rounded-full p-3 shadow-lg hover:bg-gray-50 transition-colors z-10"
-          >
-            <i className="ri-arrow-right-s-line text-2xl text-gray-800"></i>
-          </button>
 
           {/* Dots Indicator */}
           <div className="flex justify-center gap-2 mt-8">

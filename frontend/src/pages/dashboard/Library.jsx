@@ -196,7 +196,11 @@ export default function Library() {
                   </h3>
                   {/* Author */}
                   <p className="text-gray-600 text-xs mb-3 line-clamp-1">
-                    <span className="font-semibold">Author:</span> {book.author || book.book?.author_name || book.book?.author}
+                    <span className="font-semibold">Author:</span> {
+                      book.author || 
+                      book.book?.author?.business_name || 
+                      (book.book?.author?.user ? `${book.book.author.user.first_name} ${book.book.author.user.last_name}` : 'Unknown')
+                    }
                   </p>
                   
                   {/* Reading Stats */}

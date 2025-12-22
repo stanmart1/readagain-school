@@ -76,7 +76,7 @@ export default function FeaturesSection() {
   }, [features.length]);
 
   useEffect(() => {
-    const interval = setInterval(nextSlide, 3000);
+    const interval = setInterval(nextSlide, 4000);
     return () => clearInterval(interval);
   }, []);
 

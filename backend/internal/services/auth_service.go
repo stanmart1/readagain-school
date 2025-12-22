@@ -24,7 +24,7 @@ func NewAuthService(db *gorm.DB, cfg *config.Config, emailService *EmailService)
 	}
 }
 
-func (s *AuthService) Register(email, username, password, firstName, lastName string) (*models.User, error) {
+func (s *AuthService) Register(email, username, password, firstName, lastName, schoolName, classLevel string) (*models.User, error) {
 	var existingUser models.User
 	if err := s.db.Where("email = ? OR username = ?", email, username).First(&existingUser).Error; err == nil {
 		return nil, utils.NewBadRequestError("Email or username already exists")
@@ -41,6 +41,8 @@ func (s *AuthService) Register(email, username, password, firstName, lastName st
 		PasswordHash: hashedPassword,
 		FirstName:    firstName,
 		LastName:     lastName,
+		SchoolName:   schoolName,
+		ClassLevel:   classLevel,
 		RoleID:       4,
 		IsActive:     false,
 	}

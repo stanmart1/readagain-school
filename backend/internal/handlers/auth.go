@@ -15,11 +15,13 @@ func NewAuthHandler(authService *services.AuthService) *AuthHandler {
 }
 
 type RegisterRequest struct {
-	Email     string `json:"email" validate:"required,email"`
-	Username  string `json:"username" validate:"required,min=3"`
-	Password  string `json:"password" validate:"required,min=8"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
+	Email      string `json:"email" validate:"required,email"`
+	Username   string `json:"username" validate:"required,min=3"`
+	Password   string `json:"password" validate:"required,min=8"`
+	FirstName  string `json:"first_name" validate:"required"`
+	LastName   string `json:"last_name" validate:"required"`
+	SchoolName string `json:"school_name" validate:"required"`
+	ClassLevel string `json:"class_level" validate:"required"`
 }
 
 type LoginRequest struct {
@@ -37,7 +39,7 @@ func (h *AuthHandler) Register(c *fiber.Ctx) error {
 		return c.Status(400).JSON(fiber.Map{"error": "Invalid request"})
 	}
 
-	user, err := h.authService.Register(req.Email, req.Username, req.Password, req.FirstName, req.LastName)
+	user, err := h.authService.Register(req.Email, req.Username, req.Password, req.FirstName, req.LastName, req.SchoolName, req.ClassLevel)
 	if err != nil {
 		return err
 	}

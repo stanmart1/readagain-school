@@ -7,12 +7,12 @@ type User struct {
 	Email                    string     `gorm:"uniqueIndex;not null" json:"email" validate:"required,email"`
 	Username                 string     `gorm:"uniqueIndex;not null" json:"username" validate:"required"`
 	PasswordHash             string     `gorm:"not null" json:"-"`
-	FirstName                string     `json:"first_name"`
-	LastName                 string     `json:"last_name"`
+	FirstName                string     `gorm:"not null" json:"first_name" validate:"required"`
+	LastName                 string     `gorm:"not null" json:"last_name" validate:"required"`
 	PhoneNumber              string     `json:"phone_number"`
-	SchoolName               string     `json:"school_name"`
+	SchoolName               string     `gorm:"not null" json:"school_name" validate:"required"`
 	SchoolCategory           string     `json:"school_category"`
-	ClassLevel               string     `json:"class_level"`
+	ClassLevel               string     `gorm:"not null" json:"class_level" validate:"required"`
 	Department               string     `json:"department"`
 	RoleID                   uint       `gorm:"index" json:"role_id"`
 	Role                     *Role      `gorm:"foreignKey:RoleID" json:"role,omitempty"`

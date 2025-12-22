@@ -308,7 +308,7 @@ export default function FeaturedBooks() {
                       {book.title}
                     </h3>
                     <p className="text-gray-600 text-sm mb-3 line-clamp-1">
-                      {book.author_name || 'Unknown Author'}
+                      {book.author?.business_name || 'Unknown Author'}
                     </p>
 
                     {/* Rating */}
@@ -424,7 +424,7 @@ export default function FeaturedBooks() {
                         {book.title}
                       </h3>
                       <p className="text-gray-600 text-sm mb-3 line-clamp-1">
-                        {book.author_name || 'Unknown Author'}
+                        {book.author?.business_name || 'Unknown Author'}
                       </p>
 
                       {/* Rating */}

@@ -10,7 +10,7 @@ export default function HeroSection() {
   ];
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden max-w-full">
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden max-w-full pt-20">
       {/* Darker Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900"></div>
       

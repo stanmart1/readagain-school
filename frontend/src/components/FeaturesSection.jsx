@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 
-export default function EReaderShowcase() {
+export default function FeaturesSection() {
   const [fontSize, setFontSize] = useState(16);
   const [theme, setTheme] = useState('light');
 

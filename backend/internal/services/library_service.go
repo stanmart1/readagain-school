@@ -189,6 +189,10 @@ func (s *LibraryService) GetAllAssignments(skip, limit int, search, status, user
 	var total int64
 	query.Count(&total)
 
+	// Prefix sortBy with table alias if it's created_at
+	if sortBy == "created_at" {
+		sortBy = "ul.created_at"
+	}
 	orderClause := sortBy + " " + sortOrder
 	query = query.Order(orderClause).Offset(skip).Limit(limit)
 

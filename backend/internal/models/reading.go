@@ -55,13 +55,12 @@ type Bookmark struct {
 
 type Note struct {
 	BaseModel
-	UserID    uint   `gorm:"not null;index" json:"user_id"`
-	User      *User  `gorm:"foreignKey:UserID" json:"user,omitempty"`
-	BookID    uint   `gorm:"not null;index" json:"book_id"`
-	Book      *Book  `gorm:"foreignKey:BookID" json:"book,omitempty"`
-	Page      int    `gorm:"not null" json:"page"`
-	Content   string `gorm:"type:text;not null" json:"content"`
-	Highlight string `gorm:"type:text" json:"highlight"`
+	UserID  uint   `gorm:"not null;index" json:"user_id"`
+	User    *User  `gorm:"foreignKey:UserID" json:"user,omitempty"`
+	BookID  uint   `gorm:"not null;index" json:"book_id"`
+	Book    *Book  `gorm:"foreignKey:BookID" json:"book,omitempty"`
+	Page    int    `gorm:"not null" json:"page"`
+	Content string `gorm:"type:text;not null" json:"content"`
 }
 
 type Highlight struct {

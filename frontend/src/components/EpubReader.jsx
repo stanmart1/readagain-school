@@ -308,15 +308,16 @@ export default function EpubReader({ bookId, onClose }) {
 
   const saveProgress = async (cfi, percentage, immediate = false) => {
     const progressData = {
-      progress: (percentage || 0) * 100,
-      last_read_location: cfi
+      current_page: 0,
+      total_pages: 100,
+      progress: (percentage || 0) * 100
     };
 
     // If immediate save (on load), don't throttle
     if (immediate) {
       try {
         if (isOnline()) {
-          await api.post(`/ereader/${bookId}/progress`, progressData);
+          await api.put(`/library/${bookId}/progress`, progressData);
         } else {
           queueProgressUpdate(bookId, progressData);
         }
@@ -338,7 +339,7 @@ export default function EpubReader({ bookId, onClose }) {
       try {
         setIsSaving(true);
         if (isOnline()) {
-          await api.post(`/ereader/${bookId}/progress`, progressData);
+          await api.put(`/library/${bookId}/progress`, progressData);
         } else {
           queueProgressUpdate(bookId, progressData);
         }

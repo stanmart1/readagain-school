@@ -237,9 +237,8 @@ func (h *LibraryHandler) CreateNote(c *fiber.Ctx) error {
 	}
 
 	var input struct {
-		Page      int    `json:"page" validate:"required,gte=0"`
-		Content   string `json:"content" validate:"required"`
-		Highlight string `json:"highlight"`
+		Page    int    `json:"page" validate:"required,gte=0"`
+		Content string `json:"content" validate:"required"`
 	}
 
 	if err := c.BodyParser(&input); err != nil {
@@ -250,7 +249,7 @@ func (h *LibraryHandler) CreateNote(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": utils.FormatValidationError(err)})
 	}
 
-	note, err := h.ereaderService.CreateNote(userID, uint(bookID), input.Page, input.Content, input.Highlight)
+	note, err := h.ereaderService.CreateNote(userID, uint(bookID), input.Page, input.Content, "")
 	if err != nil {
 		utils.ErrorLogger.Printf("Failed to create note: %v", err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})

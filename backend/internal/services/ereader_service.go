@@ -78,11 +78,10 @@ func (s *EReaderService) CreateNote(userID, bookID uint, page int, content, high
 	}
 
 	note := models.Note{
-		UserID:    userID,
-		BookID:    bookID,
-		Page:      page,
-		Content:   content,
-		Highlight: highlight,
+		UserID:  userID,
+		BookID:  bookID,
+		Page:    page,
+		Content: content,
 	}
 
 	if err := s.db.Create(&note).Error; err != nil {

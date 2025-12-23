@@ -201,13 +201,14 @@ export default function EReader({ bookId, onClose }) {
 
     saveTimeoutRef.current = setTimeout(async () => {
       const progressData = {
-        progress: newProgress * 100,
-        last_read_location: `scroll:${newProgress}`
+        current_page: 0,
+        total_pages: 100,
+        progress: newProgress * 100
       };
 
       try {
         if (isOnline()) {
-          await api.post(`/ereader/${bookId}/progress`, progressData);
+          await api.put(`/library/${bookId}/progress`, progressData);
         } else {
           queueProgressUpdate(bookId, progressData);
         }

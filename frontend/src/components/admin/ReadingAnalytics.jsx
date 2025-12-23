@@ -144,6 +144,43 @@ const ReadingAnalytics = () => {
         </div>
       </div>
 
+      {/* Active Readers */}
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Active Readers</h3>
+        {safeData.activeReaders.length > 0 ? (
+          <div className="overflow-x-auto">
+            <table className="min-w-full">
+              <thead>
+                <tr className="border-b border-gray-200">
+                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Student</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Class</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Sessions</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Total Time</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Last Active</th>
+                </tr>
+              </thead>
+              <tbody>
+                {safeData.activeReaders.map((reader, idx) => (
+                  <tr key={idx} className="border-b border-gray-100 hover:bg-gray-50">
+                    <td className="py-3 px-4 text-sm text-gray-900">{reader.name}</td>
+                    <td className="py-3 px-4 text-sm text-gray-600">{reader.class_level}</td>
+                    <td className="py-3 px-4 text-sm text-gray-600">{reader.session_count}</td>
+                    <td className="py-3 px-4 text-sm text-gray-600">{Math.floor(reader.total_time / 60)}m</td>
+                    <td className="py-3 px-4 text-sm text-gray-600">
+                      {new Date(reader.last_session).toLocaleDateString()}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="h-64 flex items-center justify-center text-gray-500">
+            No active readers found
+          </div>
+        )}
+      </div>
+
       {/* Charts Row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Class Performance */}
@@ -253,43 +290,6 @@ const ReadingAnalytics = () => {
             </div>
           )}
         </div>
-      </div>
-
-      {/* Active Readers */}
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Active Readers</h3>
-        {safeData.activeReaders.length > 0 ? (
-          <div className="overflow-x-auto">
-            <table className="min-w-full">
-              <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Student</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Class</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Sessions</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Total Time</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Last Active</th>
-                </tr>
-              </thead>
-              <tbody>
-                {safeData.activeReaders.map((reader, idx) => (
-                  <tr key={idx} className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="py-3 px-4 text-sm text-gray-900">{reader.name}</td>
-                    <td className="py-3 px-4 text-sm text-gray-600">{reader.class_level}</td>
-                    <td className="py-3 px-4 text-sm text-gray-600">{reader.session_count}</td>
-                    <td className="py-3 px-4 text-sm text-gray-600">{Math.floor(reader.total_time / 60)}m</td>
-                    <td className="py-3 px-4 text-sm text-gray-600">
-                      {new Date(reader.last_session).toLocaleDateString()}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <div className="h-64 flex items-center justify-center text-gray-500">
-            No active readers found
-          </div>
-        )}
       </div>
     </div>
   );

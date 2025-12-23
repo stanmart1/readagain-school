@@ -102,8 +102,8 @@ export default function EReader({ bookId, onClose }) {
       setLoading(true);
       setError(null);
 
-      const bookResponse = await api.get(`/user/library`);
-      const libraryItem = bookResponse.data.libraryItems.find(item => item.book_id === parseInt(bookId));
+      const bookResponse = await api.get(`/library`);
+      const libraryItem = bookResponse.data.library.find(item => item.book_id === parseInt(bookId));
 
       if (!libraryItem) {
         throw new Error('Book not found in your library');

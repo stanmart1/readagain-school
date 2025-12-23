@@ -3,6 +3,7 @@ import ePub from 'epubjs';
 import api from '../lib/api';
 import { getCachedEpub, cacheEpub, cacheLocations } from '../lib/epubCache';
 import { queueProgressUpdate, syncQueuedUpdates, isOnline } from '../lib/offlineSync';
+import { getBookFileUrl } from '../lib/fileService';
 import EReaderTour from './EReaderTour';
 
 export default function EpubReader({ bookId, onClose }) {
@@ -108,8 +109,8 @@ export default function EpubReader({ bookId, onClose }) {
       isInitialLoadRef.current = true; // Reset for new book load
 
       // Fetch book details from library
-      const libraryResponse = await api.get('/user/library');
-      const libraryItem = libraryResponse.data.libraryItems.find(
+      const libraryResponse = await api.get('/library');
+      const libraryItem = libraryResponse.data.library.find(
         item => item.book_id === parseInt(bookId)
       );
 
@@ -128,12 +129,11 @@ export default function EpubReader({ bookId, onClose }) {
         blob = cachedData.blob;
       } else {
         console.log('📥 Downloading EPUB from server');
+        // Get book file URL from upload API
+        const bookFileUrl = getBookFileUrl(libraryItem.book.file_path);
+        
         // Fetch EPUB file as blob
-        const response = await fetch(`${api.defaults.baseURL}/ereader/book/${bookId}/file`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-          }
-        });
+        const response = await fetch(bookFileUrl);
 
         if (!response.ok) {
           const errorText = await response.text();

@@ -116,3 +116,12 @@ export const getFileUrl = (filename) => {
 export const getImageUrl = (filename, fallback = "/placeholder-book.png") => {
   return getFileUrl(filename) || fallback;
 };
+
+/**
+ * Get book file URL from upload API
+ * @param {string} filePath - File path from backend (e.g., 'books/abc-123.epub')
+ * @returns {string} Full URL to access the book file
+ */
+export const getBookFileUrl = (filePath) => {
+  return getFileUrl(filePath);
+};

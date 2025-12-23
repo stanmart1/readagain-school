@@ -323,11 +323,9 @@ export default function EReader({ bookId, onClose }) {
     if (!noteContent.trim()) return;
 
     try {
-      const response = await api.post(`/ereader/${bookId}/notes`, {
-        book_id: parseInt(bookId),
-        content: noteContent,
-        highlight_id: null,
-        position: Math.floor(progress * 100)
+      const response = await api.post(`/library/${bookId}/notes`, {
+        page: Math.floor(progress * 100),
+        content: noteContent
       });
 
       setNotes([...notes, response.data.note]);
@@ -343,9 +341,7 @@ export default function EReader({ bookId, onClose }) {
 
   const updateNote = async (noteId, content) => {
     try {
-      await api.put(`/ereader/${bookId}/notes/${noteId}`, null, {
-        params: { content }
-      });
+      await api.put(`/library/notes/${noteId}`, { content });
       setNotes(notes.map(n => n.id === noteId ? { ...n, content } : n));
       setEditingNote(null);
       showToast('Note updated!');
@@ -359,7 +355,7 @@ export default function EReader({ bookId, onClose }) {
     if (!confirm('Delete this note?')) return;
 
     try {
-      await api.delete(`/ereader/${bookId}/notes/${noteId}`);
+      await api.delete(`/library/notes/${noteId}`);
       setNotes(notes.filter(n => n.id !== noteId));
       showToast('Note deleted');
     } catch (err) {

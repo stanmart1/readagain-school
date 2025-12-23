@@ -593,11 +593,9 @@ export default function EpubReader({ bookId, onClose }) {
 
     try {
       setIsSavingNote(true);
-      const response = await api.post(`/ereader/${bookId}/notes`, {
-        book_id: parseInt(bookId),
-        content: content,
-        highlight_id: null,
-        position: 0
+      const response = await api.post(`/library/${bookId}/notes`, {
+        page: 0,
+        content: content
       });
 
       setNotes([...notes, response.data.note]);
@@ -615,9 +613,7 @@ export default function EpubReader({ bookId, onClose }) {
 
   const updateNote = async (noteId, content) => {
     try {
-      await api.put(`/ereader/${bookId}/notes/${noteId}`, null, {
-        params: { content }
-      });
+      await api.put(`/library/notes/${noteId}`, { content });
       setNotes(notes.map(n => n.id === noteId ? { ...n, content } : n));
       setEditingNote(null);
       alert('Note updated successfully!');
@@ -632,7 +628,7 @@ export default function EpubReader({ bookId, onClose }) {
 
     try {
       setIsDeletingNote(noteId);
-      await api.delete(`/ereader/${bookId}/notes/${noteId}`);
+      await api.delete(`/library/notes/${noteId}`);
       setNotes(notes.filter(n => n.id !== noteId));
     } catch (err) {
       console.error('Error deleting note:', err);

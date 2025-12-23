@@ -95,7 +95,25 @@ func (h *AuthorHandler) UpdateAuthor(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid input"})
 	}
 
-	author, err := h.authorService.UpdateAuthor(uint(authorID), input)
+	updates := make(map[string]interface{})
+	
+	if name, ok := input["name"].(string); ok && name != "" {
+		updates["business_name"] = name
+	}
+	if email, ok := input["email"].(string); ok {
+		updates["email"] = email
+	}
+	if bio, ok := input["bio"].(string); ok {
+		updates["bio"] = bio
+	}
+	if avatarURL, ok := input["avatar_url"].(string); ok {
+		updates["photo"] = avatarURL
+	}
+	if status, ok := input["status"].(string); ok && status != "" {
+		updates["status"] = status
+	}
+
+	author, err := h.authorService.UpdateAuthor(uint(authorID), updates)
 	if err != nil {
 		utils.ErrorLogger.Printf("Failed to update author: %v", err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})

@@ -546,19 +546,6 @@ export default function EpubReader({ bookId, onClose }) {
     return mins > 0 ? `${hours} hrs ${mins} min` : `${hours} hrs`;
   };
 
-  // Track reading time
-  useEffect(() => {
-    if (!loading && !error) {
-      setReadingStartTime(Date.now());
-
-      const interval = setInterval(() => {
-        setTotalReadingTime(prev => prev + 1);
-      }, 60000); // Update every minute
-
-      return () => clearInterval(interval);
-    }
-  }, [loading, error]);
-
   const formatReadingTime = (minutes) => {
     if (minutes < 1) return '< 1 min';
     if (minutes < 60) return `${minutes} min`;

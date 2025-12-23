@@ -28,12 +28,57 @@ export default function EReader({ bookId, onClose }) {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [totalHeight, setTotalHeight] = useState(0);
 
+  // Session tracking
+  const [sessionId, setSessionId] = useState(null);
+  const sessionStartTimeRef = useRef(null);
+  const sessionDurationRef = useRef(0);
+  const sessionIntervalRef = useRef(null);
+
   const contentRef = useRef(null);
   const saveTimeoutRef = useRef(null);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
   const touchStartY = useRef(0);
   const touchEndY = useRef(0);
+
+  // Start reading session
+  useEffect(() => {
+    const startSession = async () => {
+      try {
+        const response = await api.post('/reading/sessions/start', {
+          book_id: parseInt(bookId)
+        });
+        setSessionId(response.data.session.id);
+        sessionStartTimeRef.current = Date.now();
+        
+        // Track duration every second
+        sessionIntervalRef.current = setInterval(() => {
+          sessionDurationRef.current = Math.floor((Date.now() - sessionStartTimeRef.current) / 1000);
+        }, 1000);
+        
+        console.log('📊 Reading session started:', response.data.session.id);
+      } catch (err) {
+        console.error('Failed to start reading session:', err);
+      }
+    };
+
+    startSession();
+
+    // Cleanup: End session on unmount
+    return () => {
+      if (sessionIntervalRef.current) {
+        clearInterval(sessionIntervalRef.current);
+      }
+      
+      if (sessionId && sessionDurationRef.current > 0) {
+        // End session (fire and forget)
+        api.post('/reading/sessions/end', {
+          session_id: sessionId,
+          duration: sessionDurationRef.current
+        }).catch(err => console.error('Failed to end session:', err));
+      }
+    };
+  }, [bookId]);
 
   useEffect(() => {
     loadBook();
@@ -238,6 +283,20 @@ export default function EReader({ bookId, onClose }) {
     }
   }, [progress, updateProgress]);
 
+  const handleClose = async () => {
+    if (sessionId && sessionDurationRef.current > 0) {
+      try {
+        await api.post('/reading/sessions/end', {
+          session_id: sessionId,
+          duration: sessionDurationRef.current
+        });
+      } catch (err) {
+        console.error('Failed to end session:', err);
+      }
+    }
+    onClose();
+  };
+
   const scrollUp = () => {
     if (contentRef.current) {
       contentRef.current.scrollBy({ top: -window.innerHeight * 0.8, behavior: 'smooth' });
@@ -399,7 +458,7 @@ export default function EReader({ bookId, onClose }) {
             <h3 className="text-lg font-medium text-gray-900 mb-2">Error Loading Book</h3>
             <p className="text-sm text-gray-600 mb-6">{error}</p>
             <div className="flex gap-3 justify-center">
-              <button onClick={onClose} className="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50">
+              <button onClick={handleClose} className="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50">
                 Close
               </button>
               <button onClick={loadBook} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
@@ -441,7 +500,7 @@ export default function EReader({ bookId, onClose }) {
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
         <div className="flex items-center space-x-4">
-          <button onClick={onClose} className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+          <button onClick={handleClose} className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
             <i className="ri-close-line text-xl"></i>
           </button>
           <div>

@@ -43,8 +43,12 @@ export default function EpubReader({ bookId, onClose }) {
     currentChapter: '',
     timeRemaining: 0
   });
-  const [readingStartTime, setReadingStartTime] = useState(null);
-  const [totalReadingTime, setTotalReadingTime] = useState(0);
+  
+  // Session tracking
+  const [sessionId, setSessionId] = useState(null);
+  const sessionStartTimeRef = useRef(null);
+  const sessionDurationRef = useRef(0);
+  const sessionIntervalRef = useRef(null);
 
   const viewerRef = useRef(null);
   const bookRef = useRef(null);
@@ -52,6 +56,45 @@ export default function EpubReader({ bookId, onClose }) {
   const isInitialLoadRef = useRef(true);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
+
+  // Start reading session
+  useEffect(() => {
+    const startSession = async () => {
+      try {
+        const response = await api.post('/reading/sessions/start', {
+          book_id: parseInt(bookId)
+        });
+        setSessionId(response.data.session.id);
+        sessionStartTimeRef.current = Date.now();
+        
+        // Track duration every second
+        sessionIntervalRef.current = setInterval(() => {
+          sessionDurationRef.current = Math.floor((Date.now() - sessionStartTimeRef.current) / 1000);
+        }, 1000);
+        
+        console.log('📊 Reading session started:', response.data.session.id);
+      } catch (err) {
+        console.error('Failed to start reading session:', err);
+      }
+    };
+
+    startSession();
+
+    // Cleanup: End session on unmount
+    return () => {
+      if (sessionIntervalRef.current) {
+        clearInterval(sessionIntervalRef.current);
+      }
+      
+      if (sessionId && sessionDurationRef.current > 0) {
+        // End session (fire and forget)
+        api.post('/reading/sessions/end', {
+          session_id: sessionId,
+          duration: sessionDurationRef.current
+        }).catch(err => console.error('Failed to end session:', err));
+      }
+    };
+  }, [bookId]);
 
   useEffect(() => {
     let isMounted = true;
@@ -454,6 +497,20 @@ export default function EpubReader({ bookId, onClose }) {
     }
   };
 
+  const handleClose = async () => {
+    if (sessionId && sessionDurationRef.current > 0) {
+      try {
+        await api.post('/reading/sessions/end', {
+          session_id: sessionId,
+          duration: sessionDurationRef.current
+        });
+      } catch (err) {
+        console.error('Failed to end session:', err);
+      }
+    }
+    onClose();
+  };
+
   const getCurrentChapter = (href) => {
     if (!toc || toc.length === 0) return '';
 
@@ -666,7 +723,7 @@ export default function EpubReader({ bookId, onClose }) {
                 <p className="text-sm text-gray-500 mb-6">Please try again or contact support if the problem persists.</p>
               )}
               <button
-                onClick={onClose}
+                onClick={handleClose}
                 className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
               >
                 Back to Library
@@ -681,7 +738,7 @@ export default function EpubReader({ bookId, onClose }) {
           <div className="flex items-center space-x-4">
             <button
               data-tour="close-button"
-              onClick={onClose}
+              onClick={handleClose}
               className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
             >
               <i className="ri-arrow-left-line text-xl"></i>

@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { useReadingAnalytics } from '../../hooks/useReadingAnalytics';
+import ReadingDetailsModal from './ReadingDetailsModal';
 import {
   BarChart,
   Bar,
@@ -16,6 +17,8 @@ import {
 const ReadingAnalytics = () => {
   const { analyticsData, loading, error, fetchReadingAnalytics } = useReadingAnalytics();
   const [selectedPeriod, setSelectedPeriod] = useState('month');
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const [selectedLibraryId, setSelectedLibraryId] = useState(null);
   const hasFetched = useRef(false);
 
   useEffect(() => {
@@ -157,6 +160,7 @@ const ReadingAnalytics = () => {
                   <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Sessions</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Total Time</th>
                   <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Last Active</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -168,6 +172,18 @@ const ReadingAnalytics = () => {
                     <td className="py-3 px-4 text-sm text-gray-600">{Math.floor(reader.total_time / 60)}m</td>
                     <td className="py-3 px-4 text-sm text-gray-600">
                       {new Date(reader.last_session).toLocaleDateString()}
+                    </td>
+                    <td className="py-3 px-4 text-sm">
+                      <button
+                        onClick={() => {
+                          setSelectedLibraryId(reader.library_id);
+                          setShowDetailsModal(true);
+                        }}
+                        className="text-blue-600 hover:text-blue-800"
+                        title="View Details"
+                      >
+                        <i className="ri-eye-line"></i>
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -291,6 +307,17 @@ const ReadingAnalytics = () => {
           )}
         </div>
       </div>
+
+      {/* Reading Details Modal */}
+      {showDetailsModal && selectedLibraryId && (
+        <ReadingDetailsModal
+          libraryId={selectedLibraryId}
+          onClose={() => {
+            setShowDetailsModal(false);
+            setSelectedLibraryId(null);
+          }}
+        />
+      )}
     </div>
   );
 };

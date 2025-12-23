@@ -22,7 +22,7 @@ export default function Reading() {
 
       // Fetch book details from library
       const response = await api.get('/library');
-      const libraryItem = response.data.libraryItems.find(
+      const libraryItem = response.data.library.find(
         item => item.book_id === parseInt(bookId)
       );
 

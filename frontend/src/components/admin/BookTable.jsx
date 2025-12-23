@@ -85,12 +85,6 @@ const BookTable = ({ books, selectedBooks, onSelectionChange, onBookAction, edit
                 </span>
               </div>
               <div>
-                <span className="text-gray-500">Pages:</span>
-                <span className="ml-1 font-medium text-gray-900">
-                  {book.pages || 'N/A'}
-                </span>
-              </div>
-              <div>
                 <span className="text-gray-500">Created:</span>
                 <span className="ml-1 font-medium text-gray-900">
                   {new Date(book.created_at).toLocaleDateString()}

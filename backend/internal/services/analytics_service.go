@@ -298,13 +298,13 @@ func (s *AnalyticsService) GetReadingAnalyticsByPeriod(period string) (map[strin
 	}
 	var strugglingReaders []StrugglingReader
 	s.db.Raw(`
-		SELECT u.name, u.email, u.class_level,
+		SELECT CONCAT(u.first_name, ' ', u.last_name) as name, u.email, u.class_level,
 		       COALESCE(AVG(ul.progress), 0) as avg_completion,
 		       COUNT(ul.id) as books_started
 		FROM users u
 		LEFT JOIN user_libraries ul ON u.id = ul.user_id AND ul.created_at >= ?
 		WHERE u.role_id = (SELECT id FROM roles WHERE name = 'student')
-		GROUP BY u.id, u.name, u.email, u.class_level
+		GROUP BY u.id, u.first_name, u.last_name, u.email, u.class_level
 		HAVING COALESCE(AVG(ul.progress), 0) < 30 AND COUNT(ul.id) > 0
 		ORDER BY avg_completion ASC
 		LIMIT 20
@@ -342,7 +342,7 @@ func (s *AnalyticsService) GetReadingAnalyticsByPeriod(period string) (map[strin
 	}
 	var topReaders []TopReader
 	s.db.Raw(`
-		SELECT u.name, u.class_level,
+		SELECT CONCAT(u.first_name, ' ', u.last_name) as name, u.class_level,
 		       COUNT(CASE WHEN ul.progress = 100 THEN 1 END) as books_completed,
 		       COALESCE(SUM(rs.duration), 0) as reading_time,
 		       0 as current_streak
@@ -350,7 +350,7 @@ func (s *AnalyticsService) GetReadingAnalyticsByPeriod(period string) (map[strin
 		LEFT JOIN user_libraries ul ON u.id = ul.user_id AND ul.created_at >= ?
 		LEFT JOIN reading_sessions rs ON u.id = rs.user_id AND rs.created_at >= ?
 		WHERE u.role_id = (SELECT id FROM roles WHERE name = 'student')
-		GROUP BY u.id, u.name, u.class_level
+		GROUP BY u.id, u.first_name, u.last_name, u.class_level
 		ORDER BY books_completed DESC, reading_time DESC
 		LIMIT 20
 	`, startDate, startDate).Scan(&topReaders)

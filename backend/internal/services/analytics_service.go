@@ -355,6 +355,29 @@ func (s *AnalyticsService) GetReadingAnalyticsByPeriod(period string) (map[strin
 		LIMIT 20
 	`, startDate, startDate).Scan(&topReaders)
 
+	// Active readers with recent sessions
+	type ActiveReader struct {
+		Name           string    `json:"name"`
+		Email          string    `json:"email"`
+		ClassLevel     string    `json:"class_level"`
+		SessionCount   int64     `json:"session_count"`
+		TotalTime      int64     `json:"total_time"`
+		LastSession    time.Time `json:"last_session"`
+	}
+	var activeReaders []ActiveReader
+	s.db.Raw(`
+		SELECT u.name, u.email, u.class_level,
+		       COUNT(rs.id) as session_count,
+		       COALESCE(SUM(rs.duration), 0) as total_time,
+		       MAX(rs.created_at) as last_session
+		FROM users u
+		JOIN reading_sessions rs ON u.id = rs.user_id AND rs.created_at >= ?
+		WHERE u.role_id = (SELECT id FROM roles WHERE name = 'student')
+		GROUP BY u.id, u.name, u.email, u.class_level
+		ORDER BY last_session DESC
+		LIMIT 50
+	`, startDate).Scan(&activeReaders)
+
 	// Overall stats
 	var totalActiveReaders, totalBooksCompleted int64
 	var avgReadingTime, avgCompletionRate float64
@@ -380,6 +403,7 @@ func (s *AnalyticsService) GetReadingAnalyticsByPeriod(period string) (map[strin
 		"struggling_readers": strugglingReaders,
 		"most_read_books": mostReadBooks,
 		"top_readers": topReaders,
+		"active_readers": activeReaders,
 	}, nil
 }
 

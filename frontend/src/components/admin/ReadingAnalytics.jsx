@@ -16,7 +16,6 @@ import {
 const ReadingAnalytics = () => {
   const { analyticsData, loading, error, fetchReadingAnalytics } = useReadingAnalytics();
   const [selectedPeriod, setSelectedPeriod] = useState('month');
-  const [selectedGrade, setSelectedGrade] = useState('');
   const hasFetched = useRef(false);
 
   useEffect(() => {
@@ -37,18 +36,9 @@ const ReadingAnalytics = () => {
     classStats: analyticsData?.class_stats || [],
     strugglingReaders: analyticsData?.struggling_readers || [],
     mostReadBooks: analyticsData?.most_read_books || [],
-    topReaders: analyticsData?.top_readers || []
+    topReaders: analyticsData?.top_readers || [],
+    activeReaders: analyticsData?.active_readers || []
   }), [analyticsData]);
-
-  const filteredBooksByGrade = useMemo(() => {
-    if (!selectedGrade) return safeData.mostReadBooks;
-    return safeData.mostReadBooks.filter(book => book.class_level === selectedGrade);
-  }, [safeData.mostReadBooks, selectedGrade]);
-
-  const uniqueGrades = useMemo(() => {
-    const grades = new Set(safeData.mostReadBooks.map(b => b.class_level));
-    return Array.from(grades).sort();
-  }, [safeData.mostReadBooks]);
 
   if (loading && !analyticsData) {
     return (
@@ -265,41 +255,31 @@ const ReadingAnalytics = () => {
         </div>
       </div>
 
-      {/* Books by Grade */}
+      {/* Active Readers */}
       <div className="bg-white rounded-lg shadow-md p-6">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-gray-900">Most Read Books by Grade</h3>
-          <select
-            value={selectedGrade}
-            onChange={(e) => setSelectedGrade(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="">All Grades</option>
-            {uniqueGrades.map(grade => (
-              <option key={grade} value={grade}>{grade}</option>
-            ))}
-          </select>
-        </div>
-        {filteredBooksByGrade.length > 0 ? (
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Active Readers</h3>
+        {safeData.activeReaders.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="min-w-full">
               <thead>
                 <tr className="border-b border-gray-200">
-                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Book</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Author</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Grade</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Readers</th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Avg Completion</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Student</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Class</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Sessions</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Total Time</th>
+                  <th className="text-left py-3 px-4 text-sm font-medium text-gray-700">Last Active</th>
                 </tr>
               </thead>
               <tbody>
-                {filteredBooksByGrade.slice(0, 20).map((book, idx) => (
+                {safeData.activeReaders.map((reader, idx) => (
                   <tr key={idx} className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="py-3 px-4 text-sm text-gray-900">{book.book_title}</td>
-                    <td className="py-3 px-4 text-sm text-gray-600">{book.author?.business_name || 'Unknown'}</td>
-                    <td className="py-3 px-4 text-sm text-gray-600">{book.class_level}</td>
-                    <td className="py-3 px-4 text-sm text-gray-600">{book.reader_count}</td>
-                    <td className="py-3 px-4 text-sm text-gray-600">{book.avg_completion.toFixed(0)}%</td>
+                    <td className="py-3 px-4 text-sm text-gray-900">{reader.name}</td>
+                    <td className="py-3 px-4 text-sm text-gray-600">{reader.class_level}</td>
+                    <td className="py-3 px-4 text-sm text-gray-600">{reader.session_count}</td>
+                    <td className="py-3 px-4 text-sm text-gray-600">{Math.floor(reader.total_time / 60)}m</td>
+                    <td className="py-3 px-4 text-sm text-gray-600">
+                      {new Date(reader.last_session).toLocaleDateString()}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -307,7 +287,7 @@ const ReadingAnalytics = () => {
           </div>
         ) : (
           <div className="h-64 flex items-center justify-center text-gray-500">
-            No data available
+            No active readers found
           </div>
         )}
       </div>

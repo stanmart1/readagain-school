@@ -355,7 +355,7 @@ func (s *AnalyticsService) GetReadingAnalyticsByPeriod(period string) (map[strin
 		LIMIT 20
 	`, startDate, startDate).Scan(&topReaders)
 
-	// Active readers with recent sessions
+	// Active readers with recent library activity
 	type ActiveReader struct {
 		Name           string    `json:"name"`
 		Email          string    `json:"email"`
@@ -367,11 +367,12 @@ func (s *AnalyticsService) GetReadingAnalyticsByPeriod(period string) (map[strin
 	var activeReaders []ActiveReader
 	s.db.Raw(`
 		SELECT CONCAT(u.first_name, ' ', u.last_name) as name, u.email, u.class_level,
-		       COUNT(rs.id) as session_count,
+		       COUNT(DISTINCT ul.id) as session_count,
 		       COALESCE(SUM(rs.duration), 0) as total_time,
-		       MAX(rs.created_at) as last_session
+		       COALESCE(MAX(ul.last_read_at), MAX(ul.updated_at)) as last_session
 		FROM users u
-		JOIN reading_sessions rs ON u.id = rs.user_id AND rs.created_at >= ?
+		JOIN user_libraries ul ON u.id = ul.user_id AND ul.created_at >= ?
+		LEFT JOIN reading_sessions rs ON u.id = rs.user_id AND ul.book_id = rs.book_id
 		GROUP BY u.id, u.first_name, u.last_name, u.email, u.class_level
 		ORDER BY last_session DESC
 		LIMIT 50

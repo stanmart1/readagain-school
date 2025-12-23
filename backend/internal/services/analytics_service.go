@@ -320,14 +320,15 @@ func (s *AnalyticsService) GetReadingAnalyticsByPeriod(period string) (map[strin
 	}
 	var mostReadBooks []BookByGrade
 	s.db.Raw(`
-		SELECT b.title as book_title, b.author, u.class_level,
+		SELECT b.title as book_title, a.business_name as author, u.class_level,
 		       COUNT(DISTINCT ul.user_id) as reader_count,
 		       COALESCE(AVG(ul.progress), 0) as avg_completion
 		FROM books b
+		LEFT JOIN authors a ON b.author_id = a.id
 		JOIN user_libraries ul ON b.id = ul.book_id AND ul.created_at >= ?
 		JOIN users u ON ul.user_id = u.id
 		WHERE u.role_id = (SELECT id FROM roles WHERE name = 'student')
-		GROUP BY b.id, b.title, b.author, u.class_level
+		GROUP BY b.id, b.title, a.business_name, u.class_level
 		ORDER BY reader_count DESC
 		LIMIT 50
 	`, startDate).Scan(&mostReadBooks)
@@ -387,8 +388,7 @@ func (s *AnalyticsService) GetReadingAnalyticsByPeriod(period string) (map[strin
 	s.db.Raw(`
 		SELECT COUNT(DISTINCT u.id) as total_readers
 		FROM users u
-		LEFT JOIN reading_sessions rs ON u.id = rs.user_id AND rs.created_at >= ?
-		WHERE u.role_id = (SELECT id FROM roles WHERE name = 'student') AND rs.id IS NOT NULL
+		JOIN user_libraries ul ON u.id = ul.user_id AND ul.created_at >= ?
 	`, startDate).Scan(&totalActiveReaders)
 	
 	s.db.Raw(`SELECT COUNT(*) FROM user_libraries WHERE progress = 100 AND created_at >= ?`, startDate).Scan(&totalBooksCompleted)

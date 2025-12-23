@@ -92,9 +92,9 @@ func (h *LibraryHandler) UpdateProgress(c *fiber.Ctx) error {
 	}
 
 	var input struct {
-		CurrentPage int     `json:"current_page" validate:"required,gte=0"`
+		CurrentPage int     `json:"current_page" validate:"gte=0"`
 		TotalPages  int     `json:"total_pages" validate:"required,gt=0"`
-		Progress    float64 `json:"progress" validate:"required,gte=0,lte=100"`
+		Progress    float64 `json:"progress" validate:"gte=0,lte=100"`
 	}
 
 	if err := c.BodyParser(&input); err != nil {

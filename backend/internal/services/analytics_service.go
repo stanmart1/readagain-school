@@ -366,13 +366,13 @@ func (s *AnalyticsService) GetReadingAnalyticsByPeriod(period string) (map[strin
 	}
 	var activeReaders []ActiveReader
 	s.db.Raw(`
-		SELECT u.name, u.email, u.class_level,
+		SELECT CONCAT(u.first_name, ' ', u.last_name) as name, u.email, u.class_level,
 		       COUNT(rs.id) as session_count,
 		       COALESCE(SUM(rs.duration), 0) as total_time,
 		       MAX(rs.created_at) as last_session
 		FROM users u
 		JOIN reading_sessions rs ON u.id = rs.user_id AND rs.created_at >= ?
-		GROUP BY u.id, u.name, u.email, u.class_level
+		GROUP BY u.id, u.first_name, u.last_name, u.email, u.class_level
 		ORDER BY last_session DESC
 		LIMIT 50
 	`, startDate).Scan(&activeReaders)

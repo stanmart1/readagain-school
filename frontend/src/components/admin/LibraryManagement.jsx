@@ -1261,10 +1261,20 @@ const LibraryManagement = () => {
 
                   {/* Highlights Section */}
                   <div>
-                    <h4 className="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
-                      <i className="ri-mark-pen-line text-yellow-600"></i>
-                      Highlights ({assignmentDetails.highlights.length})
-                    </h4>
+                    <div className="flex items-center justify-between mb-3">
+                      <h4 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+                        <i className="ri-mark-pen-line text-yellow-600"></i>
+                        Highlights ({assignmentDetails.highlights.length})
+                      </h4>
+                      {assignmentDetails.highlights.length > 3 && (
+                        <button
+                          onClick={() => {/* TODO: Open highlights modal */}}
+                          className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1"
+                        >
+                          View All <i className="ri-arrow-right-line"></i>
+                        </button>
+                      )}
+                    </div>
                     {assignmentDetails.highlights.length === 0 ? (
                       <div className="text-center py-8 bg-gray-50 rounded-xl">
                         <i className="ri-mark-pen-line text-4xl text-gray-300 mb-2"></i>
@@ -1272,31 +1282,45 @@ const LibraryManagement = () => {
                       </div>
                     ) : (
                       <div className="space-y-3">
-                        {assignmentDetails.highlights.map((highlight) => (
+                        {assignmentDetails.highlights.slice(0, 3).map((highlight) => (
                           <div key={highlight.id} className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
-                            <p className="text-gray-800 italic mb-2">"{highlight.text}"</p>
-                            {highlight.context && (
-                              <p className="text-sm text-gray-600 mb-2">Context: {highlight.context}</p>
-                            )}
+                            <p className="text-gray-800 italic mb-2">
+                              "{highlight.text.length > 100 ? highlight.text.substring(0, 100) + '...' : highlight.text}"
+                            </p>
                             <div className="flex items-center justify-between text-xs text-gray-500">
                               <span className="flex items-center gap-1">
-                                <div className={`w-3 h-3 rounded-full bg-${highlight.color}-400`}></div>
+                                <div className="w-3 h-3 rounded-full" style={{backgroundColor: highlight.color}}></div>
                                 {highlight.color}
                               </span>
                               <span>{new Date(highlight.created_at).toLocaleString()}</span>
                             </div>
                           </div>
                         ))}
+                        {assignmentDetails.highlights.length > 3 && (
+                          <p className="text-sm text-gray-500 text-center py-2">
+                            Showing 3 of {assignmentDetails.highlights.length} highlights
+                          </p>
+                        )}
                       </div>
                     )}
                   </div>
 
                   {/* Notes Section */}
                   <div>
-                    <h4 className="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
-                      <i className="ri-sticky-note-line text-blue-600"></i>
-                      Notes ({assignmentDetails.notes?.length || 0})
-                    </h4>
+                    <div className="flex items-center justify-between mb-3">
+                      <h4 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+                        <i className="ri-sticky-note-line text-blue-600"></i>
+                        Notes ({assignmentDetails.notes?.length || 0})
+                      </h4>
+                      {assignmentDetails.notes && assignmentDetails.notes.length > 3 && (
+                        <button
+                          onClick={() => {/* TODO: Open notes modal */}}
+                          className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1"
+                        >
+                          View All <i className="ri-arrow-right-line"></i>
+                        </button>
+                      )}
+                    </div>
                     {!assignmentDetails.notes || assignmentDetails.notes.length === 0 ? (
                       <div className="text-center py-8 bg-gray-50 rounded-xl">
                         <i className="ri-sticky-note-line text-4xl text-gray-300 mb-2"></i>
@@ -1304,15 +1328,22 @@ const LibraryManagement = () => {
                       </div>
                     ) : (
                       <div className="space-y-3">
-                        {assignmentDetails.notes.map((note) => (
+                        {assignmentDetails.notes.slice(0, 3).map((note) => (
                           <div key={note.id} className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
-                            <p className="text-gray-800 mb-2">{note.content}</p>
+                            <p className="text-gray-800 mb-2">
+                              {note.content.length > 150 ? note.content.substring(0, 150) + '...' : note.content}
+                            </p>
                             <div className="flex items-center justify-between text-xs text-gray-500">
-                              <span>{note.highlight_id ? 'Attached to highlight' : 'Standalone note'}</span>
+                              <span>Page {note.page || 0}</span>
                               <span>{new Date(note.created_at).toLocaleString()}</span>
                             </div>
                           </div>
                         ))}
+                        {assignmentDetails.notes.length > 3 && (
+                          <p className="text-sm text-gray-500 text-center py-2">
+                            Showing 3 of {assignmentDetails.notes.length} notes
+                          </p>
+                        )}
                       </div>
                     )}
                   </div>

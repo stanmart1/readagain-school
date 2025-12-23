@@ -61,9 +61,10 @@ export const syncQueuedUpdates = async (api) => {
       const item = queue[key];
       
       try {
-        await api.post(`/ereader/${item.bookId}/progress`, {
-          progress: item.progress,
-          last_read_location: item.last_read_location
+        await api.put(`/library/${item.bookId}/progress`, {
+          current_page: 0,
+          total_pages: 100,
+          progress: item.progress || 0
         });
         
         // Remove from queue on success

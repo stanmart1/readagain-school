@@ -21,7 +21,7 @@ export default function Reading() {
       setError(null);
 
       // Fetch book details from library
-      const response = await api.get('/user/library');
+      const response = await api.get('/library');
       const libraryItem = response.data.libraryItems.find(
         item => item.book_id === parseInt(bookId)
       );

@@ -167,7 +167,12 @@ const BookEditModal = ({ isOpen, onClose, book, categories, authors, onSuccess }
   };
   
   const handleFileChange = (field, file) => {
-    setFormData(prev => ({ ...prev, [field]: file }));
+    if (field === 'cover_image') {
+      handleCoverChange(file);
+    } else if (field === 'ebook_file') {
+      handleBookFileChange(file);
+    }
+    
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: '' }));
     }

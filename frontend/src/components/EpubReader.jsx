@@ -199,18 +199,15 @@ export default function EpubReader({ bookId, onClose }) {
       applyTheme(renditionInstance, theme);
 
       // Load saved location or start from beginning
-      const savedLocation = libraryItem.last_read_location;
-      if (savedLocation) {
-        // Display the saved location
-        await renditionInstance.display(savedLocation);
-
-        // Calculate and save progress for the restored location
-        const currentLoc = epubBook.locations.locationFromCfi(savedLocation);
-        const totalLocs = epubBook.locations.total;
-        const progress = currentLoc / totalLocs;
-
-        // Save immediately to update backend (bypass throttle)
-        await saveProgress(savedLocation, progress, true);
+      const savedProgress = libraryItem.progress || 0;
+      if (savedProgress > 0) {
+        // Calculate location from progress percentage
+        const targetLocation = Math.floor((savedProgress / 100) * epubBook.locations.total);
+        const cfi = epubBook.locations.cfiFromLocation(targetLocation);
+        
+        // Display at the saved progress
+        await renditionInstance.display(cfi);
+        console.log(`📖 Restored to ${savedProgress.toFixed(1)}% progress`);
       } else {
         await renditionInstance.display();
       }

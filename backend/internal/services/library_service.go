@@ -238,7 +238,14 @@ func (s *LibraryService) AssignBook(userID, bookID uint, format string) error {
 		BookID: bookID,
 	}
 
-	return s.db.Create(library).Error
+	if err := s.db.Create(library).Error; err != nil {
+		return err
+	}
+
+	// Increment library_count
+	s.db.Model(&models.Book{}).Where("id = ?", bookID).UpdateColumn("library_count", gorm.Expr("library_count + ?", 1))
+
+	return nil
 }
 
 func (s *LibraryService) BulkAssignBook(userIDs []uint, bookID uint) (int, error) {
@@ -256,16 +263,48 @@ func (s *LibraryService) BulkAssignBook(userIDs []uint, bookID uint) (int, error
 			}
 		}
 	}
+	
+	// Increment library_count by the number of assignments
+	if count > 0 {
+		s.db.Model(&models.Book{}).Where("id = ?", bookID).UpdateColumn("library_count", gorm.Expr("library_count + ?", count))
+	}
+	
 	return count, nil
 }
 
 func (s *LibraryService) BulkRemoveAssignments(assignmentIDs []uint) (int, error) {
+	// Get book IDs before deletion
+	var assignments []models.UserLibrary
+	s.db.Where("id IN ?", assignmentIDs).Find(&assignments)
+	
 	result := s.db.Where("id IN ?", assignmentIDs).Delete(&models.UserLibrary{})
+	
+	// Decrement library_count for each book
+	bookCounts := make(map[uint]int)
+	for _, assignment := range assignments {
+		bookCounts[assignment.BookID]++
+	}
+	for bookID, count := range bookCounts {
+		s.db.Model(&models.Book{}).Where("id = ?", bookID).UpdateColumn("library_count", gorm.Expr("GREATEST(library_count - ?, 0)", count))
+	}
+	
 	return int(result.RowsAffected), result.Error
 }
 
 func (s *LibraryService) RemoveAssignment(id uint) error {
-	return s.db.Delete(&models.UserLibrary{}, id).Error
+	var assignment models.UserLibrary
+	if err := s.db.First(&assignment, id).Error; err != nil {
+		return err
+	}
+	
+	if err := s.db.Delete(&models.UserLibrary{}, id).Error; err != nil {
+		return err
+	}
+	
+	// Decrement library_count
+	s.db.Model(&models.Book{}).Where("id = ?", assignment.BookID).UpdateColumn("library_count", gorm.Expr("GREATEST(library_count - 1, 0)"))
+	
+	return nil
 }
 
 func (s *LibraryService) GetBooksWithStudents(search string) ([]map[string]interface{}, error) {

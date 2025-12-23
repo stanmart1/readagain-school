@@ -134,41 +134,42 @@ func (h *BookHandler) UpdateBook(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid book ID"})
 	}
 
+	var req map[string]interface{}
+	if err := c.BodyParser(&req); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request body"})
+	}
+
 	updates := make(map[string]interface{})
 
-	if title := c.FormValue("title"); title != "" {
+	if title, ok := req["title"].(string); ok && title != "" {
 		updates["title"] = title
 	}
-	if description := c.FormValue("description"); description != "" {
+	if description, ok := req["description"].(string); ok {
 		updates["description"] = description
 	}
-	if isbn := c.FormValue("isbn"); isbn != "" {
+	if isbn, ok := req["isbn"].(string); ok {
 		updates["isbn"] = isbn
 	}
-	if categoryID := c.FormValue("category_id"); categoryID != "" {
-		id, _ := strconv.ParseUint(categoryID, 10, 32)
-		updates["category_id"] = uint(id)
+	if categoryID, ok := req["category_id"].(float64); ok {
+		updates["category_id"] = uint(categoryID)
 	}
-	if pageCount := c.FormValue("page_count"); pageCount != "" {
-		pc, _ := strconv.Atoi(pageCount)
-		updates["page_count"] = pc
+	if authorID, ok := req["author_id"].(float64); ok {
+		updates["author_id"] = uint(authorID)
 	}
-	if status := c.FormValue("status"); status != "" {
+	if pageCount, ok := req["page_count"].(float64); ok {
+		updates["pages"] = int(pageCount)
+	}
+	if status, ok := req["status"].(string); ok && status != "" {
 		updates["status"] = status
 	}
-
-	if coverImage := c.FormValue("cover_image"); coverImage != "" {
+	if coverImage, ok := req["cover_image"].(string); ok && coverImage != "" {
 		updates["cover_image"] = coverImage
 	}
-
-	if fileURL := c.FormValue("book_file"); fileURL != "" {
-		updates["file_url"] = fileURL
+	if bookFile, ok := req["book_file"].(string); ok && bookFile != "" {
+		updates["file_path"] = bookFile
 	}
-
-	if fileSize := c.FormValue("file_size"); fileSize != "" {
-		if size, err := strconv.ParseInt(fileSize, 10, 64); err == nil {
-			updates["file_size"] = size
-		}
+	if fileSize, ok := req["file_size"].(float64); ok {
+		updates["file_size"] = int64(fileSize)
 	}
 
 	book, err := h.bookService.UpdateBook(uint(bookID), updates)

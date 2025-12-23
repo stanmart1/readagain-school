@@ -327,13 +327,21 @@ func (s *LibraryService) GetAssignmentDetails(id uint) (map[string]interface{}, 
 		return nil, err
 	}
 
+	// Get user_id and book_id from assignment
+	userID := assignment["user_id"]
+	bookID := assignment["book_id"]
+
 	// Get notes
 	var notes []models.Note
-	s.db.Where("user_library_id = ?", id).Find(&notes)
+	s.db.Where("user_id = ? AND book_id = ?", userID, bookID).Find(&notes)
+
+	// Get highlights
+	var highlights []models.Highlight
+	s.db.Where("user_id = ? AND book_id = ?", userID, bookID).Find(&highlights)
 
 	return map[string]interface{}{
 		"assignment": assignment,
-		"highlights": []interface{}{},
+		"highlights": highlights,
 		"notes":      notes,
 	}, nil
 }

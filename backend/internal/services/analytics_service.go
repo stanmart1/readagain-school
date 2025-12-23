@@ -372,7 +372,6 @@ func (s *AnalyticsService) GetReadingAnalyticsByPeriod(period string) (map[strin
 		       MAX(rs.created_at) as last_session
 		FROM users u
 		JOIN reading_sessions rs ON u.id = rs.user_id AND rs.created_at >= ?
-		WHERE u.role_id = (SELECT id FROM roles WHERE name = 'student')
 		GROUP BY u.id, u.name, u.email, u.class_level
 		ORDER BY last_session DESC
 		LIMIT 50

@@ -127,3 +127,48 @@ func (s *EReaderService) DeleteNote(noteID, userID uint) error {
 	}
 	return nil
 }
+
+func (s *EReaderService) CreateHighlight(userID, bookID uint, text, color, context, cfiRange string, startOffset, endOffset int) (*models.Highlight, error) {
+	var library models.UserLibrary
+	if err := s.db.Where("user_id = ? AND book_id = ?", userID, bookID).First(&library).Error; err != nil {
+		return nil, utils.NewForbiddenError("You don't own this book")
+	}
+
+	highlight := models.Highlight{
+		UserID:      userID,
+		BookID:      bookID,
+		Text:        text,
+		Color:       color,
+		Context:     context,
+		CFIRange:    cfiRange,
+		StartOffset: startOffset,
+		EndOffset:   endOffset,
+	}
+
+	if err := s.db.Create(&highlight).Error; err != nil {
+		return nil, utils.NewInternalServerError("Failed to create highlight", err)
+	}
+
+	return &highlight, nil
+}
+
+func (s *EReaderService) GetHighlights(userID, bookID uint) ([]models.Highlight, error) {
+	var highlights []models.Highlight
+	if err := s.db.Where("user_id = ? AND book_id = ?", userID, bookID).
+		Order("created_at ASC").
+		Find(&highlights).Error; err != nil {
+		return nil, utils.NewInternalServerError("Failed to fetch highlights", err)
+	}
+	return highlights, nil
+}
+
+func (s *EReaderService) DeleteHighlight(highlightID, userID uint) error {
+	result := s.db.Where("id = ? AND user_id = ?", highlightID, userID).Delete(&models.Highlight{})
+	if result.Error != nil {
+		return utils.NewInternalServerError("Failed to delete highlight", result.Error)
+	}
+	if result.RowsAffected == 0 {
+		return utils.NewNotFoundError("Highlight not found")
+	}
+	return nil
+}

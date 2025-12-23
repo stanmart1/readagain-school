@@ -517,7 +517,7 @@ export default function EpubReader({ bookId, onClose }) {
 
   const loadHighlights = async () => {
     try {
-      const response = await api.get(`/ereader/${bookId}/highlights`);
+      const response = await api.get(`/library/${bookId}/highlights`);
       setHighlights(response.data.highlights || []);
     } catch (err) {
       console.error('Error loading highlights:', err);
@@ -526,7 +526,7 @@ export default function EpubReader({ bookId, onClose }) {
 
   const loadNotes = async () => {
     try {
-      const response = await api.get(`/ereader/${bookId}/notes`);
+      const response = await api.get(`/library/${bookId}/notes`);
       setNotes(response.data.notes || []);
     } catch (err) {
       console.error('Error loading notes:', err);
@@ -537,13 +537,14 @@ export default function EpubReader({ bookId, onClose }) {
     if (!selectedText) return;
 
     try {
-      const response = await api.post(`/ereader/${bookId}/highlights`, {
+      const response = await api.post(`/library/${bookId}/highlights`, {
         book_id: parseInt(bookId),
         text: selectedText.text,
         color: color,
         start_offset: 0,
         end_offset: selectedText.text.length,
-        context: selectedText.text
+        context: selectedText.text,
+        cfi_range: selectedText.cfiRange || ''
       });
 
       // Add visual highlight to rendition

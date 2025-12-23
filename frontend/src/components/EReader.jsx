@@ -178,7 +178,7 @@ export default function EReader({ bookId, onClose }) {
 
   const loadHighlights = async () => {
     try {
-      const response = await api.get(`/ereader/${bookId}/highlights`);
+      const response = await api.get(`/library/${bookId}/highlights`);
       setHighlights(response.data.highlights || []);
     } catch (err) {
       console.error('Error loading highlights:', err);
@@ -187,7 +187,7 @@ export default function EReader({ bookId, onClose }) {
 
   const loadNotes = async () => {
     try {
-      const response = await api.get(`/ereader/${bookId}/notes`);
+      const response = await api.get(`/library/${bookId}/notes`);
       setNotes(response.data.notes || []);
     } catch (err) {
       console.error('Error loading notes:', err);
@@ -288,7 +288,7 @@ export default function EReader({ bookId, onClose }) {
     if (!selectedText) return;
 
     try {
-      const response = await api.post(`/ereader/${bookId}/highlights`, {
+      const response = await api.post(`/library/${bookId}/highlights`, {
         book_id: parseInt(bookId),
         text: selectedText.text,
         color: color,

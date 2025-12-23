@@ -305,6 +305,72 @@ func (h *LibraryHandler) DeleteNote(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{"message": "Note deleted successfully"})
 }
 
+func (h *LibraryHandler) GetHighlights(c *fiber.Ctx) error {
+	userID := c.Locals("userID").(uint)
+	bookID, err := strconv.ParseUint(c.Params("id"), 10, 32)
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid book ID"})
+	}
+
+	highlights, err := h.ereaderService.GetHighlights(userID, uint(bookID))
+	if err != nil {
+		utils.ErrorLogger.Printf("Failed to get highlights: %v", err)
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to retrieve highlights"})
+	}
+
+	return c.JSON(fiber.Map{"highlights": highlights})
+}
+
+func (h *LibraryHandler) CreateHighlight(c *fiber.Ctx) error {
+	userID := c.Locals("userID").(uint)
+	bookID, err := strconv.ParseUint(c.Params("id"), 10, 32)
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid book ID"})
+	}
+
+	var input struct {
+		Text        string `json:"text" validate:"required"`
+		Color       string `json:"color"`
+		Context     string `json:"context"`
+		CFIRange    string `json:"cfi_range"`
+		StartOffset int    `json:"start_offset"`
+		EndOffset   int    `json:"end_offset"`
+	}
+
+	if err := c.BodyParser(&input); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid input"})
+	}
+
+	if err := utils.Validate.Struct(input); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": utils.FormatValidationError(err)})
+	}
+
+	highlight, err := h.ereaderService.CreateHighlight(userID, uint(bookID), input.Text, input.Color, input.Context, input.CFIRange, input.StartOffset, input.EndOffset)
+	if err != nil {
+		utils.ErrorLogger.Printf("Failed to create highlight: %v", err)
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
+	}
+
+	utils.InfoLogger.Printf("User %d created highlight for book %d", userID, bookID)
+	return c.Status(fiber.StatusCreated).JSON(fiber.Map{"highlight": highlight})
+}
+
+func (h *LibraryHandler) DeleteHighlight(c *fiber.Ctx) error {
+	userID := c.Locals("userID").(uint)
+	highlightID, err := strconv.ParseUint(c.Params("highlightId"), 10, 32)
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid highlight ID"})
+	}
+
+	if err := h.ereaderService.DeleteHighlight(uint(highlightID), userID); err != nil {
+		utils.ErrorLogger.Printf("Failed to delete highlight: %v", err)
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
+	}
+
+	utils.InfoLogger.Printf("User %d deleted highlight %d", userID, highlightID)
+	return c.JSON(fiber.Map{"message": "Highlight deleted successfully"})
+}
+
 // Admin endpoints
 func (h *LibraryHandler) GetLibraryAssignments(c *fiber.Ctx) error {
 	skip, _ := strconv.Atoi(c.Query("skip", "0"))

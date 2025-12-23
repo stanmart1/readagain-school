@@ -193,6 +193,9 @@ func SetupRoutes(
 	library.Post("/:id/notes", libraryHandler.CreateNote)
 	library.Put("/notes/:noteId", libraryHandler.UpdateNote)
 	library.Delete("/notes/:noteId", libraryHandler.DeleteNote)
+	library.Get("/:id/highlights", libraryHandler.GetHighlights)
+	library.Post("/:id/highlights", libraryHandler.CreateHighlight)
+	library.Delete("/highlights/:highlightId", libraryHandler.DeleteHighlight)
 
 	reading := api.Group("/reading", middleware.AuthRequired())
 	reading.Post("/sessions/start", readingHandler.StartSession)

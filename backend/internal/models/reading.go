@@ -64,3 +64,17 @@ type Note struct {
 	Highlight string `gorm:"type:text" json:"highlight"`
 }
 
+type Highlight struct {
+	BaseModel
+	UserID      uint   `gorm:"not null;index" json:"user_id"`
+	User        *User  `gorm:"foreignKey:UserID" json:"user,omitempty"`
+	BookID      uint   `gorm:"not null;index" json:"book_id"`
+	Book        *Book  `gorm:"foreignKey:BookID" json:"book,omitempty"`
+	Text        string `gorm:"type:text;not null" json:"text"`
+	Color       string `gorm:"default:yellow" json:"color"`
+	StartOffset int    `json:"start_offset"`
+	EndOffset   int    `json:"end_offset"`
+	Context     string `gorm:"type:text" json:"context"`
+	CFIRange    string `json:"cfi_range"`
+}
+

@@ -237,7 +237,7 @@ func (h *LibraryHandler) CreateNote(c *fiber.Ctx) error {
 	}
 
 	var input struct {
-		Page    int    `json:"page" validate:"required,gte=0"`
+		Page    int    `json:"page" validate:"gte=0"`
 		Content string `json:"content" validate:"required"`
 	}
 

@@ -33,7 +33,7 @@ func main() {
 	
 	allowOrigins := "*"
 	if cfg.Server.Env != "development" {
-		allowOrigins = "https://readagain.com"
+		allowOrigins = "https://readagain.estateman.online"
 	}
 	
 	app.Use(cors.New(cors.Config{

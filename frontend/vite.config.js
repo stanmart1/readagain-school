@@ -19,6 +19,12 @@ export default defineConfig({
   },
   server: {
     port: 3000,
+    host: '0.0.0.0',
+    allowedHosts: [
+      'readagain.estateman.online',
+      'localhost',
+      '.estateman.online'
+    ],
     proxy: {
       '/api': {
         target: 'http://localhost:8000',

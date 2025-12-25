@@ -1,15 +1,18 @@
-FROM node:18-alpine
+FROM node:20-alpine
 
 WORKDIR /app
+
+# Copy package files
 COPY package*.json ./
-RUN npm ci
+
+# Install dependencies
+RUN npm install
+
+# Copy source code
 COPY . .
-RUN npm run build
-RUN npm install -g serve
-RUN chown -R node:node /app
 
-USER node
-
+# Expose port
 EXPOSE 3000
 
-CMD ["serve", "-s", "dist", "-l", "3000"]
+# Run dev server
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]

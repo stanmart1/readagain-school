@@ -711,7 +711,7 @@ export default function EpubReader({ bookId, onClose }) {
               )}
               <button
                 onClick={handleClose}
-                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
               >
                 Back to Library
               </button>
@@ -819,7 +819,7 @@ export default function EpubReader({ bookId, onClose }) {
               </div>
               <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
                 <div 
-                  className="bg-gradient-to-r from-blue-500 to-purple-500 h-full transition-all duration-300"
+                  className="bg-gradient-to-r from-primary-500 to-primary-600 h-full transition-all duration-300"
                   style={{ width: `${progressData.percentage}%` }}
                 />
               </div>
@@ -881,7 +881,7 @@ export default function EpubReader({ bookId, onClose }) {
           <div className="flex gap-3">
             <button
               onClick={() => setShowNoteInput(true)}
-              className="flex-1 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+              className="flex-1 px-4 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center justify-center gap-2"
             >
               <i className="ri-sticky-note-line text-lg"></i>
               Add Note
@@ -985,7 +985,7 @@ export default function EpubReader({ bookId, onClose }) {
           <button
             onClick={() => createNote()}
             disabled={!noteContent.trim() || isSavingNote}
-            className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+            className="w-full px-4 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
           >
             {isSavingNote ? (
               <>
@@ -1021,7 +1021,7 @@ export default function EpubReader({ bookId, onClose }) {
             <button
               onClick={() => setActiveTab('notes')}
               className={`flex-1 px-4 py-3 font-semibold transition-colors relative ${activeTab === 'notes'
-                ? 'text-blue-600 bg-blue-50'
+                ? 'text-primary-600 bg-blue-50'
                 : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                 }`}
             >
@@ -1029,14 +1029,14 @@ export default function EpubReader({ bookId, onClose }) {
                 <i className="ri-sticky-note-line"></i>
                 Notes
                 {notes.length > 0 && (
-                  <span className={`px-2 py-0.5 rounded-full text-xs ${activeTab === 'notes' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
+                  <span className={`px-2 py-0.5 rounded-full text-xs ${activeTab === 'notes' ? 'bg-primary-600 text-white' : 'bg-gray-200 text-gray-600'
                     }`}>
                     {notes.length}
                   </span>
                 )}
               </div>
               {activeTab === 'notes' && (
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"></div>
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-600"></div>
               )}
             </button>
             <button
@@ -1081,7 +1081,7 @@ export default function EpubReader({ bookId, onClose }) {
                   <button
                     onClick={() => createNote()}
                     disabled={!noteContent.trim() || isSavingNote}
-                    className="mt-2 w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="mt-2 w-full px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {isSavingNote ? (
                       <>
@@ -1121,7 +1121,7 @@ export default function EpubReader({ bookId, onClose }) {
                                     const content = document.getElementById(`note-edit-${note.id}`).value;
                                     updateNote(note.id, content);
                                   }}
-                                  className="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700"
+                                  className="px-3 py-1 bg-primary-600 text-white text-sm rounded hover:bg-primary-700"
                                 >
                                   Save
                                 </button>
@@ -1141,7 +1141,7 @@ export default function EpubReader({ bookId, onClose }) {
                                 <div className="flex gap-2">
                                   <button
                                     onClick={() => setEditingNote(note.id)}
-                                    className="text-blue-600 hover:text-blue-800"
+                                    className="text-primary-600 hover:text-blue-800"
                                   >
                                     <i className="ri-edit-line"></i>
                                   </button>

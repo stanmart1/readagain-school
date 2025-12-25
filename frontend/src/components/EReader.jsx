@@ -461,7 +461,7 @@ export default function EReader({ bookId, onClose }) {
               <button onClick={handleClose} className="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50">
                 Close
               </button>
-              <button onClick={loadBook} className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+              <button onClick={loadBook} className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">
                 Retry
               </button>
             </div>
@@ -545,7 +545,7 @@ export default function EReader({ bookId, onClose }) {
       {/* Progress Bar */}
       <div className="h-1 bg-gray-200 dark:bg-gray-700">
         <div
-          className="h-full bg-blue-600 transition-all duration-300"
+          className="h-full bg-primary-600 transition-all duration-300"
           style={{ width: `${progress * 100}%` }}
         />
       </div>
@@ -591,7 +591,7 @@ export default function EReader({ bookId, onClose }) {
                 <button
                   onClick={() => setActiveTab('notes')}
                   className={`flex-1 px-3 py-2 rounded-lg text-sm font-medium ${activeTab === 'notes'
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-primary-600 text-white'
                     : 'bg-gray-100 dark:bg-gray-800'
                     }`}
                 >
@@ -600,7 +600,7 @@ export default function EReader({ bookId, onClose }) {
                 <button
                   onClick={() => setActiveTab('highlights')}
                   className={`flex-1 px-3 py-2 rounded-lg text-sm font-medium ${activeTab === 'highlights'
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-primary-600 text-white'
                     : 'bg-gray-100 dark:bg-gray-800'
                     }`}
                 >
@@ -613,7 +613,7 @@ export default function EReader({ bookId, onClose }) {
                 <div className="space-y-3">
                   <button
                     onClick={() => setShowNoteInput(!showNoteInput)}
-                    className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm"
+                    className="w-full px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 text-sm"
                   >
                     <i className="ri-add-line mr-1"></i>
                     Add Note
@@ -637,7 +637,7 @@ export default function EReader({ bookId, onClose }) {
                         </button>
                         <button
                           onClick={createNote}
-                          className="flex-1 px-3 py-1 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                          className="flex-1 px-3 py-1 text-sm bg-primary-600 text-white rounded-lg hover:bg-primary-700"
                         >
                           Save
                         </button>
@@ -664,7 +664,7 @@ export default function EReader({ bookId, onClose }) {
                         <div className="flex gap-2">
                           <button
                             onClick={() => setEditingNote(note.id)}
-                            className="hover:text-blue-600"
+                            className="hover:text-primary-600"
                           >
                             <i className="ri-edit-line"></i>
                           </button>
@@ -737,7 +737,7 @@ export default function EReader({ bookId, onClose }) {
             </div>
             <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
               <div 
-                className="bg-gradient-to-r from-blue-500 to-purple-500 h-full transition-all duration-300"
+                className="bg-gradient-to-r from-primary-500 to-primary-600 h-full transition-all duration-300"
                 style={{ width: `${currentPage}%` }}
               />
             </div>

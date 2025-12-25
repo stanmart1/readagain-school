@@ -492,7 +492,7 @@ const LibraryManagement = () => {
                     type="checkbox"
                     checked={selectedAssignments.length === libraries.length && libraries.length > 0}
                     onChange={toggleSelectAll}
-                    className="w-4 h-4 text-blue-600 rounded"
+                    className="w-4 h-4 text-primary-600 rounded"
                   />
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -539,7 +539,7 @@ const LibraryManagement = () => {
                         type="checkbox"
                         checked={selectedAssignments.includes(library.id)}
                         onChange={() => toggleSelectAssignment(library.id)}
-                        className="w-4 h-4 text-blue-600 rounded"
+                        className="w-4 h-4 text-primary-600 rounded"
                       />
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -577,7 +577,7 @@ const LibraryManagement = () => {
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => handleViewDetails(library.id)}
-                          className="text-blue-600 hover:text-blue-800"
+                          className="text-primary-600 hover:text-blue-800"
                           title="View Details"
                         >
                           <i className="ri-eye-line"></i>
@@ -734,7 +734,7 @@ const LibraryManagement = () => {
                                 <p className="text-sm text-gray-500">{user.email}</p>
                               </div>
                               {selectedUser === user.id && (
-                                <i className="ri-check-line text-blue-600"></i>
+                                <i className="ri-check-line text-primary-600"></i>
                               )}
                             </div>
                           ))
@@ -843,7 +843,7 @@ const LibraryManagement = () => {
                                   <p className="text-sm text-gray-500">{book.author_name}</p>
                                 </div>
                                 {selectedBook === book.id && !alreadyAssigned && (
-                                  <i className="ri-check-line text-blue-600"></i>
+                                  <i className="ri-check-line text-primary-600"></i>
                                 )}
                               </div>
                             );
@@ -882,7 +882,7 @@ const LibraryManagement = () => {
                     }`}
                   >
                     <i className={`ri-smartphone-line text-2xl mb-2 block ${
-                      selectedFormat === 'ebook' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600'
+                      selectedFormat === 'ebook' ? 'text-primary-600' : 'text-gray-400 group-hover:text-gray-600'
                     }`}></i>
                     <span className="text-sm font-medium">Digital Ebook</span>
                     <p className="text-xs text-gray-500 mt-1">Instant access</p>
@@ -897,7 +897,7 @@ const LibraryManagement = () => {
                     }`}
                   >
                     <i className={`ri-book-line text-2xl mb-2 block ${
-                      selectedFormat === 'physical' ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600'
+                      selectedFormat === 'physical' ? 'text-primary-600' : 'text-gray-400 group-hover:text-gray-600'
                     }`}></i>
                     <span className="text-sm font-medium">Physical Book</span>
                     <p className="text-xs text-gray-500 mt-1">Hardcopy access</p>
@@ -990,7 +990,7 @@ const LibraryManagement = () => {
                             setBulkUsers(bulkUsers.filter(id => id !== user.id));
                           }
                         }}
-                        className="w-4 h-4 text-blue-600 rounded"
+                        className="w-4 h-4 text-primary-600 rounded"
                       />
                       <div className="flex-1">
                         <p className="font-medium text-gray-900">{user.first_name} {user.last_name}</p>

@@ -146,7 +146,7 @@ const UserDetailModal = ({ isOpen, onClose, user, onEdit }) => {
             <h5 className="text-lg font-semibold text-gray-900 mb-3">Statistics</h5>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="p-4 bg-blue-50 rounded-lg text-center">
-                <i className="ri-book-line text-3xl text-blue-600 mb-2"></i>
+                <i className="ri-book-line text-3xl text-primary-600 mb-2"></i>
                 <p className="text-2xl font-bold text-gray-900">{user.books_count || 0}</p>
                 <p className="text-sm text-gray-600">Books</p>
               </div>

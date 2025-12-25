@@ -220,7 +220,7 @@ const ReviewManagement = () => {
           <span>{new Date(review.created_at).toLocaleDateString()}</span>
         </div>
         {getClassLevel(review) && (
-          <span className="text-blue-600">Class: {getClassLevel(review)}</span>
+          <span className="text-primary-600">Class: {getClassLevel(review)}</span>
         )}
         {getSchoolName(review) && (
           <span className="text-gray-600">{getSchoolName(review)}</span>
@@ -342,7 +342,7 @@ const ReviewManagement = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-xs text-gray-600">Avg Rating</p>
-              <p className="text-2xl font-bold text-blue-600">{stats.averageRating?.toFixed(1) || '0.0'}</p>
+              <p className="text-2xl font-bold text-primary-600">{stats.averageRating?.toFixed(1) || '0.0'}</p>
             </div>
             <i className="ri-star-half-line text-2xl text-blue-400"></i>
           </div>

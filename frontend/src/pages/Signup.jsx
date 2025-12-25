@@ -161,7 +161,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center px-4 py-12">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -170,7 +170,7 @@ export default function Signup() {
       >
         {/* Back to Home */}
         <div className="mb-6">
-          <Link to="/" className="text-white hover:text-blue-100 inline-flex items-center">
+          <Link to="/" className="text-white hover:text-primary-100 inline-flex items-center">
             <i className="ri-arrow-left-line mr-2"></i>
             Back to Home
           </Link>
@@ -189,27 +189,27 @@ export default function Signup() {
             <div className="flex items-center justify-center mb-4">
               <div className="flex items-center space-x-2 sm:space-x-4">
                 <div className={`flex items-center justify-center w-10 h-10 rounded-full text-sm font-semibold transition-all ${
-                  currentStep >= 1 ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg' : 'bg-gray-200 text-gray-600'
+                  currentStep >= 1 ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-lg' : 'bg-gray-200 text-gray-600'
                 }`}>
                   {currentStep > 1 ? <i className="ri-check-line text-lg"></i> : '1'}
                 </div>
                 {formData.is_student === 'yes' && (
                   <>
                     <div className={`w-8 sm:w-12 h-1 rounded transition-all ${
-                      currentStep >= 2 ? 'bg-gradient-to-r from-blue-600 to-purple-600' : 'bg-gray-200'
+                      currentStep >= 2 ? 'bg-gradient-to-r from-primary-600 to-primary-700' : 'bg-gray-200'
                     }`}></div>
                     <div className={`flex items-center justify-center w-10 h-10 rounded-full text-sm font-semibold transition-all ${
-                      currentStep >= 2 ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg' : 'bg-gray-200 text-gray-600'
+                      currentStep >= 2 ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-lg' : 'bg-gray-200 text-gray-600'
                     }`}>
                       {currentStep > 2 ? <i className="ri-check-line text-lg"></i> : '2'}
                     </div>
                   </>
                 )}
                 <div className={`w-8 sm:w-12 h-1 rounded transition-all ${
-                  currentStep >= 3 ? 'bg-gradient-to-r from-blue-600 to-purple-600' : 'bg-gray-200'
+                  currentStep >= 3 ? 'bg-gradient-to-r from-primary-600 to-primary-700' : 'bg-gray-200'
                 }`}></div>
                 <div className={`flex items-center justify-center w-10 h-10 rounded-full text-sm font-semibold transition-all ${
-                  currentStep >= 3 ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg' : 'bg-gray-200 text-gray-600'
+                  currentStep >= 3 ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-lg' : 'bg-gray-200 text-gray-600'
                 }`}>
                   {formData.is_student === 'yes' ? '3' : '2'}
                 </div>
@@ -365,7 +365,7 @@ export default function Signup() {
                   <button
                     type="button"
                     onClick={nextStep}
-                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
+                    className="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
                   >
                     {formData.is_student === 'yes' ? 'Continue to Education Details' : 'Continue to Security'}
                     <i className="ri-arrow-right-line ml-2"></i>
@@ -491,7 +491,7 @@ export default function Signup() {
                     <button
                       type="button"
                       onClick={nextStep}
-                      className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
+                      className="flex-1 bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
                     >
                       Continue to Security
                       <i className="ri-arrow-right-line ml-2"></i>

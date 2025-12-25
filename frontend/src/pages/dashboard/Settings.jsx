@@ -143,7 +143,7 @@ export default function Settings() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-1 sm:gap-2 px-3 sm:px-6 py-3 font-medium transition-colors border-b-2 whitespace-nowrap ${
                   activeTab === tab.id
-                    ? 'border-blue-600 text-blue-600'
+                    ? 'border-primary-600 text-primary-600'
                     : 'border-transparent text-gray-600 hover:text-gray-900'
                 }`}
               >
@@ -189,7 +189,7 @@ export default function Settings() {
                           name="first_name"
                           value={formData.first_name}
                           onChange={handleChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                         />
                       </div>
                       <div>
@@ -201,7 +201,7 @@ export default function Settings() {
                           name="last_name"
                           value={formData.last_name}
                           onChange={handleChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                         />
                       </div>
                     </div>
@@ -215,7 +215,7 @@ export default function Settings() {
                         name="username"
                         value={formData.username}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                       />
                     </div>
 
@@ -228,7 +228,7 @@ export default function Settings() {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                       />
                     </div>
 
@@ -242,7 +242,7 @@ export default function Settings() {
                         name="phone_number"
                         value={formData.phone_number}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                         placeholder="+234 123 456 7890"
                       />
                     </div>
@@ -255,7 +255,7 @@ export default function Settings() {
                         name="school_category"
                         value={formData.school_category}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                       >
                         <option value="">Select school category</option>
                         <option value="Primary">Primary</option>
@@ -273,7 +273,7 @@ export default function Settings() {
                         name="school_name"
                         value={formData.school_name}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                         placeholder="University of Lagos"
                       />
                     </div>
@@ -288,7 +288,7 @@ export default function Settings() {
                           name="class_level"
                           value={formData.class_level}
                           onChange={handleChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                           placeholder={formData.school_category === 'Primary' ? 'Primary 1' : 'SS1'}
                         />
                       </div>
@@ -304,7 +304,7 @@ export default function Settings() {
                           name="department"
                           value={formData.department}
                           onChange={handleChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                           placeholder="Computer Science"
                         />
                       </div>
@@ -336,7 +336,7 @@ export default function Settings() {
                           value={passwordData.current_password}
                           onChange={handlePasswordChange}
                           required
-                          className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                         />
                         <button
                           type="button"
@@ -359,7 +359,7 @@ export default function Settings() {
                           onChange={handlePasswordChange}
                           required
                           minLength="8"
-                          className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                         />
                         <button
                           type="button"
@@ -382,7 +382,7 @@ export default function Settings() {
                           onChange={handlePasswordChange}
                           required
                           minLength="8"
-                          className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                         />
                         <button
                           type="button"
@@ -493,7 +493,7 @@ export default function Settings() {
                         {['Fiction', 'Non-Fiction', 'Mystery', 'Romance', 'Sci-Fi', 'Biography'].map((genre) => (
                           <button
                             key={genre}
-                            className="px-4 py-2 border border-gray-300 rounded-full hover:bg-blue-50 hover:border-blue-600"
+                            className="px-4 py-2 border border-gray-300 rounded-full hover:bg-blue-50 hover:border-primary-600"
                           >
                             {genre}
                           </button>
@@ -507,7 +507,7 @@ export default function Settings() {
                       <input
                         type="number"
                         defaultValue="2"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                       />
                     </div>
                   </div>

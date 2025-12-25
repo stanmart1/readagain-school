@@ -67,7 +67,7 @@ export default function Overview() {
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-bold text-gray-900">Currently Reading</h2>
             {currentlyReading.length > 3 && (
-              <a href="/dashboard/library" className="text-blue-600 hover:text-purple-600 text-sm font-medium flex items-center gap-1">
+              <a href="/dashboard/library" className="text-primary-600 hover:text-primary-700 text-sm font-medium flex items-center gap-1">
                 View All <i className="ri-arrow-right-line"></i>
               </a>
             )}
@@ -105,7 +105,7 @@ export default function Overview() {
                     {/* Progress Bar */}
                     <div className="w-full bg-gray-200 rounded-full h-2 mb-1">
                       <div
-                        className="bg-gradient-to-r from-blue-600 to-purple-600 h-2 rounded-full transition-all duration-300"
+                        className="bg-gradient-to-r from-primary-600 to-primary-700 h-2 rounded-full transition-all duration-300"
                         style={{ width: `${book.progress || 0}%` }}
                       ></div>
                     </div>
@@ -114,7 +114,7 @@ export default function Overview() {
                   {/* Continue Reading Button */}
                   <a
                     href={`/reading/${book.book_id}`}
-                    className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:shadow-md transition-all font-medium text-sm whitespace-nowrap"
+                    className="px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg hover:shadow-md transition-all font-medium text-sm whitespace-nowrap"
                   >
                     Continue
                   </a>
@@ -125,7 +125,7 @@ export default function Overview() {
             <div className="text-center py-8">
               <i className="ri-book-line text-4xl text-gray-300 mb-2"></i>
               <p className="text-gray-600 mb-4">No books in progress</p>
-              <a href="/dashboard/library" className="text-blue-600 hover:text-purple-600 font-medium">
+              <a href="/dashboard/library" className="text-primary-600 hover:text-primary-700 font-medium">
                 Browse Your Library
               </a>
             </div>
@@ -141,7 +141,7 @@ export default function Overview() {
         >
           <a
             href="/books"
-            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl p-6 hover:shadow-lg transition-shadow"
+            className="bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl p-6 hover:shadow-lg transition-shadow"
           >
             <i className="ri-book-line text-3xl mb-2"></i>
             <h3 className="font-semibold mb-1">Browse Books</h3>
@@ -151,7 +151,7 @@ export default function Overview() {
             href="/dashboard/library"
             className="bg-white rounded-xl p-6 hover:shadow-lg transition-shadow border-2 border-gray-200"
           >
-            <i className="ri-book-open-line text-3xl text-blue-600 mb-2"></i>
+            <i className="ri-book-open-line text-3xl text-primary-600 mb-2"></i>
             <h3 className="font-semibold text-gray-900 mb-1">My Library</h3>
             <p className="text-sm text-gray-600">View your collection</p>
           </a>

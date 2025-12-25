@@ -78,7 +78,7 @@ export default function Library() {
           </div>
           <Link
             to="/books"
-            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:shadow-xl transition-all transform hover:scale-105"
+            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white font-semibold rounded-xl hover:shadow-xl transition-all transform hover:scale-105"
           >
             <i className="ri-add-line mr-2"></i>
             Explore Books
@@ -99,15 +99,15 @@ export default function Library() {
                   onClick={() => setFilter(tab.key)}
                   className={`inline-flex items-center px-6 py-3.5 rounded-xl text-sm font-semibold transition-all duration-200 transform hover:scale-105 ${
                     filter === tab.key
-                      ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-600/25'
-                      : 'bg-gray-50 text-gray-600 hover:text-blue-600 hover:bg-blue-50 border border-gray-200 hover:border-blue-200 hover:shadow-md'
+                      ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-lg shadow-blue-600/25'
+                      : 'bg-gray-50 text-gray-600 hover:text-primary-600 hover:bg-blue-50 border border-gray-200 hover:border-blue-200 hover:shadow-md'
                   }`}
                 >
                   <i className={`${tab.icon} mr-2 text-base`}></i>
                   {tab.label}
                   {tab.count > 0 && (
                     <span className={`ml-2 px-2 py-1 rounded-full text-xs font-bold ${
-                      filter === tab.key ? 'bg-white/20 text-white' : 'bg-blue-100 text-blue-600'
+                      filter === tab.key ? 'bg-white/20 text-white' : 'bg-primary-100 text-primary-600'
                     }`}>
                       {tab.count}
                     </span>
@@ -122,7 +122,7 @@ export default function Library() {
         {filteredBooks.length === 0 ? (
           <div className="bg-white rounded-2xl shadow-lg border border-gray-100 text-center py-20">
             <div className="w-28 h-28 mx-auto mb-8 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full flex items-center justify-center shadow-lg">
-              <i className="ri-book-line text-4xl text-blue-600"></i>
+              <i className="ri-book-line text-4xl text-primary-600"></i>
             </div>
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
               {books.length === 0 ? 'Your Library Awaits' : `No ${filter} Books Found`}
@@ -135,7 +135,7 @@ export default function Library() {
             {books.length === 0 && (
               <Link 
                 to="/books"
-                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-lg font-semibold rounded-2xl hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-600 to-primary-700 text-white text-lg font-semibold rounded-2xl hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
               >
                 <i className="ri-search-line mr-2 text-lg"></i>
                 Explore Books
@@ -208,7 +208,7 @@ export default function Library() {
                   <div className="space-y-2">
                     <Link
                       to={`/reading/${book.book_id}`}
-                      className="w-full inline-flex items-center justify-center px-4 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+                      className="w-full inline-flex items-center justify-center px-4 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white text-sm font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
                     >
                       <i className={`${book.progress > 0 ? 'ri-play-line' : 'ri-book-open-line'} mr-2 text-base`}></i>
                       {book.progress > 0 ? 'Continue Reading' : 'Start Reading'}

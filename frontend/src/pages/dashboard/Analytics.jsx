@@ -93,7 +93,7 @@ export default function Analytics() {
     
     if (progress >= 100) return { text: 'Completed', color: 'bg-green-100 text-green-800' };
     if (now > endDate) return { text: 'Expired', color: 'bg-red-100 text-red-800' };
-    return { text: 'Active', color: 'bg-blue-100 text-blue-800' };
+    return { text: 'Active', color: 'bg-primary-100 text-primary-800' };
   };
 
   const getDaysRemaining = (endDate) => {
@@ -131,7 +131,7 @@ export default function Analytics() {
                 onClick={() => setPeriod(p)}
                 className={`px-4 py-2 rounded-lg font-medium capitalize ${
                   period === p
-                    ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
+                    ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white'
                     : 'bg-white text-gray-700 hover:bg-gray-100'
                 }`}
               >
@@ -192,7 +192,7 @@ export default function Analytics() {
                       initial={{ width: 0 }}
                       animate={{ width: `${(day.minutes / maxMinutes) * 100}%` }}
                       transition={{ delay: 0.6 + index * 0.1, duration: 0.5 }}
-                      className="bg-gradient-to-r from-blue-600 to-purple-600 h-full rounded-full flex items-center justify-end pr-3"
+                      className="bg-gradient-to-r from-primary-600 to-primary-700 h-full rounded-full flex items-center justify-end pr-3"
                     >
                       <span className="text-white text-sm font-semibold">{day.minutes}m</span>
                     </motion.div>
@@ -221,7 +221,7 @@ export default function Analytics() {
             <h2 className="text-xl font-bold text-gray-900">Reading Goals</h2>
             <button 
               onClick={() => setShowGoalModal(true)}
-              className="text-blue-600 hover:text-purple-600 font-semibold"
+              className="text-primary-600 hover:text-primary-700 font-semibold"
             >
               <i className="ri-add-line mr-1"></i>
               Set Goal
@@ -251,7 +251,7 @@ export default function Analytics() {
                     <div className="flex gap-2">
                       <button
                         onClick={() => setEditingGoal(goal)}
-                        className="p-1.5 text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                        className="p-1.5 text-primary-600 hover:bg-blue-50 rounded transition-colors"
                         title="Edit goal"
                       >
                         <i className="ri-edit-line text-lg"></i>
@@ -275,7 +275,7 @@ export default function Analytics() {
                     <span className="text-sm font-medium text-gray-700">
                       {goal.current} / {goal.target} {goal.unit}
                     </span>
-                    <span className="text-sm font-bold text-blue-600">{progress.toFixed(0)}%</span>
+                    <span className="text-sm font-bold text-primary-600">{progress.toFixed(0)}%</span>
                   </div>
                   
                   <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
@@ -283,7 +283,7 @@ export default function Analytics() {
                       initial={{ width: 0 }}
                       animate={{ width: `${progress}%` }}
                       transition={{ duration: 0.5 }}
-                      className="bg-gradient-to-r from-blue-600 to-purple-600 h-full rounded-full"
+                      className="bg-gradient-to-r from-primary-600 to-primary-700 h-full rounded-full"
                     />
                   </div>
                 </div>
@@ -295,7 +295,7 @@ export default function Analytics() {
                 <p className="text-gray-500 mb-6">Set goals to track your reading progress and stay motivated!</p>
                 <button
                   onClick={() => setShowGoalModal(true)}
-                  className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:shadow-lg transition-shadow"
+                  className="px-6 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg font-semibold hover:shadow-lg transition-shadow"
                 >
                   Create Your First Goal
                 </button>
@@ -345,7 +345,7 @@ export default function Analytics() {
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg"
+                    className="flex-1 px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg"
                   >
                     Update Goal
                   </button>
@@ -461,7 +461,7 @@ export default function Analytics() {
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg"
+                    className="flex-1 px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg"
                   >
                     Create Goal
                   </button>

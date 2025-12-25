@@ -14,7 +14,7 @@ export default function Footer() {
             className="lg:col-span-1"
           >
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-gradient-to-r from-primary-500 to-primary-600 rounded-lg flex items-center justify-center">
                 <i className="ri-book-line text-white text-lg"></i>
               </div>
               <span className="text-xl font-bold font-pacifico">ReadAgain</span>
@@ -28,7 +28,7 @@ export default function Footer() {
                   key={social}
                   whileHover={{ scale: 1.1, y: -2 }}
                   href="#"
-                  className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"
+                  className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary-600 transition-colors"
                 >
                   <i className={`ri-${social}-fill text-lg`}></i>
                 </motion.a>
@@ -99,7 +99,7 @@ export default function Footer() {
             <span>by</span>
             <a
               href="tel:+2347062750516"
-              className="text-blue-400 hover:text-blue-300 transition-colors font-medium"
+              className="text-primary-400 hover:text-primary-300 transition-colors font-medium"
             >
               ScaleITPro
             </a>

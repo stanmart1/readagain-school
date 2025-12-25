@@ -8,7 +8,7 @@ export default function Terms() {
       <Header />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20">
+      <section className="bg-gradient-to-r from-primary-600 to-primary-700 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -18,7 +18,7 @@ export default function Terms() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               Terms of Service
             </h1>
-            <p className="text-xl md:text-2xl text-blue-100">
+            <p className="text-xl md:text-2xl text-primary-100">
               Last updated: January 2025
             </p>
           </motion.div>

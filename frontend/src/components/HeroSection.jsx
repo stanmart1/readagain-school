@@ -12,7 +12,7 @@ export default function HeroSection() {
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden max-w-full pt-20">
       {/* Darker Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700"></div>
       
       {/* Main Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full max-w-full">
@@ -31,7 +31,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl lg:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto leading-relaxed"
+            className="text-xl lg:text-2xl text-primary-100 mb-8 max-w-3xl mx-auto leading-relaxed"
           >
             Empower students with access to thousands of books. Track reading progress, assign books to classes, and foster a love for reading in your school.
           </motion.p>
@@ -44,7 +44,7 @@ export default function HeroSection() {
           >
             <Link 
               to="/signup" 
-              className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-blue-900 px-8 py-4 rounded-lg font-bold hover:from-yellow-500 hover:to-yellow-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center"
+              className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-primary-900 px-8 py-4 rounded-lg font-bold hover:from-yellow-500 hover:to-yellow-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center"
             >
               Start Reading
             </Link>
@@ -78,7 +78,7 @@ export default function HeroSection() {
               loading="lazy"
               decoding="async"
             />
-            <div className="absolute -bottom-2 -right-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-semibold px-3 py-1 rounded-full">
+            <div className="absolute -bottom-2 -right-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white text-sm font-semibold px-3 py-1 rounded-full">
               {book.title}
             </div>
           </motion.div>

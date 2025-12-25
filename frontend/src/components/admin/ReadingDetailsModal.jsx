@@ -33,10 +33,10 @@ const ReadingDetailsModal = ({ libraryId, onClose }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
         {/* Header */}
-        <div className="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
+        <div className="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-primary-50 to-primary-100">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-r from-primary-600 to-primary-700 rounded-full flex items-center justify-center">
                 <i className="ri-book-open-line text-white text-lg"></i>
               </div>
               <div>
@@ -57,7 +57,7 @@ const ReadingDetailsModal = ({ libraryId, onClose }) => {
         <div className="p-6 overflow-y-auto max-h-[calc(90vh-140px)]">
           {loading ? (
             <div className="flex items-center justify-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
             </div>
           ) : assignmentDetails ? (
             <div className="space-y-6">
@@ -82,7 +82,7 @@ const ReadingDetailsModal = ({ libraryId, onClose }) => {
                     <p className="text-sm text-gray-600">Status</p>
                     <span className={`inline-block px-2 py-1 text-xs font-semibold rounded-full ${
                       assignmentDetails.assignment.status === 'reading' ? 'bg-green-100 text-green-800' :
-                      assignmentDetails.assignment.status === 'completed' ? 'bg-blue-100 text-blue-800' :
+                      assignmentDetails.assignment.status === 'completed' ? 'bg-primary-100 text-primary-800' :
                       'bg-gray-100 text-gray-800'
                     }`}>
                       {assignmentDetails.assignment.status}
@@ -95,7 +95,7 @@ const ReadingDetailsModal = ({ libraryId, onClose }) => {
               {assignmentDetails.analytics && (
                 <div>
                   <h4 className="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
-                    <i className="ri-line-chart-line text-blue-600"></i>
+                    <i className="ri-line-chart-line text-primary-600"></i>
                     Reading Analytics
                   </h4>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -164,7 +164,7 @@ const ReadingDetailsModal = ({ libraryId, onClose }) => {
                           </div>
                           <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
                             goal.status === 'completed' ? 'bg-green-100 text-green-800' :
-                            goal.status === 'in_progress' ? 'bg-blue-100 text-blue-800' :
+                            goal.status === 'in_progress' ? 'bg-primary-100 text-primary-800' :
                             'bg-gray-100 text-gray-800'
                           }`}>
                             {goal.status === 'completed' ? 'Completed' : goal.status === 'in_progress' ? 'In Progress' : 'Not Started'}
@@ -236,7 +236,7 @@ const ReadingDetailsModal = ({ libraryId, onClose }) => {
               <div>
                 <div className="flex items-center justify-between mb-3">
                   <h4 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-                    <i className="ri-sticky-note-line text-blue-600"></i>
+                    <i className="ri-sticky-note-line text-primary-600"></i>
                     Notes ({assignmentDetails.notes?.length || 0})
                   </h4>
                 </div>

@@ -72,7 +72,7 @@ export default function BookCard({ book }) {
           />
           
           {/* Digital Ebook Badge */}
-          <div className="absolute top-4 right-4 bg-blue-600 text-white rounded-full px-3 py-1">
+          <div className="absolute top-4 right-4 bg-primary-600 text-white rounded-full px-3 py-1">
             <span className="text-sm font-medium">
               <i className="ri-book-open-line mr-1"></i>
               Digital
@@ -82,7 +82,7 @@ export default function BookCard({ book }) {
           {/* Category Badge */}
           {displayCategory && (
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
-              <span className="bg-blue-600 text-white px-2 py-1 rounded-full text-xs font-medium">
+              <span className="bg-primary-600 text-white px-2 py-1 rounded-full text-xs font-medium">
                 {displayCategory}
               </span>
             </div>
@@ -90,7 +90,7 @@ export default function BookCard({ book }) {
         </div>
         
         <div className="p-6 flex-1 flex flex-col">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2 h-14">
+          <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors line-clamp-2 h-14">
             {book.title}
           </h3>
           <p className="text-gray-600 mb-4 h-6">
@@ -119,7 +119,7 @@ export default function BookCard({ book }) {
                 handleAddToCart(e);
               }}
               disabled={addingToCart}
-              className="w-full bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+              className="w-full bg-primary-600 text-white px-4 py-2 rounded-full hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium"
             >
               {addingToCart ? 'Adding...' : 'Add to Library'}
             </button>

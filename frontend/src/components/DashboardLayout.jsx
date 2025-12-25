@@ -25,7 +25,7 @@ export default function DashboardLayout({ children }) {
                 to={item.path}
                 className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
                   location.pathname === item.path
-                    ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-md'
+                    ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-md'
                     : 'text-gray-700 hover:bg-gray-100'
                 }`}
               >
@@ -53,7 +53,7 @@ export default function DashboardLayout({ children }) {
                 to={item.path}
                 className={`flex flex-col items-center justify-center min-w-0 flex-1 px-2 py-2 rounded-xl transition-all duration-200 ${
                   isActive
-                    ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-md scale-105'
+                    ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-md scale-105'
                     : 'text-gray-600 hover:bg-gray-100'
                 }`}
               >

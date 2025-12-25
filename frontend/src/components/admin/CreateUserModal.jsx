@@ -27,7 +27,7 @@ const CreateUserModal = ({ isOpen, onClose, newUser, setNewUser, onSubmit }) => 
               type="email"
               value={newUser.email}
               onChange={(e) => setNewUser({...newUser, email: e.target.value})}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             />
           </div>
 
@@ -37,7 +37,7 @@ const CreateUserModal = ({ isOpen, onClose, newUser, setNewUser, onSubmit }) => 
               type="text"
               value={newUser.username}
               onChange={(e) => setNewUser({...newUser, username: e.target.value})}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             />
           </div>
 
@@ -48,7 +48,7 @@ const CreateUserModal = ({ isOpen, onClose, newUser, setNewUser, onSubmit }) => 
                 type="text"
                 value={newUser.first_name}
                 onChange={(e) => setNewUser({...newUser, first_name: e.target.value})}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               />
             </div>
 
@@ -58,7 +58,7 @@ const CreateUserModal = ({ isOpen, onClose, newUser, setNewUser, onSubmit }) => 
                 type="text"
                 value={newUser.last_name}
                 onChange={(e) => setNewUser({...newUser, last_name: e.target.value})}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               />
             </div>
           </div>
@@ -69,7 +69,7 @@ const CreateUserModal = ({ isOpen, onClose, newUser, setNewUser, onSubmit }) => 
               type="password"
               value={newUser.password}
               onChange={(e) => setNewUser({...newUser, password: e.target.value})}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             />
           </div>
 
@@ -78,7 +78,7 @@ const CreateUserModal = ({ isOpen, onClose, newUser, setNewUser, onSubmit }) => 
             <select
               value={newUser.role}
               onChange={(e) => setNewUser({...newUser, role: e.target.value})}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             >
               <option value="user">User</option>
               <option value="admin">Admin</option>

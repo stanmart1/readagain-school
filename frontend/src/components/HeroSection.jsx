@@ -27,7 +27,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-left -mt-20"
+            className="text-left -mt-22"
           >
             <motion.div
               initial={{ opacity: 0, y: 20 }}

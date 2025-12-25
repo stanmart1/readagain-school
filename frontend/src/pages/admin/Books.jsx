@@ -317,7 +317,7 @@ const AdminBooks = () => {
           {loading && (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
               <div className="bg-white rounded-lg p-6 shadow-xl">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
                 <p className="mt-4 text-gray-700">Loading books...</p>
               </div>
             </div>
@@ -341,7 +341,7 @@ const AdminBooks = () => {
                     onClick={() => setActiveSection(section)}
                     className={`flex-shrink-0 mr-3 sm:mr-4 md:mr-6 lg:mr-8 py-3 sm:py-4 px-2 border-b-2 font-medium text-sm sm:text-base capitalize whitespace-nowrap transition-colors duration-200 ${
                       activeSection === section
-                        ? 'border-blue-500 text-blue-600'
+                        ? 'border-blue-500 text-primary-600'
                         : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                     }`}
                   >
@@ -361,7 +361,7 @@ const AdminBooks = () => {
                         <>
                           <button
                             onClick={() => setModals(prev => ({ ...prev, batchUpdate: true }))}
-                            className="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-all duration-300 flex items-center"
+                            className="px-4 py-2 bg-primary-600 text-white rounded-full hover:bg-primary-700 transition-all duration-300 flex items-center"
                           >
                             <i className="ri-edit-box-line mr-2"></i>
                             Batch Update ({selection.books.length})
@@ -377,7 +377,7 @@ const AdminBooks = () => {
                       )}
                       <button
                         onClick={() => setShowAddModal(true)}
-                        className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 flex items-center"
+                        className="px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 flex items-center"
                       >
                         <i className="ri-add-line mr-2"></i>
                         Add Book
@@ -565,7 +565,7 @@ const AdminBooks = () => {
                     </button>
                     <button
                       onClick={handleBatchUpdate}
-                      className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+                      className="flex-1 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center justify-center gap-2"
                     >
                       Update Books
                     </button>
@@ -883,7 +883,7 @@ const AdminBooks = () => {
               <div className="bg-white rounded-xl shadow-2xl max-w-md w-full">
                 <div className="p-6">
                   <div className="flex items-center justify-center w-12 h-12 mx-auto bg-blue-100 rounded-full mb-4">
-                    <i className="ri-question-line text-2xl text-blue-600"></i>
+                    <i className="ri-question-line text-2xl text-primary-600"></i>
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 text-center mb-2">Confirm Assignment</h3>
                   <p className="text-gray-600 text-center mb-6">
@@ -923,7 +923,7 @@ const AdminBooks = () => {
                         }
                       }}
                       disabled={loadingStates.assign}
-                      className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      className="flex-1 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                     >
                       {loadingStates.assign && <i className="ri-loader-4-line animate-spin"></i>}
                       {loadingStates.assign ? 'Assigning...' : 'Confirm Assignment'}

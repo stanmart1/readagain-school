@@ -23,7 +23,7 @@ const AdminDashboard = () => {
     return (
       <AdminLayout>
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
         </div>
       </AdminLayout>
     );
@@ -158,7 +158,7 @@ const AdminDashboard = () => {
               recentActivities.map((activity, i) => (
                 <div key={i} className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200">
                   <div className={`w-7 sm:w-8 h-7 sm:h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                    activity.type === 'user' ? 'bg-blue-100 text-blue-600' :
+                    activity.type === 'user' ? 'bg-blue-100 text-primary-600' :
                     activity.type === 'book' ? 'bg-green-100 text-green-600' :
                     activity.type === 'order' ? 'bg-purple-100 text-purple-600' :
                     'bg-gray-100 text-gray-600'

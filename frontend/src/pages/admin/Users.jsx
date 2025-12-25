@@ -150,7 +150,7 @@ const AdminUsers = () => {
     return (
       <AdminLayout>
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
         </div>
       </AdminLayout>
     );
@@ -163,7 +163,7 @@ const AdminUsers = () => {
         {loading && users.length > 0 && (
           <div className="fixed inset-0 bg-black bg-opacity-20 flex items-center justify-center z-50 rounded-lg">
             <div className="bg-white rounded-lg p-8 flex flex-col items-center gap-4">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
               <p className="text-gray-600 font-medium">Loading users...</p>
             </div>
           </div>
@@ -193,7 +193,7 @@ const AdminUsers = () => {
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="flex items-center gap-2">
-                <i className="ri-checkbox-multiple-line text-blue-600 text-xl"></i>
+                <i className="ri-checkbox-multiple-line text-primary-600 text-xl"></i>
                 <span className="font-semibold text-blue-900">
                   {selectedUsers.length} user{selectedUsers.length > 1 ? 's' : ''} selected
                 </span>

@@ -32,7 +32,7 @@ export default function ImageCacheManager() {
     <div className="space-y-4">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="bg-white p-3 rounded-lg border">
-          <div className="text-2xl font-bold text-blue-600">{stats.hit_rate}%</div>
+          <div className="text-2xl font-bold text-primary-600">{stats.hit_rate}%</div>
           <div className="text-sm text-gray-600">Hit Rate</div>
         </div>
         <div className="bg-white p-3 rounded-lg border">
@@ -77,7 +77,7 @@ export default function ImageCacheManager() {
         <button
           onClick={loadStats}
           disabled={loading}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 text-sm font-medium"
+          className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 text-sm font-medium"
         >
           <i className="ri-refresh-line mr-1"></i>
           Refresh Stats

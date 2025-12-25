@@ -222,7 +222,7 @@ export default function EmailGatewayManagement() {
                   type={showApiKeys['resendApiKey'] ? "text" : "password"}
                   value={gateway.resendApiKey || ''}
                   onChange={(e) => handleConfigChange(gateway.id, 'resendApiKey', e.target.value)}
-                  className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                   placeholder="re_xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
                 />
                 <button
@@ -240,7 +240,7 @@ export default function EmailGatewayManagement() {
                 type="text"
                 value={gateway.resendDomain || ''}
                 onChange={(e) => handleConfigChange(gateway.id, 'resendDomain', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                 placeholder="yourdomain.com"
               />
             </div>
@@ -256,7 +256,7 @@ export default function EmailGatewayManagement() {
                   type="text"
                   value={gateway.smtpHost || ''}
                   onChange={(e) => handleConfigChange(gateway.id, 'smtpHost', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                   placeholder="smtp.gmail.com"
                 />
               </div>
@@ -266,7 +266,7 @@ export default function EmailGatewayManagement() {
                   type="number"
                   value={gateway.smtpPort || ''}
                   onChange={(e) => handleConfigChange(gateway.id, 'smtpPort', parseInt(e.target.value))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                   placeholder="587"
                 />
               </div>
@@ -278,7 +278,7 @@ export default function EmailGatewayManagement() {
                   type="text"
                   value={gateway.smtpUsername || ''}
                   onChange={(e) => handleConfigChange(gateway.id, 'smtpUsername', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                   placeholder="your-email@gmail.com"
                 />
               </div>
@@ -289,7 +289,7 @@ export default function EmailGatewayManagement() {
                     type={showApiKeys['smtpPassword'] ? "text" : "password"}
                     value={gateway.smtpPassword || ''}
                     onChange={(e) => handleConfigChange(gateway.id, 'smtpPassword', e.target.value)}
-                    className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                     placeholder="your-app-password"
                   />
                   <button
@@ -391,7 +391,7 @@ export default function EmailGatewayManagement() {
                   value={testEmail}
                   onChange={(e) => setTestEmail(e.target.value)}
                   placeholder="Enter email to test with"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm"
                 />
               </div>
               <button
@@ -412,7 +412,7 @@ export default function EmailGatewayManagement() {
                   type="email"
                   value={getActiveGateway()?.fromEmail || ''}
                   onChange={(e) => handleConfigChange(activeGateway, 'fromEmail', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                   placeholder="noreply@yourdomain.com"
                 />
               </div>
@@ -422,7 +422,7 @@ export default function EmailGatewayManagement() {
                   type="text"
                   value={getActiveGateway()?.fromName || ''}
                   onChange={(e) => handleConfigChange(activeGateway, 'fromName', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                   placeholder="Your Company Name"
                 />
               </div>

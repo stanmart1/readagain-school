@@ -26,7 +26,7 @@ export default function Header() {
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-gradient-to-r from-primary-500 to-primary-600 rounded-lg flex items-center justify-center">
                 <i className="ri-book-line text-white text-lg"></i>
               </div>
               <span className="text-xl font-bold font-pacifico text-gray-900">
@@ -40,10 +40,10 @@ export default function Header() {
                 <Link
                   key={item}
                   to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
-                  className="relative px-3 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 font-medium group"
+                  className="relative px-3 py-2 text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-all duration-200 font-medium group"
                 >
                   <span>{item}</span>
-                  <div className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-blue-600 transition-all duration-200 group-hover:w-4/5 transform -translate-x-1/2"></div>
+                  <div className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-primary-600 transition-all duration-200 group-hover:w-4/5 transform -translate-x-1/2"></div>
                 </Link>
               ))}
             </nav>
@@ -57,7 +57,7 @@ export default function Header() {
                     onClick={() => setIsProfileOpen(!isProfileOpen)}
                     className="flex items-center gap-2 px-3 py-2 hover:bg-gray-100 rounded-lg transition-all"
                   >
-                    <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
+                    <div className="w-8 h-8 bg-gradient-to-r from-primary-600 to-primary-700 rounded-full flex items-center justify-center text-white font-semibold">
                       {user?.first_name?.[0] || 'U'}
                     </div>
                     <span className="hidden md:block font-medium text-gray-700">{user?.first_name}</span>
@@ -70,7 +70,7 @@ export default function Header() {
                         <p className="text-sm text-gray-500">{user?.email}</p>
                       </div>
                       {(user?.role?.name === 'platform_admin' || user?.role?.name === 'school_admin') && (
-                        <Link to="/admin" onClick={() => setIsProfileOpen(false)} className="block px-4 py-2 text-purple-600 hover:bg-purple-50">
+                        <Link to="/admin" onClick={() => setIsProfileOpen(false)} className="block px-4 py-2 text-primary-600 hover:bg-primary-50">
                           <i className="ri-admin-line mr-2"></i>Admin Dashboard
                         </Link>
                       )}
@@ -91,10 +91,10 @@ export default function Header() {
                 </div>
               ) : (
                 <>
-                  <Link to="/login" className="hidden md:block px-6 py-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-all font-medium">
+                  <Link to="/login" className="hidden md:block px-6 py-2 text-primary-600 hover:bg-primary-50 rounded-lg transition-all font-medium">
                     Login
                   </Link>
-                  <Link to="/signup" className="hidden md:block px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all font-medium">
+                  <Link to="/signup" className="hidden md:block px-6 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg hover:from-primary-700 hover:to-primary-800 transition-all font-medium">
                     Sign Up
                   </Link>
                 </>

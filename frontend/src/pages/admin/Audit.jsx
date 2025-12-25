@@ -31,10 +31,10 @@ const Audit = () => {
 
   const getActionColor = (action) => {
     if (action.includes('create')) return 'bg-gradient-to-r from-green-500 to-teal-500';
-    if (action.includes('update')) return 'bg-gradient-to-r from-blue-500 to-cyan-500';
+    if (action.includes('update')) return 'bg-gradient-to-r from-primary-500 to-secondary-500';
     if (action.includes('delete')) return 'bg-gradient-to-r from-red-500 to-pink-500';
-    if (action.includes('login')) return 'bg-gradient-to-r from-purple-500 to-pink-500';
-    if (action.includes('assign')) return 'bg-gradient-to-r from-indigo-500 to-purple-500';
+    if (action.includes('login')) return 'bg-gradient-to-r from-primary-600 to-accent-500';
+    if (action.includes('assign')) return 'bg-gradient-to-r from-primary-600 to-primary-700';
     return 'bg-gradient-to-r from-yellow-500 to-orange-500';
   };
 

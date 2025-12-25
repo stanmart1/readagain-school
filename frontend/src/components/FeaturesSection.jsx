@@ -17,7 +17,7 @@ export default function FeaturesSection() {
       icon: 'ri-team-line',
       title: 'Book Assignments',
       description: 'Teachers can assign books to classes and track which students have completed their reading assignments.',
-      color: 'from-purple-500 to-pink-500'
+      color: 'from-primary-600 to-accent-500'
     },
     {
       icon: 'ri-bar-chart-line',

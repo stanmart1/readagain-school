@@ -63,7 +63,7 @@ const AdminDashboard = () => {
             </div>
             <button
               onClick={() => fetchAnalytics()}
-              className="w-full sm:w-auto px-3 sm:px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-full hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 flex items-center justify-center text-sm sm:text-base"
+              className="w-full sm:w-auto px-3 sm:px-4 py-2 bg-gradient-to-r from-primary-500 to-secondary-500 text-white rounded-full hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105 flex items-center justify-center text-sm sm:text-base"
             >
               <i className="ri-refresh-line mr-2"></i>
               <span className="hidden sm:inline">Refresh Data</span>

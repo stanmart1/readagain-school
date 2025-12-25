@@ -32,7 +32,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center px-4">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -41,7 +41,7 @@ export default function Login() {
       >
         {/* Back to Home */}
         <div className="mb-6">
-          <Link to="/" className="text-white hover:text-blue-100 inline-flex items-center">
+          <Link to="/" className="text-white hover:text-primary-100 inline-flex items-center">
             <i className="ri-arrow-left-line mr-2"></i>
             Back to Home
           </Link>
@@ -81,7 +81,7 @@ export default function Login() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                   placeholder="your@email.com"
                 />
               </div>
@@ -98,7 +98,7 @@ export default function Login() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                   placeholder="••••••••"
                 />
                 <button
@@ -116,7 +116,7 @@ export default function Login() {
                 <input type="checkbox" className="mr-2" />
                 <span className="text-sm text-gray-600">Remember me</span>
               </label>
-              <Link to="/forgot-password" className="text-sm text-blue-600 hover:text-purple-600">
+              <Link to="/forgot-password" className="text-sm text-primary-600 hover:text-primary-700">
                 Forgot password?
               </Link>
             </div>
@@ -124,7 +124,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all disabled:opacity-50"
+              className="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all disabled:opacity-50"
             >
               {loading ? 'Logging in...' : 'Login'}
             </button>
@@ -133,7 +133,7 @@ export default function Login() {
           <div className="mt-6 text-center">
             <p className="text-gray-600">
               Don't have an account?{' '}
-              <Link to="/signup" className="text-blue-600 hover:text-purple-600 font-semibold">
+              <Link to="/signup" className="text-primary-600 hover:text-primary-700 font-semibold">
                 Sign up
               </Link>
             </p>

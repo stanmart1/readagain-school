@@ -33,7 +33,7 @@ export default function Blog() {
       <Header />
       
       {/* Hero Section - Purple-Blue Gradient */}
-      <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20 mt-20">
+      <section className="bg-gradient-to-r from-primary-600 to-primary-700 text-white py-20 mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0 }}
@@ -44,7 +44,7 @@ export default function Blog() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               ReadAgain Blog
             </h1>
-            <p className="text-xl md:text-2xl text-blue-100">
+            <p className="text-xl md:text-2xl text-primary-100">
               Educational insights, teaching tips, and reading strategies for schools
             </p>
           </motion.div>
@@ -56,7 +56,7 @@ export default function Blog() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {loading ? (
             <div className="flex justify-center py-20">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
             </div>
           ) : posts.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

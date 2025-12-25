@@ -17,7 +17,7 @@ export default function FAQ() {
       <Header />
       
       {/* Hero Section - Purple-Blue Gradient */}
-      <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20 mt-20">
+      <section className="bg-gradient-to-r from-primary-600 to-primary-700 text-white py-20 mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0 }}
@@ -28,7 +28,7 @@ export default function FAQ() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               Frequently Asked Questions
             </h1>
-            <p className="text-xl md:text-2xl text-blue-100">
+            <p className="text-xl md:text-2xl text-primary-100">
               Common questions about ReadAgain for schools, teachers, and students
             </p>
           </motion.div>
@@ -40,7 +40,7 @@ export default function FAQ() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {loading ? (
             <div className="flex justify-center py-20">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
             </div>
           ) : faqs.length > 0 ? (
             <div className="space-y-4">
@@ -93,10 +93,10 @@ export default function FAQ() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
-            className="mt-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-center text-white"
+            className="mt-16 bg-gradient-to-r from-primary-600 to-primary-700 rounded-2xl p-8 text-center text-white"
           >
             <h3 className="text-2xl font-bold mb-4">Still have questions?</h3>
-            <p className="text-lg mb-6 text-blue-100">
+            <p className="text-lg mb-6 text-primary-100">
               Can't find the answer you're looking for? Contact our support team.
             </p>
             <a

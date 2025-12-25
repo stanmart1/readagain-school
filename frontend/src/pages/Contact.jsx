@@ -50,7 +50,7 @@ export default function Contact() {
       <Header />
       
       {/* Hero Section - Purple-Blue Gradient */}
-      <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20 mt-20">
+      <section className="bg-gradient-to-r from-primary-600 to-primary-700 text-white py-20 mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0 }}
@@ -61,7 +61,7 @@ export default function Contact() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               Get In Touch
             </h1>
-            <p className="text-xl md:text-2xl text-blue-100">
+            <p className="text-xl md:text-2xl text-primary-100">
               Questions about ReadAgain for your school? We're here to help!
             </p>
           </motion.div>
@@ -108,7 +108,7 @@ export default function Contact() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                     placeholder="Your name"
                   />
                 </div>
@@ -123,7 +123,7 @@ export default function Contact() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                     placeholder="your@email.com"
                   />
                 </div>
@@ -138,7 +138,7 @@ export default function Contact() {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                     placeholder="How can we help?"
                   />
                 </div>
@@ -153,7 +153,7 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     rows="6"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                     placeholder="Your message..."
                   ></textarea>
                 </div>
@@ -161,7 +161,7 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all disabled:opacity-50"
+                  className="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white py-4 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all disabled:opacity-50"
                 >
                   {loading ? 'Sending...' : 'Send Message'}
                 </button>
@@ -209,9 +209,9 @@ export default function Contact() {
                 </div>
               )}
 
-              <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
+              <div className="bg-gradient-to-r from-primary-600 to-primary-700 rounded-2xl p-8 text-white">
                 <h3 className="text-2xl font-bold mb-4">Follow Us</h3>
-                <p className="mb-6 text-blue-100">
+                <p className="mb-6 text-primary-100">
                   Stay connected on social media
                 </p>
                 <div className="flex space-x-4">

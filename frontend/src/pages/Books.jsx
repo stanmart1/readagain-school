@@ -26,7 +26,7 @@ export default function Books() {
       <Header />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20 mt-20">
+      <section className="bg-gradient-to-r from-primary-600 to-primary-700 text-white py-20 mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0 }}
@@ -37,7 +37,7 @@ export default function Books() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
               Build Your School Library
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-blue-100">
+            <p className="text-xl md:text-2xl mb-8 text-primary-100">
               Thousands of books for students across all grades and subjects
             </p>
             
@@ -51,7 +51,7 @@ export default function Books() {
                   onChange={(e) => setSearch(e.target.value)}
                   className="w-full px-6 py-4 rounded-full text-gray-900 text-lg focus:outline-none focus:ring-4 focus:ring-blue-300"
                 />
-                <button className="absolute right-2 top-2 bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700">
+                <button className="absolute right-2 top-2 bg-primary-600 text-white px-6 py-2 rounded-full hover:bg-blue-700">
                   <i className="ri-search-line"></i>
                 </button>
               </div>
@@ -65,7 +65,7 @@ export default function Books() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {loading ? (
             <div className="flex justify-center py-20">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
             </div>
           ) : books.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

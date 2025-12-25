@@ -22,15 +22,15 @@ const Roles = () => {
   const getRoleColor = (roleName) => {
     switch (roleName) {
       case 'super_admin':
-        return 'bg-gradient-to-r from-purple-600 to-pink-600';
+        return 'bg-gradient-to-r from-primary-600 to-primary-700';
       case 'admin':
-        return 'bg-gradient-to-r from-blue-600 to-purple-600';
+        return 'bg-gradient-to-r from-primary-600 to-primary-700';
       case 'moderator':
         return 'bg-gradient-to-r from-cyan-500 to-blue-500';
       case 'user':
         return 'bg-gradient-to-r from-gray-500 to-gray-600';
       default:
-        return 'bg-gradient-to-r from-blue-600 to-purple-600';
+        return 'bg-gradient-to-r from-primary-600 to-primary-700';
     }
   };
 
@@ -61,7 +61,7 @@ const Roles = () => {
     return (
       <AdminLayout>
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
         </div>
       </AdminLayout>
     );
@@ -79,7 +79,7 @@ const Roles = () => {
             </div>
             <button
               onClick={() => setShowCreateModal(true)}
-              className="w-full sm:w-auto px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
+              className="w-full sm:w-auto px-6 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
             >
               <i className="ri-add-line mr-2"></i>
               Create Role
@@ -99,7 +99,7 @@ const Roles = () => {
             </p>
             <button
               onClick={() => setShowCreateModal(true)}
-              className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
+              className="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
             >
               <i className="ri-add-line mr-2"></i>
               Create Your First Role

@@ -177,7 +177,7 @@ const Audit = () => {
               </button>
               <button
                 onClick={handleExport}
-                className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 flex items-center"
+                className="px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 flex items-center"
               >
                 <i className="ri-download-line mr-2"></i>
                 Export
@@ -201,7 +201,7 @@ const Audit = () => {
                   type="text"
                   value={filters.userId}
                   onChange={(e) => setFilters({...filters, userId: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                   placeholder="Filter by user ID"
                 />
               </div>
@@ -211,7 +211,7 @@ const Audit = () => {
                   type="text"
                   value={filters.action}
                   onChange={(e) => setFilters({...filters, action: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                   placeholder="Filter by action"
                 />
               </div>
@@ -221,14 +221,14 @@ const Audit = () => {
                   type="text"
                   value={filters.resource}
                   onChange={(e) => setFilters({...filters, resource: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                   placeholder="Filter by resource"
                 />
               </div>
               <div className="flex items-end gap-2">
                 <button
                   onClick={applyFilters}
-                  className="flex-1 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300"
+                  className="flex-1 px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300"
                 >
                   Apply
                 </button>
@@ -563,7 +563,7 @@ const Audit = () => {
 
         {loading && (
           <div className="flex items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
           </div>
         )}
 

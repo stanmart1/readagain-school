@@ -6,8 +6,7 @@ export default function HeroSection() {
     { id: 1, rotation: -8, delay: 0, y: 20 },
     { id: 2, rotation: 5, delay: 0.3, y: -30 },
     { id: 3, rotation: -3, delay: 0.6, y: 10 },
-    { id: 4, rotation: 8, delay: 0.9, y: -20 },
-    { id: 5, rotation: -5, delay: 1.2, y: 30 }
+    { id: 4, rotation: 8, delay: 0.9, y: -20 }
   ];
 
   return (
@@ -80,27 +79,6 @@ export default function HeroSection() {
                 <i className="ri-book-line"></i>
                 <span>Browse Books</span>
               </Link>
-            </motion.div>
-
-            {/* Stats */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="mt-12 grid grid-cols-3 gap-6"
-            >
-              <div>
-                <div className="text-3xl font-bold text-yellow-400">1000+</div>
-                <div className="text-sm text-primary-200">Books</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-yellow-400">500+</div>
-                <div className="text-sm text-primary-200">Students</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-yellow-400">50+</div>
-                <div className="text-sm text-primary-200">Schools</div>
-              </div>
             </motion.div>
           </motion.div>
           

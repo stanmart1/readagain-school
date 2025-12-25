@@ -17,7 +17,7 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center px-4">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -26,7 +26,7 @@ export default function ForgotPassword() {
       >
         {/* Back to Home */}
         <div className="mb-6">
-          <Link to="/" className="text-white hover:text-blue-100 inline-flex items-center">
+          <Link to="/" className="text-white hover:text-primary-100 inline-flex items-center">
             <i className="ri-arrow-left-line mr-2"></i>
             Back to Home
           </Link>
@@ -41,8 +41,8 @@ export default function ForgotPassword() {
           </div>
 
           <div className="text-center mb-6">
-            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <i className="ri-lock-unlock-line text-3xl text-blue-600"></i>
+            <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <i className="ri-lock-unlock-line text-3xl text-primary-600"></i>
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Forgot Password?</h2>
             <p className="text-gray-600">
@@ -61,7 +61,7 @@ export default function ForgotPassword() {
               </p>
               <Link
                 to="/login"
-                className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700"
+                className="inline-block bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700"
               >
                 Back to Login
               </Link>
@@ -96,14 +96,14 @@ export default function ForgotPassword() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all disabled:opacity-50"
+                  className="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all disabled:opacity-50"
                 >
                   {loading ? 'Sending...' : 'Send Reset Link'}
                 </button>
               </form>
 
               <div className="mt-6 text-center">
-                <Link to="/login" className="text-blue-600 hover:text-purple-600 font-semibold">
+                <Link to="/login" className="text-primary-600 hover:text-purple-600 font-semibold">
                   <i className="ri-arrow-left-line mr-2"></i>
                   Back to Login
                 </Link>

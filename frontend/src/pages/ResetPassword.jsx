@@ -75,7 +75,7 @@ export default function ResetPassword() {
 
   if (tokenError) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center px-4">
+      <div className="min-h-screen bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -91,7 +91,7 @@ export default function ResetPassword() {
             </p>
             <Link
               to="/forgot-password"
-              className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700"
+              className="inline-block bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700"
             >
               Request New Reset Link
             </Link>
@@ -102,7 +102,7 @@ export default function ResetPassword() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center px-4">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -110,7 +110,7 @@ export default function ResetPassword() {
       >
         {/* Back to Home */}
         <div className="mb-6">
-          <Link to="/" className="text-white hover:text-blue-100 inline-flex items-center">
+          <Link to="/" className="text-white hover:text-primary-100 inline-flex items-center">
             <i className="ri-arrow-left-line mr-2"></i>
             Back to Home
           </Link>
@@ -133,13 +133,13 @@ export default function ResetPassword() {
               <p className="text-gray-600 mb-6">
                 Your password has been successfully reset. Redirecting to login...
               </p>
-              <div className="animate-spin inline-block w-6 h-6 border-3 border-blue-600 border-t-transparent rounded-full"></div>
+              <div className="animate-spin inline-block w-6 h-6 border-3 border-primary-600 border-t-transparent rounded-full"></div>
             </div>
           ) : (
             <>
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="ri-lock-line text-3xl text-blue-600"></i>
+                <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <i className="ri-lock-line text-3xl text-primary-600"></i>
                 </div>
               </div>
 
@@ -221,14 +221,14 @@ export default function ResetPassword() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all disabled:opacity-50"
+                  className="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all disabled:opacity-50"
                 >
                   {loading ? 'Resetting Password...' : 'Reset Password'}
                 </button>
               </form>
 
               <div className="mt-6 text-center">
-                <Link to="/login" className="text-blue-600 hover:text-purple-600 font-semibold">
+                <Link to="/login" className="text-primary-600 hover:text-purple-600 font-semibold">
                   <i className="ri-arrow-left-line mr-2"></i>
                   Back to Login
                 </Link>

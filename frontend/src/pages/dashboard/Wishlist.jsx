@@ -32,7 +32,7 @@ export default function Wishlist() {
                 className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow"
               >
                 <div className="relative">
-                  <div className="h-64 bg-gradient-to-br from-blue-600 to-purple-600"></div>
+                  <div className="h-64 bg-gradient-to-br from-primary-600 to-primary-700"></div>
                   <button 
                     onClick={() => handleRemove(item.id)}
                     className="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-red-50 transition-colors"
@@ -51,7 +51,7 @@ export default function Wishlist() {
                   <p className="text-gray-600 text-sm mb-3">{item.author}</p>
                   
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-2xl font-bold text-blue-600">${item.price}</span>
+                    <span className="text-2xl font-bold text-primary-600">${item.price}</span>
                     {item.inStock && (
                       <span className="text-green-600 text-sm font-semibold">
                         <i className="ri-check-line"></i> In Stock
@@ -64,7 +64,7 @@ export default function Wishlist() {
                       disabled={!item.inStock}
                       className={`flex-1 py-2 rounded-lg text-sm font-semibold ${
                         item.inStock
-                          ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:shadow-md'
+                          ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white hover:shadow-md'
                           : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                       }`}
                     >
@@ -91,7 +91,7 @@ export default function Wishlist() {
             <p className="text-gray-500 mb-6">Save books you love for later</p>
             <Link
               to="/books"
-              className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold"
+              className="inline-block bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-3 rounded-lg font-semibold"
             >
               Browse Books
             </Link>

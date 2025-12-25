@@ -25,11 +25,11 @@ export default function NotFound() {
             {/* 404 Illustration */}
             <div className="mb-8">
               <div className="inline-block relative">
-                <div className="text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+                <div className="text-9xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-700">
                   404
                 </div>
                 <div className="absolute -top-4 -right-4">
-                  <i className="ri-emotion-sad-line text-6xl text-blue-600"></i>
+                  <i className="ri-emotion-sad-line text-6xl text-primary-600"></i>
                 </div>
               </div>
             </div>
@@ -60,9 +60,9 @@ export default function NotFound() {
                   <input
                     type="text"
                     placeholder="Search for books, blog posts..."
-                    className="w-full px-6 py-4 rounded-full border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-6 py-4 rounded-full border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   />
-                  <button className="absolute right-2 top-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full hover:from-blue-700 hover:to-purple-700">
+                  <button className="absolute right-2 top-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-2 rounded-full hover:from-blue-700 hover:to-purple-700">
                     <i className="ri-search-line"></i>
                   </button>
                 </div>
@@ -85,7 +85,7 @@ export default function NotFound() {
                     to={page.path}
                     className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all group"
                   >
-                    <i className={`${page.icon} text-4xl text-blue-600 group-hover:text-purple-600 transition-colors mb-3`}></i>
+                    <i className={`${page.icon} text-4xl text-primary-600 group-hover:text-purple-600 transition-colors mb-3`}></i>
                     <p className="font-semibold text-gray-900">{page.name}</p>
                   </Link>
                 ))}
@@ -101,7 +101,7 @@ export default function NotFound() {
             >
               <Link
                 to="/"
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition-all"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition-all"
               >
                 <i className="ri-home-line"></i>
                 Back to Home

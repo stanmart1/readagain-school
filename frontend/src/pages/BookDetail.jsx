@@ -65,7 +65,7 @@ export default function BookDetail() {
       <div className="min-h-screen bg-gray-50">
         <Header />
         <div className="flex justify-center items-center py-20">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
         </div>
         <Footer />
       </div>
@@ -78,7 +78,7 @@ export default function BookDetail() {
         <Header />
         <div className="max-w-7xl mx-auto px-4 py-20 text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Book not found</h2>
-          <Link to="/books" className="text-blue-600 hover:text-purple-600">
+          <Link to="/books" className="text-primary-600 hover:text-primary-700">
             Browse all books
           </Link>
         </div>
@@ -145,7 +145,7 @@ export default function BookDetail() {
                 <button 
                   onClick={handleAddToCart}
                   disabled={addingToCart}
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 px-6 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {addingToCart ? (
                     <>

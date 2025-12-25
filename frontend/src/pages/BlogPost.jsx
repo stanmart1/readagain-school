@@ -62,7 +62,7 @@ export default function BlogPost() {
       <div className="min-h-screen bg-gray-50">
         <Header />
         <div className="flex justify-center items-center py-20">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
         </div>
         <Footer />
       </div>
@@ -75,7 +75,7 @@ export default function BlogPost() {
         <Header />
         <div className="max-w-7xl mx-auto px-4 py-20 text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Post not found</h2>
-          <Link to="/blog" className="text-blue-600 hover:text-purple-600">
+          <Link to="/blog" className="text-primary-600 hover:text-primary-700">
             Back to Blog
           </Link>
         </div>
@@ -89,7 +89,7 @@ export default function BlogPost() {
       <Header />
 
       {/* Hero Image */}
-      <div className="relative h-96 bg-gradient-to-r from-blue-600 to-purple-600">
+      <div className="relative h-96 bg-gradient-to-r from-primary-600 to-primary-700">
         {(post.featured_image_url || post.cover_image) && (
           <img
             src={(post.featured_image_url || post.cover_image)?.startsWith('http') ? (post.featured_image_url || post.cover_image) : `${import.meta.env.VITE_API_BASE_URL}${post.featured_image_url || post.cover_image}`}
@@ -124,7 +124,7 @@ export default function BlogPost() {
 
           {/* Author */}
           <div className="flex items-center mb-8 pb-8 border-b">
-            <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
+            <div className="w-12 h-12 bg-gradient-to-r from-primary-600 to-primary-700 rounded-full flex items-center justify-center text-white font-bold">
               {post.author_name?.[0] || 'A'}
             </div>
             <div className="ml-4">
@@ -136,12 +136,12 @@ export default function BlogPost() {
           {/* Content */}
           <div className="prose prose-lg max-w-none mb-8">
             {post.excerpt && (
-              <p className="text-xl text-gray-600 mb-6 italic border-l-4 border-blue-600 pl-4">
+              <p className="text-xl text-gray-600 mb-6 italic border-l-4 border-primary-600 pl-4">
                 {post.excerpt.replace(/<[^>]*>/g, '')}
               </p>
             )}
             <div
-              className="text-gray-700 leading-relaxed prose-headings:text-gray-900 prose-h2:text-3xl prose-h2:font-bold prose-h2:mt-8 prose-h2:mb-4 prose-h3:text-2xl prose-h3:font-semibold prose-h3:mt-6 prose-h3:mb-3 prose-p:mb-4 prose-ul:list-disc prose-ul:ml-6 prose-ul:mb-4 prose-ol:list-decimal prose-ol:ml-6 prose-ol:mb-4 prose-li:mb-2 prose-strong:font-semibold prose-strong:text-gray-900 prose-blockquote:border-l-4 prose-blockquote:border-blue-600 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-gray-600"
+              className="text-gray-700 leading-relaxed prose-headings:text-gray-900 prose-h2:text-3xl prose-h2:font-bold prose-h2:mt-8 prose-h2:mb-4 prose-h3:text-2xl prose-h3:font-semibold prose-h3:mt-6 prose-h3:mb-3 prose-p:mb-4 prose-ul:list-disc prose-ul:ml-6 prose-ul:mb-4 prose-ol:list-decimal prose-ol:ml-6 prose-ol:mb-4 prose-li:mb-2 prose-strong:font-semibold prose-strong:text-gray-900 prose-blockquote:border-l-4 prose-blockquote:border-primary-600 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-gray-600"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
           </div>

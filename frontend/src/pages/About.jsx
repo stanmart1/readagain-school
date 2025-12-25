@@ -105,7 +105,7 @@ export default function About() {
       <Header />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-20 mt-20" style={aboutData.hero?.image_url ? {
+      <section className="bg-gradient-to-r from-primary-600 to-primary-700 text-white py-20 mt-20" style={aboutData.hero?.image_url ? {
         backgroundImage: `linear-gradient(rgba(147, 51, 234, 0.8), rgba(79, 70, 229, 0.8)), url(${getFileUrl(aboutData.hero.image_url)})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center'
@@ -123,7 +123,7 @@ export default function About() {
               </h1>
             )}
             {aboutData.hero?.subtitle && (
-              <div className="text-xl md:text-2xl text-purple-100"
+              <div className="text-xl md:text-2xl text-primary-100"
                    {...createHTMLProps(aboutData.hero.subtitle)}
               />
             )}
@@ -212,7 +212,7 @@ export default function About() {
                 transition={{ delay: index * 0.05, duration: 0.3 }}
                 className="text-center p-6 bg-gray-50 rounded-xl hover:shadow-lg transition-shadow"
               >
-                <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-gradient-to-r from-primary-600 to-primary-700 rounded-full flex items-center justify-center mx-auto mb-4">
                   <i className={`${value.icon} text-3xl text-white`}></i>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">
@@ -280,10 +280,10 @@ export default function About() {
                       <h3 className="text-2xl font-bold text-gray-900 mb-2">
                         {member.name}
                       </h3>
-                      <p className="text-lg text-purple-600 font-medium mb-4">
+                      <p className="text-lg text-primary-600 font-medium mb-4">
                         {member.role}
                       </p>
-                      <span className="text-purple-600 hover:text-purple-700 font-medium flex items-center gap-1">
+                      <span className="text-primary-600 hover:text-primary-700 font-medium flex items-center gap-1">
                         <span>View Bio</span>
                         <i className="ri-arrow-right-line"></i>
                       </span>
@@ -336,7 +336,7 @@ export default function About() {
               <h2 className="text-3xl font-bold text-gray-900 mb-2">
                 {selectedMember.name}
               </h2>
-              <p className="text-xl text-purple-600 font-medium mb-6">
+              <p className="text-xl text-primary-600 font-medium mb-6">
                 {selectedMember.role}
               </p>
               <div className="prose prose-lg max-w-none text-gray-600" dangerouslySetInnerHTML={{ __html: selectedMember.bio }} />
@@ -347,7 +347,7 @@ export default function About() {
 
       {/* CTA Section */}
       {aboutData.cta && (
-      <section className="py-20 bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
+      <section className="py-20 bg-gradient-to-r from-primary-600 to-primary-700 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0 }}
@@ -361,14 +361,14 @@ export default function About() {
               </h2>
             )}
             {aboutData.cta?.description && (
-              <div className="text-xl mb-8 text-purple-100"
+              <div className="text-xl mb-8 text-primary-100"
                    {...createHTMLProps(aboutData.cta.description)}
               />
             )}
             {aboutData.cta?.primaryButton && (
               <a
                 href="/signup"
-                className="inline-block bg-white text-purple-600 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors text-lg"
+                className="inline-block bg-white text-primary-600 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors text-lg"
               >
                 {aboutData.cta.primaryButton}
               </a>

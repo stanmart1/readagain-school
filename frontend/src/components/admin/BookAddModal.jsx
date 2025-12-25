@@ -246,11 +246,11 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
         {/* Progress Bar */}
         <div className="px-4 sm:px-6 py-3">
           <div className="flex items-center space-x-2 mb-2">
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium ${currentStep >= 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
+            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium ${currentStep >= 1 ? 'bg-primary-600 text-white' : 'bg-gray-200 text-gray-600'
               }`}>1</div>
-            <div className={`flex-1 h-1 rounded-full ${currentStep >= 2 ? 'bg-blue-600' : 'bg-gray-200'
+            <div className={`flex-1 h-1 rounded-full ${currentStep >= 2 ? 'bg-primary-600' : 'bg-gray-200'
               }`}></div>
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium ${currentStep >= 2 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
+            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium ${currentStep >= 2 ? 'bg-primary-600 text-white' : 'bg-gray-200 text-gray-600'
               }`}>2</div>
           </div>
           <div className="flex justify-between text-xs text-gray-600">
@@ -275,7 +275,7 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
                     type="text"
                     value={formData.title}
                     onChange={(e) => handleInputChange('title', e.target.value)}
-                    className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ${errors.title ? 'border-red-400 bg-red-50' : 'border-gray-200 hover:border-gray-300'
+                    className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-blue-500 transition-all ${errors.title ? 'border-red-400 bg-red-50' : 'border-gray-200 hover:border-gray-300'
                       }`}
                     placeholder="Enter the book title"
                   />
@@ -297,7 +297,7 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
                           handleInputChange('author_id', e.target.value);
                         }
                       }}
-                      className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all appearance-none bg-white ${errors.author_id ? 'border-red-400 bg-red-50' : 'border-gray-200 hover:border-gray-300'
+                      className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-blue-500 transition-all appearance-none bg-white ${errors.author_id ? 'border-red-400 bg-red-50' : 'border-gray-200 hover:border-gray-300'
                         }`}
                     >
                       <option value="">Select an author</option>
@@ -306,7 +306,7 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
                           {author.business_name}
                         </option>
                       ))}
-                      <option value="add_new" className="font-medium text-blue-600">
+                      <option value="add_new" className="font-medium text-primary-600">
                         + Add New Author
                       </option>
                     </select>
@@ -325,13 +325,13 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
                           value={newAuthorName}
                           onChange={(e) => setNewAuthorName(e.target.value)}
                           placeholder="Enter author name"
-                          className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                          className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                         />
                         <button
                           type="button"
                           onClick={handleAddAuthor}
                           disabled={addingAuthor || !newAuthorName.trim()}
-                          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+                          className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50"
                         >
                           {addingAuthor ? 'Adding...' : 'Add'}
                         </button>
@@ -358,7 +358,7 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
                   <select
                     value={formData.category_id}
                     onChange={(e) => handleInputChange('category_id', e.target.value)}
-                    className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all appearance-none bg-white ${errors.category_id ? 'border-red-400 bg-red-50' : 'border-gray-200 hover:border-gray-300'
+                    className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-blue-500 transition-all appearance-none bg-white ${errors.category_id ? 'border-red-400 bg-red-50' : 'border-gray-200 hover:border-gray-300'
                       }`}
                   >
                     <option value="">Select a category</option>
@@ -380,7 +380,7 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
                     type="text"
                     value={formData.isbn}
                     onChange={(e) => handleInputChange('isbn', e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-blue-500"
                     placeholder="978-0-000-00000-0"
                   />
                 </div>
@@ -426,7 +426,7 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
                       type="text"
                       value={formData.publisher}
                       onChange={(e) => handleInputChange('publisher', e.target.value)}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-blue-500"
                       placeholder="Publisher name"
                     />
                   </div>
@@ -508,8 +508,8 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
                 >
                   {uploadingFile === 'cover' ? (
                     <>
-                      <i className="ri-loader-4-line text-4xl text-blue-600 mb-2 animate-spin"></i>
-                      <p className="text-sm text-blue-600 font-medium">Uploading cover...</p>
+                      <i className="ri-loader-4-line text-4xl text-primary-600 mb-2 animate-spin"></i>
+                      <p className="text-sm text-primary-600 font-medium">Uploading cover...</p>
                     </>
                   ) : formData.cover_image ? (
                     <>
@@ -556,8 +556,8 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
                 >
                   {uploadingFile === 'book' ? (
                     <>
-                      <i className="ri-loader-4-line text-4xl text-blue-600 mb-2 animate-spin"></i>
-                      <p className="text-sm text-blue-600 font-medium">Uploading book file...</p>
+                      <i className="ri-loader-4-line text-4xl text-primary-600 mb-2 animate-spin"></i>
+                      <p className="text-sm text-primary-600 font-medium">Uploading book file...</p>
                       <p className="text-xs text-gray-500 mt-1">This may take a while for large files</p>
                     </>
                   ) : formData.book_file ? (
@@ -594,7 +594,7 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
                   </div>
                   <div className="w-full bg-blue-200 rounded-full h-2">
                     <div
-                      className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                      className="bg-primary-600 h-2 rounded-full transition-all duration-300"
                       style={{ width: `${uploadProgress}%` }}
                     ></div>
                   </div>
@@ -614,7 +614,7 @@ const BookAddModal = ({ isOpen, onClose, categories, authors, onSuccess }) => {
                   type="button"
                   onClick={handleSubmit}
                   disabled={isSubmitting || uploadingFile}
-                  className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-6 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? 'Adding Book...' : 'Add Book'}
                 </button>

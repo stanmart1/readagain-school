@@ -108,7 +108,7 @@ const AdminAbout = () => {
     return (
       <AdminLayout>
         <div className="flex items-center justify-center h-96">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
         </div>
       </AdminLayout>
     );
@@ -119,11 +119,11 @@ const AdminAbout = () => {
       <div className="space-y-6">
         {/* Header */}
         <div className="bg-white rounded-xl shadow-md overflow-hidden">
-          <div className="bg-gradient-to-r from-blue-50 to-purple-50 px-6 py-4 border-b border-gray-200">
+          <div className="bg-gradient-to-r from-primary-50 to-primary-100 px-6 py-4 border-b border-gray-200">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div>
                 <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center gap-2">
-                  <i className="ri-information-line text-blue-600"></i>
+                  <i className="ri-information-line text-primary-600"></i>
                   About Page Management
                 </h1>
                 <p className="text-gray-600 mt-1">Manage your About Us page content</p>
@@ -131,7 +131,7 @@ const AdminAbout = () => {
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-2"
+                className="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-2"
               >
                 {saving ? (
                   <>
@@ -177,7 +177,7 @@ const AdminAbout = () => {
                     onClick={() => setActiveSection(section.id)}
                     className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-all duration-200 ${
                       activeSection === section.id 
-                        ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-md' 
+                        ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-md' 
                         : 'text-gray-600 hover:bg-gray-50'
                     }`}
                   >
@@ -447,7 +447,7 @@ const AdminAbout = () => {
                                     }
                                   }
                                 }}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm"
                               />
                               {member.image && (
                                 <img src={getFileUrl(member.image)} alt={member.name} className="mt-2 w-full h-48 object-cover rounded-lg border border-gray-200" />
@@ -462,7 +462,7 @@ const AdminAbout = () => {
                                 newTeam[idx] = { ...member, name: e.target.value };
                                 updateContent('team', newTeam);
                               }}
-                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                             />
                             <input
                               type="text"
@@ -473,7 +473,7 @@ const AdminAbout = () => {
                                 newTeam[idx] = { ...member, role: e.target.value };
                                 updateContent('team', newTeam);
                               }}
-                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                             />
                             <div>
                               <label className="block text-sm font-medium text-gray-700 mb-2">Bio</label>

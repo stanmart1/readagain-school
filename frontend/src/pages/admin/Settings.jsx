@@ -31,7 +31,7 @@ export default function SystemSettings() {
     return (
       <AdminLayout>
         <div className="flex items-center justify-center h-96">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
         </div>
       </AdminLayout>
     );
@@ -55,7 +55,7 @@ export default function SystemSettings() {
           type="text"
           value={settings.site_name || ''}
           onChange={(e) => handleSettingChange('site_name', e.target.value)}
-          className="w-full px-2 sm:px-3 py-1.5 sm:py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-2 sm:px-3 py-1.5 sm:py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
         />
       </div>
       
@@ -65,7 +65,7 @@ export default function SystemSettings() {
           value={settings.site_description || ''}
           onChange={(e) => handleSettingChange('site_description', e.target.value)}
           rows={3}
-          className="w-full px-2 sm:px-3 py-1.5 sm:py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-2 sm:px-3 py-1.5 sm:py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
         />
       </div>
       
@@ -179,7 +179,7 @@ export default function SystemSettings() {
           max="1440"
           value={settings.session_timeout_minutes || settings.sessionTimeoutMinutes || 40}
           onChange={(e) => handleSettingChange('session_timeout_minutes', parseInt(e.target.value))}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
         />
         <p className="text-xs text-gray-500 mt-1">Users will be warned 5 minutes before timeout (5-1440 minutes)</p>
       </div>
@@ -205,7 +205,7 @@ export default function SystemSettings() {
         <select
           value={settings.backup_frequency || 'daily'}
           onChange={(e) => handleSettingChange('backup_frequency', e.target.value)}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
         >
           <option value="hourly">Hourly</option>
           <option value="daily">Daily</option>
@@ -220,7 +220,7 @@ export default function SystemSettings() {
           type="number"
           value={settings.max_file_size_mb || 10}
           onChange={(e) => handleSettingChange('max_file_size_mb', parseInt(e.target.value))}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
         />
       </div>
       
@@ -293,7 +293,7 @@ export default function SystemSettings() {
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center space-x-1 sm:space-x-2 px-2 sm:px-4 py-2 rounded-md font-medium text-xs sm:text-sm whitespace-nowrap ${
                     activeTab === tab.id
-                      ? 'bg-white text-blue-600 shadow-sm'
+                      ? 'bg-white text-primary-600 shadow-sm'
                       : 'text-gray-600 hover:text-gray-800'
                   }`}
                 >

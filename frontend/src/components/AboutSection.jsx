@@ -39,7 +39,7 @@ export default function AboutSection() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
           </div>
         </div>
       </section>
@@ -77,7 +77,7 @@ export default function AboutSection() {
             transition={{ duration: 0.8 }}
           >
             <div className="mb-6">
-              <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-blue-100 text-blue-800 mb-4">
+              <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-primary-100 text-primary-800 mb-4">
                 <i className="ri-star-line mr-2"></i>
                 About ReadAgain
               </span>
@@ -107,7 +107,7 @@ export default function AboutSection() {
                   className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
                 >
                   <i className={`${value.icon} text-2xl ${
-                    index === 0 ? 'text-blue-600' : 'text-purple-600'
+                    index === 0 ? 'text-primary-600' : 'text-primary-700'
                   }`}></i>
                   <div>
                     <h4 className="font-semibold text-gray-900">{value.title}</h4>
@@ -121,7 +121,7 @@ export default function AboutSection() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 to="/about"
-                className="inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
+                className="inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-full font-semibold hover:from-primary-700 hover:to-primary-800 transition-all duration-300 transform hover:scale-105"
               >
                 <span>Learn More</span>
                 <i className="ri-arrow-right-line"></i>

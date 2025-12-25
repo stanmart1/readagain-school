@@ -181,7 +181,7 @@ export default function FeaturedBooks() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-blue-100 text-blue-800 mb-4">
+          <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-primary-100 text-primary-800 mb-4">
             <i className="ri-book-line mr-2"></i>
             Our Collection
           </span>
@@ -206,7 +206,7 @@ export default function FeaturedBooks() {
               whileTap={{ scale: 0.95 }}
               onClick={() => setSelectedCategory(category.id)}
               className={`flex items-center space-x-2 px-6 py-3 rounded-full font-semibold transition-all ${selectedCategory === category.id
-                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
+                ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-lg'
                 : 'bg-white text-gray-700 hover:bg-gray-100 shadow-md'
                 }`}
             >
@@ -219,7 +219,7 @@ export default function FeaturedBooks() {
         {/* Books Grid/Carousel */}
         {loading ? (
           <div className="flex justify-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
           </div>
         ) : books.length === 0 ? (
           <div className="text-center py-20">
@@ -267,7 +267,7 @@ export default function FeaturedBooks() {
                           onClick={(e) => handleAddToCart(book, e)}
                           className={`px-4 py-2 rounded-lg font-semibold transition-all text-white ${addedToCart.has(book.id)
                             ? 'bg-green-600 hover:bg-green-700'
-                            : 'bg-blue-600 hover:bg-blue-700'
+                            : 'bg-primary-600 hover:bg-primary-700'
                             }`}
                         >
                           {addedToCart.has(book.id) ? (
@@ -304,7 +304,7 @@ export default function FeaturedBooks() {
 
                   {/* Book Info */}
                   <div className="p-4">
-                    <h3 className="font-bold text-lg text-gray-900 mb-1 line-clamp-1 group-hover:text-blue-600 transition-colors">
+                    <h3 className="font-bold text-lg text-gray-900 mb-1 line-clamp-1 group-hover:text-primary-600 transition-colors">
                       {book.title}
                     </h3>
                     <p className="text-gray-600 text-sm mb-3 line-clamp-1">
@@ -437,7 +437,7 @@ export default function FeaturedBooks() {
                           onClick={(e) => handleAddToCart(book, e)}
                           className={`flex-1 py-2 rounded-lg font-semibold transition-all text-white text-sm ${addedToCart.has(book.id)
                             ? 'bg-green-600 hover:bg-green-700'
-                            : 'bg-blue-600 hover:bg-blue-700'
+                            : 'bg-primary-600 hover:bg-primary-700'
                             }`}
                         >
                           {addedToCart.has(book.id) ? (
@@ -480,7 +480,7 @@ export default function FeaturedBooks() {
           >
             <Link
               to="/books"
-              className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
+              className="inline-flex items-center space-x-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
               <span>View All Books</span>
               <i className="ri-arrow-right-line"></i>

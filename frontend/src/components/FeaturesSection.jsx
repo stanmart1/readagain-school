@@ -159,7 +159,9 @@ export default function FeaturesSection() {
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="bg-white rounded-2xl p-8 shadow-lg h-80 flex flex-col"
+                    whileHover={{ y: -8, scale: 1.02 }}
+                    transition={{ duration: 0.3 }}
+                    className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl h-80 flex flex-col transition-shadow duration-300"
                   >
                     <div className={`w-16 h-16 rounded-xl flex items-center justify-center bg-gradient-to-r ${feature.color} shadow-lg mb-6 flex-shrink-0`}>
                       <i className={`${feature.icon} text-white text-3xl`}></i>

@@ -56,7 +56,7 @@ export default function AboutSection() {
   }
 
   return (
-    <section className="py-32 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
+    <section className="py-16 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute top-20 right-0 w-72 h-72 bg-primary-100 rounded-full blur-3xl opacity-30"></div>
       <div className="absolute bottom-20 left-0 w-96 h-96 bg-yellow-100 rounded-full blur-3xl opacity-20"></div>
@@ -68,12 +68,12 @@ export default function AboutSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-8"
         >
-          <span className="inline-block px-4 py-2 bg-primary-100 text-primary-700 rounded-full text-sm font-semibold mb-6">
+          <span className="inline-block px-4 py-2 bg-primary-100 text-primary-700 rounded-full text-sm font-semibold mb-4">
             Who We Are
           </span>
-          <h2 className="text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+          <h2 className="text-5xl lg:text-6xl font-bold text-gray-900 mb-4 leading-tight">
             {aboutContent.hero?.title || 'About ReadAgain'}
           </h2>
           <div className="text-2xl text-gray-600 font-light max-w-3xl mx-auto leading-relaxed"
@@ -87,9 +87,9 @@ export default function AboutSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <div className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto mb-10"
+          <div className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto mb-8"
                {...createHTMLProps(aboutContent.mission?.description || defaultContent.mission.description)}
           />
           

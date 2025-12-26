@@ -84,7 +84,7 @@ export default function EReaderPreview() {
             </div>
 
             {/* Book Content */}
-            <div className="p-6 h-96 overflow-hidden relative">
+            <div className="p-6 pb-24 h-96 overflow-hidden relative">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={page}

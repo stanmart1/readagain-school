@@ -33,7 +33,7 @@ export default function Login() {
   return (
     <div className="min-h-screen flex">
       {/* Left Side - Branding & Benefits */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-primary-600 to-primary-700 p-12 flex-col justify-between relative overflow-hidden">
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-primary-700 to-primary-800 p-12 flex-col justify-center relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-20 left-20 w-64 h-64 bg-white rounded-full blur-3xl"></div>
@@ -41,11 +41,6 @@ export default function Login() {
         </div>
 
         <div className="relative z-10">
-          <Link to="/" className="inline-flex items-center text-white hover:text-primary-100 transition-colors mb-16">
-            <i className="ri-arrow-left-line mr-2"></i>
-            Back to Home
-          </Link>
-
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -82,18 +77,6 @@ export default function Login() {
             </div>
           </motion.div>
         </div>
-
-        {/* Illustration */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.5 }}
-          className="relative z-10 flex justify-center"
-        >
-          <div className="w-64 h-64 bg-white/10 backdrop-blur-sm rounded-3xl flex items-center justify-center">
-            <i className="ri-book-read-line text-9xl text-white/80"></i>
-          </div>
-        </motion.div>
       </div>
 
       {/* Right Side - Login Form */}
@@ -115,6 +98,10 @@ export default function Login() {
           {/* Form Card */}
           <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
             <div className="mb-8">
+              <Link to="/" className="inline-flex items-center text-gray-600 hover:text-primary-600 transition-colors mb-6">
+                <i className="ri-arrow-left-line mr-2"></i>
+                Back to Home
+              </Link>
               <h2 className="text-3xl font-bold text-gray-900 mb-2">Login</h2>
               <p className="text-gray-600">Enter your credentials to access your account</p>
             </div>

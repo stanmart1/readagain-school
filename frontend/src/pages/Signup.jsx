@@ -228,8 +228,8 @@ export default function Signup() {
         {/* Signup Form */}
         <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-gray-100">
           {/* Logo/Brand */}
-          <div className="mb-6">
-            <Link to="/" className="hidden lg:inline-flex items-center text-gray-600 hover:text-primary-600 transition-colors mb-6">
+          <div className="mb-4">
+            <Link to="/" className="hidden lg:inline-flex items-center text-gray-600 hover:text-primary-600 transition-colors mb-4">
               <i className="ri-arrow-left-line mr-2"></i>
               Back to Home
             </Link>
@@ -238,7 +238,7 @@ export default function Signup() {
           </div>
 
           {/* Progress Indicator */}
-          <div className="mb-8">
+          <div className="mb-6">
             <div className="flex items-center justify-center mb-4">
               <div className="flex items-center space-x-2 sm:space-x-4">
                 <div className={`flex items-center justify-center w-10 h-10 rounded-full text-sm font-semibold transition-all ${

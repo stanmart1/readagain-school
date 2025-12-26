@@ -70,7 +70,7 @@ export default function MasonryFeatures() {
         </motion.div>
         
         {/* Masonry Grid - Desktop, Regular Grid - Mobile */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:auto-rows-[200px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:auto-rows-[240px]">
           {features.map((feature, index) => (
             <motion.div
               key={index}
@@ -79,17 +79,17 @@ export default function MasonryFeatures() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -8, scale: 1.02 }}
-              className={`bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 ${
+              className={`bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col ${
                 feature.size === 'tall' ? 'lg:row-span-2' : 'lg:row-span-1'
               }`}
             >
-              <div className={`w-16 h-16 rounded-xl flex items-center justify-center bg-gradient-to-r ${feature.color} shadow-lg mb-6`}>
-                <i className={`${feature.icon} text-white text-3xl`}></i>
+              <div className={`w-14 h-14 rounded-xl flex items-center justify-center bg-gradient-to-r ${feature.color} shadow-lg mb-4 flex-shrink-0`}>
+                <i className={`${feature.icon} text-white text-2xl`}></i>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
+              <h3 className="text-lg font-bold text-gray-900 mb-2 flex-shrink-0">
                 {feature.title}
               </h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 leading-relaxed text-sm overflow-hidden">
                 {feature.description}
               </p>
             </motion.div>

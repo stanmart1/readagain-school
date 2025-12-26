@@ -14,7 +14,7 @@ export default function MasonryFeatures() {
       title: 'Book Assignments',
       description: 'Teachers can assign books to classes and track which students have completed their reading assignments.',
       color: 'from-primary-600 to-accent-500',
-      size: 'tall'
+      size: 'short'
     },
     {
       icon: 'ri-bar-chart-line',

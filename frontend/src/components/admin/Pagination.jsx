@@ -7,7 +7,7 @@ const Pagination = ({ currentPage, totalPages, totalItems, itemsPerPage, onPageC
       <div className="text-sm text-gray-600">
         {isLoading ? (
           <span className="flex items-center gap-2">
-            <div className="inline-block w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+            <div className="inline-block w-4 h-4 border-2 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
             Loading...
           </span>
         ) : (
@@ -20,7 +20,7 @@ const Pagination = ({ currentPage, totalPages, totalItems, itemsPerPage, onPageC
           disabled={currentPage === 1 || isLoading}
           className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
         >
-          {isLoading ? <div className="inline-block w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div> : null}
+          {isLoading ? <div className="inline-block w-4 h-4 border-2 border-primary-600 border-t-transparent rounded-full animate-spin"></div> : null}
           Previous
         </button>
         <button
@@ -28,7 +28,7 @@ const Pagination = ({ currentPage, totalPages, totalItems, itemsPerPage, onPageC
           disabled={currentPage === totalPages || isLoading}
           className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
         >
-          {isLoading ? <div className="inline-block w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div> : null}
+          {isLoading ? <div className="inline-block w-4 h-4 border-2 border-primary-600 border-t-transparent rounded-full animate-spin"></div> : null}
           Next
         </button>
       </div>

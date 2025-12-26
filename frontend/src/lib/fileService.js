@@ -1,5 +1,5 @@
 const UPLOAD_API_URL =
-  import.meta.env.VITE_UPLOAD_API_URL || "http://localhost:8001";
+  import.meta.env.VITE_UPLOAD_API_URL || "https://upload-api.estateman.online";
 
 /**
  * Upload book cover image

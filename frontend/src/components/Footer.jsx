@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 export default function Footer() {
   return (
     <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Brand Section */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -13,13 +13,13 @@ export default function Footer() {
             viewport={{ once: true }}
             className="lg:col-span-1"
           >
-            <div className="flex items-center space-x-2 mb-4">
+            <div className="flex items-center space-x-2 mb-3">
               <div className="w-8 h-8 bg-gradient-to-r from-primary-500 to-primary-600 rounded-lg flex items-center justify-center">
                 <i className="ri-book-line text-white text-lg"></i>
               </div>
               <span className="text-xl font-bold font-pacifico">ReadAgain</span>
             </div>
-            <p className="text-gray-400 mb-6 leading-relaxed">
+            <p className="text-gray-400 mb-4 leading-relaxed text-sm">
               Empowering schools and students with digital reading resources. Build your school library, track reading progress, and foster a love for learning.
             </p>
             <div className="flex space-x-4">
@@ -46,8 +46,8 @@ export default function Footer() {
             transition={{ delay: 0.2 }}
             className="lg:col-span-1"
           >
-            <h3 className="text-lg font-semibold mb-4">Legal & Info</h3>
-            <ul className="space-y-2">
+            <h3 className="text-lg font-semibold mb-3">Legal & Info</h3>
+            <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/terms" className="text-gray-400 hover:text-white transition-colors">
                   Terms of Service
@@ -73,7 +73,7 @@ export default function Footer() {
         </div>
         
         {/* Bottom Bar */}
-        <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="border-t border-gray-800 mt-6 pt-4 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-400 text-sm">
             © 2025 ReadAgain. All rights reserved.
           </p>
@@ -88,7 +88,7 @@ export default function Footer() {
         </div>
         
         {/* Created with Love */}
-        <div className="border-t border-gray-800 mt-4 pt-4 flex justify-center">
+        <div className="border-t border-gray-800 mt-3 pt-3 flex justify-center">
           <p className="text-gray-400 text-sm flex items-center space-x-1">
             <span>Created with</span>
             <motion.i

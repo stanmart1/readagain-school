@@ -709,14 +709,15 @@ export default function Signup() {
               </Link>
             </p>
           </div>
+        </div>
 
-          {/* Trust Badge */}
-          <div className="mt-6 text-center text-sm text-gray-500">
-            <i className="ri-shield-check-line mr-1"></i>
-            Your data is secure and encrypted
-          </div>
-        </motion.div>
-      </div>
+        {/* Trust Badge */}
+        <div className="mt-6 text-center text-sm text-gray-500">
+          <i className="ri-shield-check-line mr-1"></i>
+          Your data is secure and encrypted
+        </div>
+      </motion.div>
     </div>
+  </div>
   );
 }

@@ -14,7 +14,7 @@ export default function MasonryFeatures() {
       title: 'Book Assignments',
       description: 'Teachers can assign books to classes and track which students have completed their reading assignments.',
       color: 'from-primary-600 to-accent-500',
-      size: 'short'
+      size: 'tall'
     },
     {
       icon: 'ri-bar-chart-line',
@@ -28,7 +28,7 @@ export default function MasonryFeatures() {
       title: 'Digital Library',
       description: 'Access thousands of books instantly. Build your school library with books available to all students.',
       color: 'from-orange-500 to-red-500',
-      size: 'tall'
+      size: 'short'
     },
     {
       icon: 'ri-download-cloud-line',

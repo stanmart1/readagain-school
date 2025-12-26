@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { getImageUrl } from '../lib/fileService';
 import { Link } from 'react-router-dom';
@@ -9,6 +9,11 @@ import api from '../lib/api';
 export default function FeaturedBooks() {
   const [selectedCategory, setSelectedCategory] = useState('featured');
   const [addedToCart, setAddedToCart] = useState(new Set());
+  const desktopCarouselRef = useRef(null);
+  const mobileCarouselRef = useRef(null);
+  const [isAutoScrolling, setIsAutoScrolling] = useState(true);
+  const [isUserScrolling, setIsUserScrolling] = useState(false);
+  const scrollTimeoutRef = useRef(null);
 
   const params = {
     page: 1,
@@ -20,6 +25,8 @@ export default function FeaturedBooks() {
   };
 
   const { books, loading } = useBooks(params);
+  
+  const infiniteBooks = books.length > 2 ? [...books, ...books, ...books] : books;
 
   const handleAddToCart = async (book, e) => {
     e.preventDefault();
@@ -49,11 +56,84 @@ export default function FeaturedBooks() {
     return getImageUrl(book.cover_image_url || book.cover_image, `https://picsum.photos/seed/${book.id}/400/600`);
   };
 
+  const scroll = (direction) => {
+    const carousel = window.innerWidth >= 640 ? desktopCarouselRef.current : mobileCarouselRef.current;
+    if (carousel) {
+      const scrollAmount = carousel.offsetWidth * 0.8;
+      carousel.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (books.length > 0) {
+      const cardWidth = 296;
+      if (desktopCarouselRef.current) {
+        desktopCarouselRef.current.scrollLeft = cardWidth * books.length;
+      }
+      if (mobileCarouselRef.current) {
+        mobileCarouselRef.current.scrollLeft = cardWidth * books.length;
+      }
+    }
+  }, [books.length]);
+
+  useEffect(() => {
+    if (!isAutoScrolling || books.length === 0) return;
+
+    const interval = setInterval(() => {
+      const carousel = window.innerWidth >= 640 ? desktopCarouselRef.current : mobileCarouselRef.current;
+      if (carousel) {
+        const cardWidth = 296;
+        carousel.scrollBy({ left: cardWidth, behavior: 'smooth' });
+      }
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [isAutoScrolling, books.length]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const carousel = window.innerWidth >= 640 ? desktopCarouselRef.current : mobileCarouselRef.current;
+      if (!carousel || books.length === 0) return;
+
+      const cardWidth = 296;
+      const scrollLeft = carousel.scrollLeft;
+      const maxScroll = cardWidth * books.length * 2;
+
+      if (scrollLeft <= cardWidth) {
+        carousel.scrollLeft = cardWidth * books.length + scrollLeft;
+      } else if (scrollLeft >= maxScroll) {
+        carousel.scrollLeft = cardWidth * books.length + (scrollLeft - maxScroll);
+      }
+    };
+
+    const carousel = window.innerWidth >= 640 ? desktopCarouselRef.current : mobileCarouselRef.current;
+    if (carousel) {
+      carousel.addEventListener('scroll', handleScroll);
+      return () => carousel.removeEventListener('scroll', handleScroll);
+    }
+  }, [books.length]);
+
+  const handleUserScroll = () => {
+    setIsAutoScrolling(false);
+    setIsUserScrolling(true);
+    
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+    
+    scrollTimeoutRef.current = setTimeout(() => {
+      setIsUserScrolling(false);
+      setIsAutoScrolling(true);
+    }, 5000);
+  };
+
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -68,7 +148,6 @@ export default function FeaturedBooks() {
           </p>
         </motion.div>
 
-        {/* Category Pills */}
         <div className="flex justify-center gap-3 mb-12 flex-wrap">
           {categories.map((category, index) => (
             <motion.button
@@ -99,7 +178,6 @@ export default function FeaturedBooks() {
           ))}
         </div>
 
-        {/* Books Grid */}
         {loading ? (
           <div className="flex justify-center py-20">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
@@ -110,90 +188,136 @@ export default function FeaturedBooks() {
             <p className="text-xl text-gray-500">No books found in this category</p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {books.map((book, index) => (
-              <motion.div
-                key={book.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
+          <>
+            <div className="hidden sm:block relative">
+              <button
+                onClick={() => scroll('left')}
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-lg hover:bg-white transition-all"
               >
-                <Link
-                  to={`/books/${book.id}`}
-                  className="group block"
-                >
-                  <div className="relative bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
-                    
-                    {/* Book Cover */}
-                    <div className="aspect-[3/4] overflow-hidden bg-gray-200">
-                      <ProgressiveImage
-                        src={getBookImage(book)}
-                        alt={book.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                    </div>
+                <i className="ri-arrow-left-s-line text-2xl text-gray-700"></i>
+              </button>
+              
+              <div
+                ref={desktopCarouselRef}
+                onScroll={handleUserScroll}
+                className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth px-2"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              >
+                {infiniteBooks.map((book, index) => (
+                  <motion.div
+                    key={`${book.id}-${index}`}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: (index % books.length) * 0.05 }}
+                    className="flex-shrink-0 w-[280px]"
+                  >
+                    <Link to={`/books/${book.id}`} className="group block">
+                      <div className="relative bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                        
+                        <div className="aspect-[3/4] overflow-hidden bg-gray-200">
+                          <ProgressiveImage
+                            src={getBookImage(book)}
+                            alt={book.title}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                          />
+                        </div>
 
-                    {/* Badge */}
-                    {selectedCategory === 'featured' && (
-                      <div className="absolute top-3 right-3 bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-xs font-bold shadow-lg">
-                        <i className="ri-star-fill mr-1"></i>
-                        Featured
-                      </div>
-                    )}
-                    {selectedCategory === 'bestsellers' && (
-                      <div className="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
-                        <i className="ri-fire-fill mr-1"></i>
-                        Hot
-                      </div>
-                    )}
-                    {selectedCategory === 'new' && (
-                      <div className="absolute top-3 right-3 bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
-                        <i className="ri-flashlight-fill mr-1"></i>
-                        New
-                      </div>
-                    )}
-
-                    {/* Book Info */}
-                    <div className="p-4">
-                      <h3 className="font-bold text-gray-900 mb-1 line-clamp-2 group-hover:text-primary-600 transition-colors">
-                        {book.title}
-                      </h3>
-                      <p className="text-sm text-gray-600 mb-3 line-clamp-1">
-                        {book.author?.name || 'Unknown Author'}
-                      </p>
-
-                      {/* Action Button */}
-                      <button
-                        onClick={(e) => handleAddToCart(book, e)}
-                        disabled={addedToCart.has(book.id)}
-                        className={`w-full py-2 rounded-lg font-medium transition-all ${
-                          addedToCart.has(book.id)
-                            ? 'bg-green-500 text-white'
-                            : 'bg-primary-600 text-white hover:bg-primary-700'
-                        }`}
-                      >
-                        {addedToCart.has(book.id) ? (
-                          <span className="flex items-center justify-center gap-2">
-                            <i className="ri-check-line"></i>
-                            Added
-                          </span>
-                        ) : (
-                          <span className="flex items-center justify-center gap-2">
-                            <i className="ri-add-line"></i>
-                            Add to Library
-                          </span>
+                        {selectedCategory === 'featured' && (
+                          <div className="absolute top-3 right-3 bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-xs font-bold shadow-lg">
+                            <i className="ri-star-fill mr-1"></i>
+                            Featured
+                          </div>
                         )}
-                      </button>
-                    </div>
+                        {selectedCategory === 'bestsellers' && (
+                          <div className="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
+                            <i className="ri-fire-fill mr-1"></i>
+                            Hot
+                          </div>
+                        )}
+                        {selectedCategory === 'new' && (
+                          <div className="absolute top-3 right-3 bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
+                            <i className="ri-flashlight-fill mr-1"></i>
+                            New
+                          </div>
+                        )}
+
+                        <div className="p-4">
+                          <h3 className="font-bold text-gray-900 mb-1 line-clamp-2 group-hover:text-primary-600 transition-colors">
+                            {book.title}
+                          </h3>
+                          <p className="text-sm text-gray-600 mb-3 line-clamp-1">
+                            {book.author?.name || 'Unknown Author'}
+                          </p>
+
+                          <button
+                            onClick={(e) => handleAddToCart(book, e)}
+                            disabled={addedToCart.has(book.id)}
+                            className={`w-full py-2 rounded-lg font-medium transition-all ${
+                              addedToCart.has(book.id)
+                                ? 'bg-green-500 text-white'
+                                : 'bg-primary-600 text-white hover:bg-primary-700'
+                            }`}
+                          >
+                            {addedToCart.has(book.id) ? (
+                              <span className="flex items-center justify-center gap-2">
+                                <i className="ri-check-line"></i>
+                                Added
+                              </span>
+                            ) : (
+                              <span className="flex items-center justify-center gap-2">
+                                <i className="ri-add-line"></i>
+                                Add to Library
+                              </span>
+                            )}
+                          </button>
+                        </div>
+                      </div>
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+
+              <button
+                onClick={() => scroll('right')}
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm p-3 rounded-full shadow-lg hover:bg-white transition-all"
+              >
+                <i className="ri-arrow-right-s-line text-2xl text-gray-700"></i>
+              </button>
+            </div>
+
+            <div className="sm:hidden">
+              <div
+                ref={mobileCarouselRef}
+                onScroll={handleUserScroll}
+                className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth px-2"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              >
+                {infiniteBooks.map((book, index) => (
+                  <div key={`${book.id}-${index}`} className="flex-shrink-0 w-[160px]">
+                    <Link to={`/books/${book.id}`} className="group block">
+                      <div className="relative bg-gray-50 rounded-2xl overflow-hidden shadow-sm">
+                        <div className="aspect-[3/4] overflow-hidden bg-gray-200">
+                          <ProgressiveImage
+                            src={getBookImage(book)}
+                            alt={book.title}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="p-3">
+                          <h3 className="font-bold text-sm text-gray-900 line-clamp-2">
+                            {book.title}
+                          </h3>
+                        </div>
+                      </div>
+                    </Link>
                   </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
+                ))}
+              </div>
+            </div>
+          </>
         )}
 
-        {/* View All Button */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

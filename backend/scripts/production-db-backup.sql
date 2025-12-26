@@ -1,258 +1,52 @@
--- PostgreSQL Database Schema for ReadAgain
--- This file creates all necessary tables and initial data
+-- PostgreSQL Backup
+-- Database: readagain
 
--- Create sequences
-CREATE SEQUENCE IF NOT EXISTS roles_id_seq;
-CREATE SEQUENCE IF NOT EXISTS users_id_seq;
-CREATE SEQUENCE IF NOT EXISTS permissions_id_seq;
-CREATE SEQUENCE IF NOT EXISTS books_id_seq;
-CREATE SEQUENCE IF NOT EXISTS authors_id_seq;
-CREATE SEQUENCE IF NOT EXISTS categories_id_seq;
-CREATE SEQUENCE IF NOT EXISTS reviews_id_seq;
-CREATE SEQUENCE IF NOT EXISTS blogs_id_seq;
-CREATE SEQUENCE IF NOT EXISTS about_pages_id_seq;
-CREATE SEQUENCE IF NOT EXISTS user_libraries_id_seq;
-CREATE SEQUENCE IF NOT EXISTS reading_sessions_id_seq;
-CREATE SEQUENCE IF NOT EXISTS faqs_id_seq;
-CREATE SEQUENCE IF NOT EXISTS reading_goals_id_seq;
-CREATE SEQUENCE IF NOT EXISTS system_settings_id_seq;
-CREATE SEQUENCE IF NOT EXISTS audit_logs_id_seq;
-CREATE SEQUENCE IF NOT EXISTS auth_logs_id_seq;
-CREATE SEQUENCE IF NOT EXISTS token_blacklists_id_seq;
-CREATE SEQUENCE IF NOT EXISTS notifications_id_seq;
-CREATE SEQUENCE IF NOT EXISTS user_achievements_id_seq;
-CREATE SEQUENCE IF NOT EXISTS achievements_id_seq;
-CREATE SEQUENCE IF NOT EXISTS activities_id_seq;
-CREATE SEQUENCE IF NOT EXISTS contact_messages_id_seq;
-CREATE SEQUENCE IF NOT EXISTS groups_id_seq;
-CREATE SEQUENCE IF NOT EXISTS group_members_id_seq;
-CREATE SEQUENCE IF NOT EXISTS chat_rooms_id_seq;
-CREATE SEQUENCE IF NOT EXISTS chat_messages_id_seq;
-CREATE SEQUENCE IF NOT EXISTS chat_members_id_seq;
-CREATE SEQUENCE IF NOT EXISTS chat_reactions_id_seq;
-CREATE SEQUENCE IF NOT EXISTS highlights_id_seq;
-CREATE SEQUENCE IF NOT EXISTS notes_id_seq;
-CREATE SEQUENCE IF NOT EXISTS licenses_id_seq;
 
--- Create roles table
-CREATE TABLE IF NOT EXISTS roles (
-  id bigint PRIMARY KEY DEFAULT nextval('roles_id_seq'),
-  created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-  updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-  deleted_at timestamp with time zone,
-  name text NOT NULL UNIQUE,
-  description text
+-- Table: roles
+DROP TABLE IF EXISTS "roles";
+CREATE TABLE "roles" (
+  "id" bigint NOT NULL DEFAULT nextval('roles_id_seq'::regclass),
+  "created_at" timestamp with time zone,
+  "updated_at" timestamp with time zone,
+  "deleted_at" timestamp with time zone,
+  "name" text NOT NULL,
+  "description" text
 );
 
--- Create users table
-CREATE TABLE IF NOT EXISTS users (
-  id bigint PRIMARY KEY DEFAULT nextval('users_id_seq'),
-  created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-  updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-  deleted_at timestamp with time zone,
-  email text NOT NULL UNIQUE,
-  username text NOT NULL UNIQUE,
-  password_hash text NOT NULL,
-  first_name text,
-  last_name text,
-  phone_number text,
-  school_name text,
-  school_category text,
-  class_level text,
-  department text,
-  role_id bigint REFERENCES roles(id),
-  is_active boolean DEFAULT true,
-  is_email_verified boolean DEFAULT false,
-  verification_token text,
-  verification_token_expires timestamp with time zone,
-  last_login timestamp with time zone
+-- Data for table: roles
+INSERT INTO "roles" ("id", "created_at", "updated_at", "deleted_at", "name", "description") VALUES ('8', Mon Dec 22 2025 11:39:02 GMT+0100 (West Africa Standard Time), Mon Dec 22 2025 13:09:02 GMT+0100 (West Africa Standard Time), NULL, 'platform_admin', 'Platform administrator with full system access');
+INSERT INTO "roles" ("id", "created_at", "updated_at", "deleted_at", "name", "description") VALUES ('7', Mon Dec 22 2025 11:39:02 GMT+0100 (West Africa Standard Time), Mon Dec 22 2025 13:09:02 GMT+0100 (West Africa Standard Time), NULL, 'school_admin', 'School administrator who manages school users and library');
+INSERT INTO "roles" ("id", "created_at", "updated_at", "deleted_at", "name", "description") VALUES ('6', Mon Dec 22 2025 11:39:02 GMT+0100 (West Africa Standard Time), Mon Dec 22 2025 13:09:02 GMT+0100 (West Africa Standard Time), NULL, 'teacher', 'Teacher who assigns books and tracks student progress');
+INSERT INTO "roles" ("id", "created_at", "updated_at", "deleted_at", "name", "description") VALUES ('5', Mon Dec 22 2025 11:39:02 GMT+0100 (West Africa Standard Time), Mon Dec 22 2025 13:09:02 GMT+0100 (West Africa Standard Time), NULL, 'student', 'Student who reads books');
+
+
+-- Table: users
+DROP TABLE IF EXISTS "users";
+CREATE TABLE "users" (
+  "id" bigint NOT NULL DEFAULT nextval('users_id_seq'::regclass),
+  "created_at" timestamp with time zone,
+  "updated_at" timestamp with time zone,
+  "deleted_at" timestamp with time zone,
+  "email" text NOT NULL,
+  "username" text NOT NULL,
+  "password_hash" text NOT NULL,
+  "first_name" text,
+  "last_name" text,
+  "phone_number" text,
+  "school_name" text,
+  "school_category" text,
+  "class_level" text,
+  "department" text,
+  "role_id" bigint,
+  "is_active" boolean DEFAULT false,
+  "is_email_verified" boolean DEFAULT false,
+  "verification_token" text,
+  "verification_token_expires" timestamp with time zone,
+  "last_login" timestamp with time zone
 );
 
--- Create permissions table
-CREATE TABLE IF NOT EXISTS permissions (
-  id bigint PRIMARY KEY DEFAULT nextval('permissions_id_seq'),
-  created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-  updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-  deleted_at timestamp with time zone,
-  name text NOT NULL UNIQUE,
-  description text,
-  category text,
-  resource text,
-  action text
-);
-
--- Create role_permissions junction table
-CREATE TABLE IF NOT EXISTS role_permissions (
-  role_id bigint REFERENCES roles(id) ON DELETE CASCADE,
-  permission_id bigint REFERENCES permissions(id) ON DELETE CASCADE,
-  PRIMARY KEY (role_id, permission_id)
-);
-
--- Create books table
-CREATE TABLE IF NOT EXISTS books (
-  id bigint PRIMARY KEY DEFAULT nextval('books_id_seq'),
-  created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-  updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-  deleted_at timestamp with time zone,
-  author_id bigint,
-  title text NOT NULL,
-  subtitle text,
-  description text,
-  isbn text,
-  publication_date date,
-  page_count integer,
-  language text DEFAULT 'en',
-  file_path text,
-  cover_image text,
-  file_size bigint,
-  status text DEFAULT 'draft',
-  category_id bigint,
-  featured boolean DEFAULT false,
-  price decimal(10,2) DEFAULT 0.00
-);
-
--- Create authors table
-CREATE TABLE IF NOT EXISTS authors (
-  id bigint PRIMARY KEY DEFAULT nextval('authors_id_seq'),
-  created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-  updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-  deleted_at timestamp with time zone,
-  user_id bigint,
-  business_name text,
-  bio text,
-  website text,
-  social_links jsonb
-);
-
--- Create categories table
-CREATE TABLE IF NOT EXISTS categories (
-  id bigint PRIMARY KEY DEFAULT nextval('categories_id_seq'),
-  created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-  updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-  deleted_at timestamp with time zone,
-  name text NOT NULL UNIQUE,
-  description text,
-  status text DEFAULT 'active'
-);
-
--- Create reviews table
-CREATE TABLE IF NOT EXISTS reviews (
-  id bigint PRIMARY KEY DEFAULT nextval('reviews_id_seq'),
-  created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-  updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-  deleted_at timestamp with time zone,
-  user_id bigint REFERENCES users(id),
-  book_id bigint REFERENCES books(id),
-  rating integer CHECK (rating >= 1 AND rating <= 5),
-  comment text,
-  status text DEFAULT 'published'
-);
-
--- Create blogs table
-CREATE TABLE IF NOT EXISTS blogs (
-  id bigint PRIMARY KEY DEFAULT nextval('blogs_id_seq'),
-  created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-  updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-  deleted_at timestamp with time zone,
-  title text NOT NULL,
-  slug text UNIQUE,
-  content text,
-  excerpt text,
-  featured_image text,
-  author_id bigint REFERENCES users(id),
-  status text DEFAULT 'draft',
-  published_at timestamp with time zone
-);
-
--- Create about_pages table
-CREATE TABLE IF NOT EXISTS about_pages (
-  id bigint PRIMARY KEY DEFAULT nextval('about_pages_id_seq'),
-  created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-  updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-  deleted_at timestamp with time zone,
-  title text,
-  content text,
-  mission text,
-  vision text,
-  values jsonb
-);
-
--- Create user_libraries table
-CREATE TABLE IF NOT EXISTS user_libraries (
-  id bigint PRIMARY KEY DEFAULT nextval('user_libraries_id_seq'),
-  created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-  updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-  deleted_at timestamp with time zone,
-  user_id bigint REFERENCES users(id),
-  book_id bigint REFERENCES books(id),
-  status text DEFAULT 'not_started',
-  progress decimal(5,2) DEFAULT 0.00,
-  current_page integer DEFAULT 1,
-  started_at timestamp with time zone,
-  completed_at timestamp with time zone,
-  last_read_at timestamp with time zone
-);
-
--- Create other necessary tables
-CREATE TABLE IF NOT EXISTS reading_sessions (
-  id bigint PRIMARY KEY DEFAULT nextval('reading_sessions_id_seq'),
-  created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-  updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-  deleted_at timestamp with time zone,
-  user_id bigint REFERENCES users(id),
-  book_id bigint REFERENCES books(id),
-  start_time timestamp with time zone,
-  end_time timestamp with time zone,
-  pages_read integer DEFAULT 0,
-  session_duration integer DEFAULT 0
-);
-
-CREATE TABLE IF NOT EXISTS faqs (
-  id bigint PRIMARY KEY DEFAULT nextval('faqs_id_seq'),
-  created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-  updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-  deleted_at timestamp with time zone,
-  question text NOT NULL,
-  answer text NOT NULL,
-  category text,
-  order_index integer DEFAULT 0,
-  is_published boolean DEFAULT true
-);
-
-CREATE TABLE IF NOT EXISTS system_settings (
-  id bigint PRIMARY KEY DEFAULT nextval('system_settings_id_seq'),
-  created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-  updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
-  deleted_at timestamp with time zone,
-  key text NOT NULL UNIQUE,
-  value text,
-  description text,
-  category text
-);
-
--- Insert default data
-INSERT INTO roles (name, description) VALUES 
-  ('platform_admin', 'Platform administrator with full system access'),
-  ('school_admin', 'School administrator who manages school users and library'),
-  ('teacher', 'Teacher who assigns books and tracks student progress'),
-  ('student', 'Student who reads books')
-ON CONFLICT (name) DO NOTHING;
-
--- Insert admin user
-INSERT INTO users (email, username, password_hash, first_name, last_name, phone_number, school_name, school_category, department, role_id, is_active, is_email_verified) 
-SELECT 'admin@readagain.com', 'admin', '$2a$10$fOoVIiYwORELVQctuZtMiuvKH7D2KPUVWjf7v3ZyKUotCmrygaUxa', 'Super', 'Admin', '0896655577', 'University Of Lagos', 'Tertiary', 'Computer Science', r.id, true, true
-FROM roles r WHERE r.name = 'platform_admin'
-ON CONFLICT (email) DO NOTHING;
-
--- Insert default categories
-INSERT INTO categories (name, description) VALUES 
-  ('Fiction', 'Fiction books and novels'),
-  ('Non-Fiction', 'Non-fiction books'),
-  ('Science', 'Science and technology'),
-  ('History', 'Historical books'),
-  ('Biography', 'Biographies and memoirs'),
-  ('Education', 'Educational materials')
-ON CONFLICT (name) DO NOTHING;
+-- Data for table: users
+INSERT INTO "users" ("id", "created_at", "updated_at", "deleted_at", "email", "username", "password_hash", "first_name", "last_name", "phone_number", "school_name", "school_category", "class_level", "department", "role_id", "is_active", "is_email_verified", "verification_token", "verification_token_expires", "last_login") VALUES ('2', Thu Dec 11 2025 11:29:18 GMT+0100 (West Africa Standard Time), Thu Dec 25 2025 17:21:29 GMT+0100 (West Africa Standard Time), NULL, 'admin@readagain.com', 'admin', '$2a$10$fOoVIiYwORELVQctuZtMiuvKH7D2KPUVWjf7v3ZyKUotCmrygaUxa', 'Super', 'Admin', '0896655577', 'University Of Lagos', 'Tertiary', '', 'Computer Science', '8', true, true, '', NULL, Thu Dec 25 2025 17:21:29 GMT+0100 (West Africa Standard Time));
 
 
 -- Table: role_permissions

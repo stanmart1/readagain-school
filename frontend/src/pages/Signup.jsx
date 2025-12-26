@@ -170,7 +170,7 @@ export default function Signup() {
           <div className="absolute bottom-20 right-20 w-96 h-96 bg-white rounded-full blur-3xl"></div>
         </div>
 
-        <div className="relative z-10">
+        <div className="relative z-10 -mt-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -709,12 +709,6 @@ export default function Signup() {
               </Link>
             </p>
           </div>
-        </div>
-
-        {/* Trust Badge */}
-        <div className="mt-6 text-center text-sm text-gray-500">
-          <i className="ri-shield-check-line mr-1"></i>
-          Your data is secure and encrypted
         </div>
       </motion.div>
     </div>

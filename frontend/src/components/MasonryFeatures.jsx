@@ -7,7 +7,7 @@ export default function MasonryFeatures() {
       title: 'Advanced E-Reader',
       description: 'Customizable reading experience with adjustable fonts, themes, and bookmarks. Read comfortably on any device.',
       color: 'from-blue-500 to-cyan-500',
-      size: 'large'
+      size: 'wide'
     },
     {
       icon: 'ri-team-line',
@@ -73,7 +73,7 @@ export default function MasonryFeatures() {
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -8, scale: 1.02 }}
               className={`bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col ${
-                feature.size === 'large' ? 'lg:row-span-2 lg:col-span-2' : 
+                feature.size === 'wide' ? 'lg:col-span-2 lg:row-span-1' : 
                 feature.size === 'tall' ? 'lg:row-span-2' : 'lg:row-span-1'
               }`}
             >

@@ -61,7 +61,7 @@ export default function ForgotPassword() {
               </p>
               <Link
                 to="/login"
-                className="inline-block bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700"
+                className="inline-block bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-3 rounded-lg font-semibold hover:from-primary-700 hover:to-primary-800 transition-all"
               >
                 Back to Login
               </Link>
@@ -96,14 +96,14 @@ export default function ForgotPassword() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all disabled:opacity-50"
+                  className="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 rounded-lg font-semibold hover:from-primary-700 hover:to-primary-800 transition-all disabled:opacity-50"
                 >
                   {loading ? 'Sending...' : 'Send Reset Link'}
                 </button>
               </form>
 
               <div className="mt-6 text-center">
-                <Link to="/login" className="text-primary-600 hover:text-purple-600 font-semibold">
+                <Link to="/login" className="text-primary-600 hover:text-primary-700 font-semibold">
                   <i className="ri-arrow-left-line mr-2"></i>
                   Back to Login
                 </Link>

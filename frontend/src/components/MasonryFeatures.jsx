@@ -31,13 +31,6 @@ export default function MasonryFeatures() {
       size: 'short'
     },
     {
-      icon: 'ri-download-cloud-line',
-      title: 'Offline Reading',
-      description: 'Download books for offline access. Students can read anytime, anywhere without internet connection.',
-      color: 'from-indigo-500 to-blue-500',
-      size: 'short'
-    },
-    {
       icon: 'ri-device-line',
       title: 'Multi-Device Sync',
       description: 'Start reading on one device and continue on another. Progress syncs automatically across all devices.',

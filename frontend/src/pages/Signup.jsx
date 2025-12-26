@@ -365,7 +365,7 @@ export default function Signup() {
                   <button
                     type="button"
                     onClick={nextStep}
-                    className="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
+                    className="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 rounded-lg font-semibold hover:from-primary-700 hover:to-primary-800 transition-all shadow-lg hover:shadow-xl"
                   >
                     {formData.is_student === 'yes' ? 'Continue to Education Details' : 'Continue to Security'}
                     <i className="ri-arrow-right-line ml-2"></i>
@@ -491,7 +491,7 @@ export default function Signup() {
                     <button
                       type="button"
                       onClick={nextStep}
-                      className="flex-1 bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
+                      className="flex-1 bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 rounded-lg font-semibold hover:from-primary-700 hover:to-primary-800 transition-all shadow-lg hover:shadow-xl"
                     >
                       Continue to Security
                       <i className="ri-arrow-right-line ml-2"></i>
@@ -606,11 +606,11 @@ export default function Signup() {
                     <input type="checkbox" required className="mt-1 mr-2" />
                     <span className="text-sm text-gray-600">
                       I agree to the{' '}
-                      <Link to="/terms" className="text-blue-600 hover:text-purple-600">
+                      <Link to="/terms" className="text-primary-600 hover:text-primary-700">
                         Terms of Service
                       </Link>{' '}
                       and{' '}
-                      <Link to="/privacy" className="text-blue-600 hover:text-purple-600">
+                      <Link to="/privacy" className="text-primary-600 hover:text-primary-700">
                         Privacy Policy
                       </Link>
                     </span>
@@ -651,7 +651,7 @@ export default function Signup() {
           <div className="mt-6 text-center">
             <p className="text-gray-600">
               Already have an account?{' '}
-              <Link to="/login" className="text-blue-600 hover:text-purple-600 font-semibold">
+              <Link to="/login" className="text-primary-600 hover:text-primary-700 font-semibold">
                 Login
               </Link>
             </p>

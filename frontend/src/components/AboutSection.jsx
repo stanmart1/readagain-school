@@ -8,7 +8,6 @@ import { createHTMLProps } from '../utils/htmlUtils';
 export default function AboutSection() {
   const { content, loading } = useAbout();
 
-  // Fallback content
   const defaultContent = {
     hero: {
       title: 'About ReadAgain',
@@ -26,7 +25,17 @@ export default function AboutSection() {
       {
         icon: 'ri-lightbulb-line',
         title: 'Innovation',
-        description: '<p>Cutting-edge technology</p>'
+        description: '<p>Cutting-edge technology for modern learning</p>'
+      },
+      {
+        icon: 'ri-team-line',
+        title: 'Community',
+        description: '<p>Building a community of passionate readers</p>'
+      },
+      {
+        icon: 'ri-line-chart-line',
+        title: 'Progress',
+        description: '<p>Track and celebrate reading achievements</p>'
       }
     ]
   };
@@ -36,7 +45,7 @@ export default function AboutSection() {
 
   if (loading) {
     return (
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gradient-to-b from-white to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
@@ -47,88 +56,123 @@ export default function AboutSection() {
   }
 
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Column - Image */}
+    <section className="py-20 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute top-20 right-0 w-72 h-72 bg-primary-100 rounded-full blur-3xl opacity-30"></div>
+      <div className="absolute bottom-20 left-0 w-96 h-96 bg-yellow-100 rounded-full blur-3xl opacity-20"></div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <span className="inline-block px-4 py-2 bg-primary-100 text-primary-700 rounded-full text-sm font-semibold mb-4">
+            Who We Are
+          </span>
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            {aboutContent.hero?.title || 'About ReadAgain'}
+          </h2>
+          <div className="text-xl text-gray-600 max-w-3xl mx-auto"
+               {...createHTMLProps(aboutContent.hero?.subtitle || 'Empowering The Mind Through Reading')}
+          />
+        </motion.div>
+
+        {/* Main Content Grid */}
+        <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+          
+          {/* Image with overlay card */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
             className="relative"
           >
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl">
               <ProgressiveImage
                 src={getFileUrl(aboutContent.hero?.image_url) || "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800"}
                 alt="ReadAgain - Empowering minds through reading"
-                className="w-full h-auto object-cover"
-                loading="lazy"
-                decoding="async"
+                className="w-full h-[500px] object-cover"
               />
+              {/* Overlay gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+              
+              {/* Floating stat card */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-xl"
+              >
+                <div className="grid grid-cols-3 gap-4 text-center">
+                  <div>
+                    <div className="text-3xl font-bold text-primary-600">1000+</div>
+                    <div className="text-sm text-gray-600">Books</div>
+                  </div>
+                  <div>
+                    <div className="text-3xl font-bold text-primary-600">500+</div>
+                    <div className="text-sm text-gray-600">Students</div>
+                  </div>
+                  <div>
+                    <div className="text-3xl font-bold text-primary-600">50+</div>
+                    <div className="text-sm text-gray-600">Schools</div>
+                  </div>
+                </div>
+              </motion.div>
             </div>
           </motion.div>
 
-          {/* Right Column - Content */}
+          {/* Mission Text */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
           >
-            <div className="mb-6">
-              <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-primary-100 text-primary-800 mb-4">
-                <i className="ri-star-line mr-2"></i>
-                About ReadAgain
-              </span>
-            </div>
-            
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              {aboutContent.hero?.title || 'About ReadAgain'}
-            </h2>
-            
-            <div className="text-lg md:text-xl text-gray-600 mb-6"
-                 {...createHTMLProps(aboutContent.hero?.subtitle || 'Empowering The Mind Through Reading')}
-            />
-            
-            <div className="text-base md:text-lg text-gray-600 mb-8"
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Mission</h3>
+            <div className="text-lg text-gray-600 leading-relaxed mb-6"
                  {...createHTMLProps(aboutContent.mission?.description || defaultContent.mission.description)}
             />
-
-            {/* Values Preview */}
-            <div className="grid grid-cols-2 gap-4 mb-8">
-              {values.slice(0, 2).map((value, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
-                >
-                  <i className={`${value.icon} text-2xl ${
-                    index === 0 ? 'text-primary-600' : 'text-primary-700'
-                  }`}></i>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">{value.title}</h4>
-                    <p className="text-sm text-gray-600" {...createHTMLProps(value.description)} />
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* CTA Button */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                to="/about"
-                className="inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-full font-semibold hover:from-primary-700 hover:to-primary-800 transition-all duration-300 transform hover:scale-105"
-              >
-                <span>Learn More</span>
-                <i className="ri-arrow-right-line"></i>
-              </Link>
-            </div>
+            
+            <Link
+              to="/about"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-full font-semibold hover:bg-primary-700 transition-all shadow-lg hover:shadow-xl"
+            >
+              <span>Learn More About Us</span>
+              <i className="ri-arrow-right-line"></i>
+            </Link>
           </motion.div>
         </div>
+
+        {/* Values Grid */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-6"
+        >
+          {values.map((value, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 group"
+            >
+              <div className="w-14 h-14 bg-gradient-to-br from-primary-100 to-primary-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <i className={`${value.icon} text-2xl text-primary-600`}></i>
+              </div>
+              <h4 className="font-bold text-gray-900 mb-2">{value.title}</h4>
+              <div className="text-sm text-gray-600" {...createHTMLProps(value.description)} />
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

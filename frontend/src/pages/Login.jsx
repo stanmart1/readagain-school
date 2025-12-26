@@ -97,8 +97,8 @@ export default function Login() {
 
           {/* Form Card */}
           <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-            <div className="mb-8">
-              <Link to="/" className="inline-flex items-center text-gray-600 hover:text-primary-600 transition-colors mb-6">
+            <div className="mb-6">
+              <Link to="/" className="inline-flex items-center text-gray-600 hover:text-primary-600 transition-colors mb-4">
                 <i className="ri-arrow-left-line mr-2"></i>
                 Back to Home
               </Link>
@@ -120,7 +120,7 @@ export default function Login() {
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                   Email Address
@@ -207,7 +207,7 @@ export default function Login() {
               </button>
             </form>
 
-            <div className="mt-8 text-center">
+            <div className="mt-6 text-center">
               <p className="text-gray-600">
                 Don't have an account?{' '}
                 <Link to="/signup" className="text-primary-600 hover:text-primary-700 font-semibold">

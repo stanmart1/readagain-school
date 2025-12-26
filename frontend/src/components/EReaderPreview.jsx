@@ -71,7 +71,7 @@ export default function EReaderPreview() {
             <div className="bg-primary-600 text-white px-4 py-3 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <i className="ri-book-open-line text-xl"></i>
-                <span className="font-semibold text-sm">ReadAgain Reader</span>
+                <span className="font-semibold text-sm">E-Reader Preview</span>
               </div>
               <div className="flex items-center gap-3">
                 <button 
@@ -110,7 +110,7 @@ export default function EReaderPreview() {
               </AnimatePresence>
 
               {/* Navigation Arrows */}
-              <div className="absolute bottom-20 left-0 right-0 flex justify-between px-6">
+              <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 flex justify-between px-6">
                 <button
                   onClick={prevPage}
                   disabled={page === 1}

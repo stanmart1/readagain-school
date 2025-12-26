@@ -84,7 +84,7 @@ export default function AboutSection() {
         {/* Main Content Grid */}
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
           
-          {/* Image with overlay card */}
+          {/* Image */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -99,31 +99,7 @@ export default function AboutSection() {
                 className="w-full h-[500px] object-cover"
               />
               {/* Overlay gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-              
-              {/* Floating stat card */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-                className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-xl"
-              >
-                <div className="grid grid-cols-3 gap-4 text-center">
-                  <div>
-                    <div className="text-3xl font-bold text-primary-600">1000+</div>
-                    <div className="text-sm text-gray-600">Books</div>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-bold text-primary-600">500+</div>
-                    <div className="text-sm text-gray-600">Students</div>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-bold text-primary-600">50+</div>
-                    <div className="text-sm text-gray-600">Schools</div>
-                  </div>
-                </div>
-              </motion.div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
             </div>
           </motion.div>
 

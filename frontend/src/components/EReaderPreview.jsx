@@ -244,6 +244,7 @@ export default function EReaderPreview() {
                   </div>
                 </div>
               </div>
+            </motion.div>
             </>
           )}
         </AnimatePresence>

@@ -5,7 +5,7 @@ export default function MasonryFeatures() {
     {
       icon: 'ri-book-open-line',
       title: 'Advanced E-Reader',
-      description: 'Customizable reading experience with adjustable fonts, themes, and bookmarks. Read comfortably on any device.',
+      description: 'Customizable reading experience with adjustable fonts, themes, notes, and highlights. Read comfortably on any device.',
       color: 'from-blue-500 to-cyan-500',
       size: 'wide'
     },

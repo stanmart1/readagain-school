@@ -135,13 +135,17 @@ export default function EReaderPreview() {
                 </button>
               </div>
 
-              {/* Progress Bar - with background */}
-              <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-md border border-gray-200">
-                <div className={`flex items-center justify-between text-xs mb-2 font-medium ${currentTheme.text}`}>
+              {/* Progress Bar - with theme-aware background */}
+              <div className={`absolute bottom-4 left-4 right-4 ${currentTheme.bg} backdrop-blur-sm rounded-lg p-3 shadow-md border transition-colors duration-300 ${
+                theme === 'dark' ? 'border-gray-700' : 'border-gray-200'
+              }`}>
+                <div className={`flex items-center justify-between text-xs mb-2 font-medium ${currentTheme.text} transition-colors duration-300`}>
                   <span>Page {page} of {totalPages}</span>
                   <span>{progress}% Complete</span>
                 </div>
-                <div className="h-2 bg-gray-200 rounded-full overflow-hidden border border-gray-300">
+                <div className={`h-2 rounded-full overflow-hidden border transition-colors duration-300 ${
+                  theme === 'dark' ? 'bg-gray-700 border-gray-600' : 'bg-gray-200 border-gray-300'
+                }`}>
                   <motion.div
                     animate={{ width: `${progress}%` }}
                     transition={{ duration: 0.3 }}
@@ -156,13 +160,24 @@ export default function EReaderPreview() {
         {/* Settings Modal */}
         <AnimatePresence>
           {showSettings && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: -20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: -20 }}
-              className="absolute top-16 right-4 bg-white rounded-2xl shadow-2xl p-4 w-64 z-50 border border-gray-200"
-            >
-              <div className="space-y-4">
+            <>
+              {/* Backdrop */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setShowSettings(false)}
+                className="fixed inset-0 z-40"
+              />
+              
+              {/* Modal */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: -20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: -20 }}
+                className="absolute top-16 right-4 bg-white rounded-2xl shadow-2xl p-4 w-64 z-50 border border-gray-200"
+              >
+                <div className="space-y-4">
                 <div>
                   <label className="text-sm font-semibold text-gray-700 mb-2 block">Font Size</label>
                   <div className="flex gap-2">
@@ -229,7 +244,7 @@ export default function EReaderPreview() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </>
           )}
         </AnimatePresence>
 

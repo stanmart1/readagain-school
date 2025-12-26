@@ -175,7 +175,7 @@ export default function FeaturedBooks() {
                     <Link to={`/books/${book.id}`} className="group block">
                       <div className="relative bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
                         
-                        <div className="aspect-[2/3] overflow-hidden bg-gray-200">
+                        <div className="aspect-[4/3] overflow-hidden bg-gray-200">
                           <ProgressiveImage
                             src={getBookImage(book)}
                             alt={book.title}
@@ -183,11 +183,11 @@ export default function FeaturedBooks() {
                           />
                         </div>
 
-                        <div className="p-4">
-                          <h3 className="font-bold text-gray-900 mb-1 line-clamp-2 group-hover:text-primary-600 transition-colors">
+                        <div className="p-5 flex-1 flex flex-col">
+                          <h3 className="font-bold text-lg text-gray-900 mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors">
                             {book.title}
                           </h3>
-                          <p className="text-sm text-gray-600 mb-3 line-clamp-1">
+                          <p className="text-base text-gray-600 mb-4 line-clamp-1">
                             {book.author?.business_name || book.author?.name || 'Unknown Author'}
                           </p>
 

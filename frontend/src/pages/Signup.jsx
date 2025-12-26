@@ -394,7 +394,7 @@ export default function Signup() {
                           value="yes"
                           checked={formData.is_student === 'yes'}
                           onChange={handleChange}
-                          className="mr-2 w-4 h-4 text-blue-600"
+                          className="mr-2 w-4 h-4 text-primary-600 focus:ring-primary-500"
                         />
                         <span className="text-gray-700">Yes</span>
                       </label>
@@ -405,7 +405,7 @@ export default function Signup() {
                           value="no"
                           checked={formData.is_student === 'no'}
                           onChange={handleChange}
-                          className="mr-2 w-4 h-4 text-blue-600"
+                          className="mr-2 w-4 h-4 text-primary-600 focus:ring-primary-500"
                         />
                         <span className="text-gray-700">No</span>
                       </label>

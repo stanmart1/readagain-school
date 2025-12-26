@@ -7,7 +7,7 @@ export default function EReaderPreview() {
   const [theme, setTheme] = useState('light');
   const [page, setPage] = useState(1);
   const [showSettings, setShowSettings] = useState(false);
-  const totalPages = 245;
+  const totalPages = 2;
   const progress = Math.round((page / totalPages) * 100);
 
   const themes = {
@@ -35,7 +35,7 @@ export default function EReaderPreview() {
       ]
     },
     {
-      title: "Chapter 1: The Discovery",
+      title: "Chapter 2: The Discovery",
       paragraphs: [
         "Emma's fingers trembled as she turned the page. The ancient text revealed stories of brave heroes, magical creatures, and distant lands waiting to be explored.",
         "Each word seemed to come alive, painting vivid pictures in her mind. She could almost hear the rustling of leaves in enchanted forests and feel the warmth of distant suns.",
@@ -110,7 +110,7 @@ export default function EReaderPreview() {
               </AnimatePresence>
 
               {/* Navigation Arrows */}
-              <div className="absolute bottom-16 left-0 right-0 flex justify-between px-6">
+              <div className="absolute bottom-20 left-0 right-0 flex justify-between px-6">
                 <button
                   onClick={prevPage}
                   disabled={page === 1}

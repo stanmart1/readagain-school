@@ -26,11 +26,37 @@ const api = axios.create({
 // Request interceptor
 api.interceptors.request.use(
   (config) => {
-    // Add auth token if available
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    // Define public endpoints that don't need authentication
+    const publicEndpoints = [
+      '/books',
+      '/blogs', 
+      '/about',
+      '/categories',
+      '/authors',
+      '/reviews',
+      '/faqs',
+      '/testimonials',
+      '/contact',
+      '/auth/register',
+      '/auth/login',
+      '/auth/refresh',
+      '/auth/forgot-password',
+      '/auth/reset-password'
+    ];
+    
+    // Check if this is a public endpoint
+    const isPublicEndpoint = publicEndpoints.some(endpoint => 
+      config.url?.startsWith(endpoint) || config.url?.includes(endpoint)
+    );
+    
+    // Only add auth token for non-public endpoints
+    if (!isPublicEndpoint) {
+      const token = localStorage.getItem('token');
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
     }
+    
     return config;
   },
   (error) => {

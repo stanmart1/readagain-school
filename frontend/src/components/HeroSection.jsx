@@ -1,14 +1,8 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import EReaderPreview from './EReaderPreview';
 
 export default function HeroSection() {
-  const floatingBooks = [
-    { id: 1, rotation: -8, delay: 0, y: 20 },
-    { id: 2, rotation: 5, delay: 0.3, y: -30 },
-    { id: 3, rotation: -3, delay: 0.6, y: 10 },
-    { id: 4, rotation: 8, delay: 0.9, y: -20 }
-  ];
-
   return (
     <div className="relative min-h-screen flex items-center overflow-hidden pt-20">
       {/* Gradient Background */}
@@ -82,48 +76,9 @@ export default function HeroSection() {
             </motion.div>
           </motion.div>
           
-          {/* Right Side - Floating Books */}
-          <div className="relative hidden lg:block h-[600px]">
-            {floatingBooks.map((book, index) => (
-              <motion.div
-                key={book.id}
-                initial={{ opacity: 0, scale: 0.5, rotate: 0 }}
-                animate={{ 
-                  opacity: 1, 
-                  scale: 1, 
-                  rotate: book.rotation,
-                  y: [book.y, book.y - 20, book.y]
-                }}
-                transition={{ 
-                  opacity: { duration: 0.6, delay: book.delay },
-                  scale: { duration: 0.6, delay: book.delay },
-                  rotate: { duration: 0.6, delay: book.delay },
-                  y: { duration: 3, repeat: Infinity, ease: "easeInOut", delay: book.delay }
-                }}
-                className="absolute"
-                style={{
-                  top: `${index * 18}%`,
-                  left: `${(index % 2) * 40 + 10}%`,
-                  zIndex: 5 - index
-                }}
-              >
-                <motion.div
-                  whileHover={{ scale: 1.1, rotate: 0, zIndex: 50 }}
-                  className="relative group cursor-pointer"
-                >
-                  <div className="w-32 h-44 bg-gradient-to-br from-white to-gray-100 rounded-lg shadow-2xl overflow-hidden">
-                    <img
-                      src={`https://picsum.photos/seed/book${book.id}/200/300`}
-                      alt={`Book ${book.id}`}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
-                  </div>
-                  {/* Glow effect */}
-                  <div className="absolute inset-0 bg-yellow-400/20 rounded-lg blur-xl group-hover:bg-yellow-400/40 transition-all"></div>
-                </motion.div>
-              </motion.div>
-            ))}
+          {/* Right Side - E-Reader Preview */}
+          <div className="relative hidden lg:block">
+            <EReaderPreview />
           </div>
 
         </div>

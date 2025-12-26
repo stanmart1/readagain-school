@@ -79,9 +79,6 @@ export default function EReaderPreview() {
           <div className="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-primary-600 hover:bg-primary-50 transition-colors cursor-pointer">
             <i className="ri-palette-line text-xl"></i>
           </div>
-          <div className="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-primary-600 hover:bg-primary-50 transition-colors cursor-pointer">
-            <i className="ri-volume-up-line text-xl"></i>
-          </div>
         </motion.div>
 
         {/* Glow Effect */}

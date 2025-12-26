@@ -56,76 +56,50 @@ export default function AboutSection() {
   }
 
   return (
-    <section className="py-20 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
+    <section className="py-32 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute top-20 right-0 w-72 h-72 bg-primary-100 rounded-full blur-3xl opacity-30"></div>
       <div className="absolute bottom-20 left-0 w-96 h-96 bg-yellow-100 rounded-full blur-3xl opacity-20"></div>
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <span className="inline-block px-4 py-2 bg-primary-100 text-primary-700 rounded-full text-sm font-semibold mb-4">
+          <span className="inline-block px-4 py-2 bg-primary-100 text-primary-700 rounded-full text-sm font-semibold mb-6">
             Who We Are
           </span>
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
             {aboutContent.hero?.title || 'About ReadAgain'}
           </h2>
-          <div className="text-xl text-gray-600 max-w-3xl mx-auto"
+          <div className="text-2xl text-gray-600 font-light max-w-3xl mx-auto leading-relaxed"
                {...createHTMLProps(aboutContent.hero?.subtitle || 'Empowering The Mind Through Reading')}
           />
         </motion.div>
 
-        {/* Main Content */}
+        {/* Mission Text */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto text-center mb-16"
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="text-center mb-16"
         >
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Mission</h3>
-          <div className="text-lg text-gray-600 leading-relaxed mb-6"
+          <div className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto mb-10"
                {...createHTMLProps(aboutContent.mission?.description || defaultContent.mission.description)}
           />
           
           <Link
             to="/about"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-full font-semibold hover:bg-primary-700 transition-all shadow-lg hover:shadow-xl"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-primary-600 text-white rounded-full font-semibold hover:bg-primary-700 transition-all shadow-lg hover:shadow-xl text-lg"
           >
             <span>Learn More About Us</span>
             <i className="ri-arrow-right-line"></i>
           </Link>
-        </motion.div>
-
-        {/* Values Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6"
-        >
-          {values.map((value, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 group"
-            >
-              <div className="w-14 h-14 bg-gradient-to-br from-primary-100 to-primary-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <i className={`${value.icon} text-2xl text-primary-600`}></i>
-              </div>
-              <h4 className="font-bold text-gray-900 mb-2">{value.title}</h4>
-              <div className="text-sm text-gray-600" {...createHTMLProps(value.description)} />
-            </motion.div>
-          ))}
         </motion.div>
       </div>
     </section>

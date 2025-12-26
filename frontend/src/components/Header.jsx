@@ -147,7 +147,7 @@ export default function Header() {
             <Link
               key={item}
               to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
-              className="block px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-all font-medium"
+              className="block px-4 py-3 text-gray-700 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition-all font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
               {item}
@@ -160,14 +160,14 @@ export default function Header() {
           <div className="p-4 border-t border-gray-200 space-y-3">
             <Link
               to="/login"
-              className="block w-full text-center px-4 py-2 text-blue-600 border border-blue-600 rounded-lg font-medium hover:bg-blue-50 transition-all"
+              className="block w-full text-center px-4 py-2 text-primary-600 border border-primary-600 rounded-lg font-medium hover:bg-primary-50 transition-all"
               onClick={() => setIsMenuOpen(false)}
             >
               Login
             </Link>
             <Link
               to="/signup"
-              className="block w-full text-center px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:from-blue-700 hover:to-purple-700 transition-all"
+              className="block w-full text-center px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg font-medium hover:from-primary-700 hover:to-primary-800 transition-all"
               onClick={() => setIsMenuOpen(false)}
             >
               Sign Up

@@ -81,49 +81,27 @@ export default function AboutSection() {
           />
         </motion.div>
 
-        {/* Main Content Grid */}
-        <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+        {/* Main Content */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-4xl mx-auto text-center mb-16"
+        >
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Mission</h3>
+          <div className="text-lg text-gray-600 leading-relaxed mb-6"
+               {...createHTMLProps(aboutContent.mission?.description || defaultContent.mission.description)}
+          />
           
-          {/* Image */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="relative"
+          <Link
+            to="/about"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-full font-semibold hover:bg-primary-700 transition-all shadow-lg hover:shadow-xl"
           >
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl">
-              <ProgressiveImage
-                src={getFileUrl(aboutContent.hero?.image_url) || "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800"}
-                alt="ReadAgain - Empowering minds through reading"
-                className="w-full h-[500px] object-cover"
-              />
-              {/* Overlay gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-            </div>
-          </motion.div>
-
-          {/* Mission Text */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Mission</h3>
-            <div className="text-lg text-gray-600 leading-relaxed mb-6"
-                 {...createHTMLProps(aboutContent.mission?.description || defaultContent.mission.description)}
-            />
-            
-            <Link
-              to="/about"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-full font-semibold hover:bg-primary-700 transition-all shadow-lg hover:shadow-xl"
-            >
-              <span>Learn More About Us</span>
-              <i className="ri-arrow-right-line"></i>
-            </Link>
-          </motion.div>
-        </div>
+            <span>Learn More About Us</span>
+            <i className="ri-arrow-right-line"></i>
+          </Link>
+        </motion.div>
 
         {/* Values Grid */}
         <motion.div

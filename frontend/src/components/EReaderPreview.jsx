@@ -1,6 +1,39 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 export default function EReaderPreview() {
+  const [fontSize, setFontSize] = useState(16);
+  const [theme, setTheme] = useState('light');
+  const [page, setPage] = useState(1);
+  const totalPages = 245;
+  const progress = Math.round((page / totalPages) * 100);
+
+  const themes = {
+    light: { bg: 'bg-white', text: 'text-gray-700', heading: 'text-gray-900' },
+    sepia: { bg: 'bg-amber-50', text: 'text-amber-900', heading: 'text-amber-950' },
+    dark: { bg: 'bg-gray-900', text: 'text-gray-300', heading: 'text-white' }
+  };
+
+  const currentTheme = themes[theme];
+
+  const nextPage = () => {
+    if (page < totalPages) setPage(page + 1);
+  };
+
+  const prevPage = () => {
+    if (page > 1) setPage(page - 1);
+  };
+
+  const cycleFontSize = () => {
+    setFontSize(prev => prev >= 20 ? 14 : prev + 2);
+  };
+
+  const cycleTheme = () => {
+    const themeOrder = ['light', 'sepia', 'dark'];
+    const currentIndex = themeOrder.indexOf(theme);
+    setTheme(themeOrder[(currentIndex + 1) % themeOrder.length]);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
@@ -13,7 +46,7 @@ export default function EReaderPreview() {
         {/* Device Frame */}
         <div className="bg-gray-800 rounded-3xl p-4 shadow-2xl">
           {/* Screen */}
-          <div className="bg-white rounded-2xl overflow-hidden shadow-inner">
+          <div className={`${currentTheme.bg} rounded-2xl overflow-hidden shadow-inner transition-colors duration-300`}>
             {/* Reader Header */}
             <div className="bg-primary-600 text-white px-4 py-3 flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -21,17 +54,21 @@ export default function EReaderPreview() {
                 <span className="font-semibold text-sm">ReadAgain Reader</span>
               </div>
               <div className="flex items-center gap-3">
-                <i className="ri-bookmark-line text-lg"></i>
-                <i className="ri-settings-3-line text-lg"></i>
+                <button className="hover:scale-110 transition-transform">
+                  <i className="ri-bookmark-line text-lg"></i>
+                </button>
+                <button className="hover:scale-110 transition-transform">
+                  <i className="ri-settings-3-line text-lg"></i>
+                </button>
               </div>
             </div>
 
             {/* Book Content */}
-            <div className="p-6 h-96 overflow-hidden">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            <div className="p-6 h-96 overflow-hidden relative">
+              <h2 className={`text-2xl font-bold ${currentTheme.heading} mb-4 transition-colors duration-300`} style={{ fontSize: `${fontSize + 8}px` }}>
                 Chapter 1: The Beginning
               </h2>
-              <div className="space-y-4 text-gray-700 leading-relaxed">
+              <div className={`space-y-4 ${currentTheme.text} leading-relaxed transition-colors duration-300`} style={{ fontSize: `${fontSize}px` }}>
                 <p className="text-justify">
                   In the heart of the ancient library, where dust motes danced in shafts of golden sunlight, 
                   young Emma discovered a book that would change her life forever. The leather-bound tome 
@@ -47,17 +84,42 @@ export default function EReaderPreview() {
                 </p>
               </div>
 
+              {/* Navigation Arrows */}
+              <div className="absolute bottom-20 left-0 right-0 flex justify-between px-6">
+                <button
+                  onClick={prevPage}
+                  disabled={page === 1}
+                  className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
+                    page === 1 
+                      ? 'bg-gray-200 text-gray-400 cursor-not-allowed' 
+                      : 'bg-primary-600 text-white hover:bg-primary-700 hover:scale-110'
+                  }`}
+                >
+                  <i className="ri-arrow-left-s-line text-xl"></i>
+                </button>
+                <button
+                  onClick={nextPage}
+                  disabled={page === totalPages}
+                  className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
+                    page === totalPages 
+                      ? 'bg-gray-200 text-gray-400 cursor-not-allowed' 
+                      : 'bg-primary-600 text-white hover:bg-primary-700 hover:scale-110'
+                  }`}
+                >
+                  <i className="ri-arrow-right-s-line text-xl"></i>
+                </button>
+              </div>
+
               {/* Progress Bar */}
               <div className="absolute bottom-6 left-6 right-6">
-                <div className="flex items-center justify-between text-xs text-gray-500 mb-2">
-                  <span>Page 1 of 245</span>
-                  <span>12% Complete</span>
+                <div className={`flex items-center justify-between text-xs mb-2 ${currentTheme.text} transition-colors duration-300`}>
+                  <span>Page {page} of {totalPages}</span>
+                  <span>{progress}% Complete</span>
                 </div>
-                <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden border border-gray-300">
                   <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: '12%' }}
-                    transition={{ duration: 1, delay: 0.5 }}
+                    animate={{ width: `${progress}%` }}
+                    transition={{ duration: 0.3 }}
                     className="h-full bg-gradient-to-r from-primary-500 to-primary-600"
                   />
                 </div>
@@ -73,12 +135,20 @@ export default function EReaderPreview() {
           transition={{ delay: 0.8 }}
           className="absolute -right-4 top-1/4 flex flex-col gap-3"
         >
-          <div className="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-primary-600 hover:bg-primary-50 transition-colors cursor-pointer">
+          <button
+            onClick={cycleFontSize}
+            className="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-primary-600 hover:bg-primary-50 transition-all hover:scale-110 active:scale-95"
+            title={`Font size: ${fontSize}px`}
+          >
             <i className="ri-font-size text-xl"></i>
-          </div>
-          <div className="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-primary-600 hover:bg-primary-50 transition-colors cursor-pointer">
+          </button>
+          <button
+            onClick={cycleTheme}
+            className="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-primary-600 hover:bg-primary-50 transition-all hover:scale-110 active:scale-95"
+            title={`Theme: ${theme}`}
+          >
             <i className="ri-palette-line text-xl"></i>
-          </div>
+          </button>
         </motion.div>
 
         {/* Glow Effect */}

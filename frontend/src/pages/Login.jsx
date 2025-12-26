@@ -33,7 +33,7 @@ export default function Login() {
   return (
     <div className="min-h-screen flex">
       {/* Left Side - Branding & Benefits */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-primary-700 to-primary-800 p-12 flex-col justify-center relative overflow-hidden">
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-primary-800 to-primary-900 p-12 flex-col justify-center relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-20 left-20 w-64 h-64 bg-white rounded-full blur-3xl"></div>
@@ -59,7 +59,7 @@ export default function Login() {
                 { icon: 'ri-book-open-line', text: 'Access your entire digital library' },
                 { icon: 'ri-bookmark-line', text: 'Pick up right where you left off' },
                 { icon: 'ri-trophy-line', text: 'Track your reading progress' },
-                { icon: 'ri-group-line', text: 'Join 10,000+ active readers' }
+                { icon: 'ri-smartphone-line', text: 'Read anywhere, anytime' }
               ].map((benefit, index) => (
                 <motion.div
                   key={index}

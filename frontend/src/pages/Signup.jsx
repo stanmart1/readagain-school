@@ -161,27 +161,80 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center px-4 py-12">
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3 }}
-        className="max-w-md w-full"
-      >
-        {/* Back to Home */}
-        <div className="mb-6">
-          <Link to="/" className="text-white hover:text-primary-100 inline-flex items-center">
+    <div className="min-h-screen flex">
+      {/* Left Side - Branding & Benefits */}
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-primary-800 to-primary-900 p-12 flex-col justify-center relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-20 left-20 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 right-20 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            <h1 className="text-5xl font-bold text-white mb-6">
+              Start Your Reading<br />Journey Today
+            </h1>
+            <p className="text-xl text-primary-100 mb-12">
+              Join ReadAgain and unlock access to thousands of books.
+            </p>
+
+            {/* Benefits */}
+            <div className="space-y-6">
+              {[
+                { icon: 'ri-book-open-line', text: 'Access thousands of digital books' },
+                { icon: 'ri-bookmark-line', text: 'Save your progress automatically' },
+                { icon: 'ri-trophy-line', text: 'Track your reading achievements' },
+                { icon: 'ri-smartphone-line', text: 'Read on any device' }
+              ].map((benefit, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 + index * 0.1 }}
+                  className="flex items-center gap-4 text-white"
+                >
+                  <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center flex-shrink-0">
+                    <i className={`${benefit.icon} text-2xl`}></i>
+                  </div>
+                  <span className="text-lg">{benefit.text}</span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Right Side - Signup Form */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-gray-50">
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4 }}
+          className="w-full max-w-md"
+        >
+        {/* Mobile Back Button */}
+        <div className="lg:hidden mb-6">
+          <Link to="/" className="text-primary-600 hover:text-primary-700 inline-flex items-center">
             <i className="ri-arrow-left-line mr-2"></i>
             Back to Home
           </Link>
         </div>
 
         {/* Signup Form */}
-        <div className="bg-white rounded-2xl shadow-2xl p-6 sm:p-8">
+        <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-gray-100">
           {/* Logo/Brand */}
-          <div className="text-center mb-6">
-            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">ReadAgain</h1>
-            <p className="text-gray-600 text-sm sm:text-base">Create your account and start reading!</p>
+          <div className="mb-6">
+            <Link to="/" className="hidden lg:inline-flex items-center text-gray-600 hover:text-primary-600 transition-colors mb-6">
+              <i className="ri-arrow-left-line mr-2"></i>
+              Back to Home
+            </Link>
+            <h2 className="text-3xl font-bold text-gray-900 mb-2">Create Account</h2>
+            <p className="text-gray-600 text-sm sm:text-base">Join ReadAgain and start reading today</p>
           </div>
 
           {/* Progress Indicator */}
@@ -656,8 +709,14 @@ export default function Signup() {
               </Link>
             </p>
           </div>
-        </div>
-      </motion.div>
+
+          {/* Trust Badge */}
+          <div className="mt-6 text-center text-sm text-gray-500">
+            <i className="ri-shield-check-line mr-1"></i>
+            Your data is secure and encrypted
+          </div>
+        </motion.div>
+      </div>
     </div>
   );
 }

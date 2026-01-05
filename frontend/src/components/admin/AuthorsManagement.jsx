@@ -8,9 +8,7 @@ const AuthorsManagement = () => {
   const [editingAuthor, setEditingAuthor] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
     bio: '',
-    avatar_url: '',
     status: 'active'
   });
   const [isSaving, setIsSaving] = useState(false);
@@ -102,9 +100,7 @@ const AuthorsManagement = () => {
   const resetForm = () => {
     setFormData({
       name: '',
-      email: '',
       bio: '',
-      avatar_url: '',
       status: 'active'
     });
     setEditingAuthor(null);
@@ -294,17 +290,6 @@ const AuthorsManagement = () => {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                  <input
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                    placeholder="Enter author email (optional)"
-                  />
-                </div>
-                
-                <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Bio</label>
                   <textarea
                     value={formData.bio}
@@ -312,17 +297,6 @@ const AuthorsManagement = () => {
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     placeholder="Enter author biography"
                     rows={3}
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Avatar URL</label>
-                  <input
-                    type="url"
-                    value={formData.avatar_url}
-                    onChange={(e) => setFormData(prev => ({ ...prev, avatar_url: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                    placeholder="Enter avatar image URL"
                   />
                 </div>
                 

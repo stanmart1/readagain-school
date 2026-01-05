@@ -34,11 +34,17 @@ const AuthorsManagement = () => {
 
     setIsSaving(true);
     try {
+      const payload = {
+        pen_name: formData.name,
+        bio: formData.bio,
+        status: formData.status
+      };
+
       if (editingAuthor) {
-        await api.put(`/admin/authors/${editingAuthor.id}`, formData);
+        await api.put(`/admin/authors/${editingAuthor.id}`, payload);
         alert('Author updated successfully!');
       } else {
-        await api.post('/admin/authors', formData);
+        await api.post('/admin/authors', payload);
         alert('Author created successfully!');
       }
 

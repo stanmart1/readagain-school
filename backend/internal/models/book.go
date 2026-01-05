@@ -8,9 +8,7 @@ type Author struct {
 	User         *User  `gorm:"foreignKey:UserID" json:"user,omitempty"`
 	BusinessName string `gorm:"not null" json:"business_name" validate:"required"`
 	Bio          string `gorm:"type:text" json:"bio"`
-	Photo        string `json:"photo"`
 	Website      string `json:"website"`
-	Email        string `json:"email" validate:"omitempty,email"`
 	Status       string `gorm:"default:active" json:"status"`
 }
 

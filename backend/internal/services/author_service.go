@@ -70,9 +70,7 @@ func (s *AuthorService) ListAuthors(page, limit int, search string) ([]map[strin
 			"user":          author.User,
 			"business_name": author.BusinessName,
 			"bio":           author.Bio,
-			"photo":         author.Photo,
 			"website":       author.Website,
-			"email":         author.Email,
 			"status":        author.Status,
 			"books_count":   booksCount,
 		}

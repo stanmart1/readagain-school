@@ -28,7 +28,7 @@ const MessageList = ({ messages, currentUserId, onReact, onDelete, onEdit }) => 
               <div
                 className={`rounded-lg px-4 py-2 ${
                   isOwn
-                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white'
+                    ? 'bg-gradient-to-r from-primary-700 to-primary-800 text-white'
                     : 'bg-gray-100 text-gray-900'
                 }`}
               >

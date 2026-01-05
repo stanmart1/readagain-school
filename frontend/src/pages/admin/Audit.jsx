@@ -177,7 +177,7 @@ const Audit = () => {
               </button>
               <button
                 onClick={handleExport}
-                className="px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 flex items-center"
+                className="px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-full hover:from-primary-700 hover:to-primary-800 transition-all duration-300 flex items-center"
               >
                 <i className="ri-download-line mr-2"></i>
                 Export
@@ -228,7 +228,7 @@ const Audit = () => {
               <div className="flex items-end gap-2">
                 <button
                   onClick={applyFilters}
-                  className="flex-1 px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300"
+                  className="flex-1 px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg hover:from-primary-700 hover:to-primary-800 transition-all duration-300"
                 >
                   Apply
                 </button>
@@ -306,7 +306,7 @@ const Audit = () => {
                         setSelectedLog(log);
                         setShowDetailsModal(true);
                       }}
-                      className="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center gap-1"
+                      className="text-primary-600 hover:text-primary-800 text-sm font-medium flex items-center gap-1"
                     >
                       <i className="ri-information-line"></i>
                       View Full Details
@@ -346,7 +346,7 @@ const Audit = () => {
               </thead>
               <tbody className="bg-white divide-y divide-gray-100">
                 {auditLogs.map((log) => (
-                  <tr key={log.id} className="hover:bg-blue-50 transition-colors duration-200">
+                  <tr key={log.id} className="hover:bg-primary-50 transition-colors duration-200">
                     <td className="px-6 py-4">
                       <div className="flex items-center">
                         <div className={`w-10 h-10 ${getActionColor(log.action)} rounded-xl flex items-center justify-center mr-3 shadow-sm`}>
@@ -387,7 +387,7 @@ const Audit = () => {
                             setSelectedLog(log);
                             setShowDetailsModal(true);
                           }}
-                          className="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center gap-1"
+                          className="text-primary-600 hover:text-primary-800 text-sm font-medium flex items-center gap-1"
                         >
                           <i className="ri-information-line"></i>
                           Details
@@ -439,7 +439,7 @@ const Audit = () => {
               animate={{ opacity: 1, scale: 1 }}
               className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[85vh] overflow-hidden"
             >
-              <div className="px-6 py-4 bg-gradient-to-r from-blue-50 to-purple-50 border-b border-gray-200">
+              <div className="px-6 py-4 bg-gradient-to-r from-primary-50 to-primary-100 border-b border-gray-200">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className={`w-12 h-12 ${getActionColor(selectedLog.action)} rounded-xl flex items-center justify-center shadow-md`}>

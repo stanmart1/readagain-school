@@ -81,7 +81,7 @@ const AssignBooksModal = ({ isOpen, onClose, user, onSubmit }) => {
           </button>
         </div>
 
-        <div className="mb-4 p-4 bg-blue-50 rounded-lg">
+        <div className="mb-4 p-4 bg-primary-50 rounded-lg">
           <p className="text-sm text-gray-700">
             Assigning book to: <span className="font-semibold">{user.first_name} {user.last_name}</span>
           </p>
@@ -99,7 +99,7 @@ const AssignBooksModal = ({ isOpen, onClose, user, onSubmit }) => {
               placeholder="Search books..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             />
           </div>
         </div>
@@ -121,7 +121,7 @@ const AssignBooksModal = ({ isOpen, onClose, user, onSubmit }) => {
                     assigned
                       ? 'border-gray-200 bg-gray-50 opacity-60 cursor-not-allowed'
                       : selectedBook === book.id
-                      ? 'border-blue-500 bg-blue-50 cursor-pointer'
+                      ? 'border-primary-500 bg-primary-50 cursor-pointer'
                       : 'border-gray-200 hover:border-gray-300 cursor-pointer'
                   }`}
                   onClick={() => {
@@ -144,7 +144,7 @@ const AssignBooksModal = ({ isOpen, onClose, user, onSubmit }) => {
                     </div>
                     <div className="ml-4">
                       {selectedBook === book.id && !assigned && (
-                        <i className="ri-checkbox-circle-fill text-blue-600 text-xl"></i>
+                        <i className="ri-checkbox-circle-fill text-primary-600 text-xl"></i>
                       )}
                     </div>
                   </div>
@@ -165,7 +165,7 @@ const AssignBooksModal = ({ isOpen, onClose, user, onSubmit }) => {
           <button
             onClick={handleAssign}
             disabled={loading || !selectedBook}
-            className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            className="px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg font-semibold hover:from-primary-700 hover:to-primary-800 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
           >
             {loading ? (
               <>

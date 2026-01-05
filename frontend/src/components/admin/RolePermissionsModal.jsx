@@ -73,7 +73,7 @@ const RolePermissionsModal = ({ isOpen, onClose, role }) => {
             className="bg-white rounded-xl shadow-2xl max-w-6xl w-full max-h-[85vh] overflow-hidden flex flex-col"
           >
             {/* Header */}
-            <div className="p-6 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-purple-50">
+            <div className="p-6 border-b border-gray-200 bg-gradient-to-r from-primary-50 to-primary-100">
               <div className="flex items-center justify-between">
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900">
@@ -89,7 +89,7 @@ const RolePermissionsModal = ({ isOpen, onClose, role }) => {
                   {!isEditingPermissions ? (
                     <button
                       onClick={() => setIsEditingPermissions(true)}
-                      className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 flex items-center"
+                      className="px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-full hover:from-primary-700 hover:to-primary-800 transition-all duration-300 flex items-center"
                     >
                       <i className="ri-edit-line mr-2"></i>
                       Edit Permissions
@@ -141,7 +141,7 @@ const RolePermissionsModal = ({ isOpen, onClose, role }) => {
                       onClick={() => handlePermissionToggle(permission.id)}
                       className={`rounded-lg p-4 border-2 transition-all duration-200 cursor-pointer ${
                         selectedPermissions.includes(permission.id)
-                          ? "bg-blue-50 border-blue-200"
+                          ? "bg-primary-50 border-primary-200"
                           : "bg-gray-50 border-gray-200"
                       }`}
                     >
@@ -150,7 +150,7 @@ const RolePermissionsModal = ({ isOpen, onClose, role }) => {
                           type="checkbox"
                           checked={selectedPermissions.includes(permission.id)}
                           onChange={() => handlePermissionToggle(permission.id)}
-                          className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
+                          className="mt-1 h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded cursor-pointer"
                         />
                         <div className="flex-1">
                           <div className="flex items-center justify-between mb-2">
@@ -200,7 +200,7 @@ const RolePermissionsModal = ({ isOpen, onClose, role }) => {
                   </p>
                   <button
                     onClick={() => setIsEditingPermissions(true)}
-                    className="mt-4 px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300"
+                    className="mt-4 px-6 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-full hover:from-primary-700 hover:to-primary-800 transition-all duration-300"
                   >
                     Assign Permissions
                   </button>

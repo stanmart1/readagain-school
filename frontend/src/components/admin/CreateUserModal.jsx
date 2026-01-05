@@ -95,7 +95,7 @@ const CreateUserModal = ({ isOpen, onClose, newUser, setNewUser, onSubmit }) => 
           </button>
           <button
             onClick={onSubmit}
-            className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700"
+            className="px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg font-semibold hover:from-primary-700 hover:to-primary-800"
           >
             Create User
           </button>

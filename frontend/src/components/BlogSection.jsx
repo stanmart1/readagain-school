@@ -144,7 +144,7 @@ export default function BlogSection() {
                       <span>{post.read_time || 5} min read</span>
                     </div>
 
-                    <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors">
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-primary-600 transition-colors">
                       {post.title}
                     </h3>
 
@@ -154,7 +154,7 @@ export default function BlogSection() {
 
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-2">
-                        <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                        <div className="w-8 h-8 bg-gradient-to-r from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
                           {post.author_name?.[0] || 'A'}
                         </div>
                         <span className="text-sm font-medium text-gray-700">
@@ -164,7 +164,7 @@ export default function BlogSection() {
 
                       <Link
                         to={`/blog/${post.slug || post.id}`}
-                        className="text-blue-600 hover:text-blue-700 font-semibold text-sm flex items-center space-x-1"
+                        className="text-primary-600 hover:text-primary-700 font-semibold text-sm flex items-center space-x-1"
                       >
                         <span>Read More</span>
                         <i className="ri-arrow-right-line"></i>
@@ -187,7 +187,7 @@ export default function BlogSection() {
           >
             <Link
               to="/blog"
-              className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
+              className="inline-flex items-center space-x-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-full font-semibold hover:from-primary-700 hover:to-primary-800 transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
               <span>View All Posts</span>
               <i className="ri-arrow-right-line"></i>

@@ -534,7 +534,7 @@ export default function EReader({ bookId, onClose }) {
           >
             <i className="ri-sticky-note-line text-xl"></i>
             {(notes.length + highlights.length) > 0 && (
-              <span className="absolute -top-1 -right-1 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+              <span className="absolute -top-1 -right-1 bg-primary-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                 {notes.length + highlights.length}
               </span>
             )}
@@ -822,7 +822,7 @@ export default function EReader({ bookId, onClose }) {
                   onClick={() => setFontFamily(font)}
                   className={`px-3 py-2 rounded-lg border-2 transition-all text-sm ${
                     fontFamily === font
-                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
+                      ? 'border-primary-500 bg-primary-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
                       : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 text-gray-900 dark:text-gray-100'
                   }`}
                   style={{ fontFamily: font }}
@@ -839,7 +839,7 @@ export default function EReader({ bookId, onClose }) {
               <button
                 onClick={() => setTheme('light')}
                 className={`p-3 rounded-lg border-2 transition-all ${
-                  theme === 'light' ? 'border-blue-500 bg-blue-50' : 'border-gray-200 dark:border-gray-600'
+                  theme === 'light' ? 'border-primary-500 bg-primary-50' : 'border-gray-200 dark:border-gray-600'
                 }`}
               >
                 <div className="w-full h-8 bg-white border border-gray-300 rounded mb-2"></div>
@@ -848,7 +848,7 @@ export default function EReader({ bookId, onClose }) {
               <button
                 onClick={() => setTheme('sepia')}
                 className={`p-3 rounded-lg border-2 transition-all ${
-                  theme === 'sepia' ? 'border-blue-500 bg-blue-50' : 'border-gray-200 dark:border-gray-600'
+                  theme === 'sepia' ? 'border-primary-500 bg-primary-50' : 'border-gray-200 dark:border-gray-600'
                 }`}
               >
                 <div className="w-full h-8 bg-amber-50 border border-amber-200 rounded mb-2"></div>
@@ -857,7 +857,7 @@ export default function EReader({ bookId, onClose }) {
               <button
                 onClick={() => setTheme('dark')}
                 className={`p-3 rounded-lg border-2 transition-all ${
-                  theme === 'dark' ? 'border-blue-500 bg-blue-50' : 'border-gray-200 dark:border-gray-600'
+                  theme === 'dark' ? 'border-primary-500 bg-primary-50' : 'border-gray-200 dark:border-gray-600'
                 }`}
               >
                 <div className="w-full h-8 bg-gray-900 border border-gray-700 rounded mb-2"></div>

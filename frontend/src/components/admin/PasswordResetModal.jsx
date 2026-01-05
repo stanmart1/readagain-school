@@ -69,7 +69,7 @@ const PasswordResetModal = ({ isOpen, onClose, user, onSubmit }) => {
           </button>
         </div>
 
-        <div className="mb-4 p-4 bg-blue-50 rounded-lg">
+        <div className="mb-4 p-4 bg-primary-50 rounded-lg">
           <p className="text-sm text-gray-700">
             Resetting password for: <span className="font-semibold">{user.email}</span>
           </p>
@@ -97,7 +97,7 @@ const PasswordResetModal = ({ isOpen, onClose, user, onSubmit }) => {
                 type={showPassword ? 'text' : 'password'}
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="Enter new password (8+ chars, uppercase, lowercase, number, special char)"
               />
               <button
@@ -117,7 +117,7 @@ const PasswordResetModal = ({ isOpen, onClose, user, onSubmit }) => {
                 type={showConfirmPassword ? 'text' : 'password'}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="Confirm new password"
               />
               <button
@@ -142,7 +142,7 @@ const PasswordResetModal = ({ isOpen, onClose, user, onSubmit }) => {
           <button
             onClick={handleSubmit}
             disabled={loading || !newPassword || !confirmPassword}
-            className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg font-semibold hover:from-primary-700 hover:to-primary-800 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? 'Resetting...' : 'Reset Password'}
           </button>

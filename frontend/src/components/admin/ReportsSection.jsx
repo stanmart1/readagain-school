@@ -94,7 +94,7 @@ const ReportsSection = () => {
                     <button
                       onClick={() => handleGenerateReport(report.type)}
                       disabled={generatingReport === report.type}
-                      className="px-3 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50 whitespace-nowrap"
+                      className="px-3 py-1 text-xs bg-primary-600 text-white rounded hover:bg-primary-700 disabled:opacity-50 whitespace-nowrap"
                     >
                       {generatingReport === report.type ? 'Generating...' : 'Generate'}
                     </button>

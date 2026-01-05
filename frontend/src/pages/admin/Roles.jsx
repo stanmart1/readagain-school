@@ -26,7 +26,7 @@ const Roles = () => {
       case 'admin':
         return 'bg-gradient-to-r from-primary-600 to-primary-700';
       case 'moderator':
-        return 'bg-gradient-to-r from-cyan-500 to-blue-500';
+        return 'bg-gradient-to-r from-secondary-500 to-secondary-600';
       case 'user':
         return 'bg-gradient-to-r from-gray-500 to-gray-600';
       default:
@@ -79,7 +79,7 @@ const Roles = () => {
             </div>
             <button
               onClick={() => setShowCreateModal(true)}
-              className="w-full sm:w-auto px-6 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
+              className="w-full sm:w-auto px-6 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-full hover:from-primary-700 hover:to-primary-800 transition-all duration-300 transform hover:scale-105"
             >
               <i className="ri-add-line mr-2"></i>
               Create Role
@@ -99,7 +99,7 @@ const Roles = () => {
             </p>
             <button
               onClick={() => setShowCreateModal(true)}
-              className="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
+              className="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-full hover:from-primary-700 hover:to-primary-800 transition-all duration-300 transform hover:scale-105"
             >
               <i className="ri-add-line mr-2"></i>
               Create Your First Role
@@ -119,7 +119,7 @@ const Roles = () => {
                 <div className="flex space-x-2">
                   <button
                     onClick={() => handleViewPermissions(role)}
-                    className="p-2 text-blue-600 hover:text-blue-800 transition-colors duration-200"
+                    className="p-2 text-primary-600 hover:text-primary-800 transition-colors duration-200"
                     title="Manage Permissions"
                   >
                     <i className="ri-settings-line"></i>

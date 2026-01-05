@@ -456,7 +456,7 @@ const BlogManagement = () => {
           <div className={`fixed top-4 right-4 z-50 px-6 py-4 rounded-lg shadow-lg flex items-center gap-3 animate-slide-in ${
             toast.type === 'success' ? 'bg-green-500 text-white' :
             toast.type === 'error' ? 'bg-red-500 text-white' :
-            'bg-blue-500 text-white'
+            'bg-primary-500 text-white'
           }`}>
             <i className={`text-xl ${
               toast.type === 'success' ? 'ri-checkbox-circle-line' :
@@ -498,7 +498,7 @@ const BlogManagement = () => {
 
         {/* Header */}
         <div className="bg-white rounded-xl shadow-md overflow-hidden mb-4 sm:mb-6">
-          <div className="bg-gradient-to-r from-blue-50 to-purple-50 px-6 py-4 border-b border-gray-200">
+          <div className="bg-gradient-to-r from-primary-50 to-primary-100 px-6 py-4 border-b border-gray-200">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div>
                 <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center gap-2">
@@ -523,7 +523,7 @@ const BlogManagement = () => {
                     resetForm();
                     setShowCreateModal(true);
                   }}
-                  className="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center gap-2"
+                  className="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-full font-semibold hover:from-primary-700 hover:to-primary-800 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center gap-2"
                 >
                   <i className="ri-add-line"></i>
                   <span>Create Post</span>
@@ -537,7 +537,7 @@ const BlogManagement = () => {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-4 sm:mb-6">
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-3 sm:p-4 md:p-6">
             <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
-              <div className="w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div className="w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 bg-primary-500 rounded-lg flex items-center justify-center flex-shrink-0">
                 <i className="ri-article-line text-white text-sm sm:text-base md:text-xl"></i>
               </div>
               <div className="min-w-0 flex-1">
@@ -570,7 +570,7 @@ const BlogManagement = () => {
           </div>
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-3 sm:p-4 md:p-6">
             <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
-              <div className="w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 bg-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div className="w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 bg-primary-600 rounded-lg flex items-center justify-center flex-shrink-0">
                 <i className="ri-eye-line text-white text-sm sm:text-base md:text-xl"></i>
               </div>
               <div className="min-w-0 flex-1">
@@ -631,7 +631,7 @@ const BlogManagement = () => {
 
         {/* Bulk Actions */}
         {selectedPosts.length > 0 && (
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4 flex items-center justify-between">
+          <div className="bg-primary-50 border border-primary-200 rounded-lg p-4 mb-4 flex items-center justify-between">
             <span className="text-sm font-medium text-blue-900">
               {selectedPosts.length} post{selectedPosts.length > 1 ? 's' : ''} selected
             </span>
@@ -789,14 +789,14 @@ const BlogManagement = () => {
                               setShowEditModal(false);
                               setShowPreview(true);
                             }}
-                            className="text-purple-600 hover:text-purple-900 flex-shrink-0"
+                            className="text-primary-700 hover:text-purple-900 flex-shrink-0"
                             title="Preview"
                           >
                             <i className="ri-eye-line text-lg"></i>
                           </button>
                           <button
                             onClick={() => handleEditPost(post)}
-                            className="text-primary-600 hover:text-blue-900 flex-shrink-0"
+                            className="text-primary-600 hover:text-primary-900 flex-shrink-0"
                             title="Edit"
                           >
                             <i className="ri-edit-line text-lg"></i>
@@ -951,14 +951,14 @@ const BlogManagement = () => {
                       setShowEditModal(false);
                       setShowPreview(true);
                     }}
-                    className="flex-1 px-3 py-2 text-purple-600 hover:bg-purple-50 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-1"
+                    className="flex-1 px-3 py-2 text-primary-700 hover:bg-purple-50 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-1"
                   >
                     <i className="ri-eye-line"></i>
                     Preview
                   </button>
                   <button
                     onClick={() => handleEditPost(post)}
-                    className="flex-1 px-3 py-2 text-primary-600 hover:bg-blue-50 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-1"
+                    className="flex-1 px-3 py-2 text-primary-600 hover:bg-primary-50 rounded-lg text-sm font-medium transition-colors flex items-center justify-center gap-1"
                   >
                     <i className="ri-edit-line"></i>
                     Edit
@@ -1024,7 +1024,7 @@ const BlogManagement = () => {
             <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[95vh] overflow-y-auto">
               <div className="p-4 sm:p-6">
                 {/* Header with Steps */}
-                <div className="px-4 sm:px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50 -m-4 sm:-m-6 mb-6">
+                <div className="px-4 sm:px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-primary-50 to-primary-100 -m-4 sm:-m-6 mb-6">
                   <div className="flex items-center justify-between mb-4">
                     <div>
                       <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Create Blog Post</h2>
@@ -1200,7 +1200,7 @@ const BlogManagement = () => {
                         {formData.tags.map(tag => (
                           <span key={tag} className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full flex items-center gap-1 text-sm">
                             {tag}
-                            <button onClick={() => removeTag(tag)} type="button" className="text-primary-600 hover:text-blue-800">
+                            <button onClick={() => removeTag(tag)} type="button" className="text-primary-600 hover:text-primary-800">
                               <i className="ri-close-line"></i>
                             </button>
                           </span>
@@ -1369,7 +1369,7 @@ const BlogManagement = () => {
                         setValidationErrors({});
                         setCurrentStep(currentStep + 1);
                       }}
-                      className="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg font-medium order-1"
+                      className="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl hover:from-primary-700 hover:to-primary-800 transition-all duration-300 transform hover:scale-105 shadow-lg font-medium order-1"
                     >
                       Next
                       <i className="ri-arrow-right-line ml-2"></i>
@@ -1378,7 +1378,7 @@ const BlogManagement = () => {
                     <button
                       onClick={handleCreatePost}
                       disabled={isSaving}
-                      className="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2 font-medium order-1"
+                      className="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl hover:from-primary-700 hover:to-primary-800 transition-all duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2 font-medium order-1"
                     >
                       {isSaving && <i className="ri-loader-4-line animate-spin"></i>}
                       {isSaving ? 'Creating...' : 'Create Post'}
@@ -1395,7 +1395,7 @@ const BlogManagement = () => {
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-4 overflow-y-auto">
             <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[95vh] overflow-y-auto">
               <div className="p-4 sm:p-6">
-                <div className="px-4 sm:px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50 -m-4 sm:-m-6 mb-6">
+                <div className="px-4 sm:px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-primary-50 to-primary-100 -m-4 sm:-m-6 mb-6">
                   <div className="flex items-center justify-between">
                     <div>
                       <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Edit Blog Post</h2>
@@ -1447,7 +1447,7 @@ const BlogManagement = () => {
                         type="text"
                         value={formData.title}
                         onChange={(e) => { handleTitleChange(e.target.value); setHasUnsavedChanges(true); }}
-                        className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-blue-500 transition-all ${validationErrors.title ? 'border-red-400 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}
+                        className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all ${validationErrors.title ? 'border-red-400 bg-red-50' : 'border-gray-200 hover:border-gray-300'}`}
                         placeholder="Enter post title"
                       />
                       {validationErrors.title && <p className="text-red-500 text-sm mt-1"><i className="ri-error-warning-line mr-1"></i>{validationErrors.title}</p>}
@@ -1460,7 +1460,7 @@ const BlogManagement = () => {
                           value={formData.slug}
                           onChange={(e) => { setFormData({ ...formData, slug: e.target.value }); setHasUnsavedChanges(true); }}
                           disabled={!slugEditable}
-                          className={`flex-1 px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-blue-500 transition-all ${!slugEditable ? 'bg-gray-50 cursor-not-allowed' : 'border-gray-200 hover:border-gray-300'}`}
+                          className={`flex-1 px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all ${!slugEditable ? 'bg-gray-50 cursor-not-allowed' : 'border-gray-200 hover:border-gray-300'}`}
                           placeholder="auto-generated-slug"
                         />
                         <button type="button" onClick={() => setSlugEditable(!slugEditable)} className="px-4 py-3 border-2 border-gray-200 rounded-xl hover:bg-gray-50 transition-colors">
@@ -1471,13 +1471,13 @@ const BlogManagement = () => {
                     </div>
                     <div>
                       <label className="block text-sm font-semibold text-gray-800 mb-2">Category</label>
-                      <select value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })} className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-blue-500 transition-all hover:border-gray-300 appearance-none bg-white">
+                      <select value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })} className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all hover:border-gray-300 appearance-none bg-white">
                         {categories.map((cat) => <option key={cat.slug || cat.name} value={cat.name}>{cat.name}</option>)}
                       </select>
                     </div>
                     <div>
                       <label className="block text-sm font-semibold text-gray-800 mb-2">Featured Image</label>
-                      <input type="file" accept="image/*" onChange={handleImageUpload} className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-blue-500 transition-all hover:border-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+                      <input type="file" accept="image/*" onChange={handleImageUpload} className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all hover:border-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-blue-700 hover:file:bg-blue-100" />
                       <p className="text-xs text-gray-500 mt-1">Max 5MB. Recommended: 1200x630px</p>
                       {imagePreview && (
                         <div className="mt-3 relative inline-block">
@@ -1496,7 +1496,7 @@ const BlogManagement = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-semibold text-gray-800 mb-2">Status</label>
-                        <select value={formData.status} onChange={(e) => setFormData({ ...formData, status: e.target.value })} className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-blue-500 transition-all hover:border-gray-300 appearance-none bg-white">
+                        <select value={formData.status} onChange={(e) => setFormData({ ...formData, status: e.target.value })} className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all hover:border-gray-300 appearance-none bg-white">
                           <option value="draft">Draft</option>
                           <option value="published">Published</option>
                           <option value="archived">Archived</option>
@@ -1519,8 +1519,8 @@ const BlogManagement = () => {
                     <div>
                       <label className="block text-sm font-semibold text-gray-800 mb-2">Tags</label>
                       <div className="flex gap-2 mb-2">
-                        <input type="text" value={tagInput} onChange={(e) => setTagInput(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())} className="flex-1 px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-blue-500 transition-all hover:border-gray-300" placeholder="Add tag and press Enter" />
-                        <button onClick={addTag} type="button" className="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all font-medium">Add</button>
+                        <input type="text" value={tagInput} onChange={(e) => setTagInput(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())} className="flex-1 px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all hover:border-gray-300" placeholder="Add tag and press Enter" />
+                        <button onClick={addTag} type="button" className="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl hover:from-primary-700 hover:to-primary-800 transition-all font-medium">Add</button>
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {formData.tags.map(tag => (
@@ -1533,11 +1533,11 @@ const BlogManagement = () => {
                     </div>
                     <div>
                       <label className="block text-sm font-semibold text-gray-800 mb-2">Publish Date</label>
-                      <input type="datetime-local" value={formData.published_at} onChange={(e) => setFormData({ ...formData, published_at: e.target.value })} className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-blue-500 transition-all hover:border-gray-300" />
+                      <input type="datetime-local" value={formData.published_at} onChange={(e) => setFormData({ ...formData, published_at: e.target.value })} className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all hover:border-gray-300" />
                     </div>
                     <div>
                       <label className="block text-sm font-semibold text-gray-800 mb-2">SEO Title</label>
-                      <input type="text" value={formData.seo_title} onChange={(e) => setFormData({ ...formData, seo_title: e.target.value })} className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-blue-500 transition-all hover:border-gray-300" maxLength="60" placeholder="SEO optimized title" />
+                      <input type="text" value={formData.seo_title} onChange={(e) => setFormData({ ...formData, seo_title: e.target.value })} className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all hover:border-gray-300" maxLength="60" placeholder="SEO optimized title" />
                       <div className="flex justify-between text-xs mt-1">
                         <span className={formData.seo_title.length > 60 ? 'text-red-500' : 'text-gray-500'}>
                           {formData.seo_title.length}/60 characters
@@ -1546,7 +1546,7 @@ const BlogManagement = () => {
                     </div>
                     <div>
                       <label className="block text-sm font-semibold text-gray-800 mb-2">SEO Description</label>
-                      <textarea value={formData.seo_description} onChange={(e) => setFormData({ ...formData, seo_description: e.target.value })} className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-blue-500 transition-all hover:border-gray-300" rows="3" maxLength="160" placeholder="Meta description for search engines" />
+                      <textarea value={formData.seo_description} onChange={(e) => setFormData({ ...formData, seo_description: e.target.value })} className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all hover:border-gray-300" rows="3" maxLength="160" placeholder="Meta description for search engines" />
                       <div className="flex justify-between text-xs mt-1">
                         <span className={formData.seo_description.length > 160 ? 'text-red-500' : 'text-gray-500'}>
                           {formData.seo_description.length}/160 characters
@@ -1556,8 +1556,8 @@ const BlogManagement = () => {
                     <div>
                       <label className="block text-sm font-semibold text-gray-800 mb-2">SEO Keywords</label>
                       <div className="flex gap-2 mb-2">
-                        <input type="text" value={keywordInput} onChange={(e) => setKeywordInput(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addKeyword())} className="flex-1 px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-blue-500 transition-all hover:border-gray-300" placeholder="Add keyword and press Enter" />
-                        <button onClick={addKeyword} type="button" className="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all font-medium">Add</button>
+                        <input type="text" value={keywordInput} onChange={(e) => setKeywordInput(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addKeyword())} className="flex-1 px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all hover:border-gray-300" placeholder="Add keyword and press Enter" />
+                        <button onClick={addKeyword} type="button" className="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl hover:from-primary-700 hover:to-primary-800 transition-all font-medium">Add</button>
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {formData.seo_keywords.map(keyword => (
@@ -1574,7 +1574,7 @@ const BlogManagement = () => {
                 <div className="flex flex-col sm:flex-row gap-3 pt-6 border-t border-gray-200 mt-6">
                   <button onClick={() => { if (hasUnsavedChanges && !confirm('Discard changes?')) return; setShowEditModal(false); setEditMode('basic'); setHasUnsavedChanges(false); }} className="px-6 py-3 border-2 border-gray-300 rounded-xl hover:bg-gray-50 transition-colors font-medium order-2 sm:order-1">Cancel</button>
                   <div className="flex-1 hidden sm:block"></div>
-                  <button onClick={handleUpdatePost} disabled={isSaving} className="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2 font-medium order-1 sm:order-2">
+                  <button onClick={handleUpdatePost} disabled={isSaving} className="px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl hover:from-primary-700 hover:to-primary-800 transition-all duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2 font-medium order-1 sm:order-2">
                     {isSaving && <i className="ri-loader-4-line animate-spin"></i>}
                     {isSaving ? 'Updating...' : 'Update Post'}
                   </button>

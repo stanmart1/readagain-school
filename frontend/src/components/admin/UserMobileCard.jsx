@@ -5,9 +5,9 @@ const UserMobileCard = ({ user, onView, onEdit, onAnalytics, onAssignBooks, onAs
 
   const getRoleColor = (roleName) => {
     switch (roleName) {
-      case 'admin': return 'bg-purple-500';
+      case 'admin': return 'bg-primary-600';
       case 'super_admin': return 'bg-red-500';
-      case 'user': return 'bg-blue-500';
+      case 'user': return 'bg-primary-500';
       default: return 'bg-gray-500';
     }
   };
@@ -17,7 +17,7 @@ const UserMobileCard = ({ user, onView, onEdit, onAnalytics, onAssignBooks, onAs
       {/* User Header */}
       <div className="flex items-start justify-between">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+          <div className="w-10 h-10 bg-gradient-to-r from-primary-600 to-primary-700 rounded-full flex items-center justify-center flex-shrink-0">
             <span className="text-white font-semibold text-sm">
               {user.first_name?.[0] || ''}{user.last_name?.[0] || ''}
             </span>
@@ -74,21 +74,21 @@ const UserMobileCard = ({ user, onView, onEdit, onAnalytics, onAssignBooks, onAs
       <div className="flex flex-wrap gap-2 pt-2 border-t border-gray-100">
         <button
           onClick={() => onView(user)}
-          className="text-blue-600 hover:text-blue-800 flex items-center text-sm"
+          className="text-primary-600 hover:text-primary-800 flex items-center text-sm"
         >
           <i className="ri-eye-line mr-1"></i>
           View
         </button>
         <button
           onClick={() => onAnalytics(user.id)}
-          className="text-purple-600 hover:text-purple-800 flex items-center text-sm"
+          className="text-primary-700 hover:text-primary-800 flex items-center text-sm"
         >
           <i className="ri-line-chart-line mr-1"></i>
           Analytics
         </button>
         <button
           onClick={() => onAssignRole?.(user)}
-          className="text-indigo-600 hover:text-indigo-800 flex items-center text-sm"
+          className="text-indigo-600 hover:text-secondary-800 flex items-center text-sm"
         >
           <i className="ri-shield-user-line mr-1"></i>
           Role

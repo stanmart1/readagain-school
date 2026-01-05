@@ -227,7 +227,7 @@ const ShippingManagement = () => {
             onClick={() => setActiveTab('methods')}
             className={`py-4 px-1 border-b-2 font-medium text-sm ${
               activeTab === 'methods'
-                ? 'border-blue-500 text-blue-600'
+                ? 'border-primary-500 text-primary-600'
                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
             }`}
           >
@@ -238,7 +238,7 @@ const ShippingManagement = () => {
             onClick={() => setActiveTab('zones')}
             className={`py-4 px-1 border-b-2 font-medium text-sm ${
               activeTab === 'zones'
-                ? 'border-blue-500 text-blue-600'
+                ? 'border-primary-500 text-primary-600'
                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
             }`}
           >
@@ -249,7 +249,7 @@ const ShippingManagement = () => {
             onClick={() => setActiveTab('associations')}
             className={`py-4 px-1 border-b-2 font-medium text-sm ${
               activeTab === 'associations'
-                ? 'border-blue-500 text-blue-600'
+                ? 'border-primary-500 text-primary-600'
                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
             }`}
           >
@@ -268,7 +268,7 @@ const ShippingManagement = () => {
                 setEditingMethod(null);
                 setShowMethodModal(true);
               }}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+              className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors flex items-center gap-2"
             >
               <i className="ri-add-line"></i>
               Add Shipping Method
@@ -327,7 +327,7 @@ const ShippingManagement = () => {
                               setEditingMethod(method);
                               setShowMethodModal(true);
                             }}
-                            className="text-blue-600 hover:text-blue-900 mr-3"
+                            className="text-primary-600 hover:text-primary-900 mr-3"
                             title="Edit"
                           >
                             <i className="ri-edit-line text-lg"></i>
@@ -367,7 +367,7 @@ const ShippingManagement = () => {
                 setEditingZone(null);
                 setShowZoneModal(true);
               }}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+              className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors flex items-center gap-2"
             >
               <i className="ri-add-line"></i>
               Add Shipping Zone

@@ -44,7 +44,7 @@ export default function SessionTimeoutWarning({ show, timeRemaining, onExtend, o
           <div className="flex gap-3">
             <button
               onClick={onExtend}
-              className="flex-1 bg-blue-600 text-white px-4 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+              className="flex-1 bg-primary-600 text-white px-4 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors"
             >
               Stay Logged In
             </button>

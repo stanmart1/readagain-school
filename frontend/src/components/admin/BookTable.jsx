@@ -41,7 +41,7 @@ const BookTable = ({ books, selectedBooks, onSelectionChange, onBookAction, edit
                   type="checkbox"
                   checked={selectedBooks.includes(book.id)}
                   onChange={(e) => handleSelectBook(book.id, e.target.checked)}
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
                 />
                 <div className="w-12 h-16 bg-gray-100 rounded overflow-hidden relative flex-shrink-0">
                   <img
@@ -63,7 +63,7 @@ const BookTable = ({ books, selectedBooks, onSelectionChange, onBookAction, edit
                 </div>
               </div>
               <div className="flex flex-col items-end space-y-1 ml-2">
-                <span className="text-sm font-medium text-blue-600">
+                <span className="text-sm font-medium text-primary-600">
                   {book.library_count || 0} libraries
                 </span>
                 <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full text-white ${
@@ -96,7 +96,7 @@ const BookTable = ({ books, selectedBooks, onSelectionChange, onBookAction, edit
             <div className="flex flex-wrap gap-2 pt-2 border-t border-gray-100">
               <button
                 onClick={() => onBookAction('view', book)}
-                className="text-blue-600 hover:text-blue-800 flex items-center text-sm whitespace-nowrap"
+                className="text-primary-600 hover:text-primary-800 flex items-center text-sm whitespace-nowrap"
               >
                 <i className="ri-eye-line mr-1"></i>
                 View
@@ -115,7 +115,7 @@ const BookTable = ({ books, selectedBooks, onSelectionChange, onBookAction, edit
               </button>
               <button
                 onClick={() => onBookAction('assign', book)}
-                className="text-purple-600 hover:text-purple-800 flex items-center text-sm whitespace-nowrap"
+                className="text-primary-700 hover:text-primary-800 flex items-center text-sm whitespace-nowrap"
               >
                 <i className="ri-user-add-line mr-1"></i>
                 Assign
@@ -129,7 +129,7 @@ const BookTable = ({ books, selectedBooks, onSelectionChange, onBookAction, edit
               </button>
               <button
                 onClick={() => onBookAction('toggleStatus', book)}
-                className="text-indigo-600 hover:text-indigo-800 flex items-center text-sm whitespace-nowrap"
+                className="text-indigo-600 hover:text-secondary-800 flex items-center text-sm whitespace-nowrap"
               >
                 <i className={`ri-toggle-${book.status === 'published' ? 'fill' : 'line'} mr-1`}></i>
                 {book.status === 'published' ? 'Deactivate' : 'Activate'}
@@ -157,7 +157,7 @@ const BookTable = ({ books, selectedBooks, onSelectionChange, onBookAction, edit
                     type="checkbox"
                     checked={selectedBooks.length === books.length && books.length > 0}
                     onChange={(e) => handleSelectAll(e.target.checked)}
-                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
+                    className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded cursor-pointer"
                   />
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -189,7 +189,7 @@ const BookTable = ({ books, selectedBooks, onSelectionChange, onBookAction, edit
                       type="checkbox"
                       checked={selectedBooks.includes(book.id)}
                       onChange={(e) => handleSelectBook(book.id, e.target.checked)}
-                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
+                      className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded cursor-pointer"
                     />
                   </td>
                   <td className="px-4 py-4">
@@ -227,7 +227,7 @@ const BookTable = ({ books, selectedBooks, onSelectionChange, onBookAction, edit
                     </div>
                   </td>
                   <td className="px-4 py-4">
-                    <div className="text-sm font-medium text-blue-600">
+                    <div className="text-sm font-medium text-primary-600">
                       {book.library_count || 0} libraries
                     </div>
                   </td>
@@ -244,7 +244,7 @@ const BookTable = ({ books, selectedBooks, onSelectionChange, onBookAction, edit
                     <div className="flex flex-wrap items-center gap-2">
                       <button
                         onClick={() => onBookAction('view', book)}
-                        className="text-blue-600 hover:text-blue-800 cursor-pointer transition-colors duration-200"
+                        className="text-primary-600 hover:text-primary-800 cursor-pointer transition-colors duration-200"
                         title="View Book"
                       >
                         <i className="ri-eye-line"></i>
@@ -263,7 +263,7 @@ const BookTable = ({ books, selectedBooks, onSelectionChange, onBookAction, edit
                       </button>
                       <button
                         onClick={() => onBookAction('assign', book)}
-                        className="text-purple-600 hover:text-purple-800 cursor-pointer transition-colors duration-200"
+                        className="text-primary-700 hover:text-primary-800 cursor-pointer transition-colors duration-200"
                         title="Assign to Users"
                       >
                         <i className="ri-user-add-line"></i>
@@ -277,7 +277,7 @@ const BookTable = ({ books, selectedBooks, onSelectionChange, onBookAction, edit
                       </button>
                       <button
                         onClick={() => onBookAction('toggleStatus', book)}
-                        className="text-indigo-600 hover:text-indigo-800 cursor-pointer transition-colors duration-200"
+                        className="text-indigo-600 hover:text-secondary-800 cursor-pointer transition-colors duration-200"
                         title={book.status === 'published' ? 'Deactivate' : 'Activate'}
                       >
                         <i className={`ri-toggle-${book.status === 'published' ? 'fill' : 'line'}`}></i>

@@ -761,7 +761,7 @@ export default function EpubReader({ bookId, onClose }) {
             >
               <i className="ri-sticky-note-line text-xl"></i>
               {(notes.length + highlights.length) > 0 && (
-                <span className="absolute -top-1 -right-1 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 bg-primary-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                   {notes.length + highlights.length}
                 </span>
               )}
@@ -978,7 +978,7 @@ export default function EpubReader({ bookId, onClose }) {
             value={noteContent}
             onChange={(e) => setNoteContent(e.target.value)}
             placeholder="Write your note about this text..."
-            className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-4"
+            className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-primary-500 focus:border-transparent mb-4"
             rows="4"
             autoFocus
           />
@@ -1021,7 +1021,7 @@ export default function EpubReader({ bookId, onClose }) {
             <button
               onClick={() => setActiveTab('notes')}
               className={`flex-1 px-4 py-3 font-semibold transition-colors relative ${activeTab === 'notes'
-                ? 'text-primary-600 bg-blue-50'
+                ? 'text-primary-600 bg-primary-50'
                 : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                 }`}
             >
@@ -1069,13 +1069,13 @@ export default function EpubReader({ bookId, onClose }) {
               <div>
 
                 {/* Add Note Section */}
-                <div className="p-4 border-b border-gray-200 bg-blue-50">
+                <div className="p-4 border-b border-gray-200 bg-primary-50">
                   <h3 className="font-semibold mb-2 text-sm text-gray-700">Add New Note</h3>
                   <textarea
                     value={noteContent}
                     onChange={(e) => setNoteContent(e.target.value)}
                     placeholder="Write your note here..."
-                    className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                     rows="3"
                   />
                   <button
@@ -1141,7 +1141,7 @@ export default function EpubReader({ bookId, onClose }) {
                                 <div className="flex gap-2">
                                   <button
                                     onClick={() => setEditingNote(note.id)}
-                                    className="text-primary-600 hover:text-blue-800"
+                                    className="text-primary-600 hover:text-primary-800"
                                   >
                                     <i className="ri-edit-line"></i>
                                   </button>
@@ -1268,7 +1268,7 @@ export default function EpubReader({ bookId, onClose }) {
                   key={font}
                   onClick={() => changeFontFamily(font)}
                   className={`px-3 py-2 rounded-lg border-2 transition-all text-sm ${fontFamily === font
-                    ? 'border-blue-500 bg-blue-50 text-blue-700'
+                    ? 'border-primary-500 bg-primary-50 text-blue-700'
                     : 'border-gray-200 hover:border-gray-300'
                     }`}
                   style={{ fontFamily: font }}
@@ -1285,7 +1285,7 @@ export default function EpubReader({ bookId, onClose }) {
             <div className="grid grid-cols-3 gap-2">
               <button
                 onClick={() => changeTheme('light')}
-                className={`p-3 rounded-lg border-2 transition-all ${theme === 'light' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
+                className={`p-3 rounded-lg border-2 transition-all ${theme === 'light' ? 'border-primary-500 bg-primary-50' : 'border-gray-200'
                   }`}
               >
                 <div className="w-full h-8 bg-white border border-gray-300 rounded mb-2"></div>
@@ -1293,7 +1293,7 @@ export default function EpubReader({ bookId, onClose }) {
               </button>
               <button
                 onClick={() => changeTheme('sepia')}
-                className={`p-3 rounded-lg border-2 transition-all ${theme === 'sepia' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
+                className={`p-3 rounded-lg border-2 transition-all ${theme === 'sepia' ? 'border-primary-500 bg-primary-50' : 'border-gray-200'
                   }`}
               >
                 <div className="w-full h-8 bg-amber-50 border border-amber-200 rounded mb-2"></div>
@@ -1301,7 +1301,7 @@ export default function EpubReader({ bookId, onClose }) {
               </button>
               <button
                 onClick={() => changeTheme('dark')}
-                className={`p-3 rounded-lg border-2 transition-all ${theme === 'dark' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
+                className={`p-3 rounded-lg border-2 transition-all ${theme === 'dark' ? 'border-primary-500 bg-primary-50' : 'border-gray-200'
                   }`}
               >
                 <div className="w-full h-8 bg-gray-900 border border-gray-700 rounded mb-2"></div>

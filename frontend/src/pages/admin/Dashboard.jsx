@@ -160,7 +160,7 @@ const AdminDashboard = () => {
                   <div className={`w-7 sm:w-8 h-7 sm:h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
                     activity.type === 'user' ? 'bg-blue-100 text-primary-600' :
                     activity.type === 'book' ? 'bg-green-100 text-green-600' :
-                    activity.type === 'order' ? 'bg-purple-100 text-purple-600' :
+                    activity.type === 'order' ? 'bg-purple-100 text-primary-700' :
                     'bg-gray-100 text-gray-600'
                   }`}>
                     <i className={`${

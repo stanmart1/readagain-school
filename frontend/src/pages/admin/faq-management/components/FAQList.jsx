@@ -59,7 +59,7 @@ export default function FAQList({
                   type="checkbox"
                   checked={selectedFAQs.length === faqs.length && faqs.length > 0}
                   onChange={handleSelectAll}
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
                 />
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -93,7 +93,7 @@ export default function FAQList({
                     type="checkbox"
                     checked={selectedFAQs.includes(faq.id)}
                     onChange={() => onSelectFAQ(faq.id)}
-                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
                   />
                 </td>
                 <td className="px-6 py-4">
@@ -157,7 +157,7 @@ export default function FAQList({
                     </button>
                     <button
                       onClick={() => onEditFAQ(faq)}
-                      className="text-blue-600 hover:text-blue-900"
+                      className="text-primary-600 hover:text-primary-900"
                       title="Edit FAQ"
                     >
                       <i className="ri-edit-line"></i>

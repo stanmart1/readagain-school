@@ -40,7 +40,7 @@ export default function ImageCacheManager() {
           <div className="text-sm text-gray-600">Cache Size (MB)</div>
         </div>
         <div className="bg-white p-3 rounded-lg border">
-          <div className="text-2xl font-bold text-purple-600">{stats.cached_items}</div>
+          <div className="text-2xl font-bold text-primary-700">{stats.cached_items}</div>
           <div className="text-sm text-gray-600">Cached Items</div>
         </div>
         <div className="bg-white p-3 rounded-lg border">

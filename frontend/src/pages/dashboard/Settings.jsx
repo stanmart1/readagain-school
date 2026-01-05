@@ -313,7 +313,7 @@ export default function Settings() {
                     <button
                       type="submit"
                       disabled={loading}
-                      className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg disabled:opacity-50 text-sm sm:text-base"
+                      className="w-full sm:w-auto bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg disabled:opacity-50 text-sm sm:text-base"
                     >
                       {loading ? 'Saving...' : 'Save Changes'}
                     </button>
@@ -396,7 +396,7 @@ export default function Settings() {
                     <button
                       type="submit"
                       disabled={loading}
-                      className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg disabled:opacity-50 text-sm sm:text-base"
+                      className="w-full sm:w-auto bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg disabled:opacity-50 text-sm sm:text-base"
                     >
                       {loading ? 'Updating...' : 'Update Password'}
                     </button>
@@ -421,7 +421,7 @@ export default function Settings() {
                             checked={notificationPrefs.email_notifications}
                             onChange={() => handleNotificationToggle('email_notifications')}
                           />
-                          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600"></div>
                         </label>
                       </div>
                       <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
@@ -436,7 +436,7 @@ export default function Settings() {
                             checked={notificationPrefs.new_releases}
                             onChange={() => handleNotificationToggle('new_releases')}
                           />
-                          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600"></div>
                         </label>
                       </div>
                       <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
@@ -451,7 +451,7 @@ export default function Settings() {
                             checked={notificationPrefs.promotions}
                             onChange={() => handleNotificationToggle('promotions')}
                           />
-                          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600"></div>
                         </label>
                       </div>
                       <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
@@ -466,14 +466,14 @@ export default function Settings() {
                             checked={notificationPrefs.reading_reminders}
                             onChange={() => handleNotificationToggle('reading_reminders')}
                           />
-                          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600"></div>
                         </label>
                       </div>
                     </div>
                     <button
                       type="submit"
                       disabled={loading}
-                      className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg disabled:opacity-50 text-sm sm:text-base"
+                      className="w-full sm:w-auto bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg disabled:opacity-50 text-sm sm:text-base"
                     >
                       {loading ? 'Saving...' : 'Save Changes'}
                     </button>
@@ -493,7 +493,7 @@ export default function Settings() {
                         {['Fiction', 'Non-Fiction', 'Mystery', 'Romance', 'Sci-Fi', 'Biography'].map((genre) => (
                           <button
                             key={genre}
-                            className="px-4 py-2 border border-gray-300 rounded-full hover:bg-blue-50 hover:border-primary-600"
+                            className="px-4 py-2 border border-gray-300 rounded-full hover:bg-primary-50 hover:border-primary-600"
                           >
                             {genre}
                           </button>

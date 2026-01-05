@@ -78,7 +78,7 @@ export default function Reading() {
             <p className="text-gray-600 mb-6">{error}</p>
             <button
               onClick={handleClose}
-              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
             >
               Back to Library
             </button>

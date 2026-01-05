@@ -136,13 +136,13 @@ const CategoriesManagement = () => {
               placeholder="Search categories..."
               value={filters.search}
               onChange={(e) => setFilters({ ...filters, search: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             />
           </div>
           <select
             value={filters.status}
             onChange={(e) => setFilters({ ...filters, status: e.target.value })}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
           >
             <option value="">All Status</option>
             <option value="active">Active</option>
@@ -152,7 +152,7 @@ const CategoriesManagement = () => {
         <div className="flex justify-end">
           <button
             onClick={() => setShowModal(true)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+            className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center gap-2"
           >
             <i className="ri-add-line"></i>
             Add Category
@@ -185,7 +185,7 @@ const CategoriesManagement = () => {
             {!filters.search && !filters.status && (
               <button
                 onClick={() => setShowModal(true)}
-                className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="mt-4 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
               >
                 Add Category
               </button>
@@ -218,7 +218,7 @@ const CategoriesManagement = () => {
                   </button>
                   <button
                     onClick={() => handleEdit(category)}
-                    className="p-1 text-blue-600 hover:bg-blue-50 rounded"
+                    className="p-1 text-primary-600 hover:bg-primary-50 rounded"
                     title="Edit"
                   >
                     <i className="ri-edit-line"></i>
@@ -287,7 +287,7 @@ const CategoriesManagement = () => {
                     type="text"
                     value={formData.name}
                     onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                     required
                   />
                 </div>
@@ -300,7 +300,7 @@ const CategoriesManagement = () => {
                     value={formData.description}
                     onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
 
@@ -309,7 +309,7 @@ const CategoriesManagement = () => {
                     type="checkbox"
                     checked={formData.status === 'active'}
                     onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.checked ? 'active' : 'inactive' }))}
-                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
                   />
                   <label className="ml-2 text-sm text-gray-700">Active</label>
                 </div>
@@ -325,7 +325,7 @@ const CategoriesManagement = () => {
                   <button
                     type="submit"
                     disabled={isSaving}
-                    className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="flex-1 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {isSaving && <i className="ri-loader-4-line animate-spin"></i>}
                     {isSaving ? 'Saving...' : (editingCategory ? 'Update' : 'Create')}

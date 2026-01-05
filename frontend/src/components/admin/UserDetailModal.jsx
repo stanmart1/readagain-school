@@ -5,9 +5,9 @@ const UserDetailModal = ({ isOpen, onClose, user, onEdit }) => {
 
   const getRoleColor = (role) => {
     switch (role) {
-      case 'admin': return 'bg-purple-500';
+      case 'admin': return 'bg-primary-600';
       case 'super_admin': return 'bg-red-500';
-      case 'user': return 'bg-blue-500';
+      case 'user': return 'bg-primary-500';
       default: return 'bg-gray-500';
     }
   };
@@ -27,8 +27,8 @@ const UserDetailModal = ({ isOpen, onClose, user, onEdit }) => {
         </div>
 
         {/* User Header */}
-        <div className="flex items-center space-x-4 mb-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg">
-          <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white text-2xl font-bold">
+        <div className="flex items-center space-x-4 mb-6 p-4 bg-gradient-to-r from-primary-50 to-primary-100 rounded-lg">
+          <div className="w-20 h-20 bg-gradient-to-r from-primary-600 to-primary-700 rounded-full flex items-center justify-center text-white text-2xl font-bold">
             {user.first_name?.[0]}{user.last_name?.[0]}
           </div>
           <div>
@@ -145,7 +145,7 @@ const UserDetailModal = ({ isOpen, onClose, user, onEdit }) => {
           <div>
             <h5 className="text-lg font-semibold text-gray-900 mb-3">Statistics</h5>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="p-4 bg-blue-50 rounded-lg text-center">
+              <div className="p-4 bg-primary-50 rounded-lg text-center">
                 <i className="ri-book-line text-3xl text-primary-600 mb-2"></i>
                 <p className="text-2xl font-bold text-gray-900">{user.books_count || 0}</p>
                 <p className="text-sm text-gray-600">Books</p>
@@ -156,7 +156,7 @@ const UserDetailModal = ({ isOpen, onClose, user, onEdit }) => {
                 <p className="text-sm text-gray-600">Orders</p>
               </div>
               <div className="p-4 bg-purple-50 rounded-lg text-center">
-                <i className="ri-star-line text-3xl text-purple-600 mb-2"></i>
+                <i className="ri-star-line text-3xl text-primary-700 mb-2"></i>
                 <p className="text-2xl font-bold text-gray-900">{user.reviews_count || 0}</p>
                 <p className="text-sm text-gray-600">Reviews</p>
               </div>
@@ -182,7 +182,7 @@ const UserDetailModal = ({ isOpen, onClose, user, onEdit }) => {
           </button>
           <button
             onClick={onClose}
-            className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700"
+            className="px-6 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg font-semibold hover:from-primary-700 hover:to-primary-800"
           >
             Close
           </button>

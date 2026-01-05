@@ -94,7 +94,7 @@ export default function FeaturesSection() {
   }, [currentIndex, features.length]);
 
   return (
-    <section className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
+    <section className="py-20 bg-gradient-to-br from-primary-50 to-primary-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -185,7 +185,7 @@ export default function FeaturesSection() {
                 key={index}
                 onClick={() => setCurrentIndex(features.length + index)}
                 className={`w-2 h-2 rounded-full transition-all ${
-                  (currentIndex % features.length) === index ? 'bg-purple-600 w-8' : 'bg-gray-300'
+                  (currentIndex % features.length) === index ? 'bg-primary-700 w-8' : 'bg-gray-300'
                 }`}
               />
             ))}

@@ -100,7 +100,7 @@ export default function Library() {
                   className={`inline-flex items-center px-6 py-3.5 rounded-xl text-sm font-semibold transition-all duration-200 transform hover:scale-105 ${
                     filter === tab.key
                       ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-lg shadow-blue-600/25'
-                      : 'bg-gray-50 text-gray-600 hover:text-primary-600 hover:bg-blue-50 border border-gray-200 hover:border-blue-200 hover:shadow-md'
+                      : 'bg-gray-50 text-gray-600 hover:text-primary-600 hover:bg-primary-50 border border-gray-200 hover:border-primary-200 hover:shadow-md'
                   }`}
                 >
                   <i className={`${tab.icon} mr-2 text-base`}></i>
@@ -121,7 +121,7 @@ export default function Library() {
         {/* Empty State */}
         {filteredBooks.length === 0 ? (
           <div className="bg-white rounded-2xl shadow-lg border border-gray-100 text-center py-20">
-            <div className="w-28 h-28 mx-auto mb-8 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full flex items-center justify-center shadow-lg">
+            <div className="w-28 h-28 mx-auto mb-8 bg-gradient-to-br from-primary-100 to-primary-200 rounded-full flex items-center justify-center shadow-lg">
               <i className="ri-book-line text-4xl text-primary-600"></i>
             </div>
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
@@ -150,7 +150,7 @@ export default function Library() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
-                className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-blue-200 transform hover:-translate-y-2 w-full sm:w-64 md:w-72 flex-shrink-0"
+                className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-primary-200 transform hover:-translate-y-2 w-full sm:w-64 md:w-72 flex-shrink-0"
               >
                 {/* Cover Image */}
                 <div className="h-56 relative overflow-hidden">
@@ -187,7 +187,7 @@ export default function Library() {
                 {/* Content */}
                 <div className="p-3 flex flex-col">
                   {/* Title - More Prominent */}
-                  <h3 className="font-bold text-gray-900 text-base mb-1.5 line-clamp-2 group-hover:text-blue-700 transition-colors leading-snug">
+                  <h3 className="font-bold text-gray-900 text-base mb-1.5 line-clamp-2 group-hover:text-primary-700 transition-colors leading-snug">
                     {book.title || book.book?.title}
                   </h3>
                   {/* Author */}
@@ -208,7 +208,7 @@ export default function Library() {
                   <div className="space-y-2">
                     <Link
                       to={`/reading/${book.book_id}`}
-                      className="w-full inline-flex items-center justify-center px-4 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white text-sm font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+                      className="w-full inline-flex items-center justify-center px-4 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white text-sm font-semibold rounded-xl hover:from-primary-700 hover:to-primary-800 shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
                     >
                       <i className={`${book.progress > 0 ? 'ri-play-line' : 'ri-book-open-line'} mr-2 text-base`}></i>
                       {book.progress > 0 ? 'Continue Reading' : 'Start Reading'}

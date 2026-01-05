@@ -91,7 +91,7 @@ export default function ResetPassword() {
             </p>
             <Link
               to="/forgot-password"
-              className="inline-block bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700"
+              className="inline-block bg-gradient-to-r from-primary-600 to-primary-700 text-white px-6 py-3 rounded-lg font-semibold hover:from-primary-700 hover:to-primary-800"
             >
               Request New Reset Link
             </Link>
@@ -176,7 +176,7 @@ export default function ResetPassword() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                      className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                       placeholder="Enter new password"
                     />
                     <button
@@ -204,7 +204,7 @@ export default function ResetPassword() {
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       required
-                      className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                       placeholder="Confirm your password"
                     />
                     <button
@@ -221,14 +221,14 @@ export default function ResetPassword() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all disabled:opacity-50"
+                  className="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 rounded-lg font-semibold hover:from-primary-700 hover:to-primary-800 transition-all disabled:opacity-50"
                 >
                   {loading ? 'Resetting Password...' : 'Reset Password'}
                 </button>
               </form>
 
               <div className="mt-6 text-center">
-                <Link to="/login" className="text-primary-600 hover:text-purple-600 font-semibold">
+                <Link to="/login" className="text-primary-600 hover:text-primary-700 font-semibold">
                   <i className="ri-arrow-left-line mr-2"></i>
                   Back to Login
                 </Link>

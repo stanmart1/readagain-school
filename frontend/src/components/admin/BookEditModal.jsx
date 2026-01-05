@@ -371,7 +371,7 @@ const BookEditModal = ({ isOpen, onClose, book, categories, authors, onSuccess }
             <div className="space-y-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Cover Image * {formData.cover_image && <span className="text-green-600">✓ New</span>} {book?.cover_image_url && !formData.cover_image && <span className="text-blue-600">(keeping current)</span>}
+                  Cover Image * {formData.cover_image && <span className="text-green-600">✓ New</span>} {book?.cover_image_url && !formData.cover_image && <span className="text-primary-600">(keeping current)</span>}
                 </label>
                 <div
                   onDragEnter={(e) => handleDrag(e, 'cover')}
@@ -400,7 +400,7 @@ const BookEditModal = ({ isOpen, onClose, book, categories, authors, onSuccess }
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Book File {formData.ebook_file && <span className="text-green-600">✓ New</span>} {book?.file_path && !formData.ebook_file && <span className="text-blue-600">(keeping current)</span>}
+                  Book File {formData.ebook_file && <span className="text-green-600">✓ New</span>} {book?.file_path && !formData.ebook_file && <span className="text-primary-600">(keeping current)</span>}
                 </label>
                 <div
                   onDragEnter={(e) => handleDrag(e, 'ebook')}

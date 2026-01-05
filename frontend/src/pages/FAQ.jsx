@@ -59,7 +59,7 @@ export default function FAQ() {
                     <span className="font-semibold text-lg text-gray-900">
                       {faq.question}
                     </span>
-                    <i className={`ri-arrow-${openIndex === index ? 'up' : 'down'}-s-line text-2xl text-blue-600`}></i>
+                    <i className={`ri-arrow-${openIndex === index ? 'up' : 'down'}-s-line text-2xl text-primary-600`}></i>
                   </button>
                   
                   <AnimatePresence>
@@ -101,7 +101,7 @@ export default function FAQ() {
             </p>
             <a
               href="/contact"
-              className="inline-block bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
+              className="inline-block bg-white text-primary-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
             >
               Contact Support
             </a>

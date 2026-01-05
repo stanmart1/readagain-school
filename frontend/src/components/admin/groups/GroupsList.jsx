@@ -38,7 +38,7 @@ export default function GroupsList({ groups, onEdit, onDelete, onViewMembers, on
                 <tr key={group.id} className="hover:bg-gray-50 transition-colors">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
-                      <div className="flex-shrink-0 h-10 w-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+                      <div className="flex-shrink-0 h-10 w-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center">
                         <i className="ri-group-line text-white text-lg"></i>
                       </div>
                       <div className="ml-4">
@@ -52,7 +52,7 @@ export default function GroupsList({ groups, onEdit, onDelete, onViewMembers, on
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-blue-100 to-purple-100 text-blue-800">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-primary-100 to-primary-200 text-blue-800">
                       <i className="ri-user-line mr-1"></i>
                       {group.member_count} {group.member_count === 1 ? 'member' : 'members'}
                     </span>
@@ -70,14 +70,14 @@ export default function GroupsList({ groups, onEdit, onDelete, onViewMembers, on
                     </button>
                     <button
                       onClick={() => onViewMembers(group)}
-                      className="text-blue-600 hover:text-blue-900 transition-colors"
+                      className="text-primary-600 hover:text-primary-900 transition-colors"
                     >
                       <i className="ri-team-line mr-1"></i>
                       Members
                     </button>
                     <button
                       onClick={() => onEdit(group)}
-                      className="text-indigo-600 hover:text-indigo-900 transition-colors"
+                      className="text-indigo-600 hover:text-secondary-900 transition-colors"
                     >
                       <i className="ri-edit-line mr-1"></i>
                       Edit

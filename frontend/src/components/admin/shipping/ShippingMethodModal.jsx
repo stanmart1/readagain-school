@@ -87,7 +87,7 @@ const ShippingMethodModal = ({ isOpen, onClose, onSubmit, editingMethod }) => {
                 type="text"
                 value={formData.name}
                 onChange={(e) => updateFormData('name', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 required
               />
             </div>
@@ -100,7 +100,7 @@ const ShippingMethodModal = ({ isOpen, onClose, onSubmit, editingMethod }) => {
               <textarea
                 value={formData.description}
                 onChange={(e) => updateFormData('description', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 rows={3}
               />
             </div>
@@ -117,7 +117,7 @@ const ShippingMethodModal = ({ isOpen, onClose, onSubmit, editingMethod }) => {
                   min="0"
                   value={formData.base_cost}
                   onChange={(e) => updateFormData('base_cost', parseFloat(e.target.value) || 0)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   required
                 />
               </div>
@@ -131,7 +131,7 @@ const ShippingMethodModal = ({ isOpen, onClose, onSubmit, editingMethod }) => {
                   min="0"
                   value={formData.cost_per_item}
                   onChange={(e) => updateFormData('cost_per_item', parseFloat(e.target.value) || 0)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 />
               </div>
             </div>
@@ -147,7 +147,7 @@ const ShippingMethodModal = ({ isOpen, onClose, onSubmit, editingMethod }) => {
                 min="0"
                 value={formData.free_shipping_threshold || ''}
                 onChange={(e) => updateFormData('free_shipping_threshold', e.target.value ? parseFloat(e.target.value) : null)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="Leave empty for no free shipping"
               />
               <p className="text-xs text-gray-500 mt-1">
@@ -166,7 +166,7 @@ const ShippingMethodModal = ({ isOpen, onClose, onSubmit, editingMethod }) => {
                   min="1"
                   value={formData.estimated_days_min}
                   onChange={(e) => updateFormData('estimated_days_min', parseInt(e.target.value) || 1)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   required
                 />
               </div>
@@ -179,7 +179,7 @@ const ShippingMethodModal = ({ isOpen, onClose, onSubmit, editingMethod }) => {
                   min="1"
                   value={formData.estimated_days_max}
                   onChange={(e) => updateFormData('estimated_days_max', parseInt(e.target.value) || 7)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   required
                 />
               </div>
@@ -195,7 +195,7 @@ const ShippingMethodModal = ({ isOpen, onClose, onSubmit, editingMethod }) => {
                 min="0"
                 value={formData.sort_order}
                 onChange={(e) => updateFormData('sort_order', parseInt(e.target.value) || 0)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               />
               <p className="text-xs text-gray-500 mt-1">
                 Lower numbers appear first
@@ -208,7 +208,7 @@ const ShippingMethodModal = ({ isOpen, onClose, onSubmit, editingMethod }) => {
                 type="checkbox"
                 checked={formData.is_active}
                 onChange={(e) => updateFormData('is_active', e.target.checked)}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
               />
               <label className="ml-2 text-sm text-gray-700">
                 Active (visible to customers)
@@ -226,7 +226,7 @@ const ShippingMethodModal = ({ isOpen, onClose, onSubmit, editingMethod }) => {
             </button>
             <button
               type="submit"
-              className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="flex-1 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
             >
               {editingMethod ? 'Update' : 'Create'}
             </button>

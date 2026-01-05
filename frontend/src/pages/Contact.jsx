@@ -161,7 +161,7 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white py-4 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all disabled:opacity-50"
+                  className="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white py-4 rounded-lg font-semibold hover:from-primary-700 hover:to-primary-800 transition-all disabled:opacity-50"
                 >
                   {loading ? 'Sending...' : 'Send Message'}
                 </button>
@@ -188,7 +188,7 @@ export default function Contact() {
                 {contactInfo?.contactMethods?.filter(m => m.isActive).map((method, idx) => (
                   <div key={idx} className="flex items-start space-x-4 p-6 bg-white rounded-xl shadow-md">
                     <div className={`w-12 h-12 ${idx % 3 === 0 ? 'bg-blue-100' : idx % 3 === 1 ? 'bg-purple-100' : 'bg-indigo-100'} rounded-full flex items-center justify-center flex-shrink-0`}>
-                      <i className={`${method.icon} text-2xl ${idx % 3 === 0 ? 'text-blue-600' : idx % 3 === 1 ? 'text-purple-600' : 'text-indigo-600'}`}></i>
+                      <i className={`${method.icon} text-2xl ${idx % 3 === 0 ? 'text-primary-600' : idx % 3 === 1 ? 'text-primary-700' : 'text-indigo-600'}`}></i>
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900 mb-1">{method.title}</h3>

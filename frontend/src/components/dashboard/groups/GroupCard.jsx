@@ -10,7 +10,7 @@ export default function GroupCard({ group, onViewMembers, onDelete, onAssignBook
     >
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-3">
-          <div className="h-12 w-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+          <div className="h-12 w-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center">
             <i className="ri-group-line text-white text-xl"></i>
           </div>
           <div>
@@ -44,7 +44,7 @@ export default function GroupCard({ group, onViewMembers, onDelete, onAssignBook
             e.stopPropagation();
             onViewMembers(group);
           }}
-          className="text-blue-600 hover:text-blue-700 text-sm font-medium flex items-center gap-1"
+          className="text-primary-600 hover:text-primary-700 text-sm font-medium flex items-center gap-1"
         >
           <i className="ri-team-line"></i>
           Members

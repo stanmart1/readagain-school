@@ -122,7 +122,7 @@ export default function FAQForm({ faq, categories, onSubmit, onCancel }) {
               <select
                 value={formData.category}
                 onChange={(e) => handleChange('category', e.target.value)}
-                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 ${
                   errors.category ? 'border-red-500' : 'border-gray-300'
                 }`}
               >
@@ -141,7 +141,7 @@ export default function FAQForm({ faq, categories, onSubmit, onCancel }) {
                 value={formData.priority}
                 onChange={(e) => handleChange('priority', parseInt(e.target.value) || 0)}
                 min="0"
-                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 ${
                   errors.priority ? 'border-red-500' : 'border-gray-300'
                 }`}
                 placeholder="0"
@@ -158,7 +158,7 @@ export default function FAQForm({ faq, categories, onSubmit, onCancel }) {
                 id="is_active"
                 checked={formData.is_active}
                 onChange={(e) => handleChange('is_active', e.target.checked)}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
               />
               <label htmlFor="is_active" className="ml-2 block text-sm text-gray-900">Active</label>
             </div>
@@ -169,7 +169,7 @@ export default function FAQForm({ faq, categories, onSubmit, onCancel }) {
                 id="is_featured"
                 checked={formData.is_featured}
                 onChange={(e) => handleChange('is_featured', e.target.checked)}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
               />
               <label htmlFor="is_featured" className="ml-2 block text-sm text-gray-900">Featured</label>
             </div>
@@ -186,7 +186,7 @@ export default function FAQForm({ faq, categories, onSubmit, onCancel }) {
             <button
               type="submit"
               disabled={loading}
-              className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50"
+              className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-primary-700 disabled:opacity-50"
             >
               <i className="ri-save-line mr-2"></i>
               {loading ? 'Saving...' : (faq ? 'Update FAQ' : 'Create FAQ')}

@@ -228,7 +228,7 @@ const EmailTemplateManagement = () => {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-4 sm:mb-6">
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-3 sm:p-4 md:p-6">
             <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
-              <div className="w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div className="w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 bg-primary-500 rounded-lg flex items-center justify-center flex-shrink-0">
                 <i className="ri-mail-line text-white text-sm sm:text-base md:text-xl"></i>
               </div>
               <div className="min-w-0 flex-1">
@@ -250,7 +250,7 @@ const EmailTemplateManagement = () => {
           </div>
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-3 sm:p-4 md:p-6">
             <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
-              <div className="w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 bg-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
+              <div className="w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 bg-primary-600 rounded-lg flex items-center justify-center flex-shrink-0">
                 <i className="ri-folder-line text-white text-sm sm:text-base md:text-xl"></i>
               </div>
               <div className="min-w-0 flex-1">
@@ -282,7 +282,7 @@ const EmailTemplateManagement = () => {
               <select
                 value={filters.category}
                 onChange={(e) => setFilters({ ...filters, category: e.target.value })}
-                className="w-full px-2 sm:px-3 py-1.5 sm:py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-2 sm:px-3 py-1.5 sm:py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 <option value="">All Categories</option>
                 {categories.map((category) => (
@@ -299,7 +299,7 @@ const EmailTemplateManagement = () => {
               <select
                 value={filters.isActive}
                 onChange={(e) => setFilters({ ...filters, isActive: e.target.value })}
-                className="w-full px-2 sm:px-3 py-1.5 sm:py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-2 sm:px-3 py-1.5 sm:py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 <option value="">All Status</option>
                 <option value="true">Active</option>
@@ -314,7 +314,7 @@ const EmailTemplateManagement = () => {
                 type="text"
                 value={filters.search}
                 onChange={(e) => setFilters({ ...filters, search: e.target.value })}
-                className="w-full px-2 sm:px-3 py-1.5 sm:py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-2 sm:px-3 py-1.5 sm:py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="Search templates..."
               />
             </div>
@@ -375,7 +375,7 @@ const EmailTemplateManagement = () => {
                         <div className="flex items-center gap-1 sm:gap-2">
                           <button
                             onClick={() => handlePreviewTemplate(template)}
-                            className="text-blue-600 hover:text-blue-900 flex-shrink-0 p-1"
+                            className="text-primary-600 hover:text-primary-900 flex-shrink-0 p-1"
                             title="Preview"
                           >
                             <i className="ri-eye-line text-lg"></i>
@@ -441,9 +441,9 @@ const EmailTemplateManagement = () => {
 
                 <div className="space-y-4 xs:space-y-6">
                   {/* Tips Section */}
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 xs:p-4">
+                  <div className="bg-primary-50 border border-primary-200 rounded-lg p-3 xs:p-4">
                     <div className="flex items-start gap-2">
-                      <i className="ri-lightbulb-line text-blue-600 text-lg flex-shrink-0 mt-0.5"></i>
+                      <i className="ri-lightbulb-line text-primary-600 text-lg flex-shrink-0 mt-0.5"></i>
                       <div>
                         <h4 className="text-sm font-medium text-blue-900 mb-2">💡 Tips for Email Templates</h4>
                         <ul className="text-xs text-blue-800 space-y-1">
@@ -466,7 +466,7 @@ const EmailTemplateManagement = () => {
                         type="text"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full px-2 xs:px-3 py-1.5 xs:py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-2 xs:px-3 py-1.5 xs:py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                         placeholder="Enter template name"
                       />
                     </div>
@@ -479,7 +479,7 @@ const EmailTemplateManagement = () => {
                         type="text"
                         value={formData.slug}
                         onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                        className="w-full px-2 xs:px-3 py-1.5 xs:py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-2 xs:px-3 py-1.5 xs:py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                         placeholder="template-slug"
                       />
                     </div>
@@ -493,7 +493,7 @@ const EmailTemplateManagement = () => {
                       type="text"
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      className="w-full px-2 xs:px-3 py-1.5 xs:py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-2 xs:px-3 py-1.5 xs:py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                       placeholder="Email subject line"
                     />
                   </div>
@@ -505,7 +505,7 @@ const EmailTemplateManagement = () => {
                     <textarea
                       value={formData.description}
                       onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                      className="w-full px-2 xs:px-3 py-1.5 xs:py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-2 xs:px-3 py-1.5 xs:py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                       rows={3}
                       placeholder="Template description"
                     />
@@ -519,7 +519,7 @@ const EmailTemplateManagement = () => {
                       <select
                         value={formData.category}
                         onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                        className="w-full px-2 xs:px-3 py-1.5 xs:py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-2 xs:px-3 py-1.5 xs:py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                       >
                         {categories.map((category) => (
                           <option key={category.name} value={category.name}>
@@ -535,7 +535,7 @@ const EmailTemplateManagement = () => {
                           type="checkbox"
                           checked={formData.is_active}
                           onChange={(e) => setFormData({ ...formData, is_active: e.target.checked })}
-                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
                         />
                         <span className="ml-2 text-xs xs:text-sm text-gray-700">Active</span>
                       </label>
@@ -551,7 +551,7 @@ const EmailTemplateManagement = () => {
                         <button
                           type="button"
                           onClick={() => setShowVariables(!showVariables)}
-                          className="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1"
+                          className="text-xs text-primary-600 hover:text-primary-800 flex items-center gap-1"
                         >
                           <i className="ri-code-line"></i>
                           Show Variables
@@ -559,7 +559,7 @@ const EmailTemplateManagement = () => {
                         <button
                           type="button"
                           onClick={() => setShowPreviewInModal(!showPreviewInModal)}
-                          className="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1"
+                          className="text-xs text-primary-600 hover:text-primary-800 flex items-center gap-1"
                         >
                           <i className="ri-eye-line"></i>
                           Show Preview
@@ -585,7 +585,7 @@ const EmailTemplateManagement = () => {
                       <textarea
                         value={formData.html_content}
                         onChange={(e) => setFormData({ ...formData, html_content: e.target.value })}
-                        className="w-full px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-primary-500"
                         rows={12}
                         placeholder="Write your email template HTML content..."
                       />
@@ -609,7 +609,7 @@ const EmailTemplateManagement = () => {
                     <textarea
                       value={formData.text_content}
                       onChange={(e) => setFormData({ ...formData, text_content: e.target.value })}
-                      className="w-full px-2 xs:px-3 py-1.5 xs:py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-2 xs:px-3 py-1.5 xs:py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                       rows={5}
                       placeholder="Plain text version of the email..."
                     />
@@ -631,7 +631,7 @@ const EmailTemplateManagement = () => {
                   <button
                     onClick={showEditModal ? handleUpdateTemplate : handleCreateTemplate}
                     disabled={isSaving}
-                    className="w-full xs:w-auto px-3 xs:px-4 py-2 xs:py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-xs xs:text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="w-full xs:w-auto px-3 xs:px-4 py-2 xs:py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-xs xs:text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {isSaving && <i className="ri-loader-4-line animate-spin"></i>}
                     {isSaving ? 'Saving...' : 'Save Template'}

@@ -3,9 +3,9 @@ import { motion } from 'framer-motion';
 const UserTable = ({ users, selectedUsers, onSelectAll, onSelectUser, onView, onEdit, onStatusChange, onDelete, onAnalytics, onAssignBooks, onPasswordReset, onAssignRole }) => {
   const getRoleColor = (role) => {
     switch (role) {
-      case 'super_admin': return 'bg-gradient-to-r from-purple-600 to-pink-600';
-      case 'admin': return 'bg-gradient-to-r from-blue-600 to-purple-600';
-      case 'moderator': return 'bg-gradient-to-r from-cyan-500 to-blue-500';
+      case 'super_admin': return 'bg-gradient-to-r from-primary-700 to-primary-800';
+      case 'admin': return 'bg-gradient-to-r from-primary-600 to-primary-700';
+      case 'moderator': return 'bg-gradient-to-r from-secondary-500 to-secondary-600';
       case 'author': return 'bg-gradient-to-r from-green-500 to-teal-500';
       case 'user': return 'bg-gradient-to-r from-gray-500 to-gray-600';
       default: return 'bg-gradient-to-r from-gray-400 to-gray-500';
@@ -44,7 +44,7 @@ const UserTable = ({ users, selectedUsers, onSelectAll, onSelectUser, onView, on
                   type="checkbox"
                   checked={selectedUsers.length === users.length && users.length > 0}
                   onChange={onSelectAll}
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
                 />
               </th>
               <th className="px-3 py-4 text-left text-sm font-semibold text-gray-900 whitespace-nowrap">User</th>
@@ -63,12 +63,12 @@ const UserTable = ({ users, selectedUsers, onSelectAll, onSelectUser, onView, on
                     type="checkbox"
                     checked={selectedUsers.includes(user.id)}
                     onChange={() => onSelectUser(user.id)}
-                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
                   />
                 </td>
                 <td className="px-3 py-3">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-semibold text-xs flex-shrink-0">
+                    <div className="w-8 h-8 bg-gradient-to-r from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white font-semibold text-xs flex-shrink-0">
                       {user.first_name?.[0] || user.username?.[0] || 'U'}
                     </div>
                     <div className="min-w-0">
@@ -113,7 +113,7 @@ const UserTable = ({ users, selectedUsers, onSelectAll, onSelectUser, onView, on
                   <div className="flex gap-0.5">
                     <button
                       onClick={() => onView(user)}
-                      className="p-1.5 text-blue-600 hover:bg-blue-50 rounded transition-colors text-sm"
+                      className="p-1.5 text-primary-600 hover:bg-primary-50 rounded transition-colors text-sm"
                       title="View"
                     >
                       <i className="ri-eye-line text-base"></i>
@@ -127,7 +127,7 @@ const UserTable = ({ users, selectedUsers, onSelectAll, onSelectUser, onView, on
                     </button>
                     <button
                       onClick={() => onAnalytics(user.id)}
-                      className="p-1.5 text-purple-600 hover:bg-purple-50 rounded transition-colors text-sm"
+                      className="p-1.5 text-primary-700 hover:bg-purple-50 rounded transition-colors text-sm"
                       title="Analytics"
                     >
                       <i className="ri-line-chart-line text-base"></i>

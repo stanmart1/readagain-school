@@ -341,7 +341,7 @@ const AdminBooks = () => {
                     onClick={() => setActiveSection(section)}
                     className={`flex-shrink-0 mr-3 sm:mr-4 md:mr-6 lg:mr-8 py-3 sm:py-4 px-2 border-b-2 font-medium text-sm sm:text-base capitalize whitespace-nowrap transition-colors duration-200 ${
                       activeSection === section
-                        ? 'border-blue-500 text-primary-600'
+                        ? 'border-primary-500 text-primary-600'
                         : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                     }`}
                   >
@@ -377,7 +377,7 @@ const AdminBooks = () => {
                       )}
                       <button
                         onClick={() => setShowAddModal(true)}
-                        className="px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 flex items-center"
+                        className="px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-full hover:from-primary-700 hover:to-primary-800 transition-all duration-300 flex items-center"
                       >
                         <i className="ri-add-line mr-2"></i>
                         Add Book
@@ -499,7 +499,7 @@ const AdminBooks = () => {
                           ...prev, 
                           batchUpdate: { ...prev.batchUpdate, status: e.target.value } 
                         }))}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                       >
                         <option value="">Don't change</option>
                         <option value="published">Published</option>
@@ -515,7 +515,7 @@ const AdminBooks = () => {
                           ...prev, 
                           batchUpdate: { ...prev.batchUpdate, category_id: e.target.value } 
                         }))}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                       >
                         <option value="">Don't change</option>
                         {data.categories.map(cat => (
@@ -536,7 +536,7 @@ const AdminBooks = () => {
                               price_adjustment: { ...prev.batchUpdate.price_adjustment, value: e.target.value } 
                             } 
                           }))}
-                          className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                          className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                           placeholder="0"
                         />
                         <select
@@ -548,7 +548,7 @@ const AdminBooks = () => {
                               price_adjustment: { ...prev.batchUpdate.price_adjustment, type: e.target.value } 
                             } 
                           }))}
-                          className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                          className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                         >
                           <option value="percentage">%</option>
                           <option value="fixed">₦</option>
@@ -717,7 +717,7 @@ const AdminBooks = () => {
                           type="text"
                           value={forms.userSearch}
                           onChange={(e) => setForms(prev => ({ ...prev, userSearch: e.target.value }))}
-                          className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 ${
+                          className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 ${
                             errors.users ? 'border-red-500' : 'border-gray-300'
                           }`}
                           placeholder="Search and select users..."
@@ -747,7 +747,7 @@ const AdminBooks = () => {
                                       setErrors(prev => ({ ...prev, users: '' }));
                                     }}
                                     className={`w-full text-left px-3 py-2 border-b border-gray-100 last:border-b-0 ${
-                                      alreadyAssigned ? 'bg-gray-50 opacity-60 cursor-not-allowed' : 'hover:bg-blue-50'
+                                      alreadyAssigned ? 'bg-gray-50 opacity-60 cursor-not-allowed' : 'hover:bg-primary-50'
                                     }`}
                                   >
                                     <div className="flex items-center justify-between">
@@ -778,7 +778,7 @@ const AdminBooks = () => {
                             {selection.users.map(user => {
                               const fullName = `${user.first_name || ''} ${user.last_name || ''}`.trim();
                               return (
-                                <div key={user.id} className="flex items-center justify-between bg-blue-50 px-3 py-2 rounded-lg">
+                                <div key={user.id} className="flex items-center justify-between bg-primary-50 px-3 py-2 rounded-lg">
                                   <div>
                                     <span className="font-medium text-gray-900">{fullName}</span>
                                     <span className="text-sm text-gray-500 ml-2">({user.email})</span>

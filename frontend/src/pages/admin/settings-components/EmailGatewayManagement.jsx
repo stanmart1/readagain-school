@@ -327,7 +327,7 @@ export default function EmailGatewayManagement() {
             gateways.map((gateway) => (
               <div
                 key={gateway.id}
-                className={`p-2 sm:p-4 border-2 rounded-lg cursor-pointer transition-all ${activeGateway === gateway.id ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:border-gray-300'}`}
+                className={`p-2 sm:p-4 border-2 rounded-lg cursor-pointer transition-all ${activeGateway === gateway.id ? 'border-primary-500 bg-primary-50' : 'border-gray-200 hover:border-gray-300'}`}
                 onClick={() => handleGatewayChange(gateway.id)}
               >
                 <div className="flex items-center justify-between gap-2 mb-2">
@@ -338,7 +338,7 @@ export default function EmailGatewayManagement() {
                       <p className="text-xs text-gray-500 capitalize truncate">{gateway.type} Gateway</p>
                     </div>
                   </div>
-                  <div className={`w-4 h-4 rounded-full flex-shrink-0 ${activeGateway === gateway.id ? 'bg-blue-500' : 'bg-gray-300'}`}></div>
+                  <div className={`w-4 h-4 rounded-full flex-shrink-0 ${activeGateway === gateway.id ? 'bg-primary-500' : 'bg-gray-300'}`}></div>
               </div>
               <p className="text-xs text-gray-600 line-clamp-2">{getGatewayDescription(gateway.type)}</p>
             </div>
@@ -367,7 +367,7 @@ export default function EmailGatewayManagement() {
                     envVarPrefix: 'RESEND'
                   }
                 ])}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
               >
                 Add Email Gateway
               </button>
@@ -440,7 +440,7 @@ export default function EmailGatewayManagement() {
         <button
           onClick={handleSave}
           disabled={isLoading}
-          className="w-full sm:w-auto px-4 sm:px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 text-sm sm:text-base"
+          className="w-full sm:w-auto px-4 sm:px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 text-sm sm:text-base"
         >
           {isLoading ? 'Saving...' : 'Save Configuration'}
         </button>

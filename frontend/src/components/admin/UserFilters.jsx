@@ -85,7 +85,7 @@ const UserFilters = ({ searchTerm, setSearchTerm, filterRole, setFilterRole, fil
         {/* Button - full width on mobile */}
         <button
           onClick={onCreateUser}
-          className="w-full sm:w-auto px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 flex items-center justify-center sm:justify-start gap-2 flex-shrink-0"
+          className="w-full sm:w-auto px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg font-semibold hover:from-primary-700 hover:to-primary-800 transition-all duration-300 flex items-center justify-center sm:justify-start gap-2 flex-shrink-0"
         >
           <i className="ri-user-add-line"></i>
           <span className="sm:block">Add User</span>
@@ -207,7 +207,7 @@ const UserFilters = ({ searchTerm, setSearchTerm, filterRole, setFilterRole, fil
                 {advancedFilters.accountType !== 'all' && (
                   <span className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">
                     Type: {advancedFilters.accountType}
-                    <button onClick={() => handleAdvancedFilterChange('accountType', 'all')} className="hover:text-blue-900">
+                    <button onClick={() => handleAdvancedFilterChange('accountType', 'all')} className="hover:text-primary-900">
                       <i className="ri-close-line"></i>
                     </button>
                   </span>
@@ -215,7 +215,7 @@ const UserFilters = ({ searchTerm, setSearchTerm, filterRole, setFilterRole, fil
                 {advancedFilters.schoolCategory !== 'all' && (
                   <span className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">
                     Category: {advancedFilters.schoolCategory}
-                    <button onClick={() => handleAdvancedFilterChange('schoolCategory', 'all')} className="hover:text-blue-900">
+                    <button onClick={() => handleAdvancedFilterChange('schoolCategory', 'all')} className="hover:text-primary-900">
                       <i className="ri-close-line"></i>
                     </button>
                   </span>
@@ -223,7 +223,7 @@ const UserFilters = ({ searchTerm, setSearchTerm, filterRole, setFilterRole, fil
                 {advancedFilters.schoolName && (
                   <span className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">
                     School: {advancedFilters.schoolName}
-                    <button onClick={() => handleAdvancedFilterChange('schoolName', '')} className="hover:text-blue-900">
+                    <button onClick={() => handleAdvancedFilterChange('schoolName', '')} className="hover:text-primary-900">
                       <i className="ri-close-line"></i>
                     </button>
                   </span>
@@ -231,7 +231,7 @@ const UserFilters = ({ searchTerm, setSearchTerm, filterRole, setFilterRole, fil
                 {advancedFilters.classLevel && (
                   <span className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">
                     Class: {advancedFilters.classLevel}
-                    <button onClick={() => handleAdvancedFilterChange('classLevel', '')} className="hover:text-blue-900">
+                    <button onClick={() => handleAdvancedFilterChange('classLevel', '')} className="hover:text-primary-900">
                       <i className="ri-close-line"></i>
                     </button>
                   </span>
@@ -239,7 +239,7 @@ const UserFilters = ({ searchTerm, setSearchTerm, filterRole, setFilterRole, fil
                 {advancedFilters.department && (
                   <span className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">
                     Dept: {advancedFilters.department}
-                    <button onClick={() => handleAdvancedFilterChange('department', '')} className="hover:text-blue-900">
+                    <button onClick={() => handleAdvancedFilterChange('department', '')} className="hover:text-primary-900">
                       <i className="ri-close-line"></i>
                     </button>
                   </span>
@@ -247,7 +247,7 @@ const UserFilters = ({ searchTerm, setSearchTerm, filterRole, setFilterRole, fil
                 {advancedFilters.registrationDate !== 'all' && (
                   <span className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">
                     Date: {advancedFilters.registrationDate}
-                    <button onClick={() => handleAdvancedFilterChange('registrationDate', 'all')} className="hover:text-blue-900">
+                    <button onClick={() => handleAdvancedFilterChange('registrationDate', 'all')} className="hover:text-primary-900">
                       <i className="ri-close-line"></i>
                     </button>
                   </span>

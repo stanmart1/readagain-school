@@ -4,8 +4,8 @@ export default function FAQStats({ stats }) {
       title: 'Total FAQs',
       value: stats.total_faqs || 0,
       icon: 'ri-question-line',
-      color: 'bg-blue-500',
-      textColor: 'text-blue-600'
+      color: 'bg-primary-500',
+      textColor: 'text-primary-600'
     },
     {
       title: 'Categories',
@@ -18,8 +18,8 @@ export default function FAQStats({ stats }) {
       title: 'Total Views',
       value: stats.total_views || 0,
       icon: 'ri-eye-line',
-      color: 'bg-purple-500',
-      textColor: 'text-purple-600'
+      color: 'bg-primary-600',
+      textColor: 'text-primary-700'
     },
     {
       title: 'Recent FAQs',

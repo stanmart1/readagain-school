@@ -18,7 +18,7 @@ const MemberList = ({ members, onlineUsers = [] }) => {
               className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100"
             >
               <div className="relative">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center text-white font-semibold">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-r from-primary-700 to-primary-800 flex items-center justify-center text-white font-semibold">
                   {member.user?.username?.[0]?.toUpperCase() || 'U'}
                 </div>
                 {isOnline && (

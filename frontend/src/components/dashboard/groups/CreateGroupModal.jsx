@@ -27,7 +27,7 @@ export default function CreateGroupModal({ onClose }) {
         className="bg-white rounded-2xl shadow-2xl w-full max-w-md"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-4 rounded-t-2xl">
+        <div className="bg-gradient-to-r from-primary-600 to-primary-700 px-6 py-4 rounded-t-2xl">
           <h2 className="text-xl font-bold text-white flex items-center gap-2">
             <i className="ri-add-line"></i>
             Create New Group
@@ -43,7 +43,7 @@ export default function CreateGroupModal({ onClose }) {
               type="text"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               placeholder="e.g., Study Group, Project Team"
               required
             />
@@ -56,7 +56,7 @@ export default function CreateGroupModal({ onClose }) {
             <textarea
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
               rows="4"
               placeholder="Brief description of the group..."
             />
@@ -73,7 +73,7 @@ export default function CreateGroupModal({ onClose }) {
             <button
               type="submit"
               disabled={loading}
-              className="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all duration-200 disabled:opacity-50 font-medium"
+              className="px-5 py-2.5 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg hover:shadow-lg transition-all duration-200 disabled:opacity-50 font-medium"
             >
               {loading ? 'Creating...' : 'Create Group'}
             </button>

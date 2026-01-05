@@ -388,13 +388,13 @@ const LibraryManagement = () => {
               placeholder="Search by user name, email, or book title..."
               value={filters.search}
               onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             />
           </div>
           <select
             value={filters.status}
             onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value }))}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
           >
             <option value="">All Status</option>
             <option value="unread">Unread</option>
@@ -404,7 +404,7 @@ const LibraryManagement = () => {
           <select
             value={filters.user_id || ''}
             onChange={(e) => setFilters(prev => ({ ...prev, user_id: e.target.value ? parseInt(e.target.value) : undefined }))}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
           >
             <option value="">All Users</option>
             {users.map(user => (
@@ -419,14 +419,14 @@ const LibraryManagement = () => {
             type="date"
             value={filters.dateFrom}
             onChange={(e) => setFilters(prev => ({ ...prev, dateFrom: e.target.value }))}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             placeholder="From Date"
           />
           <input
             type="date"
             value={filters.dateTo}
             onChange={(e) => setFilters(prev => ({ ...prev, dateTo: e.target.value }))}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             placeholder="To Date"
           />
           <select
@@ -435,7 +435,7 @@ const LibraryManagement = () => {
               const [sortBy, sortOrder] = e.target.value.split('-');
               setFilters(prev => ({ ...prev, sortBy, sortOrder }));
             }}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
           >
             <option value="created_at-desc">Newest First</option>
             <option value="created_at-asc">Oldest First</option>
@@ -464,7 +464,7 @@ const LibraryManagement = () => {
           </button>
           <button
             onClick={() => setShowBulkModal(true)}
-            className="px-3 sm:px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm flex items-center gap-2"
+            className="px-3 sm:px-4 py-2 bg-primary-700 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm flex items-center gap-2"
           >
             <i className="ri-group-line"></i>
             <span className="hidden sm:inline">Bulk Assign</span>
@@ -472,7 +472,7 @@ const LibraryManagement = () => {
           </button>
           <button
             onClick={() => setShowAssignModal(true)}
-            className="px-3 sm:px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all text-sm flex items-center gap-2"
+            className="px-3 sm:px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg hover:from-primary-700 hover:to-primary-800 transition-all text-sm flex items-center gap-2"
           >
             <i className="ri-add-line"></i>
             <span className="hidden sm:inline">Assign Book</span>
@@ -577,7 +577,7 @@ const LibraryManagement = () => {
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => handleViewDetails(library.id)}
-                          className="text-primary-600 hover:text-blue-800"
+                          className="text-primary-600 hover:text-primary-800"
                           title="View Details"
                         >
                           <i className="ri-eye-line"></i>
@@ -667,7 +667,7 @@ const LibraryManagement = () => {
                 </label>
                 <div className="relative" ref={userDropdownRef}>
                   <div
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 cursor-pointer transition-all hover:border-gray-300"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-primary-500 cursor-pointer transition-all hover:border-gray-300"
                     onClick={() => setShowUserDropdown(!showUserDropdown)}
                   >
                     <div className="flex items-center justify-between">
@@ -702,7 +702,7 @@ const LibraryManagement = () => {
                             placeholder="Search users..."
                             value={userSearch}
                             onChange={(e) => setUserSearch(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                             autoFocus
                           />
                         </div>
@@ -763,7 +763,7 @@ const LibraryManagement = () => {
                 </label>
                 <div className="relative" ref={bookDropdownRef}>
                   <div
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 cursor-pointer transition-all hover:border-gray-300"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-primary-500 cursor-pointer transition-all hover:border-gray-300"
                     onClick={() => setShowBookDropdown(!showBookDropdown)}
                   >
                     <div className="flex items-center justify-between">
@@ -798,7 +798,7 @@ const LibraryManagement = () => {
                             placeholder="Search books..."
                             value={bookSearch}
                             onChange={(e) => setBookSearch(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                             autoFocus
                           />
                         </div>
@@ -877,7 +877,7 @@ const LibraryManagement = () => {
                     onClick={() => setSelectedFormat('ebook')}
                     className={`p-4 rounded-xl border-2 transition-all text-center group ${
                       selectedFormat === 'ebook'
-                        ? 'border-blue-500 bg-blue-50 text-blue-700'
+                        ? 'border-primary-500 bg-primary-50 text-blue-700'
                         : 'border-gray-200 hover:border-gray-300 text-gray-600 hover:bg-gray-50'
                     }`}
                   >
@@ -892,7 +892,7 @@ const LibraryManagement = () => {
                     onClick={() => setSelectedFormat('physical')}
                     className={`p-4 rounded-xl border-2 transition-all text-center group ${
                       selectedFormat === 'physical'
-                        ? 'border-blue-500 bg-blue-50 text-blue-700'
+                        ? 'border-primary-500 bg-primary-50 text-blue-700'
                         : 'border-gray-200 hover:border-gray-300 text-gray-600 hover:bg-gray-50'
                     }`}
                   >
@@ -954,7 +954,7 @@ const LibraryManagement = () => {
             <div className="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-purple-50 to-pink-50 rounded-t-2xl">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center">
+                  <div className="w-10 h-10 bg-gradient-to-r from-primary-700 to-primary-800 rounded-full flex items-center justify-center">
                     <i className="ri-group-line text-white text-lg"></i>
                   </div>
                   <div>
@@ -1051,7 +1051,7 @@ const LibraryManagement = () => {
                 <button
                   onClick={handleBulkAssign}
                   disabled={bulkUsers.length === 0 || !bulkBook || bulkLoading}
-                  className="flex-1 px-4 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 disabled:opacity-50 font-medium flex items-center justify-center gap-2"
+                  className="flex-1 px-4 py-3 bg-gradient-to-r from-primary-700 to-primary-800 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 disabled:opacity-50 font-medium flex items-center justify-center gap-2"
                 >
                   {bulkLoading ? (
                     <>

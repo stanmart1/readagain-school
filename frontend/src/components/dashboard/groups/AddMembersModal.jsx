@@ -50,7 +50,7 @@ export default function AddMembersModal({ group, existingMembers, onClose }) {
         className="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[70vh] overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-4">
+        <div className="bg-gradient-to-r from-primary-600 to-primary-700 px-6 py-4">
           <h3 className="text-lg font-bold text-white flex items-center gap-2">
             <i className="ri-user-add-line"></i>
             Add Members to Group
@@ -63,7 +63,7 @@ export default function AddMembersModal({ group, existingMembers, onClose }) {
             placeholder="Search users..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
           />
         </div>
 
@@ -89,7 +89,7 @@ export default function AddMembersModal({ group, existingMembers, onClose }) {
                         setSelectedUsers(selectedUsers.filter((id) => id !== user.id));
                       }
                     }}
-                    className="rounded text-blue-600 focus:ring-blue-500"
+                    className="rounded text-primary-600 focus:ring-primary-500"
                   />
                   <div className="flex-1">
                     <div className="text-sm font-medium text-gray-900">
@@ -113,7 +113,7 @@ export default function AddMembersModal({ group, existingMembers, onClose }) {
           <button
             onClick={handleAddMembers}
             disabled={selectedUsers.length === 0 || loading}
-            className="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:shadow-lg transition-all duration-200 disabled:opacity-50 font-medium"
+            className="px-5 py-2.5 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg hover:shadow-lg transition-all duration-200 disabled:opacity-50 font-medium"
           >
             {loading ? 'Adding...' : `Add ${selectedUsers.length} ${selectedUsers.length === 1 ? 'Member' : 'Members'}`}
           </button>

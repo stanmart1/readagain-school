@@ -57,7 +57,7 @@ export default function ImageOptimization() {
         {status && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             {/* Cover Images Stats */}
-            <div className="bg-blue-50 rounded-lg p-4">
+            <div className="bg-primary-50 rounded-lg p-4">
               <h3 className="font-medium text-blue-900 mb-3">Book Cover Images</h3>
               <div className="space-y-2">
                 <div className="flex justify-between">
@@ -124,7 +124,7 @@ export default function ImageOptimization() {
           <button
             onClick={startOptimization}
             disabled={optimizing || !status?.optimization_needed}
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center gap-2"
+            className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center gap-2"
           >
             {optimizing ? (
               <>

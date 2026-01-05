@@ -51,13 +51,13 @@ const UserAnalyticsModal = ({ isOpen, onClose, userId }) => {
           <div className="space-y-6">
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="bg-blue-50 rounded-lg p-4">
+              <div className="bg-primary-50 rounded-lg p-4">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-600">Books Read</p>
                     <p className="text-2xl font-bold text-gray-900">{analytics.booksRead || 0}</p>
                   </div>
-                  <i className="ri-book-line text-3xl text-blue-600"></i>
+                  <i className="ri-book-line text-3xl text-primary-600"></i>
                 </div>
               </div>
               <div className="bg-green-50 rounded-lg p-4">
@@ -75,7 +75,7 @@ const UserAnalyticsModal = ({ isOpen, onClose, userId }) => {
                     <p className="text-sm text-gray-600">Current Streak</p>
                     <p className="text-2xl font-bold text-gray-900">{analytics.streak || 0} days</p>
                   </div>
-                  <i className="ri-fire-line text-3xl text-purple-600"></i>
+                  <i className="ri-fire-line text-3xl text-primary-700"></i>
                 </div>
               </div>
               <div className="bg-yellow-50 rounded-lg p-4">

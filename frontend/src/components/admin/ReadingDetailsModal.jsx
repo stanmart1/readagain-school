@@ -178,7 +178,7 @@ const ReadingDetailsModal = ({ libraryId, onClose }) => {
                           <div className="w-full bg-gray-200 rounded-full h-2">
                             <div
                               className={`h-2 rounded-full ${
-                                goal.status === 'completed' ? 'bg-green-500' : 'bg-blue-500'
+                                goal.status === 'completed' ? 'bg-green-500' : 'bg-primary-500'
                               }`}
                               style={{ width: `${Math.min((goal.current_value / goal.target_value) * 100, 100)}%` }}
                             ></div>
@@ -248,7 +248,7 @@ const ReadingDetailsModal = ({ libraryId, onClose }) => {
                 ) : (
                   <div className="space-y-3">
                     {assignmentDetails.notes.slice(0, 3).map((note) => (
-                      <div key={note.id} className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
+                      <div key={note.id} className="bg-primary-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
                         <p className="text-gray-800 mb-2">
                           {note.content.length > 150 ? note.content.substring(0, 150) + '...' : note.content}
                         </p>

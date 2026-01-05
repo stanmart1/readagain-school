@@ -196,7 +196,7 @@ export default function TestimonialsSection() {
                       {/* Reviewer Info */}
                       <div className="flex items-center justify-between mt-auto">
                         <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center">
+                          <div className="w-10 h-10 bg-gradient-to-r from-primary-600 to-primary-700 rounded-full flex items-center justify-center">
                             <span className="text-white font-semibold text-sm">
                               {testimonial.firstName.charAt(0)}{testimonial.lastName.charAt(0)}
                             </span>

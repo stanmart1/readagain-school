@@ -152,14 +152,14 @@ export default function BlogPost() {
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <button
                 onClick={() => sharePost('twitter')}
-                className="flex items-center justify-center sm:justify-start gap-2 px-4 py-3 sm:py-2 bg-blue-400 text-white rounded-lg hover:bg-blue-500 transition-colors font-medium text-sm sm:text-base"
+                className="flex items-center justify-center sm:justify-start gap-2 px-4 py-3 sm:py-2 bg-blue-400 text-white rounded-lg hover:bg-primary-500 transition-colors font-medium text-sm sm:text-base"
               >
                 <i className="ri-twitter-fill text-lg"></i>
                 <span>Twitter</span>
               </button>
               <button
                 onClick={() => sharePost('facebook')}
-                className="flex items-center justify-center sm:justify-start gap-2 px-4 py-3 sm:py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm sm:text-base"
+                className="flex items-center justify-center sm:justify-start gap-2 px-4 py-3 sm:py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors font-medium text-sm sm:text-base"
               >
                 <i className="ri-facebook-fill text-lg"></i>
                 <span>Facebook</span>

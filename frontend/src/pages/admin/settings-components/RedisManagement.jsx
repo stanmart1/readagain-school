@@ -98,7 +98,7 @@ export default function RedisManagement() {
               disabled={toggling}
               className="sr-only peer"
             />
-            <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary-600 peer-disabled:opacity-50"></div>
+            <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary-600 peer-disabled:opacity-50"></div>
           </label>
         </div>
       </div>
@@ -165,7 +165,7 @@ export default function RedisManagement() {
           )}
           
           {redisStatus?.message && (
-            <div className="text-sm text-primary-600 bg-blue-50 p-2 rounded">
+            <div className="text-sm text-primary-600 bg-primary-50 p-2 rounded">
               {redisStatus.message}
             </div>
           )}
@@ -202,7 +202,7 @@ export default function RedisManagement() {
       </div>
 
       {/* Information */}
-      <div className="bg-blue-50 border border-primary-200 rounded-lg p-4">
+      <div className="bg-primary-50 border border-primary-200 rounded-lg p-4">
         <h5 className="font-medium text-blue-800 mb-2">About Redis</h5>
         <div className="text-sm text-blue-700 space-y-1">
           <p>• Redis is used for caching and rate limiting</p>

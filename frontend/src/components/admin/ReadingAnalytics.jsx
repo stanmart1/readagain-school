@@ -64,7 +64,7 @@ const ReadingAnalytics = () => {
           <p>{error}</p>
           <button
             onClick={handleRefresh}
-            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="mt-4 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700"
           >
             Retry
           </button>
@@ -86,7 +86,7 @@ const ReadingAnalytics = () => {
             <select
               value={selectedPeriod}
               onChange={(e) => setSelectedPeriod(e.target.value)}
-              className="px-3 sm:px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full sm:w-auto"
+              className="px-3 sm:px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-primary-500 focus:border-primary-500 w-full sm:w-auto"
             >
               <option value="week">Last Week</option>
               <option value="month">Last Month</option>
@@ -95,7 +95,7 @@ const ReadingAnalytics = () => {
             </select>
             <button
               onClick={handleRefresh}
-              className="px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center justify-center gap-2 text-sm font-medium whitespace-nowrap w-full sm:w-auto"
+              className="px-3 sm:px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 flex items-center justify-center gap-2 text-sm font-medium whitespace-nowrap w-full sm:w-auto"
             >
               <i className="ri-refresh-line"></i>
               <span>Refresh</span>
@@ -179,7 +179,7 @@ const ReadingAnalytics = () => {
                           setSelectedLibraryId(reader.library_id);
                           setShowDetailsModal(true);
                         }}
-                        className="text-blue-600 hover:text-blue-800"
+                        className="text-primary-600 hover:text-primary-800"
                         title="View Details"
                       >
                         <i className="ri-eye-line"></i>

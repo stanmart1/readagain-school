@@ -83,7 +83,7 @@ export default function CategoryForm({ category, onSubmit, onCancel }) {
               type="text"
               value={formData.name}
               onChange={(e) => handleChange('name', e.target.value)}
-              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 ${
                 errors.name ? 'border-red-500' : 'border-gray-300'
               }`}
               placeholder="Enter category name..."
@@ -98,7 +98,7 @@ export default function CategoryForm({ category, onSubmit, onCancel }) {
               value={formData.description}
               onChange={(e) => handleChange('description', e.target.value)}
               rows={3}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
               placeholder="Enter category description..."
             />
           </div>
@@ -112,7 +112,7 @@ export default function CategoryForm({ category, onSubmit, onCancel }) {
                   type="button"
                   onClick={() => handleChange('icon', icon)}
                   className={`p-3 border rounded-md text-center hover:bg-gray-50 ${
-                    formData.icon === icon ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
+                    formData.icon === icon ? 'border-primary-500 bg-primary-50' : 'border-gray-300'
                   }`}
                 >
                   <i className={`${icon} text-xl`} style={{ color: formData.color }}></i>
@@ -161,7 +161,7 @@ export default function CategoryForm({ category, onSubmit, onCancel }) {
               id="is_active"
               checked={formData.is_active}
               onChange={(e) => handleChange('is_active', e.target.checked)}
-              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
             />
             <label htmlFor="is_active" className="ml-2 block text-sm text-gray-900">Active</label>
           </div>
@@ -177,7 +177,7 @@ export default function CategoryForm({ category, onSubmit, onCancel }) {
             <button
               type="submit"
               disabled={loading}
-              className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50"
+              className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-primary-700 disabled:opacity-50"
             >
               <i className="ri-save-line mr-2"></i>
               {loading ? 'Saving...' : (category ? 'Update Category' : 'Create Category')}

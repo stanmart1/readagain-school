@@ -333,7 +333,7 @@ const ReviewManagement = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-xs text-gray-600">Featured</p>
-              <p className="text-2xl font-bold text-purple-600">{stats.featured}</p>
+              <p className="text-2xl font-bold text-primary-700">{stats.featured}</p>
             </div>
             <i className="ri-star-fill text-2xl text-purple-400"></i>
           </div>
@@ -358,7 +358,7 @@ const ReviewManagement = () => {
               placeholder="Search reviews..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
             />
           </div>
           <input
@@ -366,12 +366,12 @@ const ReviewManagement = () => {
             placeholder="Filter by class..."
             value={filterClass}
             onChange={(e) => setFilterClass(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 w-full sm:w-48"
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 w-full sm:w-48"
           />
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
           >
             <option value="all">All Status</option>
             <option value="pending">Pending</option>
@@ -382,13 +382,13 @@ const ReviewManagement = () => {
           <div className="flex gap-2">
             <button
               onClick={() => setViewMode('grid')}
-              className={`px-3 py-2 rounded-lg ${viewMode === 'grid' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'}`}
+              className={`px-3 py-2 rounded-lg ${viewMode === 'grid' ? 'bg-primary-600 text-white' : 'bg-gray-100 text-gray-700'}`}
             >
               <i className="ri-grid-line"></i>
             </button>
             <button
               onClick={() => setViewMode('list')}
-              className={`px-3 py-2 rounded-lg ${viewMode === 'list' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700'}`}
+              className={`px-3 py-2 rounded-lg ${viewMode === 'list' ? 'bg-primary-600 text-white' : 'bg-gray-100 text-gray-700'}`}
             >
               <i className="ri-list-check"></i>
             </button>
@@ -467,7 +467,7 @@ const ReviewManagement = () => {
               <button
                 onClick={confirmAction}
                 disabled={isProcessing}
-                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="flex-1 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {isProcessing && <i className="ri-loader-4-line animate-spin"></i>}
                 {isProcessing ? 'Processing...' : 'Confirm'}

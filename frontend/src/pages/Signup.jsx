@@ -313,7 +313,7 @@ export default function Signup() {
                         name="first_name"
                         value={formData.first_name}
                         onChange={handleChange}
-                        className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 ${
                           stepErrors.first_name ? 'border-red-500' : 'border-gray-300'
                         }`}
                         placeholder="John"
@@ -331,7 +331,7 @@ export default function Signup() {
                         name="last_name"
                         value={formData.last_name}
                         onChange={handleChange}
-                        className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 ${
                           stepErrors.last_name ? 'border-red-500' : 'border-gray-300'
                         }`}
                         placeholder="Doe"
@@ -353,7 +353,7 @@ export default function Signup() {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 ${
                           stepErrors.email ? 'border-red-500' : 'border-gray-300'
                         }`}
                         placeholder="john@example.com"
@@ -376,7 +376,7 @@ export default function Signup() {
                         name="phone_number"
                         value={formData.phone_number}
                         onChange={handleChange}
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                         placeholder="+234 123 456 7890"
                       />
                     </div>
@@ -447,7 +447,7 @@ export default function Signup() {
                         name="username"
                         value={formData.username}
                         onChange={handleChange}
-                        className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 ${
                           stepErrors.username ? 'border-red-500' : 'border-gray-300'
                         }`}
                         placeholder="johndoe"
@@ -472,7 +472,7 @@ export default function Signup() {
                           name="school_category"
                           value={formData.school_category}
                           onChange={handleChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                         >
                           <option value="">Select school category</option>
                           <option value="Primary">Primary</option>
@@ -492,7 +492,7 @@ export default function Signup() {
                             name="school_name"
                             value={formData.school_name}
                             onChange={handleChange}
-                            className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                             placeholder="University of Lagos"
                           />
                         </div>
@@ -508,7 +508,7 @@ export default function Signup() {
                             name="class_level"
                             value={formData.class_level}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                             placeholder={formData.school_category === 'Primary' ? 'Primary 1' : 'SS1'}
                           />
                         </div>
@@ -524,7 +524,7 @@ export default function Signup() {
                             name="department"
                             value={formData.department}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                             placeholder="Computer Science"
                           />
                         </div>
@@ -575,7 +575,7 @@ export default function Signup() {
                           name="username"
                           value={formData.username}
                           onChange={handleChange}
-                          className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                          className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 ${
                             stepErrors.username ? 'border-red-500' : 'border-gray-300'
                           }`}
                           placeholder="johndoe"
@@ -603,7 +603,7 @@ export default function Signup() {
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
-                        className={`w-full pl-10 pr-12 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        className={`w-full pl-10 pr-12 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 ${
                           stepErrors.password ? 'border-red-500' : 'border-gray-300'
                         }`}
                         placeholder="••••••••"
@@ -637,7 +637,7 @@ export default function Signup() {
                         name="confirm_password"
                         value={formData.confirm_password}
                         onChange={handleChange}
-                        className={`w-full pl-10 pr-12 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        className={`w-full pl-10 pr-12 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 ${
                           stepErrors.confirm_password ? 'border-red-500' : 'border-gray-300'
                         }`}
                         placeholder="••••••••"

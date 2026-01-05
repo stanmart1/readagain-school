@@ -251,7 +251,7 @@ export default function Analytics() {
                     <div className="flex gap-2">
                       <button
                         onClick={() => setEditingGoal(goal)}
-                        className="p-1.5 text-primary-600 hover:bg-blue-50 rounded transition-colors"
+                        className="p-1.5 text-primary-600 hover:bg-primary-50 rounded transition-colors"
                         title="Edit goal"
                       >
                         <i className="ri-edit-line text-lg"></i>
@@ -373,7 +373,7 @@ export default function Analytics() {
                       onClick={() => setGoalForm({...goalForm, goal_type: 'books'})}
                       className={`p-4 border-2 rounded-lg text-left transition-all ${
                         goalForm.goal_type === 'books' 
-                          ? 'border-blue-600 bg-blue-50' 
+                          ? 'border-blue-600 bg-primary-50' 
                           : 'border-gray-200 hover:border-gray-300'
                       }`}
                     >
@@ -385,7 +385,7 @@ export default function Analytics() {
                       onClick={() => setGoalForm({...goalForm, goal_type: 'pages'})}
                       className={`p-4 border-2 rounded-lg text-left transition-all ${
                         goalForm.goal_type === 'pages' 
-                          ? 'border-blue-600 bg-blue-50' 
+                          ? 'border-blue-600 bg-primary-50' 
                           : 'border-gray-200 hover:border-gray-300'
                       }`}
                     >
@@ -397,7 +397,7 @@ export default function Analytics() {
                       onClick={() => setGoalForm({...goalForm, goal_type: 'minutes'})}
                       className={`p-4 border-2 rounded-lg text-left transition-all ${
                         goalForm.goal_type === 'minutes' 
-                          ? 'border-blue-600 bg-blue-50' 
+                          ? 'border-blue-600 bg-primary-50' 
                           : 'border-gray-200 hover:border-gray-300'
                       }`}
                     >
@@ -409,7 +409,7 @@ export default function Analytics() {
                       onClick={() => setGoalForm({...goalForm, goal_type: 'streak'})}
                       className={`p-4 border-2 rounded-lg text-left transition-all ${
                         goalForm.goal_type === 'streak' 
-                          ? 'border-blue-600 bg-blue-50' 
+                          ? 'border-blue-600 bg-primary-50' 
                           : 'border-gray-200 hover:border-gray-300'
                       }`}
                     >

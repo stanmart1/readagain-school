@@ -145,7 +145,7 @@ export default function BookDetail() {
                 <button 
                   onClick={handleAddToCart}
                   disabled={addingToCart}
-                  className="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 px-6 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 px-6 rounded-lg font-semibold hover:from-primary-700 hover:to-primary-800 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {addingToCart ? (
                     <>

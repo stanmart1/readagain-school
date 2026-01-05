@@ -92,7 +92,7 @@ const ShippingZoneModal = ({ isOpen, onClose, onSubmit, editingZone }) => {
                 type="text"
                 value={formData.name}
                 onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 placeholder="e.g., Lagos & Surrounding Areas"
                 required
               />
@@ -106,7 +106,7 @@ const ShippingZoneModal = ({ isOpen, onClose, onSubmit, editingZone }) => {
               <textarea
                 value={formData.description}
                 onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 rows={2}
                 placeholder="Brief description of this shipping zone"
               />
@@ -121,7 +121,7 @@ const ShippingZoneModal = ({ isOpen, onClose, onSubmit, editingZone }) => {
                 <button
                   type="button"
                   onClick={handleSelectAllStates}
-                  className="text-sm text-blue-600 hover:text-blue-800"
+                  className="text-sm text-primary-600 hover:text-primary-800"
                 >
                   {formData.states.length === NIGERIAN_STATES.length ? 'Deselect All' : 'Select All'}
                 </button>
@@ -134,7 +134,7 @@ const ShippingZoneModal = ({ isOpen, onClose, onSubmit, editingZone }) => {
                         type="checkbox"
                         checked={formData.states.includes(state)}
                         onChange={() => handleStateToggle(state)}
-                        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                        className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
                       />
                       <span className="text-sm text-gray-700">{state}</span>
                     </label>
@@ -149,7 +149,7 @@ const ShippingZoneModal = ({ isOpen, onClose, onSubmit, editingZone }) => {
                 type="checkbox"
                 checked={formData.is_active}
                 onChange={(e) => setFormData(prev => ({ ...prev, is_active: e.target.checked }))}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
               />
               <label className="ml-2 text-sm text-gray-700">
                 Active (visible to customers)
@@ -167,7 +167,7 @@ const ShippingZoneModal = ({ isOpen, onClose, onSubmit, editingZone }) => {
             </button>
             <button
               type="submit"
-              className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="flex-1 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
             >
               {editingZone ? 'Update' : 'Create'}
             </button>

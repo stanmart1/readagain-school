@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect, lazy, Suspense } from 'react';
+import ErrorBoundary from './components/ErrorBoundary';
 
 { /* Scroll to top on route change*/}
 function ScrollToTop() {
@@ -66,6 +67,7 @@ import './styles/index.css';
 
 function App() {
   return (
+    <ErrorBoundary>
       <Router>
         <ScrollToTop />
         <Suspense fallback={<LoadingFallback />}>
@@ -119,6 +121,7 @@ function App() {
       </Routes>
       </Suspense>
     </Router>
+    </ErrorBoundary>
   );
 }
 

@@ -24,4 +24,3 @@ export { useReports } from './useReports';
 export { useEmailTemplates } from './useEmailTemplates';
 export { useAdminBlog } from './useAdminBlog';
 export { useSettings } from './useSettings';
-export { useSessionTimeout } from './useSessionTimeout';

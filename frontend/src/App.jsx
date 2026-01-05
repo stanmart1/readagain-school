@@ -1,7 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect, lazy, Suspense } from 'react';
-import SessionTimeoutWarning from './components/SessionTimeoutWarning';
-import { useSessionTimeout } from './hooks/useSessionTimeout';
 
 { /* Scroll to top on route change*/}
 function ScrollToTop() {
@@ -67,17 +65,9 @@ const AdminGroups = lazy(() => import('./pages/admin/Groups'));
 import './styles/index.css';
 
 function App() {
-  const { showWarning, timeRemaining, extendSession, handleLogout } = useSessionTimeout();
-
   return (
       <Router>
         <ScrollToTop />
-        <SessionTimeoutWarning
-          show={showWarning}
-          timeRemaining={timeRemaining}
-          onExtend={extendSession}
-          onLogout={handleLogout}
-        />
         <Suspense fallback={<LoadingFallback />}>
         <Routes>
         {/* Public Routes */}

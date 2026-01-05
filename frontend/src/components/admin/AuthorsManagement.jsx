@@ -59,9 +59,7 @@ const AuthorsManagement = () => {
     setEditingAuthor(author);
     setFormData({
       name: author.business_name,
-      email: author.email || '',
       bio: author.bio || '',
-      avatar_url: author.photo || '',
       status: author.status
     });
     setShowModal(true);
@@ -131,7 +129,7 @@ const AuthorsManagement = () => {
           <div className="flex-1">
             <input
               type="text"
-              placeholder="Search authors by name or email..."
+              placeholder="Search authors by name..."
               value={filters.search}
               onChange={(e) => setFilters({ ...filters, search: e.target.value })}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
@@ -210,15 +208,13 @@ const AuthorsManagement = () => {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="flex-shrink-0 h-10 w-10">
-                          <img
-                            className="h-10 w-10 rounded-full object-cover"
-                            src={author.photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(author.business_name)}&background=3B82F6&color=fff`}
-                            alt={author.business_name}
-                          />
+                          <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center text-white font-semibold">
+                            {author.business_name.charAt(0).toUpperCase()}
+                          </div>
                         </div>
                         <div className="ml-4">
                           <div className="text-sm font-medium text-gray-900">{author.business_name}</div>
-                          <div className="text-sm text-gray-500">{author.email || 'No email provided'}</div>
+                          <div className="text-sm text-gray-500">{author.books_count || 0} books</div>
                         </div>
                       </div>
                     </td>

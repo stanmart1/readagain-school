@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import EpubReader from '../components/EpubReader';
 import EReader from '../components/EReader';
+import PDFReader from '../components/PDFReader';
 import api from '../lib/api';
 
 export default function Reading() {
@@ -37,6 +38,8 @@ export default function Reading() {
       
       if (fileExt === 'epub') {
         readerFormat = 'epub';
+      } else if (fileExt === 'pdf') {
+        readerFormat = 'pdf';
       } else if (fileExt === 'html' || fileExt === 'htm') {
         readerFormat = 'html';
       } else if (libraryItem.format === 'ebook') {
@@ -91,6 +94,8 @@ export default function Reading() {
   // Route to appropriate reader based on format
   if (bookFormat === 'epub') {
     return <EpubReader bookId={bookId} onClose={handleClose} />;
+  } else if (bookFormat === 'pdf') {
+    return <PDFReader bookId={bookId} onClose={handleClose} />;
   } else {
     return <EReader bookId={bookId} onClose={handleClose} />;
   }

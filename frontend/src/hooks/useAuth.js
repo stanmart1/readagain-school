@@ -17,9 +17,6 @@ export const useAuth = () => {
         localStorage.setItem('refresh_token', response.data.refresh_token);
         localStorage.setItem('user', JSON.stringify(response.data.user));
         
-        // Transfer guest cart after login
-        await transferGuestCartAfterLogin();
-        
         return response.data;
       }
       return null;
@@ -28,25 +25,6 @@ export const useAuth = () => {
       return null;
     } finally {
       setLoading(false);
-    }
-  };
-
-  const transferGuestCartAfterLogin = async () => {
-    try {
-      const guestCart = localStorage.getItem('readagain_guest_cart');
-      if (!guestCart) return;
-      
-      const guestItems = JSON.parse(guestCart);
-      if (guestItems.length === 0) return;
-      
-      // Backend expects: { book_ids: [1, 2, 3] }
-      const bookIds = guestItems.map(item => item.book_id || item.id);
-      await api.post('/cart/merge', { book_ids: bookIds });
-      
-      // Clear guest cart
-      localStorage.removeItem('readagain_guest_cart');
-    } catch (err) {
-      console.error('Error transferring guest cart:', err);
     }
   };
 

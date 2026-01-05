@@ -76,7 +76,6 @@ api.interceptors.response.use(
       const token = localStorage.getItem('token');
       const isLoginPage = window.location.pathname === '/login';
       const isAuthMeEndpoint = error.config?.url?.includes('/auth/me');
-      const isCartEndpoint = error.config?.url?.includes('/cart');
       
       // Try to refresh token if we have a refresh token
       if (refreshToken && token && !isLoginPage) {
@@ -114,8 +113,7 @@ api.interceptors.response.use(
       
       // No refresh token or refresh failed
       // Don't redirect for /auth/me (handled by ProtectedRoute)
-      // Don't clear token for cart operations (might be guest cart transfer)
-      if (token && !isLoginPage && !isAuthMeEndpoint && !isCartEndpoint) {
+      if (token && !isLoginPage && !isAuthMeEndpoint) {
         localStorage.removeItem('token');
         localStorage.removeItem('refresh_token');
         localStorage.removeItem('user');

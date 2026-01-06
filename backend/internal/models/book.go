@@ -4,8 +4,6 @@ import "time"
 
 type Author struct {
 	BaseModel
-	UserID       uint   `gorm:"uniqueIndex;not null" json:"user_id"`
-	User         *User  `gorm:"foreignKey:UserID" json:"user,omitempty"`
 	BusinessName string `gorm:"not null" json:"business_name" validate:"required"`
 	Bio          string `gorm:"type:text" json:"bio"`
 	Website      string `json:"website"`

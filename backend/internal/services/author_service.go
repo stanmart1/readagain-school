@@ -89,32 +89,19 @@ func (s *AuthorService) GetAuthorByID(authorID uint) (*models.Author, error) {
 }
 
 func (s *AuthorService) GetAuthorByUserID(userID uint) (*models.Author, error) {
-	var author models.Author
-	if err := s.db.Preload("User").Where("user_id = ?", userID).First(&author).Error; err != nil {
-		return nil, utils.NewNotFoundError("Author profile not found")
-	}
-	return &author, nil
+	return nil, utils.NewNotFoundError("Author profile not found")
 }
 
-func (s *AuthorService) CreateAuthor(userID uint, penName, bio, website string) (*models.Author, error) {
-	var existing models.Author
-	if err := s.db.Where("user_id = ?", userID).First(&existing).Error; err == nil {
-		return nil, utils.NewBadRequestError("Author profile already exists for this user")
-	}
-
+func (s *AuthorService) CreateAuthor(penName, bio, website string) (*models.Author, error) {
 	author := models.Author{
-		UserID:       userID,
 		BusinessName: penName,
 		Bio:          bio,
 		Website:      website,
+		Status:       "active",
 	}
 
 	if err := s.db.Create(&author).Error; err != nil {
 		return nil, utils.NewInternalServerError("Failed to create author", err)
-	}
-
-	if err := s.db.Preload("User").First(&author, author.ID).Error; err != nil {
-		return nil, utils.NewNotFoundError("Author not found")
 	}
 
 	return &author, nil

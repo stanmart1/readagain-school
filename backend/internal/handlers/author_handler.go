@@ -60,7 +60,6 @@ func (h *AuthorHandler) GetAuthor(c *fiber.Ctx) error {
 
 func (h *AuthorHandler) CreateAuthor(c *fiber.Ctx) error {
 	var input struct {
-		UserID  uint   `json:"user_id"`
 		PenName string `json:"pen_name"`
 		Bio     string `json:"bio"`
 		Website string `json:"website"`
@@ -70,22 +69,13 @@ func (h *AuthorHandler) CreateAuthor(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid input"})
 	}
 
-	// If user_id not provided, use authenticated user's ID
-	if input.UserID == 0 {
-		userID, ok := c.Locals("userID").(uint)
-		if !ok {
-			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "User ID required"})
-		}
-		input.UserID = userID
-	}
-
-	author, err := h.authorService.CreateAuthor(input.UserID, input.PenName, input.Bio, input.Website)
+	author, err := h.authorService.CreateAuthor(input.PenName, input.Bio, input.Website)
 	if err != nil {
 		utils.ErrorLogger.Printf("Failed to create author: %v", err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
 	}
 
-	utils.InfoLogger.Printf("Created author for user %d", input.UserID)
+	utils.InfoLogger.Printf("Created author: %s", input.PenName)
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{"author": author})
 }
 

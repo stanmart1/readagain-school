@@ -33,7 +33,13 @@ export default function Reading() {
       }
 
       // Use file_extension to determine reader type
-      const fileExt = libraryItem.file_extension?.toLowerCase();
+      const book = libraryItem.book || libraryItem;
+      const filePath = book.file_path || '';
+      const fileExt = filePath.split('.').pop()?.toLowerCase();
+      
+      console.log('Book file path:', filePath);
+      console.log('Detected extension:', fileExt);
+      
       let readerFormat = 'epub'; // default
       
       if (fileExt === 'epub') {
@@ -42,11 +48,9 @@ export default function Reading() {
         readerFormat = 'pdf';
       } else if (fileExt === 'html' || fileExt === 'htm') {
         readerFormat = 'html';
-      } else if (libraryItem.format === 'ebook') {
-        // If no file extension but format is ebook, default to epub
-        readerFormat = 'epub';
       }
       
+      console.log('Using reader format:', readerFormat);
       setBookFormat(readerFormat);
     } catch (err) {
       console.error('Error detecting book format:', err);

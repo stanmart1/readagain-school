@@ -7,6 +7,8 @@ import (
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	
+	"readagain/internal/models"
 )
 
 func main() {
@@ -20,20 +22,17 @@ func main() {
 		log.Fatal("Failed to connect:", err)
 	}
 
-	roles := []struct {
-		Name        string
-		Description string
-	}{
-		{"platform_admin", "Platform Administrator"},
-		{"school_admin", "School Administrator"},
-		{"teacher", "Teacher"},
-		{"student", "Student"},
+	roles := []models.Role{
+		{Name: "platform_admin", Description: "Platform Administrator"},
+		{Name: "school_admin", Description: "School Administrator"},
+		{Name: "teacher", Description: "Teacher"},
+		{Name: "student", Description: "Student"},
 	}
 
 	for _, r := range roles {
-		db.Exec("INSERT INTO roles (name, description) VALUES (?, ?) ON CONFLICT (name) DO NOTHING", r.Name, r.Description)
+		db.FirstOrCreate(&r, models.Role{Name: r.Name})
 		fmt.Printf("✓ Created role: %s\n", r.Name)
 	}
 
-	fmt.Println("\n✓ All roles created")
+	fmt.Println("\n✓ All 4 roles created")
 }

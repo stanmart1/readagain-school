@@ -30,12 +30,12 @@ func main() {
 	})
 
 	app.Use(logger.New())
-	
+
 	allowOrigins := "*"
 	if cfg.Server.Env != "development" {
-		allowOrigins = "https://readagain.estateman.online"
+		allowOrigins = "https://readagain.online"
 	}
-	
+
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: allowOrigins,
 		AllowHeaders: "Origin, Content-Type, Accept, Authorization",

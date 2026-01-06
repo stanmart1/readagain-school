@@ -66,7 +66,7 @@ func (s *AuthService) Register(email, username, password, firstName, lastName, s
 
 func (s *AuthService) Login(emailOrUsername, password, ipAddress, userAgent string) (string, string, *models.User, error) {
 	var user models.User
-	if err := s.db.Preload("Role").Where("email = ? OR username = ?", emailOrUsername, emailOrUsername).First(&user).Error; err != nil {
+	if err := s.db.Preload("Role.Permissions").Where("email = ? OR username = ?", emailOrUsername, emailOrUsername).First(&user).Error; err != nil {
 		s.logAuthAttempt(0, "login", ipAddress, userAgent, false)
 		return "", "", nil, utils.NewUnauthorizedError("Invalid credentials")
 	}

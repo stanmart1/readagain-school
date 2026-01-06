@@ -14,9 +14,7 @@ export default function Footer() {
             className="lg:col-span-1"
           >
             <div className="flex items-center space-x-2 mb-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-primary-500 to-primary-600 rounded-lg flex items-center justify-center">
-                <i className="ri-book-line text-white text-lg"></i>
-              </div>
+              <img src="/favicon.png" alt="ReadAgain Logo" className="w-8 h-8" />
               <span className="text-xl font-bold font-pacifico">ReadAgain</span>
             </div>
             <p className="text-gray-400 mb-3 leading-relaxed text-sm">

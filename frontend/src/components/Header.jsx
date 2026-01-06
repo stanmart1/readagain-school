@@ -26,9 +26,7 @@ export default function Header() {
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-primary-500 to-primary-600 rounded-lg flex items-center justify-center">
-                <i className="ri-book-line text-white text-lg"></i>
-              </div>
+              <img src="/favicon.png" alt="ReadAgain Logo" className="w-8 h-8" />
               <span className="text-xl font-bold font-pacifico text-gray-900">
                 ReadAgain
               </span>

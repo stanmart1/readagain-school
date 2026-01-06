@@ -173,22 +173,28 @@ export default function BookDetail() {
               <div className="bg-white rounded-xl p-6 shadow-md">
                 <h3 className="text-xl font-bold text-gray-900 mb-4">Book Details</h3>
                 <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Pages:</span>
-                    <span className="font-semibold">{book.pages || 'N/A'}</span>
-                  </div>
+                  {book.category && (
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Category:</span>
+                      <span className="font-semibold">{book.category.name}</span>
+                    </div>
+                  )}
                   <div className="flex justify-between">
                     <span className="text-gray-600">Language:</span>
                     <span className="font-semibold">{book.language || 'English'}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Publisher:</span>
-                    <span className="font-semibold">{book.publisher || book.author?.business_name || 'N/A'}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">ISBN:</span>
-                    <span className="font-semibold">{book.isbn || 'N/A'}</span>
-                  </div>
+                  {(book.publisher || book.author?.business_name) && (
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Publisher:</span>
+                      <span className="font-semibold">{book.publisher || book.author?.business_name}</span>
+                    </div>
+                  )}
+                  {book.isbn && (
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">ISBN:</span>
+                      <span className="font-semibold">{book.isbn}</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </motion.div>

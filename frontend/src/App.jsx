@@ -99,7 +99,7 @@ function App() {
         <Route path="/reading/:bookId" element={<Reading />} />
         
         {/* Admin Routes - Protected */}
-        <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+        <Route path="/admin" element={<AdminRoute requiredPermission="analytics.view"><AdminDashboard /></AdminRoute>} />
         <Route path="/admin/users" element={<AdminRoute><AdminUsers /></AdminRoute>} />
         <Route path="/admin/roles" element={<AdminRoute><Roles /></AdminRoute>} />
         <Route path="/admin/audit" element={<AdminRoute><AdminAudit /></AdminRoute>} />

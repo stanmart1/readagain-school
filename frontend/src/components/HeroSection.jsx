@@ -41,7 +41,7 @@ export default function HeroSection() {
               className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white"
             >
               Build Your School's
-              <span className="block text-yellow-400 mt-2">Digital Library</span>
+              <span className="block text-red-500 mt-2">Digital Library</span>
             </motion.h1>
             
             <motion.p 

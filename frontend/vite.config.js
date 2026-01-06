@@ -1,38 +1,39 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: '/',
+  base: "/",
   build: {
-    outDir: 'dist',
-    assetsDir: 'assets',
+    outDir: "dist",
+    assetsDir: "assets",
     emptyOutDir: true,
     rollupOptions: {
       output: {
         manualChunks: undefined,
-        entryFileNames: 'assets/[name]-[hash].js',
-        chunkFileNames: 'assets/[name]-[hash].js',
-        assetFileNames: 'assets/[name]-[hash].[ext]'
-      }
-    }
+        entryFileNames: "assets/[name]-[hash].js",
+        chunkFileNames: "assets/[name]-[hash].js",
+        assetFileNames: "assets/[name]-[hash].[ext]",
+      },
+    },
   },
   server: {
     port: 3000,
-    host: '0.0.0.0',
+    host: "0.0.0.0",
     allowedHosts: [
-      'readagain.estateman.online',
-      'localhost',
-      '.estateman.online'
+      "readagain.estateman.online",
+      "localhost",
+      ".estateman.online",
+      "readagain.online",
     ],
     proxy: {
-      '/api': {
-        target: 'http://localhost:8000',
-        changeOrigin: true
-      }
+      "/api": {
+        target: "http://localhost:8000",
+        changeOrigin: true,
+      },
     },
     fs: {
-      strict: false
-    }
-  }
-})
+      strict: false,
+    },
+  },
+});

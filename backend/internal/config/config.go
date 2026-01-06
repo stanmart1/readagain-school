@@ -68,9 +68,9 @@ func Load() *Config {
 		},
 		Email: EmailConfig{
 			ResendAPIKey: getEnv("RESEND_API_KEY", ""),
-			FromEmail:    getEnv("FROM_EMAIL", "noreply@readagain.com"),
+			FromEmail:    getEnv("FROM_EMAIL", "noreply@readagain.online"),
 			FromName:     getEnv("FROM_NAME", "ReadAgain"),
-			AppURL:       getEnv("APP_URL", "http://localhost:3000"),
+			AppURL:       getEnv("APP_URL", "https://readagain.online"),
 		},
 	}
 }

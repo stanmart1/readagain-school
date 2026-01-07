@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { getImageUrl } from '../lib/fileService';
+import { useAuth } from '../hooks/useAuth';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import api from '../lib/api';
@@ -9,6 +10,7 @@ import api from '../lib/api';
 export default function BookDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
   const [book, setBook] = useState(null);
   const [relatedBooks, setRelatedBooks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -141,25 +143,27 @@ export default function BookDetail() {
               )}
 
               {/* Buttons */}
-              <div className="mb-8">
-                <button 
-                  onClick={handleAddToCart}
-                  disabled={addingToCart}
-                  className="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 px-6 rounded-lg font-semibold hover:from-primary-700 hover:to-primary-800 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {addingToCart ? (
-                    <>
-                      <i className="ri-loader-4-line mr-2 animate-spin"></i>
-                      Adding...
-                    </>
-                  ) : (
-                    <>
-                      <i className="ri-shopping-cart-line mr-2"></i>
-                      Add to Library
-                    </>
-                  )}
-                </button>
-              </div>
+              {isAuthenticated() && (
+                <div className="mb-8">
+                  <button 
+                    onClick={handleAddToCart}
+                    disabled={addingToCart}
+                    className="w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white py-3 px-6 rounded-lg font-semibold hover:from-primary-700 hover:to-primary-800 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {addingToCart ? (
+                      <>
+                        <i className="ri-loader-4-line mr-2 animate-spin"></i>
+                        Adding...
+                      </>
+                    ) : (
+                      <>
+                        <i className="ri-shopping-cart-line mr-2"></i>
+                        Add to Library
+                      </>
+                    )}
+                  </button>
+                </div>
+              )}
 
               {/* Description */}
               <div className="mb-8">

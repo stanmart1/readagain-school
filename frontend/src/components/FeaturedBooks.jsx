@@ -1,13 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { getImageUrl } from '../lib/fileService';
-import { Link } from 'react-router-dom';
 import { useBooks } from '../hooks';
-import ProgressiveImage from './ProgressiveImage';
-import api from '../lib/api';
+import BookCard from './BookCard';
 
 export default function FeaturedBooks() {
-  const [addedToCart, setAddedToCart] = useState(new Set());
   const desktopCarouselRef = useRef(null);
   const mobileCarouselRef = useRef(null);
   const [isAutoScrolling, setIsAutoScrolling] = useState(true);
@@ -23,28 +19,6 @@ export default function FeaturedBooks() {
   const { books, loading } = useBooks(params);
   
   const infiniteBooks = books.length > 2 ? [...books, ...books, ...books] : books;
-
-  const handleAddToCart = async (book, e) => {
-    e.preventDefault();
-    try {
-      await api.post('/library', { book_id: book.id });
-      setAddedToCart(prev => new Set(prev).add(book.id));
-      setTimeout(() => {
-        setAddedToCart(prev => {
-          const newSet = new Set(prev);
-          newSet.delete(book.id);
-          return newSet;
-        });
-      }, 2000);
-    } catch (error) {
-      console.error('Error adding to library:', error);
-      alert('Failed to add to library');
-    }
-  };
-
-  const getBookImage = (book) => {
-    return getImageUrl(book.cover_image_url || book.cover_image, `https://picsum.photos/seed/${book.id}/400/600`);
-  };
 
   const scroll = (direction) => {
     const carousel = window.innerWidth >= 640 ? desktopCarouselRef.current : mobileCarouselRef.current;
@@ -172,49 +146,7 @@ export default function FeaturedBooks() {
                     transition={{ delay: (index % books.length) * 0.05 }}
                     className="flex-shrink-0 w-[280px]"
                   >
-                    <Link to={`/books/${book.id}`} className="group block">
-                      <div className="relative bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
-                        
-                        <div className="aspect-[4/3] overflow-hidden bg-gray-200">
-                          <ProgressiveImage
-                            src={getBookImage(book)}
-                            alt={book.title}
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                          />
-                        </div>
-
-                        <div className="p-5 flex-1 flex flex-col">
-                          <h3 className="font-bold text-lg text-gray-900 mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors">
-                            {book.title}
-                          </h3>
-                          <p className="text-base text-gray-600 mb-4 line-clamp-1">
-                            {book.author?.business_name || book.author?.name || 'Unknown Author'}
-                          </p>
-
-                          <button
-                            onClick={(e) => handleAddToCart(book, e)}
-                            disabled={addedToCart.has(book.id)}
-                            className={`w-full py-2 rounded-lg font-medium transition-all ${
-                              addedToCart.has(book.id)
-                                ? 'bg-green-500 text-white'
-                                : 'bg-primary-600 text-white hover:bg-primary-700'
-                            }`}
-                          >
-                            {addedToCart.has(book.id) ? (
-                              <span className="flex items-center justify-center gap-2">
-                                <i className="ri-check-line"></i>
-                                Added
-                              </span>
-                            ) : (
-                              <span className="flex items-center justify-center gap-2">
-                                <i className="ri-add-line"></i>
-                                Add to Library
-                              </span>
-                            )}
-                          </button>
-                        </div>
-                      </div>
-                    </Link>
+                    <BookCard book={book} />
                   </motion.div>
                 ))}
               </div>
@@ -235,23 +167,8 @@ export default function FeaturedBooks() {
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
               >
                 {infiniteBooks.map((book, index) => (
-                  <div key={`${book.id}-${index}`} className="flex-shrink-0 w-[160px]">
-                    <Link to={`/books/${book.id}`} className="group block">
-                      <div className="relative bg-gray-50 rounded-2xl overflow-hidden shadow-sm">
-                        <div className="aspect-[2/3] overflow-hidden bg-gray-200">
-                          <ProgressiveImage
-                            src={getBookImage(book)}
-                            alt={book.title}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        <div className="p-3">
-                          <h3 className="font-bold text-sm text-gray-900 line-clamp-2">
-                            {book.title}
-                          </h3>
-                        </div>
-                      </div>
-                    </Link>
+                  <div key={`${book.id}-${index}`} className="flex-shrink-0 w-[200px]">
+                    <BookCard book={book} />
                   </div>
                 ))}
               </div>

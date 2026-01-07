@@ -129,7 +129,7 @@ export default function BookCard({ book }) {
             ) : (
               <Link
                 to={`/books/${book.id}`}
-                className="block w-full bg-gray-600 text-white px-4 py-2 rounded-full hover:bg-gray-700 transition-colors text-center font-medium"
+                className="block w-full bg-primary-600 text-white px-4 py-2 rounded-full hover:bg-primary-700 transition-colors text-center font-medium"
               >
                 View Details
               </Link>

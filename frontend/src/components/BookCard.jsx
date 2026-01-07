@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getImageUrl } from '../lib/fileService';
+import { useAuth } from '../hooks/useAuth';
 import api from '../lib/api';
 
 export default function BookCard({ book }) {
   const [isHovered, setIsHovered] = useState(false);
   const [addingToCart, setAddingToCart] = useState(false);
+  const { isAuthenticated } = useAuth();
 
   const getAuthorName = () => {
     if (book.author_name) return book.author_name;
@@ -113,16 +115,25 @@ export default function BookCard({ book }) {
 
           {/* Actions - Fixed at Bottom */}
           <div className="mt-auto">
-            <button 
-              onClick={(e) => {
-                e.preventDefault();
-                handleAddToCart(e);
-              }}
-              disabled={addingToCart}
-              className="w-full bg-primary-600 text-white px-4 py-2 rounded-full hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium"
-            >
-              {addingToCart ? 'Adding...' : 'Add to Library'}
-            </button>
+            {isAuthenticated() ? (
+              <button 
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleAddToCart(e);
+                }}
+                disabled={addingToCart}
+                className="w-full bg-primary-600 text-white px-4 py-2 rounded-full hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+              >
+                {addingToCart ? 'Adding...' : 'Add to Library'}
+              </button>
+            ) : (
+              <Link
+                to={`/books/${book.id}`}
+                className="block w-full bg-gray-600 text-white px-4 py-2 rounded-full hover:bg-gray-700 transition-colors text-center font-medium"
+              >
+                View Details
+              </Link>
+            )}
           </div>
         </div>
       </div>
